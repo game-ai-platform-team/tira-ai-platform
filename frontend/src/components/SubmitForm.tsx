@@ -32,7 +32,9 @@ function SubmitForm() {
         <>
             <form onSubmit={onSubmit}>
                 <input id="file-input" type="file" onChange={handleFile} />
-                <button id="submit-button" type="submit">Submit</button>
+                <button id="submit-button" type="submit">
+                    Submit
+                </button>
             </form>
             aaaaaa
         </>
