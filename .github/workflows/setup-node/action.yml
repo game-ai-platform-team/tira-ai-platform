@@ -23,6 +23,6 @@ runs:
         cache: npm
 
     - name: Install dependencies
-      run: npm install ${{ inputs.npm_args }}
+      run: npm install
       working-directory: ${{ inputs.cwd }}
       shell: bash
