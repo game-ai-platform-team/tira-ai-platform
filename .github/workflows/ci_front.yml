@@ -10,7 +10,7 @@ defaults:
     working-directory: ./frontend
 
 jobs:
-  Unit_test_frontend:
+  Unit_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-  Lint_frontend:
+  Lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +34,7 @@ jobs:
       - name: Run lint
         run: npm run lint
 
-  Format_frontend:
+  Format:
     runs-on: ubuntu-latest
 
     permissions:
