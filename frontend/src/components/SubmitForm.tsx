@@ -31,8 +31,8 @@ function SubmitForm() {
     return (
         <>
             <form onSubmit={onSubmit}>
-                <input type="file" onChange={handleFile} />
-                <button type="submit">Submit</button>
+                <input id="file-input" type="file" onChange={handleFile} />
+                <button id="submit-button" type="submit">Submit</button>
             </form>
             aaaaaa
         </>
