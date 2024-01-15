@@ -5,6 +5,10 @@ inputs:
     description: Arguments for npm
     required: false
     default: ""
+  cwd:
+    description: Working directory
+    required: false
+    default: "."
 
 runs:
   using: "composite"
@@ -20,4 +24,5 @@ runs:
 
     - name: Install dependencies
       run: npm install ${{ inputs.npm_args }}
+      working-directory: ${{ inputs.cwd }}
       shell: bash
