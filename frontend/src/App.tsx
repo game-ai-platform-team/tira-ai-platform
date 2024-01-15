@@ -1,5 +1,9 @@
+import SubmitForm from "./components/SubmitForm"
+
 function App() {
-    return <>Hello world</>;
+    return <>
+        <SubmitForm></SubmitForm>
+    </>;
 }
 
 export default App;
