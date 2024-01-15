@@ -8,7 +8,7 @@ inputs:
   cwd:
     description: Working directory
     required: false
-    default: "."
+    default: "./frontend"
 
 runs:
   using: "composite"
