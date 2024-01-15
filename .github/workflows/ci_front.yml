@@ -18,8 +18,6 @@ jobs:
 
       - name: Set up Node
         uses: ./.github/workflows/setup-node
-        with:
-          cwd: ./frontend
 
       - name: Run unit tests
         run: npm test
@@ -32,8 +30,6 @@ jobs:
 
       - name: Set up Node
         uses: ./.github/workflows/setup-node
-        with:
-          cwd: ./frontend
 
       - name: Run lint
         run: npm run lint
@@ -49,8 +45,6 @@ jobs:
 
       - name: Set up Node
         uses: ./.github/workflow/setup-node
-        with:
-          cwd: ./frontend
 
       - name: Format code
         run: npm run format
