@@ -22,7 +22,7 @@ function SubmitForm() {
 
     const onSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault()
-        const baseURL = "http://localhost:5173/"
+        const baseURL = "http://localhost:5001/"
         if (file) {
             await axios.post(`${baseURL}api/submit`, {content: await file.text()});
         }
