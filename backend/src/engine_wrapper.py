@@ -3,7 +3,7 @@ from stockfish.models import Stockfish as sf
 class EngineWrapper:
 
     def __init__(self,boardstate: list, depth: int) -> None:
-        self.engine = sf(path="engines\stockfish_15_win_x64_avx2\stockfish_15_x64_avx2.exe")
+        self.engine = sf(path="engines/stockfish_ubuntu/stockfish-ubuntu-x86-64-avx2")
         
         self.depth = depth
         self.engine.set_depth(depth)
