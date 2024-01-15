@@ -4,7 +4,7 @@
 
 Two branches
 
-- main: Deployable code
+- main: Deployable and done code
 - dev: In progress code, merge back to main with pull request 
 
 ## Commit message
