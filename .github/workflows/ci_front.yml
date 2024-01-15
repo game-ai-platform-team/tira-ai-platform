@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Node
-        uses: ./.github/workflow/setup-node
+        uses: ./.github/workflows/setup-node
 
       - name: Format code
         run: npm run format
