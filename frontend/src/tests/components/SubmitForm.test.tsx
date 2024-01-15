@@ -4,9 +4,9 @@ import SubmitForm from "../../components/SubmitForm";
 
 test("file path field exists", () => {
     const component = render(<SubmitForm />);
-    const filePathField = component.container.querySelector("#file-path-field");
+    const fileInput = component.container.querySelector("#file-input");
 
-    expect(filePathField).not.toBe(null);
+    expect(fileInput).not.toBe(null);
 });
 
 test("submit button exists", () => {
