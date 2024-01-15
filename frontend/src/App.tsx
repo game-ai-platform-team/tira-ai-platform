@@ -1,8 +1,8 @@
-import SubmitForm from "./components/SubmitForm"
+import CodeView from "./components/CodeView.tsx";
 
 function App() {
     return <>
-        <SubmitForm></SubmitForm>
+        <CodeView></CodeView>
     </>;
 }
 
