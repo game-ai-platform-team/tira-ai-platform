@@ -1,4 +1,4 @@
-![Backend Passing Tests](https://github.com/github/docs/actions/workflows/ci_back.yml/badge.svg)
+![Backend Passing Tests](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci_back.yml/badge.svg)
 
 # tira-ai-platform
 Project done for the Helsinki University faculty of computer science. Helps students in developing game ai's.
