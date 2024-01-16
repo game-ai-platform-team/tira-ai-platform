@@ -34,10 +34,10 @@ class Chess:
                     [white_move]
                 )
             except BaseException:
-                if black_move == "None\n":
+                if white_move == "None\n":
                     print("\nBlack won!")
                 else:
-                    print(f"invalid white move: {black_move}")
+                    print(f"invalid white move: {white_move}")
                 break
 
             self.engine_wrapper.boardstate.append(white_move)
