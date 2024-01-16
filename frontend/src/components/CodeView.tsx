@@ -5,7 +5,7 @@ import axios from "axios";
 function CodeView() {
     const [code, setCode] = useState("");
 
-    const baseURL = "http://localhost:5001/";
+    const baseURL = "http://localhost:5000";
 
     useEffect(() => {
         const f = async () => {
