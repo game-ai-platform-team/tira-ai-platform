@@ -1,7 +1,9 @@
 import subprocess
 import time
+
 from engine_wrapper import EngineWrapper
 from path import stockfish_path
+
 
 class Chess:
     def __init__(self, ai_name_white, ai_name_black, engine_wrapper):
@@ -12,7 +14,8 @@ class Chess:
     def get_move_from_ai(self, boardstate, ai_name):
         return subprocess.run(
             ["python", f"src/{ai_name}", f"-b {','.join(boardstate)}"],
-            stdout=subprocess.PIPE).stdout.decode('utf-8')
+            stdout=subprocess.PIPE,
+        ).stdout.decode("utf-8")
 
     def get_move_from_self(self):
         return self.engine_wrapper.calculate_move()
@@ -22,11 +25,14 @@ class Chess:
         time.sleep(delay)
 
         for _ in range(turns):
-            white_move = self.get_move_from_ai(self.engine_wrapper.boardstate, self.ai_name_white)
+            white_move = self.get_move_from_ai(
+                self.engine_wrapper.boardstate, self.ai_name_white
+            )
 
             try:
-                self.engine_wrapper.engine.make_moves_from_current_position([
-                                                                            white_move])
+                self.engine_wrapper.engine.make_moves_from_current_position(
+                    [white_move]
+                )
             except BaseException:
                 if black_move == "None\n":
                     print("\nBlack won!")
@@ -39,11 +45,14 @@ class Chess:
             self.print_board()
             time.sleep(delay)
 
-            black_move = self.get_move_from_ai(self.engine_wrapper.boardstate, self.ai_name_black)
+            black_move = self.get_move_from_ai(
+                self.engine_wrapper.boardstate, self.ai_name_black
+            )
 
             try:
-                self.engine_wrapper.engine.make_moves_from_current_position([
-                                                                            black_move])
+                self.engine_wrapper.engine.make_moves_from_current_position(
+                    [black_move]
+                )
             except BaseException:
                 if black_move == "None\n":
                     print("\nWhite won!")
