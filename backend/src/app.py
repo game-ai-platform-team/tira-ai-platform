@@ -7,7 +7,7 @@ CORS(app)
 submittedContent = ""
 
 
-@app.route("/api/submit", methods = ["POST"])
+@app.route("/api/submit", methods=["POST"])
 def api_submit():
     global submittedContent
     json = request.json

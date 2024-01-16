@@ -10,6 +10,9 @@ python = "^3.10"
 flask = "^3.0.0"
 flask-cors = "^4.0.0"
 stockfish = "^3.28.0"
+black = "^23.12.1"
+isort = "^5.13.2"
+invoke = "^2.2.0"
 
 
 [build-system]

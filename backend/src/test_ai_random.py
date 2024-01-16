@@ -1,4 +1,5 @@
 import argparse
+import random
 
 from engine_wrapper import EngineWrapper
 
@@ -11,4 +12,9 @@ moves = args.b[0].split(",")
 
 engine = EngineWrapper(moves, 3)
 
-print(engine.engine.get_best_move())
+try:
+    move = random.choice(engine.engine.get_top_moves(99))["Move"]
+except:
+    move = None
+
+print(move)
