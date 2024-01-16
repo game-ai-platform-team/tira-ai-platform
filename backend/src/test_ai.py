@@ -1,4 +1,5 @@
 import argparse
+
 from engine_wrapper import EngineWrapper
 from path import stockfish_path
 
