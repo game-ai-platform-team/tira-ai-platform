@@ -1,6 +1,7 @@
 *.tmp
 __pycache__/
 .vscode/
-poetry.lock
+backend/poetry.lock
+backend/.pytest_cache/
 
 .idea
