@@ -66,5 +66,5 @@ class Chess:
 if __name__ == "__main__":
     sf_path = stockfish_path()
     ew = EngineWrapper([], 5, sf_path)
-    c = Chess("test_ai.py", "test_ai_random.py")
+    c = Chess("test_ai.py", "test_ai_random.py", ew)
     c.play(1000, 0.1)
