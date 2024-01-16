@@ -1,10 +1,11 @@
 import subprocess
 import time
 from engine_wrapper import EngineWrapper
+from path import stockfish_path
 
 class Chess:
-    def __init__(self, ai_name):
-        self.engine_wrapper = EngineWrapper([], 5)
+    def __init__(self, ai_name, engine_wrapper):
+        self.engine_wrapper = engine_wrapper
         self.ai_name = ai_name
 
     def get_move_from_ai(self, boardstate):
@@ -57,5 +58,7 @@ class Chess:
 
 
 if __name__ == "__main__":
+    sf_path = stockfish_path()
+    ew = EngineWrapper([], 5, sf_path)
     c = Chess("test_ai.py")
     c.play(1000, 0.1)
