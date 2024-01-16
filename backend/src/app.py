@@ -6,7 +6,6 @@ CORS(app)
 
 submittedContent = ""
 
-
 @app.route("/api/submit", methods=["POST"])
 def api_submit():
     global submittedContent
@@ -19,3 +18,10 @@ def api_submit():
 @app.route("/api/code")
 def api_code():
     return submittedContent
+
+@app.route("/")
+def init():
+    return "hello"
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
