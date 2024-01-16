@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-from app import app
-
-if __name__ == '__main__':
-    app.run(port = 5001, debug = True)
-=======
 """
 Wraps Stockfish
 """
@@ -26,4 +20,3 @@ if __name__ == "__main__":
         print(engine_wrapper.engine.get_board_visual())
         print(engine_wrapper.boardstate)
         print(engine_wrapper.engine.get_evaluation())
->>>>>>> 6c020539c9151e1c2c04760fe340b12fade929b6
