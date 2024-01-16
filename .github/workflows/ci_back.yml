@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set up
-        uses: ./setup-action
+        uses: ./.github/workflows/setup-poetry
       - name: Run unit tests
         run: poetry run coverage run --branch -m pytest src/tests
 
