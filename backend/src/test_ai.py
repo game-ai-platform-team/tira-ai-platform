@@ -4,7 +4,7 @@ from engine_wrapper import EngineWrapper
 from path import stockfish_path
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-b", nargs="+", default=[])
+parser.add_argument("-b", nargs=1, default="", type=str)
 
 args = parser.parse_args()
 
