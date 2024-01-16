@@ -2,11 +2,11 @@
 Wraps Stockfish
 """
 
-import time
 import os
+import time
+
 from engine_wrapper import EngineWrapper
 from path import stockfish_path
-
 
 if __name__ == "__main__":
     print(os.getcwd())

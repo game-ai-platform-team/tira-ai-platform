@@ -1,7 +1,9 @@
-FROM ubuntu:latest
+FROM node:latest
 
+WORKDIR /usr/src/app
 
-# INSERT REQUIRED PRE-INSTALLS
+COPY package*.json ./
+RUN npm install
+COPY . .
 
-
-CMD [ # INSERT COMMANDS TO START PROJECT ]
+CMD ["npm", "run", "dev"]

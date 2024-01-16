@@ -1,5 +1,6 @@
 import argparse
 import random
+
 from engine_wrapper import EngineWrapper
 from path import stockfish_path
 

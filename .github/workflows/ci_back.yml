@@ -2,7 +2,7 @@ name: CI (backend)
 on:
   push:
   pull_request:
-    branches: [main, dev]
+    branches: [main]
   workflow_dispatch:
 
 defaults:
@@ -10,22 +10,46 @@ defaults:
     working-directory: ./backend
 
 jobs:
-  Lint:
+  Unit_Test:
+    if: false
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10"]
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+      - name: Set up
+        uses: ./setup-action
+      - name: Run unit tests
+        run: poetry run coverage run --branch -m pytest
+      - name: Coverage report
+        run: poetry run coverage xml
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  Lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up
+        uses: ./.github/workflows/setup-poetry
+      - name: Run pylint
+        run: poetry run pylint src
+
+  Format:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up
+        uses: ./.github/workflows/setup-poetry
+      - name: Format code
+        run: poetry run invoke format
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pylint
-      - name: Analysing the code with pylint
-        run: |
-          pylint $(git ls-files '*.py')
+          commit_message: Format code
