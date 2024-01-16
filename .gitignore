@@ -1,7 +1,6 @@
 *.tmp
 __pycache__/
 .vscode/
-backend/poetry.lock
 backend/.pytest_cache/
 backend/.coverage
 
