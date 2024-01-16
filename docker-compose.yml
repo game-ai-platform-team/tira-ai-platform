@@ -8,6 +8,7 @@ services:
     depends_on:
       - frontend
   frontend:
+    network_mode: host
     build:
       context: ./frontend
     ports:
