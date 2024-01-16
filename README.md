@@ -1,9 +1,9 @@
+![Backend Passing Tests](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci_back.yml/badge.svg)
+![Frontend Passing Tests](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci_front.yml/badge.svg)
+
 # tira-ai-platform
 Project done for the Helsinki University faculty of computer science. Helps students in developing game ai's.
 
-<<<<<<< HEAD
-- [Conventions](docs/conventions.md)
-=======
 # Project links
 
 ## Production server
@@ -19,4 +19,3 @@ Project done for the Helsinki University faculty of computer science. Helps stud
 
 - (Architecture)[]
 - (Definition of Done)[]
->>>>>>> 6c020539c9151e1c2c04760fe340b12fade929b6
