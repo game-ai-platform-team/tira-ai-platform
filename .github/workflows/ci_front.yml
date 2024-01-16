@@ -1,0 +1,55 @@
+name: CI (frontend)
+on:
+  push:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./frontend
+
+jobs:
+  Unit_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: ./.github/workflows/setup-node
+
+      - name: Run unit tests
+        run: npm test
+
+  Lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: ./.github/workflows/setup-node
+
+      - name: Run lint
+        run: npm run lint
+
+  Format:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: ./.github/workflows/setup-node
+
+      - name: Format code
+        run: npm run format
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: Format code"
