@@ -1,5 +1,10 @@
 name: Set up
 description: Set up Python and Poetry
+inputs:
+  cwd:
+    description: Working directory
+    required: false
+    default: "./backend"
 
 runs:
   using: "composite"
@@ -22,6 +27,7 @@ runs:
       with:
         python-version: "3.11"
         cache: poetry
+        cache-dependency-path: "${{ inputs.cwd }}/poetry.lock"
 
     - name: Install dependencies
       run: poetry install
