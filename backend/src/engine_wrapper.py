@@ -2,7 +2,6 @@ from stockfish.models import Stockfish as sf
 
 
 class EngineWrapper:
-
     def __init__(self, boardstate: list, depth: int, path) -> None:
         self.path = path
         self.engine = sf(path=self.path)
