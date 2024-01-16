@@ -31,4 +31,5 @@ runs:
 
     - name: Install dependencies
       run: poetry install
+      working-directory: ${{ inputs.cwd }}
       shell: bash
