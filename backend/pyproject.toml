@@ -7,9 +7,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-stockfish = "^3.28.0"
-pylint = "^3.0.3"
-autopep8 = "^2.0.4"
+flask = "^3.0.0"
+flask-cors = "^4.0.0"
 
 
 [build-system]
