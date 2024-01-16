@@ -5,13 +5,15 @@ Wraps Stockfish
 import time
 import os
 from engine_wrapper import EngineWrapper
+from path import stockfish_path
 
 
 if __name__ == "__main__":
     print(os.getcwd())
     print("Hello world!! Let's play chess :DDDDDDDDD")
 
-    engine_wrapper = EngineWrapper([], 5)
+    path = stockfish_path()
+    engine_wrapper = EngineWrapper([], 5, path)
 
     for _ in range(999):
         best_move = engine_wrapper.calculate_move()
