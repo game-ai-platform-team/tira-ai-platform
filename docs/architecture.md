@@ -1,11 +1,74 @@
 # Architecture
 
-## Submitting file from front-end
+## Submitting file from front-end and run chess game
 
 ```mermaid
 sequenceDiagram
 
-Frontend ->>+ Backend: File
-Backend ->> Backend: Save file to memory
-Backend -->>- Frontend: 200 OK
+Frontend ->> App: HTTP POST /api/chess/submit file
+App ->> Api: start(file)
+Api ->> Chess: Chess(file)
+Chess -->> Api: chess object
+Api ->> Chess: start()
+Chess ->> player: play("")
+player -->> Chess: move1
+Chess ->> judger: play(move1)
+judger -->> Chess: Move
+Chess ->> player: play(Move.move)
+player -->> Chess: move3
+Chess ->> judger: move3
+judger -->> Chess: player win
+Chess -->> Api: game result in JSON
+Api -->> App: game result in JSON
+App -->> Frontend: HTTP Response game result in JSON
+
+box Container
+    participant Frontend
+end
+
+box Container
+    participant App
+    participant Api
+    participant Chess
+    participant player
+    participant judger
+end
+```
+
+## Backend
+
+```mermaid
+classDiagram
+
+App -- Api
+Api -- Chess
+Chess -- Player
+Player -- Move
+Chess -- Move
+
+class Move {
+    move: str
+    legal: bool
+    win: int
+}
+
+class Chess {
+    start(file: JSON)
+    player: Player
+    judger: Player
+}
+
+class Player {
+    +play(move) str
+}
+
+class Api {
+    start(file: JSON)
+    program_launcher: Launcher
+}
+
+class App {
+    route1()
+    route2()
+}
 ```
