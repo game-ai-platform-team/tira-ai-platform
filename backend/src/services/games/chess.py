@@ -62,6 +62,13 @@ class Chess:
         return True
 
     def add_move(self, move: str) -> None:
+        """
+        Adds move to the board.
+
+        Args:
+            move (str): Move to add.
+        """
+
         self.engine_wrapper.boardstate.append(move)
 
     def print_board(self):
