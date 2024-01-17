@@ -40,22 +40,20 @@ end
 ```mermaid
 classDiagram
 
-App -- Api
-Api -- Chess
-Chess -- Player
-Player -- Move
-Chess -- Move
-
-class Move {
-    move: str
-    legal: bool
-    win: int
-}
+App --> Api
+Api --> Chess
+Chess --> Player
+Chess --> Judger
 
 class Chess {
     start(file: JSON)
-    player: Player
-    judger: Player
+    player1: Player
+    player2: Player
+    judger: Judger
+}
+
+class Judger {
+    validate(move: str) bool
 }
 
 class Player {
