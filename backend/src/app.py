@@ -17,6 +17,7 @@ def api_submit():
 
     return result, 200
 
+
 @app.route("/<path:path>")
 def default(path):
     return send_from_directory("./../frontend/dist", path)
