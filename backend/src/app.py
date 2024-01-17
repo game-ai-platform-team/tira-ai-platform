@@ -1,5 +1,6 @@
 from flask import Flask, make_response, request
 from flask_cors import CORS
+from services.api import api
 
 app = Flask("game-ai-testing-platform")
 CORS(app)
@@ -12,9 +13,9 @@ def api_submit():
     if not content:
         return 400
 
-    submitted_content = content["content"]
-    print(submitted_content)
-    return "", 200
+    result = api.start(content)
+
+    return result, 200
 
 
 @app.route("/")
