@@ -2,8 +2,8 @@ import subprocess
 
 
 class Player:
-    def __init__(self, name: str) -> None:
-        self.__name = name
+    def __init__(self, path: str) -> None:
+        self.__path = path
 
     def play(
         self,
