@@ -1,8 +1,8 @@
 import subprocess
 import time
 
-from utils.engine_wrapper import EngineWrapper
 from stockfish_path import stockfish_path
+from utils.engine_wrapper import EngineWrapper
 
 
 class Chess:
