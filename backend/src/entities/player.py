@@ -1,9 +1,10 @@
 import subprocess
+from pathlib import Path
 
 
 class Player:
-    def __init__(self, path: str) -> None:
-        self.__path = path
+    def __init__(self, path: Path) -> None:
+        self.__path: Path = path
 
     def play(
         self,
@@ -20,6 +21,6 @@ class Player:
         """
 
         return subprocess.run(
-            ["python", f"src/{self.__name}", f"-b {','.join(boardstate)}"],
+            ["python", str(self.__path), f"-b {','.join(boardstate)}"],
             stdout=subprocess.PIPE,
         ).stdout.decode("utf-8")
