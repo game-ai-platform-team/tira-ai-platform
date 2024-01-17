@@ -22,15 +22,8 @@ class Chess:
         for _ in range(turns):
             white_move = self.player.play(self.engine_wrapper.boardstate)
 
-            try:
-                self.engine_wrapper.engine.make_moves_from_current_position(
-                    [white_move]
-                )
-            except BaseException:
-                if white_move == "None\n":
-                    print("\nBlack won!")
-                else:
-                    print(f"invalid white move: {white_move}")
+            if not self.validate(white_move):
+                print("White lost")
                 break
 
             self.engine_wrapper.boardstate.append(white_move)
@@ -40,15 +33,8 @@ class Chess:
 
             black_move = self.judger.play(self.engine_wrapper.boardstate)
 
-            try:
-                self.engine_wrapper.engine.make_moves_from_current_position(
-                    [black_move]
-                )
-            except BaseException:
-                if black_move == "None\n":
-                    print("\nWhite won!")
-                else:
-                    print(f"invalid black move: {black_move}")
+            if not self.validate(black_move):
+                print("Black lost")
                 break
 
             self.engine_wrapper.boardstate.append(black_move)
@@ -57,6 +43,24 @@ class Chess:
             time.sleep(delay)
 
         self.print_board()
+
+    def validate(self, move: str) -> bool:
+        """
+        Validates the move.
+
+        Args:
+            move (str): Move of a player.
+
+        Returns:
+            bool: True if game continues, False if player of the move lost.
+        """
+
+        try:
+            self.engine_wrapper.engine.make_moves_from_current_position([move])
+        except ValueError:
+            return False
+
+        return True
 
     def print_board(self):
         print(self.engine_wrapper.engine.get_board_visual())
