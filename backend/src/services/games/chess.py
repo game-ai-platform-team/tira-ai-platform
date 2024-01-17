@@ -12,10 +12,8 @@ class Chess:
         self.ai_name_white = ai_name_white
         self.ai_name_black = ai_name_black
         self.engine_wrapper = engine_wrapper
-        self.player = Player()
-
-    def get_move_from_ai(self, boardstate, ai_name):
-        return self.player.play(boardstate, ai_name)
+        self.player = Player(ai_name_white)
+        self.judger = Player(ai_name_black)
 
     def get_move_from_self(self):
         return self.engine_wrapper.calculate_move()
@@ -25,9 +23,7 @@ class Chess:
         time.sleep(delay)
 
         for _ in range(turns):
-            white_move = self.get_move_from_ai(
-                self.engine_wrapper.boardstate, self.ai_name_white
-            )
+            white_move = self.player.play(self.engine_wrapper.boardstate)
 
             try:
                 self.engine_wrapper.engine.make_moves_from_current_position(
@@ -45,9 +41,7 @@ class Chess:
             self.print_board()
             time.sleep(delay)
 
-            black_move = self.get_move_from_ai(
-                self.engine_wrapper.boardstate, self.ai_name_black
-            )
+            black_move = self.judger.play(self.engine_wrapper.boardstate)
 
             try:
                 self.engine_wrapper.engine.make_moves_from_current_position(

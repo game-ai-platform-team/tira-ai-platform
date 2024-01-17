@@ -1,7 +1,11 @@
 import subprocess
 
+
 class Player:
-    def play(self, boardstate, ai_name) -> str:
+    def __init__(self, name: str) -> None:
+        self.__name = name
+
+    def play(self, boardstate,) -> str:
         """
         Plays a turn.
 
@@ -13,6 +17,6 @@ class Player:
         """
 
         return subprocess.run(
-            ["python", f"src/{ai_name}", f"-b {','.join(boardstate)}"],
+            ["python", f"src/{self.__name}", f"-b {','.join(boardstate)}"],
             stdout=subprocess.PIPE,
         ).stdout.decode("utf-8")
