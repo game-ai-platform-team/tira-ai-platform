@@ -24,9 +24,6 @@ App -->> Frontend: HTTP Response game result in JSON
 
 box Container
     participant Frontend
-end
-
-box Container
     participant App
     participant Api
     participant Chess
