@@ -1,6 +1,6 @@
 import argparse
 
-from engine_wrapper import EngineWrapper
+from utils.engine_wrapper import EngineWrapper
 from path import stockfish_path
 
 parser = argparse.ArgumentParser()

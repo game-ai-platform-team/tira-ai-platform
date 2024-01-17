@@ -5,7 +5,7 @@ Wraps Stockfish
 import os
 import time
 
-from engine_wrapper import EngineWrapper
+from utils.engine_wrapper import EngineWrapper
 from path import stockfish_path
 
 if __name__ == "__main__":
