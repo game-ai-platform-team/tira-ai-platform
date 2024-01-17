@@ -1,4 +1,4 @@
-from flask import Flask, make_response, request
+from flask import Flask, make_response, request, send_from_directory
 from flask_cors import CORS
 
 from services.api import api
@@ -7,7 +7,7 @@ app = Flask("game-ai-testing-platform")
 CORS(app)
 
 
-@app.route("/api/submit", methods=["POST"])
+@app.route("/api/submit", methods = ["POST"])
 def api_submit():
     if not request.json:
         return "", 400
@@ -23,5 +23,10 @@ def init():
     return "hello"
 
 
+@app.route("/<path:path>")
+def default(path):
+    return send_from_directory("./../frontend/dist", path)
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host = "0.0.0.0", port = 5000)
