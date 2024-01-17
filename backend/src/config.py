@@ -1,5 +1,6 @@
-from pathlib import Path
 from os import getenv
+from pathlib import Path
+
 from dotenv import load_dotenv
 
 ROOTDIR = Path(__file__).parent.parent
