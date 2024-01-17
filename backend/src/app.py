@@ -12,8 +12,8 @@ def api_submit():
     if not content:
         return 400
 
-    submittedContent = content["content"]
-    print(submittedContent)
+    submitted_content = content["content"]
+    print(submitted_content)
     return "", 200
 
 
