@@ -27,7 +27,7 @@ function SubmitForm(): JSX.Element {
         e.preventDefault();
         const baseURL = "http://localhost:5000";
         if (file) {
-            await axios.post(`${baseURL}/api/submit`, {
+            await axios.post(`${baseURL}/api/chess/submit`, {
                 content: await file.text(),
             });
         }
