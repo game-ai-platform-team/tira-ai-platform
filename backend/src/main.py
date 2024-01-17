@@ -5,8 +5,8 @@ Wraps Stockfish
 import os
 import time
 
-from path import stockfish_path
 from utils.engine_wrapper import EngineWrapper
+from stockfish_path import stockfish_path
 
 if __name__ == "__main__":
     print(os.getcwd())
