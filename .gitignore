@@ -3,5 +3,7 @@ __pycache__/
 .vscode/
 backend/.pytest_cache/
 backend/.coverage
+backend/temp/**
+!backend/temp/.gitkeep
 
 .idea
