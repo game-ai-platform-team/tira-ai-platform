@@ -1,4 +1,3 @@
-
 class EngineWrapper:
     def __init__(self, boardstate: list, depth: int, engine) -> None:
         self.engine = engine

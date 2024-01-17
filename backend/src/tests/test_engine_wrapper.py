@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import Mock
+
 from utils.engine_wrapper import EngineWrapper
+
 
 class TestEngineWrapper(unittest.TestCase):
     def setUp(self):
