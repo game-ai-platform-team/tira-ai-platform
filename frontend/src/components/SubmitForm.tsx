@@ -1,7 +1,12 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, JSX } from "react";
 import axios from "axios";
 
-function SubmitForm() {
+/**
+ *  Component for submitting code files to server.
+ *
+ * @returns {JSX.Element}
+ */
+function SubmitForm(): JSX.Element {
     const [file, setFile] = useState<File>();
 
     const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
