@@ -1,9 +1,8 @@
 import time
 
+from entities.player import Player
 from stockfish_path import stockfish_path
 from utils.engine_wrapper import EngineWrapper
-
-from entities.player import Player
 
 
 class Chess:

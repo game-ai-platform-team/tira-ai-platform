@@ -5,9 +5,9 @@ Wraps Stockfish
 import os
 import time
 
+from services.games.chess import Chess
 from stockfish_path import stockfish_path
 from utils.engine_wrapper import EngineWrapper
-from services.games.chess import Chess
 
 if __name__ == "__main__":
     if True:
