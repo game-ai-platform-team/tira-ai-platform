@@ -1,5 +1,6 @@
 from flask import Flask, make_response, request
 from flask_cors import CORS
+
 from services.api import api
 
 app = Flask("game-ai-testing-platform")
