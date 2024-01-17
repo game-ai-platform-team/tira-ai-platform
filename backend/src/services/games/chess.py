@@ -7,8 +7,6 @@ from utils.engine_wrapper import EngineWrapper
 
 class Chess:
     def __init__(self, ai_name_white, ai_name_black, engine_wrapper):
-        self.ai_name_white = ai_name_white
-        self.ai_name_black = ai_name_black
         self.engine_wrapper = engine_wrapper
         self.player1 = Player(ai_name_white)
         self.player2 = Player(ai_name_black)
