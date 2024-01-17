@@ -43,7 +43,7 @@ classDiagram
 App --> Api
 Api --> Chess
 Chess --> Player
-Chess --> Judger
+Chess --> ChessJudger
 
 class Chess {
     start(file: JSON)
@@ -52,7 +52,7 @@ class Chess {
     judger: Judger
 }
 
-class Judger {
+class ChessJudger {
     validate(move: str) bool
 }
 
