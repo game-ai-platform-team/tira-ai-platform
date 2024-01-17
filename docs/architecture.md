@@ -54,6 +54,8 @@ class Chess {
 
 class ChessJudger {
     validate(move: str) bool
+    add_move(move: str)
+    get_board() list[str]
 }
 
 class Player {
