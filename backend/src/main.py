@@ -13,7 +13,7 @@ if __name__ == "__main__":
     if True:
         engine = get_stockfish_engine()
         ew = EngineWrapper([], 5, engine)
-        c = Chess("test_ai.py", "test_ai_random.py", ew)
+        c = Chess("ai.py", "ai_random.py", ew)
         c.play(1000, 0.1)
 
     if False:
