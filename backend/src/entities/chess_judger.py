@@ -42,3 +42,13 @@ class ChessJudger:
         """
 
         return self.engine_wrapper.boardstate
+
+    def get_visual_board(self) -> str:
+        """
+        Returns current board as string.
+
+        Returns:
+            str: Board as string.
+        """
+
+        return self.engine_wrapper.engine.get_board_visual()
