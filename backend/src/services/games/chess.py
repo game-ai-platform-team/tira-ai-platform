@@ -18,24 +18,24 @@ class Chess:
         time.sleep(delay)
 
         for _ in range(turns):
-            white_move = self.player1.play(self.get_board())
+            white_move = self.player1.play(self.judger.get_board())
 
-            if not self.validate(white_move):
+            if not self.judger.validate(white_move):
                 print("White lost")
                 break
 
-            self.add_move(white_move)
+            self.judger.add_move(white_move)
 
             self.print_board()
             time.sleep(delay)
 
-            black_move = self.player2.play(self.get_board())
+            black_move = self.player2.play(self.judger.get_board())
 
-            if not self.validate(black_move):
+            if not self.judger.validate(black_move):
                 print("Black lost")
                 break
 
-            self.add_move(black_move)
+            self.judger.add_move(black_move)
 
             self.print_board()
             time.sleep(delay)
@@ -81,5 +81,5 @@ class Chess:
         return self.engine_wrapper.boardstate
 
     def print_board(self):
-        print(self.engine_wrapper.engine.get_board_visual())
-        print(self.get_board())
+        print(self.judger.get_visual_board())
+        print(self.judger.get_board())
