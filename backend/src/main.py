@@ -6,13 +6,13 @@ import os
 import time
 
 from services.games.chess import Chess
-from stockfish_path import stockfish_path
+from stockfish_engine import get_stockfish_engine
 from utils.engine_wrapper import EngineWrapper
 
 if __name__ == "__main__":
     if True:
-        sf_path = stockfish_path()
-        ew = EngineWrapper([], 5, sf_path)
+        engine = get_stockfish_engine()
+        ew = EngineWrapper([], 5, engine)
         c = Chess("test_ai.py", "test_ai_random.py", ew)
         c.play(1000, 0.1)
 
