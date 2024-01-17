@@ -4,6 +4,7 @@ from entities.chess_judger import ChessJudger
 from entities.player import Player
 from stockfish_path import stockfish_path
 from utils.engine_wrapper import EngineWrapper
+import json
 
 
 class Chess:
@@ -40,6 +41,11 @@ class Chess:
             time.sleep(delay)
 
         self.print_board()
+
+        moves = "".join(self.judger.get_board())
+        result = json.dumps({"moves": moves})
+
+        return result
 
     def print_board(self):
         print(self.judger.get_visual_board())
