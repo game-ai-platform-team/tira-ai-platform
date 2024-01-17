@@ -22,3 +22,23 @@ class ChessJudger:
             return False
 
         return True
+
+    def add_move(self, move: str) -> None:
+        """
+        Adds move to the board.
+
+        Args:
+            move (str): Move to add.
+        """
+
+        self.engine_wrapper.boardstate.append(move)
+
+    def get_board(self) -> list[str]:
+        """
+        Return current board.
+
+        Returns:
+            list[str]: Board as list of moves.
+        """
+
+        return self.engine_wrapper.boardstate
