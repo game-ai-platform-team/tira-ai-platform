@@ -4,18 +4,18 @@ import time
 from stockfish_path import stockfish_path
 from utils.engine_wrapper import EngineWrapper
 
+from entities.player import Player
+
 
 class Chess:
     def __init__(self, ai_name_white, ai_name_black, engine_wrapper):
         self.ai_name_white = ai_name_white
         self.ai_name_black = ai_name_black
         self.engine_wrapper = engine_wrapper
+        self.player = Player()
 
     def get_move_from_ai(self, boardstate, ai_name):
-        return subprocess.run(
-            ["python", f"src/{ai_name}", f"-b {','.join(boardstate)}"],
-            stdout=subprocess.PIPE,
-        ).stdout.decode("utf-8")
+        return self.player.play(boardstate, ai_name)
 
     def get_move_from_self(self):
         return self.engine_wrapper.calculate_move()
