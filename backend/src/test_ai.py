@@ -1,7 +1,7 @@
 import argparse
 
-from path import stockfish_path
 from utils.engine_wrapper import EngineWrapper
+from stockfish_path import stockfish_path
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-b", nargs=1, default="", type=str)
