@@ -1,4 +1,3 @@
-import subprocess
 import time
 
 from stockfish_path import stockfish_path
