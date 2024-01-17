@@ -1,10 +1,10 @@
+import json
 import time
 
 from entities.chess_judger import ChessJudger
 from entities.player import Player
 from stockfish_path import stockfish_path
 from utils.engine_wrapper import EngineWrapper
-import json
 
 
 class Chess:
