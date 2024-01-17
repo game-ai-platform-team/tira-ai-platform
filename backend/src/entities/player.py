@@ -5,7 +5,10 @@ class Player:
     def __init__(self, name: str) -> None:
         self.__name = name
 
-    def play(self, boardstate,) -> str:
+    def play(
+        self,
+        boardstate,
+    ) -> str:
         """
         Plays a turn.
 
