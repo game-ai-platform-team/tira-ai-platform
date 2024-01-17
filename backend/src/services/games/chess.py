@@ -6,10 +6,10 @@ from utils.engine_wrapper import EngineWrapper
 
 
 class Chess:
-    def __init__(self, ai_name_white, ai_name_black, engine_wrapper):
+    def __init__(self, player1_file, player2_file, engine_wrapper):
         self.engine_wrapper = engine_wrapper
-        self.player1 = Player(ai_name_white)
-        self.player2 = Player(ai_name_black)
+        self.player1 = Player(player1_file)
+        self.player2 = Player(player2_file)
 
     def play(self, turns, delay):
         self.print_board()
