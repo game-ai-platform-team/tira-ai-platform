@@ -18,6 +18,6 @@ Project done for the Helsinki University faculty of computer science. Helps stud
 
 # Documentation
 
-- (Architecture)[https://github.com/game-ai-platform-team/tira-ai-platform/blob/main/docs/architecture.md]
-- (Definition of Done)[https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/definitionofdone.md]
-- (Conventions)[https://github.com/game-ai-platform-team/tira-ai-platform/blob/main/docs/conventions.md]
+- [Architecture](https://github.com/game-ai-platform-team/tira-ai-platform/blob/main/docs/architecture.md)
+- [Definition of Done](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/definitionofdone.md)
+- [Conventions](https://github.com/game-ai-platform-team/tira-ai-platform/blob/main/docs/conventions.md)
