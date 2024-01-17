@@ -7,7 +7,7 @@ app = Flask("game-ai-testing-platform")
 CORS(app)
 
 
-@app.route("/api/submit", methods = ["POST"])
+@app.route("/api/submit", methods=["POST"])
 def api_submit():
     if not request.json:
         return "", 400
@@ -29,4 +29,4 @@ def default(path):
 
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", port = 5000)
+    app.run(host="0.0.0.0", port=5000)
