@@ -16,11 +16,6 @@ def api_submit():
     return "", 200
 
 
-@app.route("/api/code")
-def api_code():
-    return submittedContent
-
-
 @app.route("/")
 def init():
     return "hello"
