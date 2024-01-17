@@ -8,11 +8,10 @@ CORS(app)
 
 @app.route("/api/submit", methods=["POST"])
 def api_submit():
-    content = request.json
+    if not request.json:
+        return "", 400
 
-    if not content:
-        return 400
-
+    content = request.json["content"]
     result = api.start(content)
 
     return result, 200
