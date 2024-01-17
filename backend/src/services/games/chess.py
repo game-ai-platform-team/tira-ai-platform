@@ -15,9 +15,6 @@ class Chess:
         self.player = Player(ai_name_white)
         self.judger = Player(ai_name_black)
 
-    def get_move_from_self(self):
-        return self.engine_wrapper.calculate_move()
-
     def play(self, turns, delay):
         self.print_board()
         time.sleep(delay)
