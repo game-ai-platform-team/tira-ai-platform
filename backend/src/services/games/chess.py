@@ -12,15 +12,15 @@ class Chess:
         self.ai_name_white = ai_name_white
         self.ai_name_black = ai_name_black
         self.engine_wrapper = engine_wrapper
-        self.player = Player(ai_name_white)
-        self.judger = Player(ai_name_black)
+        self.player1 = Player(ai_name_white)
+        self.player2 = Player(ai_name_black)
 
     def play(self, turns, delay):
         self.print_board()
         time.sleep(delay)
 
         for _ in range(turns):
-            white_move = self.player.play(self.engine_wrapper.boardstate)
+            white_move = self.player1.play(self.engine_wrapper.boardstate)
 
             if not self.validate(white_move):
                 print("White lost")
@@ -31,7 +31,7 @@ class Chess:
             self.print_board()
             time.sleep(delay)
 
-            black_move = self.judger.play(self.engine_wrapper.boardstate)
+            black_move = self.player2.play(self.engine_wrapper.boardstate)
 
             if not self.validate(black_move):
                 print("Black lost")
