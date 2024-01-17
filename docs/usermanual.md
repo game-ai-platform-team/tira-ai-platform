@@ -6,5 +6,5 @@ To run the project, the easiest way is to have docker installed and running the 
 
 ```
 sudo docker build . -t <tag for container>
-sudo docker run <tag for container>
+sudo docker run -p 5000:5000 <tag for container>
 ```
