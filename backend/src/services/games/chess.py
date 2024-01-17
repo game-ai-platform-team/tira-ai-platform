@@ -19,7 +19,7 @@ class Chess:
         time.sleep(delay)
 
         for _ in range(turns):
-            white_move = self.player1.play(self.engine_wrapper.boardstate)
+            white_move = self.player1.play(self.get_board())
 
             if not self.validate(white_move):
                 print("White lost")
@@ -30,7 +30,7 @@ class Chess:
             self.print_board()
             time.sleep(delay)
 
-            black_move = self.player2.play(self.engine_wrapper.boardstate)
+            black_move = self.player2.play(self.get_board())
 
             if not self.validate(black_move):
                 print("Black lost")
@@ -71,6 +71,16 @@ class Chess:
 
         self.engine_wrapper.boardstate.append(move)
 
+    def get_board(self) -> list[str]:
+        """
+        Return current board.
+
+        Returns:
+            list[str]: Board as list of moves.
+        """
+
+        return self.engine_wrapper.boardstate
+
     def print_board(self):
         print(self.engine_wrapper.engine.get_board_visual())
-        print(self.engine_wrapper.boardstate)
+        print(self.get_board())
