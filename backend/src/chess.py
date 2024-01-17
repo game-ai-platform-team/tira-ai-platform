@@ -1,7 +1,7 @@
 import subprocess
 import time
 
-from engine_wrapper import EngineWrapper
+from utils.engine_wrapper import EngineWrapper
 from path import stockfish_path
 
 
