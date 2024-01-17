@@ -1,5 +1,6 @@
 import time
 
+from entities.chess_judger import ChessJudger
 from entities.player import Player
 from stockfish_path import stockfish_path
 from utils.engine_wrapper import EngineWrapper
@@ -8,6 +9,7 @@ from utils.engine_wrapper import EngineWrapper
 class Chess:
     def __init__(self, player1_file, player2_file, engine_wrapper):
         self.engine_wrapper = engine_wrapper
+        self.judger = ChessJudger(engine_wrapper)
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
 
