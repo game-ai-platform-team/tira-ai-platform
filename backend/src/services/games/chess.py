@@ -25,7 +25,7 @@ class Chess:
                 print("White lost")
                 break
 
-            self.engine_wrapper.boardstate.append(white_move)
+            self.add_move(white_move)
 
             self.print_board()
             time.sleep(delay)
@@ -36,7 +36,7 @@ class Chess:
                 print("Black lost")
                 break
 
-            self.engine_wrapper.boardstate.append(black_move)
+            self.add_move(black_move)
 
             self.print_board()
             time.sleep(delay)
@@ -60,6 +60,9 @@ class Chess:
             return False
 
         return True
+
+    def add_move(self, move: str) -> None:
+        self.engine_wrapper.boardstate.append(move)
 
     def print_board(self):
         print(self.engine_wrapper.engine.get_board_visual())
