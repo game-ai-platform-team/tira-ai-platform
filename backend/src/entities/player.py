@@ -20,12 +20,12 @@ class Player:
             str: Move from this player.
         """
 
-        input_string = ','.join(boardstate) + "\n"
+        input_string = ",".join(boardstate) + "\n"
 
         output = subprocess.run(
             args=["python", str(self.__path)],
             input=input_string.encode("utf-8"),
             stdout=subprocess.PIPE,
         )
-    
+
         return output.stdout.decode("utf-8").replace("\n", "")
