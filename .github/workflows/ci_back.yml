@@ -22,6 +22,7 @@ jobs:
 
   Lint:
     runs-on: ubuntu-latest
+    needs: Format
 
     steps:
       - uses: actions/checkout@v4
