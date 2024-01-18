@@ -10,7 +10,7 @@ defaults:
     working-directory: ./backend
 
 jobs:
-  Unit_Test:
+  Unit_test:
     runs-on: ubuntu-latest
 
     steps:
