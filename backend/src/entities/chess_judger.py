@@ -13,7 +13,7 @@ class ChessJudger:
             move (str): Move of a player.
 
         Returns:
-            bool: True if game continues, False if player of the move lost.
+            bool: True if game continues, False if given move is invalid.
         """
 
         try:
