@@ -11,16 +11,21 @@ class Player:
         boardstate,
     ) -> str:
         """
-        Plays a turn.
+        Get a new move from this player.
 
         Args:
-            move (str): Move of the other player.
+            boardstate (list): Moves taken.
 
         Returns:
-            str: Move of player.
+            str: Move from this player.
         """
 
-        return subprocess.run(
-            ["python", str(self.__path), f"-b {','.join(boardstate)}"],
+        input_string = ','.join(boardstate) + "\n"
+
+        output = subprocess.run(
+            args=["python", str(self.__path)],
+            input=input_string.encode("utf-8"),
             stdout=subprocess.PIPE,
-        ).stdout.decode("utf-8")
+        )
+    
+        return output.stdout.decode("utf-8").replace("\n", "")
