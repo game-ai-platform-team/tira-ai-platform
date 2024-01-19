@@ -39,13 +39,16 @@ class Chess:
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
 
-    def play(self, turns: int = 100, delay: float = 0.01) -> dict[str, Any]:
+    def play(
+        self, turns: int = 100, delay: float = 0.01, debug: bool = False
+    ) -> dict[str, Any]:
         """
         Starts a game and return result as dict.
 
         Args:
             turns (int, optional): The maximum amount of turns to play. Defaults to 100.
             delay (float, optional): The delay between turns. Defaults to 0.01.
+            debug(bool, optional): If True, prints debug info to console. Defaults to False.
 
         Returns:
             dict[str, Any]: The game result containing winner, moves, etc.
@@ -56,8 +59,9 @@ class Chess:
         for _ in range(turns):
             winner = self.__play_one_turn()
 
-            self.print_board()
-            time.sleep(delay)
+            if debug:
+                self.print_board()
+                time.sleep(delay)
 
             if winner:
                 break
