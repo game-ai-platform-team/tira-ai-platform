@@ -1,12 +1,12 @@
 import time
+from pathlib import Path
 from typing import Any
-from stockfish_engine import get_stockfish_engine
 
+from config import DEFAULT_CHESS_AI_PATH
 from entities.chess_judger import ChessJudger
 from entities.player import Player
-from pathlib import Path
+from stockfish_engine import get_stockfish_engine
 from utils.engine_wrapper import EngineWrapper
-from config import DEFAULT_CHESS_AI_PATH
 
 
 class Chess:
