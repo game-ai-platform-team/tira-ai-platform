@@ -1,4 +1,3 @@
-import json
 import time
 from typing import Any
 
@@ -23,6 +22,9 @@ class Chess:
         Returns:
             dict[str, Any]: The game result containing winner, moves, etc.
         """
+
+        winner = None
+
         self.print_board()
         time.sleep(delay)
 
@@ -30,7 +32,9 @@ class Chess:
             white_move = self.player1.play(self.judger.get_board())
 
             if not self.judger.validate(white_move):
+                winner = "player2"
                 print("White lost")
+
                 break
 
             self.judger.add_move(white_move)
@@ -41,7 +45,9 @@ class Chess:
             black_move = self.player2.play(self.judger.get_board())
 
             if not self.judger.validate(black_move):
+                winner = "player1"
                 print("Black lost")
+
                 break
 
             self.judger.add_move(black_move)
@@ -51,8 +57,10 @@ class Chess:
 
         self.print_board()
 
-        moves = "".join(self.judger.get_board())
-        result = json.dumps({"moves": moves})
+        result = {
+            "winner": winner,
+            "moves": self.judger.get_board(),
+        }
 
         return result
 
