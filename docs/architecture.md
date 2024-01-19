@@ -6,28 +6,37 @@
 sequenceDiagram
 
 Frontend ->> App: HTTP POST /api/chess/submit file
+
 App ->> Api: start(file)
 Api ->> Chess: Chess(file)
 Chess -->> Api: chess object
 Api ->> Chess: start()
-Chess ->> player: play("")
-player -->> Chess: move1
-Chess ->> judger: play(move1)
-judger -->> Chess: Move
-Chess ->> player: play(Move.move)
-player -->> Chess: move3
-Chess ->> judger: move3
-judger -->> Chess: player win
-Chess -->> Api: game result in JSON
-Api -->> App: game result in JSON
-App -->> Frontend: HTTP Response game result in JSON
+
+Chess ->> player1: play("")
+player1 -->> Chess: move1
+
+Chess ->> judger: validate(move1)
+judger -->> Chess: True
+
+Chess ->> player2: play(move1)
+player2 -->> Chess: move2
+
+Chess ->> judger: validate(move2)
+judger -->> Chess: False
+Note over Chess: The game ends, either invalid move or player2 lost
+
+Chess -->> Api: game result as dict
+Api -->> App: game result as dict
+
+App -->> Frontend: HTTP Response game result as JSON
 
 box Container
     participant Frontend
     participant App
     participant Api
     participant Chess
-    participant player
+    participant player1
+    participant player2
     participant judger
 end
 ```
@@ -43,10 +52,10 @@ Chess --> Player
 Chess --> ChessJudger
 
 class Chess {
-    start(file: JSON)
+    start(file: Path) dict
     player1: Player
     player2: Player
-    judger: Judger
+    judger: ChessJudger
 }
 
 class ChessJudger {
@@ -61,8 +70,7 @@ class Player {
 }
 
 class Api {
-    start(file: JSON)
-    program_launcher: Launcher
+    start(file: JSON) dict
 }
 
 class App {
