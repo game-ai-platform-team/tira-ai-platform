@@ -1,28 +1,20 @@
 import SubmitForm from "./SubmitForm.tsx";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import {useState} from "react";
 
 function CodeView() {
-    const [code, setCode] = useState("");
+    const [result, setResult] = useState<{ moves: string[], winner: string }>()
 
-    const baseURL = "http://localhost:5000";
+    const moves = result?.moves ? result.moves : []
+    const winnerMessage = result?.winner ? <p>winner: {result.winner}</p> : undefined
 
-    useEffect(() => {
-        const f = async () => {
-            const response = await axios.get(baseURL + "/api/code");
-            setCode(response.data);
-        };
-        f();
-    }, []);
 
     return (
         <>
-            <SubmitForm></SubmitForm>
-            <br />
-            <br />
-            <div style={{ borderStyle: "solid" }}>
-                <code style={{ whiteSpace: "pre" }}>{code}</code>
-            </div>
+            <SubmitForm setResult={setResult}></SubmitForm>
+            {winnerMessage}
+            <ol>
+                {moves.map((value,index) => <li key={index}>{value}</li>)}
+            </ol>
         </>
     );
 }
