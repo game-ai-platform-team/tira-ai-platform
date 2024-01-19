@@ -5,11 +5,15 @@ from entities.chess_judger import ChessJudger
 from entities.player import Player
 from pathlib import Path
 from utils.engine_wrapper import EngineWrapper
+from config import DEFAULT_CHESS_AI_PATH
 
 
 class Chess:
     def __init__(
-        self, player1_file: Path, player2_file: Path, engine_wrapper: EngineWrapper
+        self,
+        engine_wrapper: EngineWrapper,
+        player1_file: Path = DEFAULT_CHESS_AI_PATH,
+        player2_file: Path = DEFAULT_CHESS_AI_PATH,
     ) -> None:
         self.judger = ChessJudger(engine_wrapper)
         self.player1 = Player(player1_file)

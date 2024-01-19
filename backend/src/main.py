@@ -13,6 +13,8 @@ if __name__ == "__main__":
     engine = get_stockfish_engine()
     ew = EngineWrapper([], 5, engine)
     c = Chess(
-        Path(ROOTDIR / "src" / "ai.py"), Path(ROOTDIR / "src" / "ai_random.py"), ew
+        ew,
+        Path(ROOTDIR / "src" / "ai.py"),
+        Path(ROOTDIR / "src" / "ai_random.py"),
     )
     c.play(1000, 0.1)
