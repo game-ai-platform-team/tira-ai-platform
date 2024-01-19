@@ -2,8 +2,6 @@
 Wraps Stockfish
 """
 
-import os
-import time
 from pathlib import Path
 
 from config import ROOTDIR
