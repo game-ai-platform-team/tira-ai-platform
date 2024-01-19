@@ -11,13 +11,13 @@ class Chess:
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
 
-    def play(self, turns: int, delay: float) -> dict[str, Any]:
+    def play(self, turns: int = 1000, delay: float = 0.1) -> dict[str, Any]:
         """
         Starts a game and return result as dict.
 
         Args:
-            turns (int): The maximum amount of turns to play.
-            delay (float): The delay between turns.
+            turns (int, optional): The maximum amount of turns to play. Defaults to 1000.
+            delay (float, optional): The delay between turns. Defaults to 0.1.
 
         Returns:
             dict[str, Any]: The game result containing winner, moves, etc.
