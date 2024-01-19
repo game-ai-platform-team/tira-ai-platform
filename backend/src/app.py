@@ -1,7 +1,7 @@
-from flask import Flask, jsonify, make_response, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
-from services.api import Api, api
+from services.api import api
 
 app = Flask("game-ai-testing-platform")
 CORS(app)
