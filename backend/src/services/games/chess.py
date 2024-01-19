@@ -3,10 +3,14 @@ from typing import Any
 
 from entities.chess_judger import ChessJudger
 from entities.player import Player
+from pathlib import Path
+from utils.engine_wrapper import EngineWrapper
 
 
 class Chess:
-    def __init__(self, player1_file, player2_file, engine_wrapper):
+    def __init__(
+        self, player1_file: Path, player2_file: Path, engine_wrapper: EngineWrapper
+    ) -> None:
         self.judger = ChessJudger(engine_wrapper)
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
@@ -65,6 +69,6 @@ class Chess:
 
         return winner
 
-    def print_board(self):
+    def print_board(self) -> None:
         print(self.judger.get_visual_board())
         print(self.judger.get_board())
