@@ -1,5 +1,6 @@
 import json
 import time
+from typing import Any
 
 from entities.chess_judger import ChessJudger
 from entities.player import Player
@@ -11,7 +12,17 @@ class Chess:
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
 
-    def play(self, turns, delay):
+    def play(self, turns: int, delay: float) -> dict[str, Any]:
+        """
+        Starts a game and return result as dict.
+
+        Args:
+            turns (int): The maximum amount of turns to play.
+            delay (float): The delay between turns.
+
+        Returns:
+            dict[str, Any]: The game result containing winner, moves, etc.
+        """
         self.print_board()
         time.sleep(delay)
 
