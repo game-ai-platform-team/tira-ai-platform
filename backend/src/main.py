@@ -17,4 +17,4 @@ if __name__ == "__main__":
         Path(ROOTDIR / "src" / "ai.py"),
         Path(ROOTDIR / "src" / "ai_random.py"),
     )
-    c.play(1000, 0.1)
+    c.play(1000, 0.1, debug=True)
