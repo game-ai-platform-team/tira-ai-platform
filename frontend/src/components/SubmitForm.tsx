@@ -1,6 +1,6 @@
-import React, {ChangeEvent, JSX, useState} from "react";
+import React, { ChangeEvent, JSX, useState } from "react";
 import axios from "axios";
-import {ChessGameResult, parseChessGameResult} from "../types.ts";
+import { ChessGameResult, parseChessGameResult } from "../types.ts";
 
 interface SubmitFormProps {
     setResult: (result: ChessGameResult) => void;
@@ -32,14 +32,13 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
             if (gameResult) {
                 props.setResult(gameResult);
             }
-
         }
     };
 
     return (
         <>
             <form onSubmit={onSubmit}>
-                <input id="file-input" type="file" onChange={handleFile}/>
+                <input id="file-input" type="file" onChange={handleFile} />
                 <button id="submit-button" type="submit">
                     Submit
                 </button>
