@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useState, JSX } from "react";
+import React, {ChangeEvent, JSX, useState} from "react";
 import axios from "axios";
+import {ChessGameResult, parseChessGameResult} from "../types.ts";
 
 interface SubmitFormProps {
-    setResult: (result: { moves: string[]; winner: string }) => void;
+    setResult: (result: ChessGameResult) => void;
 }
 
 /**
@@ -26,17 +27,19 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
             const result = await axios.post(`${baseURL}/api/chess/submit`, {
                 content: await file.text(),
             });
-            console.log(result.data);
-            props.setResult(
-                result.data as unknown as { moves: string[]; winner: string },
-            );
+
+            const gameResult = parseChessGameResult(result.data);
+            if (gameResult) {
+                props.setResult(gameResult);
+            }
+
         }
     };
 
     return (
         <>
             <form onSubmit={onSubmit}>
-                <input id="file-input" type="file" onChange={handleFile} />
+                <input id="file-input" type="file" onChange={handleFile}/>
                 <button id="submit-button" type="submit">
                     Submit
                 </button>
