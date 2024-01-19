@@ -11,5 +11,4 @@ except FileNotFoundError:
     pass
 
 TEMP_DIRNAME = getenv("TEMP_DIRNAME") or "temp"
-
 TEMP_DIR = ROOTDIR / TEMP_DIRNAME
