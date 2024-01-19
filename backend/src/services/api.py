@@ -1,8 +1,11 @@
+from typing import Any
+
 from config import TEMP_DIR
+from services.games.chess import Chess
 
 
 class Api:
-    def start(self, file: str) -> str:
+    def start(self, file: str) -> dict[str, Any]:
         """
         Starts new chess game with the input AI.
 
@@ -10,12 +13,15 @@ class Api:
             file (str): Code of the AI.
 
         Returns:
-            str: All moves of the game in JSON.
+            dict[str, Any]: The game result containing winner, moves, etc.
         """
 
         self.save(file)
 
-        return ""
+        game = Chess()
+        result = game.play()
+
+        return result
 
     def save(self, content: str) -> None:
         """
