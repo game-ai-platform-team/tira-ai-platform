@@ -25,9 +25,6 @@ class Chess:
 
         winner = None
 
-        self.print_board()
-        time.sleep(delay)
-
         for _ in range(turns):
             white_move = self.player1.play(self.judger.get_board())
 
@@ -38,9 +35,6 @@ class Chess:
                 break
 
             self.judger.add_move(white_move)
-
-            self.print_board()
-            time.sleep(delay)
 
             black_move = self.player2.play(self.judger.get_board())
 
@@ -54,8 +48,6 @@ class Chess:
 
             self.print_board()
             time.sleep(delay)
-
-        self.print_board()
 
         result = {
             "winner": winner,
