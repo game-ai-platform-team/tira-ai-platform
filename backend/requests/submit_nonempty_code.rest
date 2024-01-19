@@ -1,4 +1,4 @@
-POST http://localhost:5000/api/submit
+POST http://localhost:5000/api/chess/submit
 Content-Type: application/json
 
 {

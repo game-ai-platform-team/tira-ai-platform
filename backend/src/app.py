@@ -1,4 +1,4 @@
-from flask import Flask, make_response, request, send_from_directory
+from flask import Flask, jsonify, make_response, request, send_from_directory
 from flask_cors import CORS
 
 from services.api import Api, api
@@ -9,8 +9,11 @@ CORS(app)
 
 @app.route("/api/chess/submit", methods=["POST"])
 def api_submit():
-    json_object = api.start(request.data.decode("utf-8"))
-    return json_object, 200
+    code_file = request.data.decode("utf-8")
+
+    result = api.start(code_file)
+
+    return jsonify(result)
 
 
 @app.route("/<path:path>")
