@@ -1,5 +1,6 @@
 import time
 from typing import Any
+from stockfish_engine import get_stockfish_engine
 
 from entities.chess_judger import ChessJudger
 from entities.player import Player
@@ -11,10 +12,29 @@ from config import DEFAULT_CHESS_AI_PATH
 class Chess:
     def __init__(
         self,
-        engine_wrapper: EngineWrapper,
+        engine_wrapper: EngineWrapper | None = None,
         player1_file: Path = DEFAULT_CHESS_AI_PATH,
         player2_file: Path = DEFAULT_CHESS_AI_PATH,
     ) -> None:
+        """
+        Initializes a chess game.
+
+        Args:
+            engine_wrapper (EngineWrapper | None, optional):
+                Engine wrapper for judging winner.
+                Defaults to None.
+            player1_file (Path, optional):
+                Path to player1 AI file.
+                Defaults to DEFAULT_CHESS_AI_PATH.
+            player2_file (Path, optional):
+                Path to player2 AI file.
+                Defaults to DEFAULT_CHESS_AI_PATH.
+        """
+
+        if not engine_wrapper:
+            engine = get_stockfish_engine()
+            engine_wrapper = EngineWrapper([], 5, engine)
+
         self.judger = ChessJudger(engine_wrapper)
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
