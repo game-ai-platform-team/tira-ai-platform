@@ -5,9 +5,9 @@ from typing import Any
 from config import DEFAULT_CHESS_AI_PATH
 from entities.chess_judger import ChessJudger
 from entities.player import Player
+from game_state import GameState
 from stockfish_engine import get_stockfish_engine
 from utils.engine_wrapper import EngineWrapper
-from game_state import GameState
 
 
 class Chess:
@@ -78,7 +78,8 @@ class Chess:
         white_move = self.player1.play(self.judger.get_board())
 
         state = self.judger.validate(white_move)
-        if state != GameState.INVALID: self.judger.add_move(white_move)
+        if state != GameState.INVALID:
+            self.judger.add_move(white_move)
 
         if state == GameState.WIN:
             print("White won")
@@ -93,7 +94,8 @@ class Chess:
         black_move = self.player2.play(self.judger.get_board())
 
         state = self.judger.validate(black_move)
-        if state != GameState.INVALID: self.judger.add_move(black_move)
+        if state != GameState.INVALID:
+            self.judger.add_move(black_move)
 
         if state == GameState.WIN:
             print("Black won")

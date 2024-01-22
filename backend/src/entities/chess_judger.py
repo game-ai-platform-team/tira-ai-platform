@@ -1,6 +1,6 @@
-from utils.engine_wrapper import EngineWrapper
-from game_state import GameState
 import chess
+from game_state import GameState
+from utils.engine_wrapper import EngineWrapper
 
 
 class ChessJudger:
@@ -22,7 +22,7 @@ class ChessJudger:
 
         if move not in moves:
             return GameState.INVALID
-        
+
         board.push(chess.Move.from_uci(move))
 
         if board.is_stalemate():
