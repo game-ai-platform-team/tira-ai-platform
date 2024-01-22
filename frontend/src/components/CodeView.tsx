@@ -1,28 +1,28 @@
 import SubmitForm from "./SubmitForm.tsx";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { ChessGameResult } from "../types.ts";
 
-function CodeView() {
-    const [code, setCode] = useState("");
+interface CodeViewProps {
+    testResult?: ChessGameResult;
+}
 
-    const baseURL = "http://localhost:5001/";
+function CodeView(props: CodeViewProps) {
+    const [result, setResult] = useState(props?.testResult);
 
-    useEffect(() => {
-        const f = async () => {
-            const response = await axios.get(baseURL + "/api/code");
-            setCode(response.data);
-        };
-        f();
-    }, []);
+    const moves = result?.moves ? result.moves : [];
+    const winnerMessage = result?.winner ? (
+        <p>winner: {result.winner}</p>
+    ) : undefined;
 
     return (
         <>
-            <SubmitForm></SubmitForm>
-            <br />
-            <br />
-            <div style={{ borderStyle: "solid" }}>
-                <code style={{ whiteSpace: "pre" }}>{code}</code>
-            </div>
+            <SubmitForm setResult={setResult}></SubmitForm>
+            {winnerMessage}
+            <ol id="move-list">
+                {moves.map((value, index) => (
+                    <li key={index}>{value}</li>
+                ))}
+            </ol>
         </>
     );
 }
