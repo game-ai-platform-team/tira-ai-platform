@@ -1,6 +1,8 @@
 import subprocess
 import time
+
 from engine_wrapper import EngineWrapper
+
 
 class Chess:
     def __init__(self, ai_name):
@@ -10,7 +12,8 @@ class Chess:
     def get_move_from_ai(self, boardstate):
         return subprocess.run(
             ["python", f"src/{self.ai_name}", f"-b {','.join(boardstate)}"],
-            stdout=subprocess.PIPE).stdout.decode('utf-8')
+            stdout=subprocess.PIPE,
+        ).stdout.decode("utf-8")
 
     def get_move_from_self(self):
         return self.engine_wrapper.calculate_move()
@@ -23,8 +26,7 @@ class Chess:
             self_move = self.get_move_from_self()
 
             try:
-                self.engine_wrapper.engine.make_moves_from_current_position([
-                                                                            self_move])
+                self.engine_wrapper.engine.make_moves_from_current_position([self_move])
             except BaseException:
                 print(self.engine_wrapper.engine.get_evaluation())
                 break
@@ -37,8 +39,7 @@ class Chess:
             ai_move = self.get_move_from_ai(self.engine_wrapper.boardstate)
 
             try:
-                self.engine_wrapper.engine.make_moves_from_current_position([
-                                                                            ai_move])
+                self.engine_wrapper.engine.make_moves_from_current_position([ai_move])
             except BaseException:
                 print(self.engine_wrapper.engine.get_evaluation())
                 break
