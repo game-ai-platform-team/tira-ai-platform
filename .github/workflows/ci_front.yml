@@ -24,6 +24,10 @@ jobs:
 
   Lint:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
+=======
+    needs: Format
+>>>>>>> dev
 
     steps:
       - uses: actions/checkout@v4
