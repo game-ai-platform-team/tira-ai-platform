@@ -1,11 +1,21 @@
-from services.games.chess import Chess
-
+from config import GAMEDICT
 
 class GameFactory:
+
     @staticmethod
     def get_game(game_type: str):
-        """Static method to get a specific game object"""
+        """
+        Get a game from this method by inserting a string
 
-        games = {"chess": Chess, "othello": None}
+        Args:
+            game_type (string): F.e. "chess" or "othello". Can be checked from GAMEDICT in config.
 
-        return games.get(game_type)
+        Returns:
+            game instance of specified class
+        """
+
+        game_class = GAMEDICT.get(game_type)
+
+        return game_class(engine_wrapper = None
+                        player1_file = DEFAULT_CHESS_AI_PATH,
+                        player2_file = DEFAULT_CHESS_AI_PATH)'
