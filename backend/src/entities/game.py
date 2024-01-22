@@ -1,7 +1,7 @@
-from config import GAMEDICT, DEFAULT_CHESS_AI_PATH
+from config import DEFAULT_CHESS_AI_PATH, GAMEDICT
+
 
 class GameFactory:
-
     @staticmethod
     def get_game(game_type: str):
         """
@@ -16,6 +16,8 @@ class GameFactory:
 
         game_class = GAMEDICT.get(game_type)
 
-        return game_class(engine_wrapper = None,
-                        player1_file = DEFAULT_CHESS_AI_PATH,
-                        player2_file = DEFAULT_CHESS_AI_PATH)
+        return game_class(
+            engine_wrapper=None,
+            player1_file=DEFAULT_CHESS_AI_PATH,
+            player2_file=DEFAULT_CHESS_AI_PATH,
+        )
