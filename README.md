@@ -7,9 +7,9 @@ Project done for the Helsinki University faculty of computer science. Helps stud
 
 # Project links
 
-## Production server
-
+## Production & Staging
 - [Production]()
+- [Staging](https://ai-dev-platform-ohtuprojekti-staging.apps.ocp-test-0.k8s.it.helsinki.fi/index.html)
 
 ## Project
 - [User manual](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/usermanual.md)
