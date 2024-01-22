@@ -12,6 +12,7 @@ flask-cors = "^4.0.0"
 stockfish = "^3.28.0"
 invoke = "^2.2.0"
 python-dotenv = "^1.0.0"
+python-chess = "^1.999"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"

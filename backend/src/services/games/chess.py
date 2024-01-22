@@ -5,6 +5,7 @@ from typing import Any
 from config import DEFAULT_CHESS_AI_PATH
 from entities.chess_judger import ChessJudger
 from entities.player import Player
+from game_state import GameState
 from stockfish_engine import get_stockfish_engine
 from utils.engine_wrapper import EngineWrapper
 
@@ -74,28 +75,39 @@ class Chess:
         return result
 
     def __play_one_turn(self) -> str:
-        winner = ""
         white_move = self.player1.play(self.judger.get_board())
 
-        if not self.judger.validate(white_move):
-            winner = "player2"
-            print("White lost")
+        state = self.judger.validate(white_move)
+        if state != GameState.INVALID:
+            self.judger.add_move(white_move)
 
-            return winner
-
-        self.judger.add_move(white_move)
+        if state == GameState.WIN:
+            print("White won")
+            return "player1"
+        if state == GameState.INVALID:
+            print(f"invalid white move: {white_move}")
+            return "None"
+        if state == GameState.DRAW:
+            print("Draw")
+            return "None"
 
         black_move = self.player2.play(self.judger.get_board())
 
-        if not self.judger.validate(black_move):
-            winner = "player1"
-            print("Black lost")
+        state = self.judger.validate(black_move)
+        if state != GameState.INVALID:
+            self.judger.add_move(black_move)
 
-            return winner
+        if state == GameState.WIN:
+            print("Black won")
+            return "player2"
+        if state == GameState.INVALID:
+            print(f"invalid black move: {black_move}")
+            return "None"
+        if state == GameState.DRAW:
+            print("Draw")
+            return "None"
 
-        self.judger.add_move(black_move)
-
-        return winner
+        return ""
 
     def print_board(self) -> None:
         print(self.judger.get_visual_board())
