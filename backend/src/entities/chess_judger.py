@@ -1,4 +1,6 @@
 from utils.engine_wrapper import EngineWrapper
+from game_state import GameState
+import chess
 
 
 class ChessJudger:
@@ -15,13 +17,22 @@ class ChessJudger:
         Returns:
             bool: True if game continues, False if given move is invalid.
         """
+        board = chess.Board(self.engine_wrapper.engine.get_fen_position())
+        moves = [move.uci() for move in list(board.pseudo_legal_moves)]
 
-        try:
-            self.engine_wrapper.engine.make_moves_from_current_position([move])
-        except ValueError:
-            return False
+        if move not in moves:
+            return GameState.INVALID
+        
+        board.push(chess.Move.from_uci(move))
 
-        return True
+        if board.is_stalemate():
+            return GameState.DRAW
+        if board.is_insufficient_material():
+            return GameState.DRAW
+        if board.is_checkmate():
+            return GameState.WIN
+
+        return GameState.CONTINUE
 
     def add_move(self, move: str) -> None:
         """
@@ -30,7 +41,7 @@ class ChessJudger:
         Args:
             move (str): Move to add.
         """
-
+        self.engine_wrapper.engine.make_moves_from_current_position([move])
         self.engine_wrapper.boardstate.append(move)
 
     def get_board(self) -> list[str]:
