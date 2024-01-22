@@ -2,6 +2,50 @@
 
 ## Submitting file from front-end and run chess game
 
+## Container Game Flow
+
+```mermaid
+graph LR
+    client -- Zip File --> frontend
+
+    frontend -- Zip File + game type --> app
+
+    frontend -. 1) Periodic data request .-> app
+    app -. 2) Periodic data request .-> game
+    game -. 3) Periodic data .-> app
+    app -. 4) Periodic data .-> frontend
+    app -- Zip File + game type --> game
+    game -- play(move) --> player1
+    player1 -- move --> game
+    game -- play(move) --> player2
+    player2 -- move --> game
+    game -- validate move --> game
+
+    subgraph appContainer
+    app
+    end
+
+    subgraph gameContainer
+    game
+    end
+
+    subgraph player1Container
+    player1
+    end
+
+    subgraph player2Container
+    player2
+    end
+
+    subgraph Clientside
+    client
+    frontend
+    end
+
+    style Clientside fill:#FFC0CB,stroke:#333,stroke-width:2px
+```
+
+## Initial architecture draft
 ```mermaid
 sequenceDiagram
 
