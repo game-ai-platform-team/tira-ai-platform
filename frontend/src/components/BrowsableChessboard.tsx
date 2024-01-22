@@ -50,8 +50,8 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
                     display: "flex",
                 }}
             >
-                <button onClick={decreaseMoveNumber}>{"<"}</button>
-                <button onClick={increaseMoveNumber}>{">"}</button>
+                <button onClick={decreaseMoveNumber} id={"previousChessboardButton"}>{"<"}</button>
+                <button onClick={increaseMoveNumber} id={"nextChessboardButton"}>{">"}</button>
             </div>
         </div>
     );
