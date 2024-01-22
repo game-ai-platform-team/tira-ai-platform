@@ -1,15 +1,31 @@
 import { Position } from "kokopu";
 import { Chessboard } from "kokopu-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface BrowsableChessboardProps {
     moves?: string[];
 }
 
+const emptyList: string[] = [];
+
 export function BrowsableChessboard(props: BrowsableChessboardProps) {
-    const position = new Position();
-    const moves = props.moves ? props.moves : [];
+    new Position();
+    const moves = props.moves ? props.moves : emptyList;
     const [moveNumber, setMoveNumber] = useState<number>(0);
+    const [positions, setPositions] = useState<Position[]>([]);
+
+    useEffect(() => {
+        let oldPosition = new Position();
+        const set: Position[] = [oldPosition];
+        for (let i = 0; i < moves.length; i++) {
+            const value = moves[i];
+            const newPos = new Position(oldPosition);
+            newPos.play(newPos.uci(value));
+            set.push(newPos);
+            oldPosition = newPos;
+        }
+        setPositions(set);
+    }, [moves]);
 
     const increaseMoveNumber = () => {
         setMoveNumber((prevState) => {
@@ -24,14 +40,9 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
         });
     };
 
-    for (let i = 0; i < moves.length && i < moveNumber; i++) {
-        const value = moves[i];
-        position.play(position.uci(value));
-    }
-
     return (
         <div style={{ width: "min-content" }}>
-            <Chessboard position={position}></Chessboard>
+            <Chessboard position={positions[moveNumber]}></Chessboard>
             <div
                 style={{
                     justifyContent: "space-between",
