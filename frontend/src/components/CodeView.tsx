@@ -1,7 +1,7 @@
 import SubmitForm from "./SubmitForm.tsx";
-import {useState} from "react";
-import {ChessGameResult} from "../types.ts";
-import {BrowsableChessboard} from "./BrowsableChessboard.tsx";
+import { useState } from "react";
+import { ChessGameResult } from "../types.ts";
+import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
 
 interface CodeViewProps {
     testResult?: ChessGameResult;
@@ -24,7 +24,7 @@ function CodeView(props: CodeViewProps) {
                     <li key={index}>{value}</li>
                 ))}
             </ol>
-            <BrowsableChessboard moves={moves}/>
+            <BrowsableChessboard moves={moves} />
         </>
     );
 }
