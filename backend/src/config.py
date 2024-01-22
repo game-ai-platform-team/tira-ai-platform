@@ -3,8 +3,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from services.games.chess import Chess
-
 ROOTDIR = Path(__file__).parent.parent
 
 try:
