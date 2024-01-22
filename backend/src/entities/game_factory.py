@@ -1,4 +1,3 @@
-
 class GameFactory:
     @staticmethod
     def get_game(game_type: str):
@@ -13,6 +12,5 @@ class GameFactory:
         """
 
         game_class = {"chess": Chess, "othello": None}
-
 
         return game_class()
