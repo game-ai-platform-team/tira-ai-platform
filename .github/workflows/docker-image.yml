@@ -15,6 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag tira-app:$(date +%s)
+      run: docker build . --file Dockerfile --tag tira-app
     - name: Push Docker image to registry
-      run: docker push kontrakti/tira-app:tira-app:$(date +%s)
+      run: docker push kontrakti/tira-app:tira-app
