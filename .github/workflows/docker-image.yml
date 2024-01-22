@@ -20,6 +20,6 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag kontrakti/tira-app
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/tira-app
     - name: Push Docker image to registry
-      run: docker push kontrakti/tira-app:tira-app
+      run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/tira-app
