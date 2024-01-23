@@ -5,12 +5,6 @@ from game_state import GameState
 
 
 class ChessJudger:
-    """
-    Contains an internal represenation of the current game
-
-    Boardstate must be in FEN format
-    """
-
     def __init__(self) -> None:
         pass
 
