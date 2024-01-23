@@ -4,7 +4,6 @@ from game_state import GameState
 
 
 class ChessJudger:
-
     def __init__(self) -> None:
         pass
 
