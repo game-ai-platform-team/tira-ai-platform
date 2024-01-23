@@ -1,10 +1,24 @@
 # API documentation
 
+## Game move JSON format
+
+```typescript
+{
+    move: string,
+    time: int,
+    advantage: int
+}
+```
+
+Time unit is ms.
+Advantage score by stockfish.
+
 ## Game result JSON format
 
 ```typescript
 {
-    moves: string[],
-    winner: string
+    statistics: {...},
+    player: string,
+    state: int
 }
 ```
