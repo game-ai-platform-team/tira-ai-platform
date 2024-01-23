@@ -30,7 +30,10 @@ interface JustInTimeMoveListProps {
     onNewMove: (newMove: string) => void;
 }
 
-const JustInTimeMoveList: React.FC<JustInTimeMoveListProps> = ({ moves, onNewMove }) => {
+const JustInTimeMoveList: React.FC<JustInTimeMoveListProps> = ({
+    moves,
+    onNewMove,
+}) => {
     let moveReceiver: MoveReceiver | null = null;
 
     useEffect(() => {
@@ -52,6 +55,5 @@ const JustInTimeMoveList: React.FC<JustInTimeMoveListProps> = ({ moves, onNewMov
         </div>
     );
 };
-
 
 export default JustInTimeMoveList;
