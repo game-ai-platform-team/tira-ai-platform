@@ -5,7 +5,7 @@ class GameFactory:
         Get a game from this method by inserting a string
 
         Args:
-            game_type (string): F.e. "chess" or "othello". Can be checked from GAMEDICT in config.
+            game_type (string): F.e. "chess" or "othello".
 
         Returns:
             game instance of specified class
