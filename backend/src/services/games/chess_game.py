@@ -62,10 +62,14 @@ class ChessGame:
             "moves": self.judger.get_moves_as_uci(),
         }
 
+        self.player1.terminate_process()
+        self.player2.terminate_process()
+
         return result
 
     def __play_one_turn(self, delay, debug) -> str:
-        white_state, white_move, white_time = self._play_one_move(self.player1)
+        last_move = self._get_last_move()
+        white_state, white_move, white_time = self._play_one_move(self.player1, last_move)
         time.sleep(delay)
 
         if debug:
@@ -89,7 +93,7 @@ class ChessGame:
                 print("Draw")
             return "draw"
 
-        black_state, black_move, black_time = self._play_one_move(self.player2)
+        black_state, black_move, black_time = self._play_one_move(self.player2, white_move)
         time.sleep(delay)
 
         if debug:
@@ -115,11 +119,10 @@ class ChessGame:
 
         return ""
 
-    def _play_one_move(self, player: Player):
+    def _play_one_move(self, player: Player, prev_move):
         self.turn_counter += 1
         start_time = time.perf_counter()
-        # move = player.play() -- use this when player is fixed
-        move = player.play(self.judger.get_moves_as_uci())
+        move = player.play(prev_move)
         end_time = time.perf_counter() - start_time
         state = self.judger.validate(move)
 
@@ -129,4 +132,13 @@ class ChessGame:
         print("\n" + self.judger.get_board_visual() + "\n")
 
     def _print_debug_info(self, move, state, time):
-        print(f"[{self.turn_counter}] {move} : {state.name} : {time:.3} s")
+        ms_time = int(time * 1000)
+        print(f"[{self.turn_counter}] {move} : {state.name} : {str(ms_time).zfill(3)} ms")
+
+    def _get_last_move(self):
+        try:
+            move = self.judger.get_moves_as_uci()[-1]
+        except:
+            move = ""
+
+        return move
