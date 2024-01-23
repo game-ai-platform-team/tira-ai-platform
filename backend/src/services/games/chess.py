@@ -7,13 +7,10 @@ from entities.chess_judger import ChessJudger
 from entities.player import Player
 from game_state import GameState
 from stockfish_engine import get_stockfish_engine
-from utils.engine_wrapper import EngineWrapper
-
 
 class Chess:
     def __init__(
         self,
-        engine_wrapper: EngineWrapper | None = None,
         player1_file: Path = DEFAULT_CHESS_AI_PATH,
         player2_file: Path = DEFAULT_CHESS_AI_PATH,
     ) -> None:
@@ -21,9 +18,6 @@ class Chess:
         Initializes a chess game.
 
         Args:
-            engine_wrapper (EngineWrapper | None, optional):
-                Engine wrapper for judging winner.
-                Defaults to None.
             player1_file (Path, optional):
                 Path to player1 AI file.
                 Defaults to DEFAULT_CHESS_AI_PATH.
@@ -32,11 +26,9 @@ class Chess:
                 Defaults to DEFAULT_CHESS_AI_PATH.
         """
 
-        if not engine_wrapper:
-            engine = get_stockfish_engine()
-            engine_wrapper = EngineWrapper([], 5, engine)
+        engine = get_stockfish_engine()
 
-        self.judger = ChessJudger(engine_wrapper)
+        self.judger = ChessJudger(engine)
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
 
@@ -76,7 +68,6 @@ class Chess:
 
     def __play_one_turn(self) -> str:
         white_move = self.player1.play(self.judger.get_board())
-
         state = self.judger.validate(white_move)
         if state != GameState.INVALID:
             self.judger.add_move(white_move)
@@ -92,11 +83,10 @@ class Chess:
             return "None"
 
         black_move = self.player2.play(self.judger.get_board())
-
         state = self.judger.validate(black_move)
         if state != GameState.INVALID:
             self.judger.add_move(black_move)
-
+        
         if state == GameState.WIN:
             print("Black won")
             return "player2"
