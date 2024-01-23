@@ -9,7 +9,7 @@ class ChessJudger:
 
     def validate(self, move: str, boardstate):
         """
-        Validates the move. Pushes move into boardstate
+        Validates the move.
 
         Args:
             move (str): Move of a player.
