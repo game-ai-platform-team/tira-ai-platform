@@ -9,7 +9,7 @@ from game_state import GameState
 from stockfish_engine import get_stockfish_engine
 
 
-class Chess:
+class ChessGame:
     def __init__(
         self,
         player1_file: Path = DEFAULT_CHESS_AI_PATH,
@@ -27,9 +27,10 @@ class Chess:
                 Defaults to DEFAULT_CHESS_AI_PATH.
         """
 
-        engine = get_stockfish_engine()
+        self.engine = get_stockfish_engine()
+        self.boardstate = []
+        self.judger = ChessJudger()
 
-        self.judger = ChessJudger(engine)
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
 
@@ -51,55 +52,66 @@ class Chess:
         winner = None
 
         for _ in range(turns):
-            winner = self.__play_one_turn()
-
-            if debug:
-                self.print_board()
-                time.sleep(delay)
+            winner = self.__play_one_turn(debug)
 
             if winner:
                 break
 
         result = {
             "winner": winner,
-            "moves": self.judger.get_board(),
+            "moves": self.boardstate,
         }
 
         return result
 
-    def __play_one_turn(self) -> str:
-        white_move = self.player1.play(self.judger.get_board())
-        state = self.judger.validate(white_move)
-        if state != GameState.INVALID:
-            self.judger.add_move(white_move)
+    def __play_one_turn(self, debug) -> str:
+        white_move = self.player1.play(self.boardstate)
+        white_state = self.judger.validate(white_move, self._get_board_fen())
+        if white_state != GameState.INVALID:
+            self._add_move(white_move)
+            if debug:
+                print(f"{white_move} : {white_state.name}")
+                self._print_board()
 
-        if state == GameState.WIN:
+        if white_state == GameState.WIN:
             print("White won")
             return "player1"
-        if state == GameState.INVALID:
+        if white_state == GameState.INVALID:
             print(f"invalid white move: {white_move}")
             return "None"
-        if state == GameState.DRAW:
+        if white_state == GameState.DRAW:
             print("Draw")
             return "None"
 
-        black_move = self.player2.play(self.judger.get_board())
-        state = self.judger.validate(black_move)
-        if state != GameState.INVALID:
-            self.judger.add_move(black_move)
+        black_move = self.player2.play(self.boardstate)
+        black_state = self.judger.validate(black_move, self._get_board_fen())
+        if black_state != GameState.INVALID:
+            self._add_move(black_move)
+            if debug:
+                print(f"{black_move} : {black_state.name}")
+                self._print_board()
 
-        if state == GameState.WIN:
+        if black_state == GameState.WIN:
             print("Black won")
             return "player2"
-        if state == GameState.INVALID:
+        if black_state == GameState.INVALID:
             print(f"invalid black move: {black_move}")
             return "None"
-        if state == GameState.DRAW:
+        if black_state == GameState.DRAW:
             print("Draw")
             return "None"
 
         return ""
 
-    def print_board(self) -> None:
-        print(self.judger.get_visual_board())
-        print(self.judger.get_board())
+    def _print_board(self) -> None:
+        print(self._get_board_visual())
+    
+    def _add_move(self, move):
+        self.boardstate.append(move)
+        self.engine.set_position(self.boardstate)
+
+    def _get_board_visual(self):
+        return self.engine.get_board_visual()
+    
+    def _get_board_fen(self):
+        return self.engine.get_fen_position()
