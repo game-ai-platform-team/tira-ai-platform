@@ -1,15 +1,42 @@
-import chess
+import services.games.chess
 from game_state import GameState
-from utils.engine_wrapper import EngineWrapper
-
 
 class ChessJudger:
-    def __init__(self, engine_wrapper: EngineWrapper) -> None:
-        self.engine_wrapper = engine_wrapper
+    """
+    Contains an internal represenation of the current game
+    """
 
-    def validate(self, move: str) -> bool:
+    def __init__(self, engine) -> None:
+        self.engine = engine
+        self.boardstate = []
+
+    def is_stalemate(self) -> bool:
+        return False
+    
+    def is_checkmate(self) -> bool:
+        return False
+
+    def is_insufficient_material(self) -> bool:
+        return False
+
+    def check_move_is_valid(self, move: str) -> bool:
         """
-        Validates the move.
+        Copies current boardstate and tests move with the copy
+        """
+        fake_board = self.boardstate.copy()
+        fake_board.append(move)
+        self.engine.set_position(fake_board)
+        fen = self.engine.get_fen_position()
+        is_valid = self.engine.is_fen_valid(fen)
+
+        if is_valid:
+            return True
+        else: 
+            return False
+
+    def validate(self, move: str):
+        """
+        Validates the move. Pushes move into boardstate
 
         Args:
             move (str): Move of a player.
@@ -17,19 +44,16 @@ class ChessJudger:
         Returns:
             bool: True if game continues, False if given move is invalid.
         """
-        board = chess.Board(self.engine_wrapper.engine.get_fen_position())
-        moves = [move.uci() for move in list(board.pseudo_legal_moves)]
 
-        if move not in moves:
+        is_valid = self.check_move_is_valid(move)
+
+        if not is_valid:
             return GameState.INVALID
-
-        board.push(chess.Move.from_uci(move))
-
-        if board.is_stalemate():
+        if self.is_stalemate():
             return GameState.DRAW
-        if board.is_insufficient_material():
+        if self.is_insufficient_material():
             return GameState.DRAW
-        if board.is_checkmate():
+        if self.is_checkmate():
             return GameState.WIN
 
         return GameState.CONTINUE
@@ -41,8 +65,8 @@ class ChessJudger:
         Args:
             move (str): Move to add.
         """
-        self.engine_wrapper.engine.make_moves_from_current_position([move])
-        self.engine_wrapper.boardstate.append(move)
+        self.boardstate.append(move)
+        self.engine.set_position(self.boardstate)
 
     def get_board(self) -> list[str]:
         """
@@ -52,7 +76,7 @@ class ChessJudger:
             list[str]: Board as list of moves.
         """
 
-        return self.engine_wrapper.boardstate
+        return self.boardstate
 
     def get_visual_board(self) -> str:
         """
@@ -62,4 +86,4 @@ class ChessJudger:
             str: Board as string.
         """
 
-        return self.engine_wrapper.engine.get_board_visual()
+        return self.engine.get_board_visual()
