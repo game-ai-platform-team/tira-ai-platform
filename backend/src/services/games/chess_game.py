@@ -32,6 +32,7 @@ class ChessGame:
         self.player2 = Player(player2_file)
 
         self.turn_counter = 0
+        self.last_player = "none"
 
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
@@ -52,18 +53,19 @@ class ChessGame:
         self.turn_counter = 0
 
         for _ in range(turns):
-            winner = self.__play_one_turn(delay, debug)
+            state = self.__play_one_turn(delay, debug)
 
-            if winner:
+            if state != GameState.CONTINUE:
                 break
 
         result = {
-            "winner": winner,
             "moves": self.judger.get_moves_as_uci(),
+            "player": self.last_player,
+            "game_state": winner
         }
 
-        self.player1.terminate_process()
-        self.player2.terminate_process()
+        self.player1.terminate_self()
+        self.player2.terminate_self()
 
         return result
 
@@ -77,51 +79,43 @@ class ChessGame:
         if debug:
             self._print_debug_info(white_move, white_state, white_time)
             self._print_board()
-
-        if white_state == GameState.WIN:
-            if debug:
+            if white_state == GameState.WIN:
                 print("White won")
-            return "white"
-        if white_state == GameState.ILLEGAL:
-            if debug:
+            if white_state == GameState.ILLEGAL:
                 print(f"illegal white move: {white_move}")
-            return "draw"
-        if white_state == GameState.INVALID:
-            if debug:
+            if white_state == GameState.INVALID:
                 print(f"invalid white move: {white_move}")
-            return "draw"
-        if white_state == GameState.DRAW:
-            if debug:
+            if white_state == GameState.DRAW:
                 print("Draw")
-            return "draw"
+
+        self.last_player = "white"
+
+        if white_state != GameState.CONTINUE:
+            return white_state
 
         black_state, black_move, black_time = self._play_one_move(
             self.player2, white_move
         )
         time.sleep(delay)
 
+        self.last_player = "black"
+
         if debug:
             self._print_debug_info(black_move, black_state, black_time)
             self._print_board()
-
-        if black_state == GameState.WIN:
-            if debug:
+            if black_state == GameState.WIN:
                 print("Black won")
-            return "black"
-        if black_state == GameState.ILLEGAL:
-            if debug:
+            if black_state == GameState.ILLEGAL:
                 print(f"illegal black move: {black_move}")
-            return "draw"
-        if black_state == GameState.INVALID:
-            if debug:
+            if black_state == GameState.INVALID:
                 print(f"invalid black move: {black_move}")
-            return "draw"
-        if black_state == GameState.DRAW:
-            if debug:
+            if black_state == GameState.DRAW:
                 print("Draw")
-            return "draw"
 
-        return ""
+        if black_state != GameState.CONTINUE:
+            return black_state
+
+        return GameState.CONTINUE
 
     def _play_one_move(self, player: Player, prev_move):
         self.turn_counter += 1
