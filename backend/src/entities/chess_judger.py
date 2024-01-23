@@ -1,5 +1,7 @@
-from game_state import GameState
 import chess
+
+from game_state import GameState
+
 
 class ChessJudger:
     """

@@ -1,7 +1,7 @@
 from typing import Any
 
-from config import TEMP_DIR
 from backend.src.services.games.chess_game import ChessGame
+from config import TEMP_DIR
 
 
 class Api:
