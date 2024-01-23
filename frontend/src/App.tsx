@@ -1,6 +1,6 @@
 import CodeView from "./components/CodeView.tsx";
 import NavigationBar from "./components/NavigationBar.tsx";
-import DataReceiver from "./components/DataReceiver.tsx";
+import JustInTimeMoveList from "./components/JustInTimeMoveList.tsx";
 
 function App() {
     return (
@@ -9,7 +9,7 @@ function App() {
             <>
                 <CodeView></CodeView>
             </>
-            <DataReceiver />
+            <JustInTimeMoveList/>
         </div>
     );
 }
