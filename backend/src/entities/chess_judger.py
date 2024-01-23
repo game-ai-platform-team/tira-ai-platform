@@ -1,89 +1,45 @@
+import re
+
+import chess
+
 from game_state import GameState
 
 
 class ChessJudger:
-    """
-    Contains an internal represenation of the current game
-    """
-
-    def __init__(self, engine) -> None:
-        self.engine = engine
-        self.boardstate = []
-
-    def is_stalemate(self) -> bool:
-        return False
-
-    def is_checkmate(self) -> bool:
-        return False
-
-    def is_insufficient_material(self) -> bool:
-        return False
-
-    def check_move_is_valid(self, move: str) -> bool:
-        """
-        Copies current boardstate and tests move with the copy
-        """
-        fake_board = self.boardstate.copy()
-        fake_board.append(move)
-        self.engine.set_position(fake_board)
-        fen = self.engine.get_fen_position()
-        is_valid = self.engine.is_fen_valid(fen)
-
-        if is_valid:
-            return True
-        else:
-            return False
+    def __init__(self) -> None:
+        self.board = chess.Board()
 
     def validate(self, move: str):
-        """
-        Validates the move. Pushes move into boardstate
-
-        Args:
-            move (str): Move of a player.
-
-        Returns:
-            bool: True if game continues, False if given move is invalid.
-        """
-
-        is_valid = self.check_move_is_valid(move)
-
-        if not is_valid:
+        if not self.is_valid_uci_move(move):
             return GameState.INVALID
-        if self.is_stalemate():
-            return GameState.DRAW
-        if self.is_insufficient_material():
-            return GameState.DRAW
-        if self.is_checkmate():
+
+        legal_moves = [move.uci() for move in list(self.board.legal_moves)]
+
+        if move not in legal_moves:
+            return GameState.ILLEGAL
+
+        self.add_move(move)
+
+        if self.board.is_checkmate():
             return GameState.WIN
+        if self.board.is_stalemate():
+            return GameState.DRAW
+        if self.board.is_insufficient_material():
+            return GameState.DRAW
+        if self.board.is_fivefold_repetition():
+            return GameState.DRAW
 
         return GameState.CONTINUE
 
-    def add_move(self, move: str) -> None:
-        """
-        Adds move to the board.
+    def is_valid_uci_move(self, uci_move):
+        pattern = re.compile(r"^[a-h][1-8][a-h][1-8][qrbn]?$")
+        return bool(pattern.match(uci_move))
 
-        Args:
-            move (str): Move to add.
-        """
-        self.boardstate.append(move)
-        self.engine.set_position(self.boardstate)
+    def add_move(self, move):
+        self.board.push_uci(move)
 
-    def get_board(self) -> list[str]:
-        """
-        Return current board.
+    def get_board_visual(self):
+        return str(self.board)
 
-        Returns:
-            list[str]: Board as list of moves.
-        """
-
-        return self.boardstate
-
-    def get_visual_board(self) -> str:
-        """
-        Returns current board as string.
-
-        Returns:
-            str: Board as string.
-        """
-
-        return self.engine.get_board_visual()
+    def get_moves_as_uci(self):
+        return [move.uci() for move in self.board.move_stack]

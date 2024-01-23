@@ -1,11 +1,11 @@
 from typing import Any
 
 from config import TEMP_DIR
-from services.games.chess import Chess
+from services.games.chess_game import ChessGame
 
 
 class Api:
-    def start(self, file: str) -> dict[str, Any]:
+    def start(self, file: str, socketio) -> dict[str, Any]:
         """
         Starts new chess game with the input AI.
 
@@ -18,7 +18,7 @@ class Api:
 
         self.save(file)
 
-        game = Chess()
+        game = ChessGame(socketio)
         result = game.play()
 
         return result

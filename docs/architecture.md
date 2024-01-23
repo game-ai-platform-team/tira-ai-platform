@@ -8,32 +8,25 @@
 graph LR
     client -- Zip File --> frontend
 
-    frontend -- Zip File + game type --> app
+    frontend -- Zip File --> app
 
-    frontend -. 1) Periodic data request .-> app
-    app -. 2) Periodic data request .-> game
-    game -. 3) Periodic data .-> app
-    app -. 4) Periodic data .-> frontend
-    app -- Zip File + game type --> game
-    game -- play(move) --> player1
-    player1 -- move --> game
-    game -- play(move) --> player2
-    player2 -- move --> game
-    game -- validate move --> game
+    game -. Periodic move data \n after validation .-> app
+    app -. Periodic HTTP packet \n containing move data .-> frontend
+    app -- Zip File  --> game
+    game <-- move --> player1
+    game <-- move --> player2
+    game <-- validate move --> validator
+    game -- game state --> app
+    game -- save file --> game
+    app -- HTTP 200 finishing packet --> frontend
 
     subgraph appContainer
     app
     end
-
     subgraph gameContainer
     game
-    end
-
-    subgraph player1Container
     player1
-    end
-
-    subgraph player2Container
+    validator
     player2
     end
 
@@ -44,7 +37,10 @@ graph LR
 
     style Clientside fill:#FFC0CB,stroke:#333,stroke-width:2px
 ```
-
+- Periodic data is sent every time a move is validated. This is described by the dotted arrow.
+- The cycle described by the line arrow only occurs once. 
+- Game container is separate from app because we're running a foreign script in it. 
+- Factory class is responsible for instantiating correct player1, player2, validator 
 ## Initial architecture draft
 ```mermaid
 sequenceDiagram
