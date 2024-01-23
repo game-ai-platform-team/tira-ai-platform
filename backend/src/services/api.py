@@ -5,7 +5,7 @@ from services.games.chess_game import ChessGame
 
 
 class Api:
-    def start(self, file: str) -> dict[str, Any]:
+    def start(self, file: str, socketio) -> dict[str, Any]:
         """
         Starts new chess game with the input AI.
 
@@ -18,7 +18,7 @@ class Api:
 
         self.save(file)
 
-        game = ChessGame()
+        game = ChessGame(socketio)
         result = game.play()
 
         return result
