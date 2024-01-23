@@ -36,7 +36,7 @@ class ChessJudger:
         return bool(pattern.match(uci_move))
 
     def add_move(self, move):
-        self.board.push(chess.Move.from_uci(move))
+        self.board.push_uci(move)
 
     def get_board_visual(self):
         return str(self.board)
