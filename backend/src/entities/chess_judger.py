@@ -1,5 +1,6 @@
-import chess
 import re
+
+import chess
 
 from game_state import GameState
 
