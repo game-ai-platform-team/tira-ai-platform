@@ -1,3 +1,5 @@
+from services.games.chess import Chess
+
 class GameFactory:
     @staticmethod
     def get_game(game_type: str):
@@ -13,4 +15,4 @@ class GameFactory:
 
         game_class = {"chess": Chess, "othello": None}
 
-        return game_class()
+        return game_class[game_type]
