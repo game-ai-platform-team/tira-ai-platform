@@ -59,7 +59,7 @@ class ChessGame:
 
         result = {
             "winner": winner,
-            "moves": self.boardstate,
+            "moves": self.judger.get_moves_as_uci(),
         }
 
         return result
