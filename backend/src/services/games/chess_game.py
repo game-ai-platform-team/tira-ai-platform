@@ -128,7 +128,7 @@ class ChessGame:
         end_time = time.perf_counter() - start_time
         state = self.judger.validate(move)
 
-        self.socketio.emit("newmove", {"move": white_move}, namespace="/movereceiver")
+        self.socketio.emit("newmove", {"move": move}, namespace="/movereceiver")
 
         return state, move, end_time
 
