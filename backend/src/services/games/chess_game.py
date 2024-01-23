@@ -11,6 +11,7 @@ from game_state import GameState
 class ChessGame:
     def __init__(
         self,
+        socketio, 
         player1_file: Path = DEFAULT_CHESS_AI_PATH,
         player2_file: Path = DEFAULT_CHESS_AI_PATH,
     ) -> None:
@@ -25,6 +26,8 @@ class ChessGame:
                 Path to player2 AI file.
                 Defaults to DEFAULT_CHESS_AI_PATH.
         """
+
+        self.socketio = socketio
 
         self.judger = ChessJudger()
 
@@ -74,6 +77,7 @@ class ChessGame:
         white_state, white_move, white_time = self._play_one_move(
             self.player1, last_move
         )
+
         time.sleep(delay)
 
         if debug:
@@ -123,6 +127,8 @@ class ChessGame:
         move = player.play(prev_move)
         end_time = time.perf_counter() - start_time
         state = self.judger.validate(move)
+
+        self.socketio.emit('newmove', {'move': white_move}, namespace='/movereceiver')
 
         return state, move, end_time
 
