@@ -61,7 +61,7 @@ class ChessGame:
         result = {
             "moves": self.judger.get_moves_as_uci(),
             "player": self.last_player,
-            "game_state": winner,
+            "game_state": state,
         }
 
         self.player1.terminate_self()
