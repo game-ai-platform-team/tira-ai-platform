@@ -9,7 +9,7 @@ function App() {
             <>
                 <CodeView></CodeView>
             </>
-            <JustInTimeMoveList/>
+            <JustInTimeMoveList />
         </div>
     );
 }
