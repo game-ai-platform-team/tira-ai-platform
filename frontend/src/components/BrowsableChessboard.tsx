@@ -42,25 +42,17 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
     };
 
     return (
-        <div id="Browsable-Chessboard">
+        <div id="BrowsableChessboard">
+            <div id="chessboard-header">Player1 vs Player2</div>
             <Chessboard position={positions[moveNumber]}></Chessboard>
-            <div
-                style={{
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    display: "flex",
-                }}
-            >
+            <div>
                 <button
                     onClick={decreaseMoveNumber}
-                    id={"previousChessboardButton"}
+                    id="previousChessboardButton"
                 >
                     {"<"}
                 </button>
-                <button
-                    onClick={increaseMoveNumber}
-                    id={"nextChessboardButton"}
-                >
+                <button onClick={increaseMoveNumber} id="nextChessboardButton">
                     {">"}
                 </button>
             </div>
