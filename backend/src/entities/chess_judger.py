@@ -1,4 +1,5 @@
 import chess
+import re
 
 from game_state import GameState
 
@@ -14,21 +15,14 @@ class ChessJudger:
         pass
 
     def validate(self, move: str, boardstate):
-        """
-        Validates the move. Pushes move into boardstate
-
-        Args:
-            move (str): Move of a player.
-
-        Returns:
-            bool: True if game continues, False if given move is invalid.
-        """
+        if not self.is_valid_uci_move(move):
+            return GameState.INVALID
 
         board = chess.Board(boardstate)
         moves = [move.uci() for move in list(board.legal_moves)]
 
         if move not in moves:
-            return GameState.INVALID
+            return GameState.ILLEGAL
         if board.is_stalemate():
             return GameState.DRAW
         if board.is_insufficient_material():
@@ -37,3 +31,7 @@ class ChessJudger:
             return GameState.WIN
 
         return GameState.CONTINUE
+
+    def is_valid_uci_move(self, uci_move):
+        pattern = re.compile(r"^[a-h][1-8][a-h][1-8][qrbn]?$")
+        return bool(pattern.match(uci_move))
