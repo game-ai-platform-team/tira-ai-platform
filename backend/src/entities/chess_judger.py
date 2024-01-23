@@ -1,4 +1,3 @@
-import services.games.chess
 from game_state import GameState
 
 
