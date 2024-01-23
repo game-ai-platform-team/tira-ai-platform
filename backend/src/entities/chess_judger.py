@@ -1,4 +1,5 @@
 import chess
+
 from game_state import GameState
 from utils.engine_wrapper import EngineWrapper
 
