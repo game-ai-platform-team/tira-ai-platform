@@ -1,7 +1,8 @@
 import SubmitForm from "./SubmitForm.tsx";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { ChessGameResult } from "../types.ts";
 import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
+import JustInTimeMoveList from "./JustInTimeMoveList.tsx";
 
 interface CodeViewProps {
     testResult?: ChessGameResult;
@@ -10,7 +11,11 @@ interface CodeViewProps {
 function CodeView(props: CodeViewProps) {
     const [result, setResult] = useState(props?.testResult);
 
-    const moves = result?.moves ? result.moves : [];
+    const [moves, setMoves] = useState<string[]>([]);
+    const handleNewMove = useCallback((newMove: string) => {
+        setMoves((prevMoves) => [...prevMoves, newMove]);
+    }, []);
+
     const winnerMessage = result?.winner ? (
         <p>winner: {result.winner}</p>
     ) : undefined;
@@ -19,12 +24,8 @@ function CodeView(props: CodeViewProps) {
         <>
             <SubmitForm setResult={setResult}></SubmitForm>
             {winnerMessage}
-            <ol id="move-list">
-                {moves.map((value, index) => (
-                    <li key={index}>{value}</li>
-                ))}
-            </ol>
             <BrowsableChessboard moves={moves} />
+            <JustInTimeMoveList moves={moves} onNewMove={handleNewMove} />
         </>
     );
 }

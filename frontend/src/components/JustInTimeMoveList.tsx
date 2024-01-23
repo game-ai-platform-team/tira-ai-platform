@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { io, Socket } from "socket.io-client";
 
 class MoveReceiver {
@@ -25,19 +25,21 @@ class MoveReceiver {
     }
 }
 
-const JustInTimeMoveList: React.FC = () => {
-    const [moves, setMoves] = useState<string[]>([]); // Store moves in an array
+interface JustInTimeMoveListProps {
+    moves: string[];
+    onNewMove: (newMove: string) => void;
+}
+
+const JustInTimeMoveList: React.FC<JustInTimeMoveListProps> = ({ moves, onNewMove }) => {
     let moveReceiver: MoveReceiver | null = null;
 
     useEffect(() => {
-        moveReceiver = new MoveReceiver((newMove) => {
-            setMoves((prevMoves) => [...prevMoves, newMove]); // Append the new move to the list of moves
-        });
+        moveReceiver = new MoveReceiver(onNewMove);
 
         return () => {
             moveReceiver?.disconnect();
         };
-    }, []);
+    }, [onNewMove]);
 
     return (
         <div>
@@ -50,5 +52,6 @@ const JustInTimeMoveList: React.FC = () => {
         </div>
     );
 };
+
 
 export default JustInTimeMoveList;

@@ -1,6 +1,5 @@
 import CodeView from "./components/CodeView.tsx";
 import NavigationBar from "./components/NavigationBar.tsx";
-import JustInTimeMoveList from "./components/JustInTimeMoveList.tsx";
 
 function App() {
     return (
@@ -9,7 +8,6 @@ function App() {
             <>
                 <CodeView></CodeView>
             </>
-            <JustInTimeMoveList />
         </div>
     );
 }
