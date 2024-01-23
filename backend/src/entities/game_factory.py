@@ -1,5 +1,4 @@
 class GameFactory:
-
     @staticmethod
     def get_game(game_type: str):
         """
