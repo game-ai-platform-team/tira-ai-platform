@@ -36,7 +36,6 @@ class ChessGame:
 
         self.turn_counter = 0
 
-
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
     ) -> dict[str, Any]:
@@ -72,7 +71,9 @@ class ChessGame:
         white_state, white_move, white_time = self._play_one_move(self.player1)
 
         if debug:
-            print(f"[{self.turn_counter}] {white_move} : {white_state.name} : {white_time:.3} s")
+            print(
+                f"[{self.turn_counter}] {white_move} : {white_state.name} : {white_time:.3} s"
+            )
             self._print_board()
 
         if white_state == GameState.WIN:
@@ -91,7 +92,9 @@ class ChessGame:
         black_state, black_move, black_time = self._play_one_move(self.player2)
 
         if debug:
-            print(f"[{self.turn_counter}] {black_move} : {black_state.name} : {black_time:.3} s")
+            print(
+                f"[{self.turn_counter}] {black_move} : {black_state.name} : {black_time:.3} s"
+            )
             self._print_board()
 
         if black_state == GameState.WIN:
@@ -108,7 +111,7 @@ class ChessGame:
             return "None"
 
         return ""
-    
+
     def _play_one_move(self, player):
         self.turn_counter += 1
         start_time = time.perf_counter()
@@ -118,9 +121,9 @@ class ChessGame:
 
         if state != GameState.INVALID:
             self._add_move(move)
-        
+
         return state, move, end_time
-    
+
     def _print_board(self) -> None:
         print(self._get_board_visual())
 
