@@ -7,5 +7,3 @@ To run the project, the easiest way is to have docker installed and running the 
 ```
 sudo bash builrun.sh
 ```
-
-an alternative is to run (in project root)
