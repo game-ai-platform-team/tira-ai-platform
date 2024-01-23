@@ -18,7 +18,7 @@ class ChessJudger:
 
         if move not in legal_moves:
             return GameState.ILLEGAL
-        
+
         board.push(chess.Move.from_uci(move))
 
         if board.is_checkmate():

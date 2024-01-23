@@ -142,6 +142,6 @@ class ChessGame:
 
     def _get_board_fen(self):
         return self.engine.get_fen_position()
-    
+
     def _print_debug_info(self, move, state, time):
         print(f"[{self.turn_counter}] {move} : {state.name} : {time:.3} s")
