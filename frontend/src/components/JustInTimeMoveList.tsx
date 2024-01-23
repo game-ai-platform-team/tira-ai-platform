@@ -25,12 +25,14 @@ class MoveReceiver {
     }
 }
 
-const DataReceiver: React.FC = () => {
-    const [move, setMove] = useState<string>("e2e4");
+const JustInTimeMoveList: React.FC = () => {
+    const [moves, setMoves] = useState<string[]>([]); // Store moves in an array
     let moveReceiver: MoveReceiver | null = null;
 
     useEffect(() => {
-        moveReceiver = new MoveReceiver(setMove);
+        moveReceiver = new MoveReceiver((newMove) => {
+            setMoves((prevMoves) => [...prevMoves, newMove]); // Append the new move to the list of moves
+        });
 
         return () => {
             moveReceiver?.disconnect();
@@ -39,9 +41,14 @@ const DataReceiver: React.FC = () => {
 
     return (
         <div>
-            <p>Received move: {move}</p>
+            <p>Received moves:</p>
+            <ul>
+                {moves.map((move, index) => (
+                    <li key={index}>{move}</li>
+                ))}
+            </ul>
         </div>
     );
 };
 
-export default DataReceiver;
+export default JustInTimeMoveList;
