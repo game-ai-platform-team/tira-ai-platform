@@ -1,6 +1,7 @@
 import { Position } from "kokopu";
 import { Chessboard } from "kokopu-react";
 import { useEffect, useState } from "react";
+import "./BrowsableChessboard.css";
 
 interface BrowsableChessboardProps {
     moves?: string[];
@@ -41,17 +42,19 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
     };
 
     return (
-        <div style={{ width: "min-content" }}>
+        <div id="BrowsableChessboard">
+            <div id="chessboard-header">Player1 vs Player2</div>
             <Chessboard position={positions[moveNumber]}></Chessboard>
-            <div
-                style={{
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    display: "flex",
-                }}
-            >
-                <button onClick={decreaseMoveNumber}>{"<"}</button>
-                <button onClick={increaseMoveNumber}>{">"}</button>
+            <div>
+                <button
+                    onClick={decreaseMoveNumber}
+                    id="previousChessboardButton"
+                >
+                    {"<"}
+                </button>
+                <button onClick={increaseMoveNumber} id="nextChessboardButton">
+                    {">"}
+                </button>
             </div>
         </div>
     );
