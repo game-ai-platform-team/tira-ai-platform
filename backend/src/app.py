@@ -1,17 +1,31 @@
+import random
+from time import sleep
+
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
+from flask_socketio import SocketIO, emit
 
 from services.api import api
 
 app = Flask("game-ai-testing-platform")
+app.config["SECRET_KEY"] = "secret!"
+socketio = SocketIO(app)
+socketio.init_app(app, cors_allowed_origins="*")
+
+
 CORS(app)
+
+
+@socketio.on("connect", namespace="/movereceiver")
+def test_connect():
+    pass
 
 
 @app.route("/api/chess/submit", methods=["POST"])
 def api_submit():
     code_file = request.data.decode("utf-8")
 
-    result = api.start(code_file)
+    result = api.start(code_file, socketio)
 
     return jsonify(result)
 
@@ -22,4 +36,4 @@ def default(path):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    socketio.run(app, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
