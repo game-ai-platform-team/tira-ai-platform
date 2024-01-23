@@ -115,7 +115,7 @@ class ChessGame:
 
         return ""
 
-    def _play_one_move(self, player : Player):
+    def _play_one_move(self, player: Player):
         self.turn_counter += 1
         start_time = time.perf_counter()
         # move = player.play() -- use this when player is fixed
@@ -127,6 +127,6 @@ class ChessGame:
 
     def _print_board(self) -> None:
         print("\n" + self.judger.get_board_visual() + "\n")
-    
+
     def _print_debug_info(self, move, state, time):
         print(f"[{self.turn_counter}] {move} : {state.name} : {time:.3} s")
