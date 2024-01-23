@@ -1,7 +1,7 @@
 from typing import Any
 
 from config import TEMP_DIR
-from services.games.chess import Chess
+from backend.src.services.games.chess_game import ChessGame
 
 
 class Api:
@@ -18,7 +18,7 @@ class Api:
 
         self.save(file)
 
-        game = Chess()
+        game = ChessGame()
         result = game.play()
 
         return result

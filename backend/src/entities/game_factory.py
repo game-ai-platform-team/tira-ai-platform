@@ -1,4 +1,4 @@
-from services.games.chess import Chess
+from services.games.chess_game import ChessGame
 
 
 class GameFactory:
@@ -14,6 +14,6 @@ class GameFactory:
             game instance of specified class
         """
 
-        game_class = {"chess": Chess, "othello": None}
+        game_class = {"chess": ChessGame, "othello": None}
 
         return game_class[game_type]
