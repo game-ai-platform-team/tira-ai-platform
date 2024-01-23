@@ -9,9 +9,9 @@
     left: 20px;
     right: 20px;
     z-index: 1000;
-  }
+}
 
-  .nav-button {
+.nav-button {
     background-color: #a0522d;
     color: white;
     padding: 20px;
@@ -26,12 +26,12 @@
     gap: 8px;
     font-size: 16px;
     transition: background-color 0.3s ease;
-  }
+}
 
-  .nav-button:hover {
+.nav-button:hover {
     background-color: #8b4513;
-  }
+}
 
-  body {
+body {
     margin-top: 100px;
-  }
+}
