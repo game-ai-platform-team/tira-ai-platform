@@ -1,4 +1,5 @@
 import unittest
+
 from entities.chess_judger import ChessJudger
 from game_state import GameState
 
