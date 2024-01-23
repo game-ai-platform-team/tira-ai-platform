@@ -8,4 +8,3 @@ class GameState(Enum):
     DRAW = 3
     INVALID = 4
     ILLEGAL = 5
-

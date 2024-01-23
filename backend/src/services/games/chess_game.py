@@ -105,13 +105,13 @@ class ChessGame:
 
     def _print_board(self) -> None:
         print(self._get_board_visual())
-    
+
     def _add_move(self, move):
         self.boardstate.append(move)
         self.engine.set_position(self.boardstate)
 
     def _get_board_visual(self):
         return self.engine.get_board_visual()
-    
+
     def _get_board_fen(self):
         return self.engine.get_fen_position()
