@@ -23,5 +23,5 @@ class Player:
 
         return out.decode("utf-8").replace("\n", "")
 
-    def terminate_process(self):
+    def terminate_self(self):
         self.__process.terminate()
