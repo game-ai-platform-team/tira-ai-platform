@@ -18,12 +18,17 @@ class ChessJudger:
 
         if move not in legal_moves:
             return GameState.ILLEGAL
+        
+        board.push(chess.Move.from_uci(move))
+
+        if board.is_checkmate():
+            return GameState.WIN
         if board.is_stalemate():
             return GameState.DRAW
         if board.is_insufficient_material():
             return GameState.DRAW
-        if board.is_checkmate():
-            return GameState.WIN
+        if board.is_fivefold_repetition():
+            return GameState.DRAW
 
         return GameState.CONTINUE
 
