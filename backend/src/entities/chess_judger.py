@@ -1,6 +1,7 @@
 import services.games.chess
 from game_state import GameState
 
+
 class ChessJudger:
     """
     Contains an internal represenation of the current game
@@ -12,7 +13,7 @@ class ChessJudger:
 
     def is_stalemate(self) -> bool:
         return False
-    
+
     def is_checkmate(self) -> bool:
         return False
 
@@ -31,7 +32,7 @@ class ChessJudger:
 
         if is_valid:
             return True
-        else: 
+        else:
             return False
 
     def validate(self, move: str):
