@@ -30,7 +30,7 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
 
     useEffect(() => {
         setMoveNumber(moves.length - 1);
-    }, [moves])
+    }, [moves]);
 
     const increaseMoveNumber = () => {
         setMoveNumber((prevState) => {
