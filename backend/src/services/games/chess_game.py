@@ -69,7 +69,9 @@ class ChessGame:
 
     def __play_one_turn(self, delay, debug) -> str:
         last_move = self._get_last_move()
-        white_state, white_move, white_time = self._play_one_move(self.player1, last_move)
+        white_state, white_move, white_time = self._play_one_move(
+            self.player1, last_move
+        )
         time.sleep(delay)
 
         if debug:
@@ -93,7 +95,9 @@ class ChessGame:
                 print("Draw")
             return "draw"
 
-        black_state, black_move, black_time = self._play_one_move(self.player2, white_move)
+        black_state, black_move, black_time = self._play_one_move(
+            self.player2, white_move
+        )
         time.sleep(delay)
 
         if debug:
@@ -133,7 +137,9 @@ class ChessGame:
 
     def _print_debug_info(self, move, state, time):
         ms_time = int(time * 1000)
-        print(f"[{self.turn_counter}] {move} : {state.name} : {str(ms_time).zfill(3)} ms")
+        print(
+            f"[{self.turn_counter}] {move} : {state.name} : {str(ms_time).zfill(3)} ms"
+        )
 
     def _get_last_move(self):
         try:
