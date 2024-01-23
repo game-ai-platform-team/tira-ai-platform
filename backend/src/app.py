@@ -1,5 +1,6 @@
 import random
 from time import sleep
+
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
@@ -7,16 +8,18 @@ from flask_socketio import SocketIO, emit
 from services.api import api
 
 app = Flask("game-ai-testing-platform")
-app.config['SECRET_KEY'] = 'secret!'
+app.config["SECRET_KEY"] = "secret!"
 socketio = SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
 
 CORS(app)
 
-@socketio.on('connect', namespace='/movereceiver')
+
+@socketio.on("connect", namespace="/movereceiver")
 def test_connect():
     pass
+
 
 @app.route("/api/chess/submit", methods=["POST"])
 def api_submit():
