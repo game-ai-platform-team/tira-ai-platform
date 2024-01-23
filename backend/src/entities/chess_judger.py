@@ -14,9 +14,9 @@ class ChessJudger:
             return GameState.INVALID
 
         board = chess.Board(boardstate)
-        moves = [move.uci() for move in list(board.legal_moves)]
+        legal_moves = [move.uci() for move in list(board.legal_moves)]
 
-        if move not in moves:
+        if move not in legal_moves:
             return GameState.ILLEGAL
         if board.is_stalemate():
             return GameState.DRAW
