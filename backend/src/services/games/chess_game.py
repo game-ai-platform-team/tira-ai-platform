@@ -55,7 +55,7 @@ class ChessGame:
         self.turn_counter = 0
 
         for _ in range(turns):
-            winner = self.__play_one_turn(debug)
+            winner = self.__play_one_turn(delay, debug)
 
             if winner:
                 break
@@ -67,48 +67,54 @@ class ChessGame:
 
         return result
 
-    def __play_one_turn(self, debug) -> str:
+    def __play_one_turn(self, delay, debug) -> str:
         white_state, white_move, white_time = self._play_one_move(self.player1)
+        time.sleep(delay)
 
         if debug:
-            print(
-                f"[{self.turn_counter}] {white_move} : {white_state.name} : {white_time:.3} s"
-            )
+            self._print_debug_info(white_move, white_state, white_time)
             self._print_board()
 
         if white_state == GameState.WIN:
-            print("White won")
-            return "player1"
+            if debug:
+                print("White won")
+            return "white"
         if white_state == GameState.ILLEGAL:
-            print(f"illegal white move: {black_move}")
-            return "None"
+            if debug:
+                print(f"illegal white move: {white_move}")
+            return "draw"
         if white_state == GameState.INVALID:
-            print(f"invalid white move: {white_move}")
-            return "None"
+            if debug:
+                print(f"invalid white move: {white_move}")
+            return "draw"
         if white_state == GameState.DRAW:
-            print("Draw")
-            return "None"
+            if debug:
+                print("Draw")
+            return "draw"
 
         black_state, black_move, black_time = self._play_one_move(self.player2)
+        time.sleep(delay)
 
         if debug:
-            print(
-                f"[{self.turn_counter}] {black_move} : {black_state.name} : {black_time:.3} s"
-            )
+            self._print_debug_info(black_move, black_state, black_time)
             self._print_board()
 
         if black_state == GameState.WIN:
-            print("Black won")
-            return "player2"
+            if debug:
+                print("Black won")
+            return "black"
         if black_state == GameState.ILLEGAL:
-            print(f"illegal black move: {black_move}")
-            return "None"
+            if debug:
+                print(f"illegal black move: {black_move}")
+            return "draw"
         if black_state == GameState.INVALID:
-            print(f"invalid black move: {black_move}")
-            return "None"
+            if debug:
+                print(f"invalid black move: {black_move}")
+            return "draw"
         if black_state == GameState.DRAW:
-            print("Draw")
-            return "None"
+            if debug:
+                print("Draw")
+            return "draw"
 
         return ""
 
@@ -136,3 +142,6 @@ class ChessGame:
 
     def _get_board_fen(self):
         return self.engine.get_fen_position()
+    
+    def _print_debug_info(self, move, state, time):
+        print(f"[{self.turn_counter}] {move} : {state.name} : {time:.3} s")
