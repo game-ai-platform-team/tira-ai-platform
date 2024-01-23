@@ -9,7 +9,7 @@ class Player:
             args=["python", str(self.__path)],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stderr=subprocess.PIPE,
         )
 
     def play(self, move) -> str:
@@ -22,6 +22,6 @@ class Player:
         out = self.__process.stdout.readline()
 
         return out.decode("utf-8").replace("\n", "")
-    
+
     def terminate_process(self):
         self.__process.terminate()
