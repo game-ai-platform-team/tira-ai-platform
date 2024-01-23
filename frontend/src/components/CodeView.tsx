@@ -24,11 +24,16 @@ function CodeView(props: CodeViewProps) {
         <>
             <SubmitForm setResult={setResult}></SubmitForm>
             {winnerMessage}
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div style={{ flexGrow: 0, marginRight: '20px' }}> 
-                    <JustInTimeMoveList moves={moves} onNewMove={handleNewMove} />
+            <div style={{ display: "flex", flexDirection: "row" }}>
+                <div style={{ flexGrow: 0, marginRight: "20px" }}>
+                    <JustInTimeMoveList
+                        moves={moves}
+                        onNewMove={handleNewMove}
+                    />
                 </div>
-                <div style={{ flexGrow: 1 }}> {}
+                <div style={{ flexGrow: 1 }}>
+                    {" "}
+                    {}
                     <BrowsableChessboard moves={moves} />
                 </div>
             </div>
