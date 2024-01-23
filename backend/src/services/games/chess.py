@@ -8,6 +8,7 @@ from entities.player import Player
 from game_state import GameState
 from stockfish_engine import get_stockfish_engine
 
+
 class Chess:
     def __init__(
         self,
@@ -86,7 +87,7 @@ class Chess:
         state = self.judger.validate(black_move)
         if state != GameState.INVALID:
             self.judger.add_move(black_move)
-        
+
         if state == GameState.WIN:
             print("Black won")
             return "player2"
