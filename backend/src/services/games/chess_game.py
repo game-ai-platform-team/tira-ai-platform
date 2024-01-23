@@ -6,7 +6,6 @@ from config import DEFAULT_CHESS_AI_PATH
 from entities.chess_judger import ChessJudger
 from entities.player import Player
 from game_state import GameState
-from stockfish_engine import get_stockfish_engine
 
 
 class ChessGame:
@@ -27,8 +26,6 @@ class ChessGame:
                 Defaults to DEFAULT_CHESS_AI_PATH.
         """
 
-        self.engine = get_stockfish_engine()
-        self.boardstate = []
         self.judger = ChessJudger()
 
         self.player1 = Player(player1_file)
@@ -118,30 +115,18 @@ class ChessGame:
 
         return ""
 
-    def _play_one_move(self, player):
+    def _play_one_move(self, player : Player):
         self.turn_counter += 1
         start_time = time.perf_counter()
-        move = player.play(self.boardstate)
+        # move = player.play() -- use this when player is fixed
+        move = player.play(self.judger.get_moves_as_uci())
         end_time = time.perf_counter() - start_time
-        state = self.judger.validate(move, self._get_board_fen())
-
-        if state != GameState.INVALID:
-            self._add_move(move)
+        state = self.judger.validate(move)
 
         return state, move, end_time
 
     def _print_board(self) -> None:
-        print(self._get_board_visual())
-
-    def _add_move(self, move):
-        self.boardstate.append(move)
-        self.engine.set_position(self.boardstate)
-
-    def _get_board_visual(self):
-        return self.engine.get_board_visual()
-
-    def _get_board_fen(self):
-        return self.engine.get_fen_position()
+        print("\n" + self.judger.get_board_visual() + "\n")
     
     def _print_debug_info(self, move, state, time):
         print(f"[{self.turn_counter}] {move} : {state.name} : {time:.3} s")
