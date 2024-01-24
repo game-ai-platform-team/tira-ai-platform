@@ -65,7 +65,6 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
                     id="file-input"
                     type="file"
                     onChange={handleFileChange}
-                    accept=".txt"
                 />
                 {file && <p>File Name: {file.name}</p>}
             </div>
