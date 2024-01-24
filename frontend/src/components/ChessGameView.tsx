@@ -28,8 +28,10 @@ function getNewGameConnection() {
 
 function ChessGameView(props: CodeViewProps) {
     const [moves, setMoves] = useState<string[]>(
-        props.testResult?.moves ? props.testResult.moves : [],
+        props.testResult?.moves ? props.testResult.moves : []
     );
+
+    const [hasGameStarted, setHasGameStarted] = useState(false);
 
     const handleNewMove = useCallback((newMove: string) => {
         setMoves((prevMoves) => [...prevMoves, newMove]);
@@ -60,7 +62,8 @@ function ChessGameView(props: CodeViewProps) {
 
     return (
         <>
-            <SubmitForm gameConnection={gameConnection}></SubmitForm>
+            <SubmitForm gameConnection={gameConnection} hasGameStarted={hasGameStarted}
+                        setHasGameStarted={setHasGameStarted}></SubmitForm>
             {winnerMessage}
             <div style={{ display: "flex", flexDirection: "row" }}>
                 <div style={{ flexGrow: 0, marginRight: "20px" }}>

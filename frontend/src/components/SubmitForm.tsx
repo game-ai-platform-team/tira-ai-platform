@@ -4,6 +4,8 @@ import { GameConnection } from "../services/GameConnection.ts";
 
 interface SubmitFormProps {
     gameConnection?: GameConnection;
+    hasGameStarted: boolean;
+    setHasGameStarted: (val: boolean) => void;
 }
 
 function SubmitForm(props: SubmitFormProps): JSX.Element {
@@ -36,8 +38,10 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
             file &&
             props.gameConnection &&
             props.gameConnection.isConnected()
+            && !props.hasGameStarted
         ) {
             props.gameConnection.postcode(await file.text());
+            props.setHasGameStarted(true);
         }
     };
 
