@@ -1,17 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
-import axios from "axios";
-import { ChessGameResult, parseChessGameResult } from "../types.ts";
 import "./SubmitForm.css";
+import { GameConnection } from "../services/GameConnection.ts";
 
 interface SubmitFormProps {
-    setResult: (result: ChessGameResult) => void;
+    gameConnection?: GameConnection;
 }
 
-/**
- * Component for submitting code files to the server.
- *
- * @returns {JSX.Element}
- */
 function SubmitForm(props: SubmitFormProps): JSX.Element {
     const [file, setFile] = useState<File | null>(null);
 
@@ -38,16 +32,12 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
 
     const onSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const baseURL = "http://localhost:5000";
-        if (file) {
-            const result = await axios.post(`${baseURL}/api/chess/submit`, {
-                content: await file.text(),
-            });
-
-            const gameResult = parseChessGameResult(result.data);
-            if (gameResult) {
-                props.setResult(gameResult);
-            }
+        if (
+            file &&
+            props.gameConnection &&
+            props.gameConnection.isConnected()
+        ) {
+            props.gameConnection.postcode(await file.text());
         }
     };
 
