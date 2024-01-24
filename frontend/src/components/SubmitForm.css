@@ -14,6 +14,7 @@
     height: 200px;
     margin-left: 20px;
     font-size: 18px;
+    cursor: pointer;
 }
 
 #submit-button {
