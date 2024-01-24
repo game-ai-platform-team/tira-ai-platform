@@ -1,7 +1,7 @@
 import unittest
 
-from src.entities.game_factory import GameFactory
-from src.services.games.chess_game import ChessGame
+from entities.game_factory import GameFactory
+from services.games.chess_game import ChessGame
 
 
 class TestGameFactory(unittest.TestCase):

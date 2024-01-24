@@ -11,12 +11,12 @@ class TestChessJudger(unittest.TestCase):
 
     def test_game_state_should_be_continue_in_start(self):
         move = "e2e4"
-        game_state = self.judger.validate(move, self.board)
+        game_state = self.judger.validate(move)
         self.assertEqual(GameState.CONTINUE, game_state)
 
     def test_game_state_when_invalid_move(self):
         move = "e2ee"
-        game_state = self.judger.validate(move, self.board)
+        game_state = self.judger.validate(move)
         self.assertEqual(GameState.INVALID, game_state)
 
     def test_valid_uci_move(self):
