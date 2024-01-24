@@ -1,6 +1,7 @@
 import React, { ChangeEvent, JSX, useState } from "react";
 import axios from "axios";
 import { ChessGameResult, parseChessGameResult } from "../types.ts";
+import "./SubmitForm.css";
 
 interface SubmitFormProps {
     setResult: (result: ChessGameResult) => void;
