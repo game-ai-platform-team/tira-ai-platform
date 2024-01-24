@@ -47,7 +47,7 @@ const JustInTimeMoveList: React.FC<JustInTimeMoveListProps> = ({
     return (
         <div>
             <p>Received moves:</p>
-            <ul>
+            <ul id="move-list">
                 {moves.map((move, index) => (
                     <li key={index}>{move}</li>
                 ))}
