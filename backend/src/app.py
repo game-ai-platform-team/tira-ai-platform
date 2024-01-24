@@ -1,3 +1,4 @@
+import json
 import random
 from time import sleep
 
@@ -10,18 +11,23 @@ from services.api import api
 app = Flask("game-ai-testing-platform")
 app.config["SECRET_KEY"] = "secret!"
 socketio = SocketIO(app)
-socketio.init_app(app, cors_allowed_origins="*")
-
+socketio.init_app(app, cors_allowed_origins = "*")
 
 CORS(app)
 
 
-@socketio.on("connect", namespace="/movereceiver")
+@socketio.on("connect", namespace = "/gameconnection")
 def test_connect():
     pass
 
 
-@app.route("/api/chess/submit", methods=["POST"])
+@socketio.on("postcode", namespace = "/gameconnection")
+def io_post_code(data):
+    api.start(data["content"], socketio, request.sid)
+    pass
+
+
+@app.route("/api/chess/submit", methods = ["POST"])
 def api_submit():
     code_file = request.data.decode("utf-8")
 
@@ -36,4 +42,4 @@ def default(path):
 
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
+    socketio.run(app, host = "0.0.0.0", port = 5000, allow_unsafe_werkzeug = True)

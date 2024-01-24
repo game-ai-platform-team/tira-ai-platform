@@ -5,8 +5,9 @@ from game_state import GameState
 
 
 class Game:
-    def __init__(self, socketio, player1_file, player2_file):
+    def __init__(self, socketio, sid, player1_file, player2_file):
         self.socketio = socketio
+        self.sid = sid
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
 
@@ -26,7 +27,7 @@ class Game:
         return state, move, end_time
 
     def socket(self, move):
-        self.socketio.emit("newmove", {"move": move}, namespace="/movereceiver")
+        self.socketio.emit("newmove", {"move": move}, namespace = "/gameconnection", to = self.sid)
 
     def check_state(self, state, move):
         if state == GameState.ILLEGAL:
