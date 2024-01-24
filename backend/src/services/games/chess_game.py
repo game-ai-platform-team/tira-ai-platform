@@ -31,9 +31,6 @@ class ChessGame(Game):
 
         self.judger = ChessJudger()
 
-        # self.turn_counter = 0
-        # self.last_player = "none"
-
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
     ) -> dict[str, Any]:
@@ -124,8 +121,6 @@ class ChessGame(Game):
         move = player.play(prev_move)
         end_time = time.perf_counter() - start_time
         state = self.judger.validate(move)
-
-        self.socketio.emit("newmove", {"move": move}, namespace="/movereceiver")
 
         return state, move, end_time
 
