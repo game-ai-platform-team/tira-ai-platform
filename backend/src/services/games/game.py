@@ -27,7 +27,9 @@ class Game:
         return state, move, end_time
 
     def socket(self, move):
-        self.socketio.emit("newmove", {"move": move}, namespace = "/gameconnection", to = self.sid)
+        self.socketio.emit(
+            "newmove", {"move": move}, namespace="/gameconnection", to=self.sid
+        )
 
     def check_state(self, state, move):
         if state == GameState.ILLEGAL:

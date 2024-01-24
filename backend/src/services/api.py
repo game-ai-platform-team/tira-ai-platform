@@ -31,7 +31,7 @@ class Api:
             content (str): Content to save.
         """
 
-        with open(TEMP_DIR / "ai.py", mode = "w", encoding = "utf-8") as file:
+        with open(TEMP_DIR / "ai.py", mode="w", encoding="utf-8") as file:
             file.write(content)
 
 

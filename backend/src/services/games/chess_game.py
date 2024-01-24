@@ -11,12 +11,11 @@ from services.games.game import Game
 
 class ChessGame(Game):
     def __init__(
-            self,
-            socketio,
-            sid
-            ,
-            player1_file: Path = DEFAULT_CHESS_AI_PATH,
-            player2_file: Path = DEFAULT_CHESS_AI_PATH,
+        self,
+        socketio,
+        sid,
+        player1_file: Path = DEFAULT_CHESS_AI_PATH,
+        player2_file: Path = DEFAULT_CHESS_AI_PATH,
     ) -> None:
         """
         Initializes a chess game.
@@ -34,7 +33,7 @@ class ChessGame(Game):
         self.judger = ChessJudger()
 
     def play(
-            self, turns: int = 100, delay: float = 0.01, debug: bool = False
+        self, turns: int = 100, delay: float = 0.01, debug: bool = False
     ) -> dict[str, Any]:
         """
         Starts a game and return result as dict.
