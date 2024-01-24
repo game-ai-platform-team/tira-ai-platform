@@ -57,7 +57,10 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
             onDragOver={handleDragOver}
             onDrop={handleDrop}
         >
-            <div id="drag-and-drop-area">
+            <div
+                id="drag-and-drop-area"
+                onClick={() => document.getElementById("file-input")?.click()}
+            >
                 <label htmlFor="file-input">
                     Drag & Drop or Click to Upload:
                 </label>
