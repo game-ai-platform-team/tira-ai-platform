@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./NavigationBar.css";
 
 const NavigationBar = () => {
-    const [selectedGame, setSelectedGame] = useState("Chess");
+    const [selectedGame, setSelectedGame] = useState<string>("Chess");
 
-    const handleGameChange = (game) => {
+    const handleGameChange = (game: string) => {
         setSelectedGame(game);
         // Placeholder - add what happens when the game is changed
     };
@@ -56,7 +56,7 @@ const NavigationBar = () => {
 };
 
 // Function to get the appropriate icon for each game
-const getGameIcon = (game) => {
+const getGameIcon = (game: string): string => {
     switch (game) {
         case "Chess":
             return "♟️";
