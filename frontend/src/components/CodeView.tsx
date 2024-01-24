@@ -11,7 +11,9 @@ interface CodeViewProps {
 function CodeView(props: CodeViewProps) {
     const [result, setResult] = useState(props?.testResult);
 
-    const [moves, setMoves] = useState<string[]>([]);
+    const [moves, setMoves] = useState<string[]>(
+        props.testResult?.moves ? props.testResult.moves : [],
+    );
     const handleNewMove = useCallback((newMove: string) => {
         setMoves((prevMoves) => [...prevMoves, newMove]);
     }, []);
