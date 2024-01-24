@@ -37,8 +37,8 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
         if (
             file &&
             props.gameConnection &&
-            props.gameConnection.isConnected()
-            && !props.hasGameStarted
+            props.gameConnection.isConnected() &&
+            !props.hasGameStarted
         ) {
             props.gameConnection.postcode(await file.text());
             props.setHasGameStarted(true);
