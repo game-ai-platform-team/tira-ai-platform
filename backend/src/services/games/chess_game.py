@@ -6,9 +6,10 @@ from config import DEFAULT_CHESS_AI_PATH
 from entities.chess_judger import ChessJudger
 from entities.player import Player
 from game_state import GameState
+from services.games.game import Game
 
 
-class ChessGame:
+class ChessGame(Game):
     def __init__(
         self,
         socketio,
@@ -26,16 +27,12 @@ class ChessGame:
                 Path to player2 AI file.
                 Defaults to DEFAULT_CHESS_AI_PATH.
         """
-
-        self.socketio = socketio
+        super().__init__(socketio, player1_file, player2_file)
 
         self.judger = ChessJudger()
 
-        self.player1 = Player(player1_file)
-        self.player2 = Player(player2_file)
-
-        self.turn_counter = 0
-        self.last_player = "none"
+        #self.turn_counter = 0
+        #self.last_player = "none"
 
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
@@ -74,7 +71,7 @@ class ChessGame:
 
     def __play_one_turn(self, delay, debug) -> str:
         last_move = self._get_last_move()
-        white_state, white_move, white_time = self._play_one_move(
+        white_state, white_move, white_time = self.play_one_move(
             self.player1, last_move
         )
 
@@ -97,7 +94,7 @@ class ChessGame:
         if white_state != GameState.CONTINUE:
             return white_state
 
-        black_state, black_move, black_time = self._play_one_move(
+        black_state, black_move, black_time = self.play_one_move(
             self.player2, white_move
         )
         time.sleep(delay)
