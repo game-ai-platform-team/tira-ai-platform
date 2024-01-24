@@ -31,8 +31,8 @@ class ChessGame(Game):
 
         self.judger = ChessJudger()
 
-        #self.turn_counter = 0
-        #self.last_player = "none"
+        # self.turn_counter = 0
+        # self.last_player = "none"
 
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
