@@ -102,8 +102,8 @@ GameFactory ..> SocketIOService
 Judge --> GameState
 
 class GameFactory {
-    initialize_chess_game(player1: Player, player2: Player, judge: Judge, socketio_service: SocketIOService) Game
-    initialize_othello_game(player1: Player, player2: Player, judge: Judge, socketio_service: SocketIOService) Game
+    initialize_chess_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
+    initialize_othello_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
 }
 
 class Game {
