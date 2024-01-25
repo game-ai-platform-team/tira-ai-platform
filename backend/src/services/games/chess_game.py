@@ -6,12 +6,14 @@ from entities.player import Player
 from game_state import GameState
 from services.games.game import Game
 from services.socket_io_service import SocketIOService
+from entities.judge import Judge
 
 
 class ChessGame(Game):
     def __init__(
         self,
         socketio_service: SocketIOService,
+        judge: Judge,
         player1: Player,
         player2: Player,
     ) -> None:
@@ -23,9 +25,7 @@ class ChessGame(Game):
             player1 (Player): Player representing player1 AI.
             player2 (Player): Player representing player2 AI.
         """
-        super().__init__(socketio_service, player1, player2)
-
-        self.judge = ChessJudge()
+        super().__init__(socketio_service, player1, player2, judge)
 
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False

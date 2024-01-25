@@ -3,15 +3,21 @@ import time
 from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
+from entities.judge import Judge
 
 
 class Game:
     def __init__(
-        self, socketio_service: SocketIOService, player1: Player, player2: Player
+        self,
+        socketio_service: SocketIOService,
+        player1: Player,
+        player2: Player,
+        judge: Judge,
     ):
         self.socketio_service: SocketIOService = socketio_service
         self.player1 = player1
         self.player2 = player2
+        self.judge: Judge = judge
 
         self.turn_counter = 0
         self.last_player = None
@@ -19,7 +25,7 @@ class Game:
     def play(self):
         pass
 
-    def play_one_move(self, player: Player, prev_move):
+    def play_one_move(self, player: Player, prev_move: str):
         start_time = time.perf_counter()
         move = player.play(prev_move)
         end_time = time.perf_counter() - start_time
