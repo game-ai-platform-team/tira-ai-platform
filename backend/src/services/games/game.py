@@ -23,7 +23,7 @@ class Game:
         start_time = time.perf_counter()
         move = player.play(prev_move)
         end_time = time.perf_counter() - start_time
-        state = self.judger.validate(move)
+        state = self.judge.validate(move)
         self.check_state(state, move)
 
         return state, move, end_time

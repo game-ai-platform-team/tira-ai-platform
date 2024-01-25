@@ -5,7 +5,7 @@ import chess
 from game_state import GameState
 
 
-class ChessJudger:
+class ChessJudge:
     def __init__(self) -> None:
         self.board = chess.Board()
 
