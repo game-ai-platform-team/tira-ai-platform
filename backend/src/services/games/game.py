@@ -24,6 +24,14 @@ class Game:
     def play(self):
         pass
 
+    def _cleanup(self) -> None:
+        """
+        Terminates all subprocesses.
+        """
+
+        for player in self.players:
+            player.terminate_self()
+
     def play_one_move(self, player: Player, prev_move: str):
         start_time = time.perf_counter()
         move = player.play(prev_move)
