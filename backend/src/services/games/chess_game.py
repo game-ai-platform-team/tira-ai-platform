@@ -101,15 +101,6 @@ class ChessGame(Game):
 
         return GameState.CONTINUE
 
-    def _play_one_move(self, player: Player, prev_move):
-        self.turn_counter += 1
-        start_time = time.perf_counter()
-        move = player.play(prev_move)
-        end_time = time.perf_counter() - start_time
-        state = self.judge.validate(move)
-
-        return state, move, end_time
-
     def _print_board(self) -> None:
         print("\n" + self.judge.get_debug_info() + "\n")
 
