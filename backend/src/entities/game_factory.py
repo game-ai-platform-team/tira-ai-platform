@@ -1,7 +1,8 @@
+from pathlib import Path
+
 from services.games.chess_game import ChessGame
 from services.games.game import Game
 from services.socket_io_service import SocketIOService
-from pathlib import Path
 
 
 class GameFactory:
