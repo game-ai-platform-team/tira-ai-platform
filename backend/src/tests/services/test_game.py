@@ -25,3 +25,21 @@ class TestGame(TestCase):
         self.assertIn("move", move)
         self.assertIn("state", move)
         self.assertIn("time", move)
+
+    def test_play_one_move_returns_dict_with_valid_values(self):
+        player1 = Mock(wraps=Player)
+        player2 = Mock(wraps=Player)
+        judge = Mock(wraps=Judge)
+        socketio = Mock()
+
+        judge.validate.return_value = GameState.WIN
+        player1.play.return_value = "1"
+        player2.play.return_value = "2"
+
+        game = Game(socketio, player1, player2, judge)
+
+        move = game.play_one_move(player1, "a move")
+
+        self.assertIsInstance(move["move"], str)
+        self.assertIn(move["state"], GameState)
+        self.assertIsInstance(move["time"], int)

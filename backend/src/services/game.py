@@ -79,7 +79,7 @@ class Game:
 
         self.check_state(state, move)
 
-        return {"move": move, "time": end_time, "state": GameState}
+        return {"move": move, "time": end_time, "state": state}
 
     def check_state(self, state: GameState, move: str) -> None:
         if state in (GameState.ILLEGAL, GameState.INVALID):
