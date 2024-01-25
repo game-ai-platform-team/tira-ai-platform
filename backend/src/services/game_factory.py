@@ -5,6 +5,7 @@ from entities.player import Player
 from services.games.chess_game import ChessGame
 from services.games.game import Game
 from services.socket_io_service import SocketIOService
+from entities.chess_judge import ChessJudge
 
 
 class GameFactory:
@@ -32,6 +33,7 @@ class GameFactory:
     ) -> Game:
         return ChessGame(
             socketio_service,
+            ChessJudge(),
             Player(player1_file),
             Player(player2_file),
         )
