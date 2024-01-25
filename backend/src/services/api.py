@@ -1,7 +1,8 @@
 from typing import Any
 
-from config import TEMP_DIR
 from flask_socketio import SocketIO
+
+from config import TEMP_DIR
 from services.game_factory import GameFactory
 from services.socket_io_service import SocketIOService
 
