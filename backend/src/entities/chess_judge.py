@@ -43,5 +43,12 @@ class ChessJudge(Judge):
     def get_debug_info(self):
         return str(self.board)
 
-    def get_moves_as_uci(self):
+    def get_all_moves(self) -> list[str]:
+        """
+        Returns all moves in UCI format.
+
+        Returns:
+            list[str]: List of moves.
+        """
+
         return [move.uci() for move in self.board.move_stack]
