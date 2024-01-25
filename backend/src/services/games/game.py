@@ -6,10 +6,12 @@ from services.socket_io_service import SocketIOService
 
 
 class Game:
-    def __init__(self, socketio_service: SocketIOService, player1_file, player2_file):
+    def __init__(
+        self, socketio_service: SocketIOService, player1: Player, player2: Player
+    ):
         self.socketio_service: SocketIOService = socketio_service
-        self.player1 = Player(player1_file)
-        self.player2 = Player(player2_file)
+        self.player1 = player1
+        self.player2 = player2
 
         self.turn_counter = 0
         self.last_player = None
