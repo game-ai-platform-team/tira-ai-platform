@@ -1,7 +1,7 @@
 from typing import Any
 
 from config import TEMP_DIR
-from services.games.chess_game import ChessGame
+from entities.game_factory import GameFactory
 from services.socket_io_service import SocketIOService
 
 
@@ -20,7 +20,7 @@ class Api:
         self.save(file)
 
         socketio_service = SocketIOService(socketio, sid)
-        game = ChessGame(socketio_service)
+        game = GameFactory.get_chess_game(socketio_service)
         result = game.play()
 
         return result
