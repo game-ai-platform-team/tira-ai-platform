@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 
 from config import DEFAULT_CHESS_AI_PATH
-from entities.chess_judger import ChessJudger
+from entities.chess_judge import ChessJudge
 from entities.player import Player
 from game_state import GameState
 from services.games.game import Game
@@ -27,7 +27,7 @@ class ChessGame(Game):
         """
         super().__init__(socketio_service, player1, player2)
 
-        self.judger = ChessJudger()
+        self.judge = ChessJudge()
 
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
@@ -54,7 +54,7 @@ class ChessGame(Game):
                 break
 
         result = {
-            "moves": self.judger.get_moves_as_uci(),
+            "moves": self.judge.get_moves_as_uci(),
             "player": self.last_player,
             "game_state": state.name,
         }
@@ -118,12 +118,12 @@ class ChessGame(Game):
         start_time = time.perf_counter()
         move = player.play(prev_move)
         end_time = time.perf_counter() - start_time
-        state = self.judger.validate(move)
+        state = self.judge.validate(move)
 
         return state, move, end_time
 
     def _print_board(self) -> None:
-        print("\n" + self.judger.get_board_visual() + "\n")
+        print("\n" + self.judge.get_board_visual() + "\n")
 
     def _print_debug_info(self, move, state, time):
         ms_time = int(time * 1000)
@@ -133,7 +133,7 @@ class ChessGame(Game):
 
     def _get_last_move(self):
         try:
-            move = self.judger.get_moves_as_uci()[-1]
+            move = self.judge.get_moves_as_uci()[-1]
         except:
             move = ""
 

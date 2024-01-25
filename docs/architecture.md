@@ -58,14 +58,14 @@ Api ->> Chess: start()
 Chess ->> player1: play("")
 player1 -->> Chess: move1
 
-Chess ->> judger: validate(move1)
-judger -->> Chess: True
+Chess ->> judge: validate(move1)
+judge -->> Chess: True
 
 Chess ->> player2: play(move1)
 player2 -->> Chess: move2
 
-Chess ->> judger: validate(move2)
-judger -->> Chess: False
+Chess ->> judge: validate(move2)
+judge -->> Chess: False
 Note over Chess: The game ends, either invalid move or player2 lost
 
 Chess -->> Api: game result as dict
@@ -80,7 +80,7 @@ box Container
     participant Chess
     participant player1
     participant player2
-    participant judger
+    participant judge
 end
 ```
 
