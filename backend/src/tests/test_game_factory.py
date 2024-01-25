@@ -1,6 +1,6 @@
 import unittest
 
-from entities.game_factory import GameFactory
+from services.game_factory import GameFactory
 from services.games.chess_game import ChessGame
 
 
