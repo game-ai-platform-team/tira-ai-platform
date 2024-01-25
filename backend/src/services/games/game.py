@@ -41,9 +41,9 @@ class Game:
 
         return state, move, end_time
 
-    def check_state(self, state, move: str):
-        if state == GameState.ILLEGAL:
-            move = None
-        if state == GameState.INVALID:
-            move = None
+    def check_state(self, state: GameState, move: str) -> None:
+        if state in (GameState.ILLEGAL, GameState.INVALID):
+            self.socketio_service.send("")
+            return
+
         self.socketio_service.send(move)
