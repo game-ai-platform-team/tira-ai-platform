@@ -42,7 +42,10 @@ class Game:
         state = None
 
         for i in range(turns):
-            turn_result = self.play_one_move(self.players[i % 2], prev_move)
+            player = self.players[i % 2]
+
+            turn_result = self.play_one_move(player, prev_move)
+            self.last_player = player
 
             state = turn_result["state"]
 
