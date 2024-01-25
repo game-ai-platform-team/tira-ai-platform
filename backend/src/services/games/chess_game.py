@@ -123,7 +123,7 @@ class ChessGame(Game):
         return state, move, end_time
 
     def _print_board(self) -> None:
-        print("\n" + self.judge.get_board_visual() + "\n")
+        print("\n" + self.judge.get_debug_info() + "\n")
 
     def _print_debug_info(self, move, state, time):
         ms_time = int(time * 1000)
