@@ -4,7 +4,7 @@ from typing import Any
 from entities.chess_judge import ChessJudge
 from entities.player import Player
 from game_state import GameState
-from services.games.game import Game
+from services.game import Game
 from services.socket_io_service import SocketIOService
 from entities.judge import Judge
 
