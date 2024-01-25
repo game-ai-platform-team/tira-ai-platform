@@ -14,21 +14,18 @@ class ChessGame(Game):
     def __init__(
         self,
         socketio_service: SocketIOService,
-        player1_file: Path = DEFAULT_CHESS_AI_PATH,
-        player2_file: Path = DEFAULT_CHESS_AI_PATH,
+        player1: Player,
+        player2: Player,
     ) -> None:
         """
         Initializes a chess game.
 
         Args:
-            player1_file (Path, optional):
-                Path to player1 AI file.
-                Defaults to DEFAULT_CHESS_AI_PATH.
-            player2_file (Path, optional):
-                Path to player2 AI file.
-                Defaults to DEFAULT_CHESS_AI_PATH.
+            socketio_service (SocketIOService): Service for sending JIT game data.
+            player1 (Player): Player representing player1 AI.
+            player2 (Player): Player representing player2 AI.
         """
-        super().__init__(socketio_service, player1_file, player2_file)
+        super().__init__(socketio_service, player1, player2)
 
         self.judger = ChessJudger()
 
