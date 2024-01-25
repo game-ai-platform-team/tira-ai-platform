@@ -13,9 +13,9 @@ if __name__ == "__main__":
     engine = get_stockfish_engine()
 
     chess_game = GameFactory.get_chess_game(
-        Path(ROOTDIR / "src" / "ai.py"),
-        Path(ROOTDIR / "src" / "ai.py"),
         Mock(),
+        Path(ROOTDIR / "src" / "ai.py"),
+        Path(ROOTDIR / "src" / "ai.py"),
     )
 
     chess_game.play(1000, 0.1, debug=True)
