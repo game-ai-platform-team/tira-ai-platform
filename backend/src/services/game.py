@@ -47,6 +47,9 @@ class Game:
             turn_result = self.play_one_move(player, previous_move)
             self.last_player = player
 
+            if debug:
+                self._print_debug_info(turn_result)
+
             state = turn_result["state"]
 
             if state != GameState.CONTINUE:
