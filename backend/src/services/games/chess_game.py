@@ -21,8 +21,6 @@ class ChessGame(Game):
             dict[str, Any]: The game result containing winner, moves, etc.
         """
 
-        self.turn_counter = 0
-
         for _ in range(turns):
             state = self.__play_one_turn(delay, debug)
 
@@ -91,9 +89,6 @@ class ChessGame(Game):
             return black_state
 
         return GameState.CONTINUE
-
-    def _print_board(self) -> None:
-        print("\n" + self.judge.get_debug_info() + "\n")
 
     def _get_last_move(self):
         try:
