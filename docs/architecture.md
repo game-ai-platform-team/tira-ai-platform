@@ -90,32 +90,50 @@ end
 classDiagram
 
 App --> Api
-Api --> Chess
-Chess --> Player
-Chess --> ChessJudger
-SocketIOService <-- Chess
+Api ..> Game
+Api --> GameFactory
+Game --> Player
+Game --> Judge
+Game --> SocketIOService
+GameFactory --> Game
+GameFactory ..> Judge
+GameFactory ..> Player
+GameFactory ..> SocketIOService
+Judge --> GameState
+
+class GameFactory {
+    initialize_chess_game(player1: Player, player2: Player, judge: Judge, socketio_service: SocketIOService) Game
+}
+
+class Game {
+    play(turns: int, delay: float, debug: bool) dict
+    player1: Player
+    player2: Player
+    judge: Judge
+    socketio_service: SocketIOService
+}
 
 class SocketIOService {
     +send(move: str)
 }
 
-class Chess {
-    start(file: Path) dict
-    player1: Player
-    player2: Player
-    judger: ChessJudger
-    socketio_service: SocketIOService
-}
-
-class ChessJudger {
+class Judge {
     validate(move: str) bool
     add_move(move: str)
-    get_board() list[str]
-    get_visual_board() str
+    get_all_moves() list[str]
+    get_debug_info() str
 }
 
 class Player {
     +play(move) str
+}
+
+class GameState {
+    CONTINUE
+    WIN
+    DRAW
+    INVALID
+    ILLEGAL
 }
 
 class Api {
