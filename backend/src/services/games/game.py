@@ -13,7 +13,7 @@ class Game:
         player1: Player,
         player2: Player,
         judge: Judge,
-    ):
+    ) -> None:
         self.socketio_service: SocketIOService = socketio_service
         self.player1 = player1
         self.player2 = player2
