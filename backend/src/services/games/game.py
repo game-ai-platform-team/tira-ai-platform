@@ -4,6 +4,7 @@ from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
 from entities.judge import Judge
+from typing import Any
 
 
 class Game:
@@ -21,8 +22,38 @@ class Game:
         self.turn_counter = 0
         self.last_player = None
 
-    def play(self):
-        pass
+    def play(
+        self, turns: int = 100, delay: float = 0.01, debug: bool = False
+    ) -> dict[str, Any]:
+        """
+        Starts a game and return result as dict.
+
+        Args:
+            turns (int, optional): The maximum amount of turns to play. Defaults to 100.
+            delay (float, optional): The delay between turns. Defaults to 0.01.
+            debug(bool, optional): If True, prints debug info to console. Defaults to False.
+
+        Returns:
+            dict[str, Any]: The game result containing winner, moves, etc.
+        """
+
+        prev_move = ""
+
+        for i in range(turns):
+            state = self.play_one_move(self.players[i % 2], prev_move)
+
+            if state != GameState.CONTINUE:
+                break
+
+        result = {
+            "moves": self.judge.get_all_moves(),
+            "player": self.last_player,
+            "game_state": state.name,
+        }
+
+        self._cleanup()
+
+        return result
 
     def _cleanup(self) -> None:
         """
