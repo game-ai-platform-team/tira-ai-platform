@@ -1,8 +1,6 @@
 import time
-from pathlib import Path
 from typing import Any
 
-from config import DEFAULT_CHESS_AI_PATH
 from entities.chess_judge import ChessJudge
 from entities.player import Player
 from game_state import GameState
