@@ -10,7 +10,8 @@
         "preview": "vite preview",
         "test": "vitest",
         "format": "prettier --write .",
-        "cypress:open": "cypress open"
+        "cypress:open": "cypress open",
+        "test:e2e": "cypress run"
     },
     "dependencies": {
         "axios": "^1.6.5",

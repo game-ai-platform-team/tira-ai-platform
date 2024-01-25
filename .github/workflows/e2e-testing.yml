@@ -1,0 +1,22 @@
+name: End-to-end testing
+on:
+  schedule:
+    - cron: 0 */4 * * *
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./frontend
+
+jobs:
+  Unit_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up
+        uses: ./.github/workflows/setup-node
+
+      - name: Run E2E tests
+        run: npm run test:e2e
