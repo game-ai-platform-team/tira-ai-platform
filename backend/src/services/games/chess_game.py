@@ -7,13 +7,13 @@ from entities.chess_judger import ChessJudger
 from entities.player import Player
 from game_state import GameState
 from services.games.game import Game
+from services.socket_io_service import SocketIOService
 
 
 class ChessGame(Game):
     def __init__(
         self,
-        socketio,
-        sid,
+        socketio_service: SocketIOService,
         player1_file: Path = DEFAULT_CHESS_AI_PATH,
         player2_file: Path = DEFAULT_CHESS_AI_PATH,
     ) -> None:
@@ -28,7 +28,7 @@ class ChessGame(Game):
                 Path to player2 AI file.
                 Defaults to DEFAULT_CHESS_AI_PATH.
         """
-        super().__init__(socketio, sid, player1_file, player2_file)
+        super().__init__(socketio_service, player1_file, player2_file)
 
         self.judger = ChessJudger()
 

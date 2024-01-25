@@ -2,6 +2,7 @@ from typing import Any
 
 from config import TEMP_DIR
 from services.games.chess_game import ChessGame
+from services.socket_io_service import SocketIOService
 
 
 class Api:
@@ -18,7 +19,8 @@ class Api:
 
         self.save(file)
 
-        game = ChessGame(socketio, sid)
+        socketio_service = SocketIOService(socketio, sid)
+        game = ChessGame(socketio_service)
         result = game.play()
 
         return result

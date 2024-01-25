@@ -2,12 +2,12 @@ import time
 
 from entities.player import Player
 from game_state import GameState
+from services.socket_io_service import SocketIOService
 
 
 class Game:
-    def __init__(self, socketio, sid, player1_file, player2_file):
-        self.socketio = socketio
-        self.sid = sid
+    def __init__(self, socketio_service: SocketIOService, player1_file, player2_file):
+        self.socketio_service: SocketIOService = socketio_service
         self.player1 = Player(player1_file)
         self.player2 = Player(player2_file)
 
@@ -26,14 +26,9 @@ class Game:
 
         return state, move, end_time
 
-    def socket(self, move):
-        self.socketio.emit(
-            "newmove", {"move": move}, namespace="/gameconnection", to=self.sid
-        )
-
-    def check_state(self, state, move):
+    def check_state(self, state, move: str):
         if state == GameState.ILLEGAL:
             move = None
         if state == GameState.INVALID:
             move = None
-        self.socket(move)
+        self.socketio_service.send(move)
