@@ -63,14 +63,18 @@ class Game:
         for player in self.players:
             player.terminate_self()
 
-    def play_one_move(self, player: Player, prev_move: str):
+    def play_one_move(self, player: Player, prev_move: str) -> dict[str, Any]:
         start_time = time.perf_counter()
+
         move = player.play(prev_move)
-        end_time = time.perf_counter() - start_time
+
+        end_time = int((time.perf_counter() - start_time) * 1000)
+
         state = self.judge.validate(move)
+
         self.check_state(state, move)
 
-        return state, move, end_time
+        return {"move": move, "time": end_time, "state": GameState}
 
     def check_state(self, state: GameState, move: str) -> None:
         if state in (GameState.ILLEGAL, GameState.INVALID):
