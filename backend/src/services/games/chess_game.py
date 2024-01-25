@@ -30,7 +30,7 @@ class ChessGame(Game):
                 break
 
         result = {
-            "moves": self.judge.get_moves_as_uci(),
+            "moves": self.judge.get_all_moves(),
             "player": self.last_player,
             "game_state": state.name,
         }
@@ -105,7 +105,7 @@ class ChessGame(Game):
 
     def _get_last_move(self):
         try:
-            move = self.judge.get_moves_as_uci()[-1]
+            move = self.judge.get_all_moves()[-1]
         except:
             move = ""
 
