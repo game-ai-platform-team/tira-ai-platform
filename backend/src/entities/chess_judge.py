@@ -11,7 +11,7 @@ class ChessJudge(Judge):
         super().__init__()
         self.board = chess.Board()
 
-    def validate(self, move: str):
+    def validate(self, move: str) -> GameState:
         if not self.is_valid_uci_move(move):
             return GameState.INVALID
 
