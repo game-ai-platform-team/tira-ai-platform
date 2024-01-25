@@ -89,3 +89,13 @@ class Game:
             return
 
         self.socketio_service.send(move)
+
+    def _print_debug_info(self, move: dict[str, Any]) -> None:
+        info = "\n".join(
+            [
+                self.judge.get_debug_info(),
+                str(move),
+            ]
+        )
+
+        print(info)

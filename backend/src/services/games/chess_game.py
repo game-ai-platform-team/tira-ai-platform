@@ -43,16 +43,15 @@ class ChessGame(Game):
         last_move = self._get_last_move()
 
         white_result = self.play_one_move(self.players[0], last_move)
-        print(white_result)
+
         white_state = white_result["state"]
         white_move = white_result["move"]
-        white_time = white_result["time"]
 
         time.sleep(delay)
 
         if debug:
-            self._print_debug_info(white_move, white_state, white_time)
-            self._print_board()
+            self._print_debug_info(white_result)
+
             if white_state == GameState.WIN:
                 print("White won")
             if white_state == GameState.ILLEGAL:
@@ -68,18 +67,17 @@ class ChessGame(Game):
             return white_state
 
         black_result = self.play_one_move(self.players[1], white_move)
-        print(black_result)
+
         black_state = black_result["state"]
         black_move = black_result["move"]
-        black_time = black_result["time"]
 
         time.sleep(delay)
 
         self.last_player = "black"
 
         if debug:
-            self._print_debug_info(black_move, black_state, black_time)
-            self._print_board()
+            self._print_debug_info(black_result)
+
             if black_state == GameState.WIN:
                 print("Black won")
             if black_state == GameState.ILLEGAL:
@@ -96,12 +94,6 @@ class ChessGame(Game):
 
     def _print_board(self) -> None:
         print("\n" + self.judge.get_debug_info() + "\n")
-
-    def _print_debug_info(self, move, state, time):
-        ms_time = int(time * 1000)
-        print(
-            f"[{self.turn_counter}] {move} : {state.name} : {str(ms_time).zfill(3)} ms"
-        )
 
     def _get_last_move(self):
         try:
