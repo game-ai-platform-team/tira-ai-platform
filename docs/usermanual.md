@@ -5,5 +5,5 @@
 To run the project, the easiest way is to have docker installed and running the following in the main directory
 
 ```
-sudo bash builrun.sh
+sudo bash buildrun.sh
 ```
