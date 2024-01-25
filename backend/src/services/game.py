@@ -38,13 +38,13 @@ class Game:
 
         print(delay, debug)
 
-        prev_move = ""
+        previous_move = ""
         state = None
 
         for i in range(turns):
             player = self.players[i % 2]
 
-            turn_result = self.play_one_move(player, prev_move)
+            turn_result = self.play_one_move(player, previous_move)
             self.last_player = player
 
             state = turn_result["state"]
