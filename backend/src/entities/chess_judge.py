@@ -3,10 +3,12 @@ import re
 import chess
 
 from game_state import GameState
+from entities.judge import Judge
 
 
-class ChessJudge:
+class ChessJudge(Judge):
     def __init__(self) -> None:
+        super().__init__()
         self.board = chess.Board()
 
     def validate(self, move: str):
@@ -38,7 +40,7 @@ class ChessJudge:
     def add_move(self, move):
         self.board.push_uci(move)
 
-    def get_board_visual(self):
+    def get_debug_info(self):
         return str(self.board)
 
     def get_moves_as_uci(self):
