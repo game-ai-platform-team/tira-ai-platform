@@ -38,22 +38,25 @@ class Game:
         """
 
         prev_move = ""
+        state = None
 
         for i in range(turns):
-            state = self.play_one_move(self.players[i % 2], prev_move)
+            turn_result = self.play_one_move(self.players[i % 2], prev_move)
+
+            state = turn_result["state"]
 
             if state != GameState.CONTINUE:
                 break
 
-        result = {
+        turn_result = {
             "moves": self.judge.get_all_moves(),
             "player": self.last_player,
-            "game_state": state.name,
+            "game_state": state,
         }
 
         self._cleanup()
 
-        return result
+        return turn_result
 
     def _cleanup(self) -> None:
         """
