@@ -51,6 +51,7 @@ class Game:
                 self._print_debug_info(turn_result)
 
             state = turn_result["state"]
+            previous_move = turn_result["move"]
 
             if state != GameState.CONTINUE:
                 break
