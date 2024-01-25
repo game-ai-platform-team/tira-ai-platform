@@ -1,11 +1,6 @@
-import json
-import random
-from time import sleep
-
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-from flask_socketio import SocketIO, emit
-
+from flask_socketio import SocketIO
 from services.api import api
 
 app = Flask("game-ai-testing-platform")
@@ -24,7 +19,6 @@ def test_connect():
 @socketio.on("postcode", namespace="/gameconnection")
 def io_post_code(data):
     api.start(data["content"], socketio, request.sid)
-    pass
 
 
 @app.route("/api/chess/submit", methods=["POST"])

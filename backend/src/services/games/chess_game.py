@@ -1,12 +1,8 @@
 import time
 from typing import Any
 
-from entities.chess_judge import ChessJudge
-from entities.player import Player
 from game_state import GameState
 from services.game import Game
-from services.socket_io_service import SocketIOService
-from entities.judge import Judge
 
 
 class ChessGame(Game):
@@ -25,7 +21,6 @@ class ChessGame(Game):
             dict[str, Any]: The game result containing winner, moves, etc.
         """
 
-        winner = None
         self.turn_counter = 0
 
         for _ in range(turns):

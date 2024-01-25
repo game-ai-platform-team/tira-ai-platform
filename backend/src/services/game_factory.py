@@ -1,11 +1,11 @@
 from pathlib import Path
 
 from config import DEFAULT_CHESS_AI_PATH
-from entities.player import Player
-from services.games.chess_game import ChessGame
-from services.game import Game
-from services.socket_io_service import SocketIOService
 from entities.chess_judge import ChessJudge
+from entities.player import Player
+from services.game import Game
+from services.games.chess_game import ChessGame
+from services.socket_io_service import SocketIOService
 
 
 class GameFactory:
