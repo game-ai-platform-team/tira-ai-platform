@@ -50,7 +50,7 @@ class Game:
             if state != GameState.CONTINUE:
                 break
 
-        turn_result = {
+        result = {
             "moves": self.judge.get_all_moves(),
             "player": self.last_player,
             "game_state": state,
@@ -58,7 +58,7 @@ class Game:
 
         self._cleanup()
 
-        return turn_result
+        return result
 
     def _cleanup(self) -> None:
         """
