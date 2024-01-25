@@ -1,10 +1,10 @@
 import time
+from typing import Any
 
+from entities.judge import Judge
 from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
-from entities.judge import Judge
-from typing import Any
 
 
 class Game:
@@ -36,6 +36,8 @@ class Game:
         Returns:
             dict[str, Any]: The game result containing winner, moves, etc.
         """
+
+        print(delay, debug)
 
         prev_move = ""
         state = None
