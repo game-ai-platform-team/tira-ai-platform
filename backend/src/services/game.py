@@ -19,7 +19,6 @@ class Game:
         self.players: list[Player] = [player1, player2]
         self.judge: Judge = judge
 
-        self.turn_counter = 0
         self.last_player = None
 
     def play(
