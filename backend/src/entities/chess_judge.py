@@ -2,8 +2,8 @@ import re
 
 import chess
 
-from game_state import GameState
 from entities.judge import Judge
+from game_state import GameState
 
 
 class ChessJudge(Judge):
