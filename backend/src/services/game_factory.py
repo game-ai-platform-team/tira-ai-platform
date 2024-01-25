@@ -31,7 +31,7 @@ class GameFactory:
         player1_file: Path = DEFAULT_CHESS_AI_PATH,
         player2_file: Path = DEFAULT_CHESS_AI_PATH,
     ) -> Game:
-        return ChessGame(
+        return Game(
             socketio_service,
             Player(player1_file),
             Player(player2_file),
