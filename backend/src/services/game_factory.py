@@ -33,7 +33,7 @@ class GameFactory:
     ) -> Game:
         return ChessGame(
             socketio_service,
-            ChessJudge(),
             Player(player1_file),
             Player(player2_file),
+            ChessJudge(),
         )
