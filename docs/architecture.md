@@ -138,7 +138,7 @@ class GameState {
 }
 
 class Api {
-    start(file: JSON) dict
+    start(file: str) dict
 }
 
 class App {
