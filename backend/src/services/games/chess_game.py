@@ -40,17 +40,9 @@ class ChessGame(Game):
             "game_state": state.name,
         }
 
-        self.__cleanup()
+        self._cleanup()
 
         return result
-
-    def __cleanup(self) -> None:
-        """
-        Terminates all subprocesses.
-        """
-
-        for player in self.players:
-            player.terminate_self()
 
     def __play_one_turn(self, delay, debug) -> str:
         last_move = self._get_last_move()
