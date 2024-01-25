@@ -10,23 +10,6 @@ from entities.judge import Judge
 
 
 class ChessGame(Game):
-    def __init__(
-        self,
-        socketio_service: SocketIOService,
-        judge: Judge,
-        player1: Player,
-        player2: Player,
-    ) -> None:
-        """
-        Initializes a chess game.
-
-        Args:
-            socketio_service (SocketIOService): Service for sending JIT game data.
-            player1 (Player): Player representing player1 AI.
-            player2 (Player): Player representing player2 AI.
-        """
-        super().__init__(socketio_service, player1, player2, judge)
-
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
     ) -> dict[str, Any]:
