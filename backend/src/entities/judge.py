@@ -41,5 +41,11 @@ class Judge(ABC):
             str: Debug info.
         """
 
+    @abstractmethod
     def get_all_moves(self) -> list[str]:
-        return self.__moves
+        """
+        Returns all moves as string, formatted based on game.
+
+        Returns:
+            list[str]: List of moves.
+        """
