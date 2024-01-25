@@ -15,8 +15,7 @@ class Game:
         judge: Judge,
     ) -> None:
         self.socketio_service: SocketIOService = socketio_service
-        self.player1 = player1
-        self.player2 = player2
+        self.players: list[Player] = [player1, player2]
         self.judge: Judge = judge
 
         self.turn_counter = 0

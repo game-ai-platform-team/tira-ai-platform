@@ -40,15 +40,15 @@ class ChessGame(Game):
             "game_state": state.name,
         }
 
-        self.player1.terminate_self()
-        self.player2.terminate_self()
+        self.players[0].terminate_self()
+        self.players[1].terminate_self()
 
         return result
 
     def __play_one_turn(self, delay, debug) -> str:
         last_move = self._get_last_move()
         white_state, white_move, white_time = self.play_one_move(
-            self.player1, last_move
+            self.players[0], last_move
         )
 
         time.sleep(delay)
@@ -71,7 +71,7 @@ class ChessGame(Game):
             return white_state
 
         black_state, black_move, black_time = self.play_one_move(
-            self.player2, white_move
+            self.players[1], white_move
         )
         time.sleep(delay)
 
