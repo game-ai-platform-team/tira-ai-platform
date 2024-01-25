@@ -1,12 +1,13 @@
 from typing import Any
 
 from config import TEMP_DIR
+from flask_socketio import SocketIO
 from services.game_factory import GameFactory
 from services.socket_io_service import SocketIOService
 
 
 class Api:
-    def start(self, file: str, socketio, sid) -> dict[str, Any]:
+    def start(self, file: str, socketio: SocketIO, sid: str) -> dict[str, Any]:
         """
         Starts new chess game with the input AI.
 
