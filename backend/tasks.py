@@ -9,7 +9,7 @@ def format(ctx):
 
 @task
 def test(ctx):
-    ctx.run("poetry run coverage run --branch -m pytest src/tests")
+    ctx.run("poetry run pytest src/tests")
 
 
 @task
