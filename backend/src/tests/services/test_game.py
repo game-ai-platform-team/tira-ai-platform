@@ -1,8 +1,6 @@
 from unittest import TestCase
 from unittest.mock import Mock
 
-from entities.judge import Judge
-from entities.player import Player
 from game_state import GameState
 from services.game import Game
 
@@ -10,9 +8,9 @@ from services.game import Game
 class TestGame(TestCase):
     def setUp(self) -> None:
         self.io_mock = Mock()
-        self.player1_mock = Mock(wraps=Player)
-        self.player2_mock = Mock(wraps=Player)
-        self.judge_mock = Mock(wraps=Judge)
+        self.player1_mock = Mock()
+        self.player2_mock = Mock()
+        self.judge_mock = Mock()
         self.game = Game(
             self.io_mock, self.player1_mock, self.player2_mock, self.judge_mock
         )
