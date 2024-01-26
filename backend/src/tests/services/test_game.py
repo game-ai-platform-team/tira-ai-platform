@@ -14,10 +14,8 @@ class TestGame(TestCase):
         self.player2_mock = Mock(wraps=Player)
         self.judge_mock = Mock(wraps=Judge)
         self.game = Game(
-            self.io_mock,
-            self.player1_mock,
-            self.player2_mock,
-            self.judge_mock)
+            self.io_mock, self.player1_mock, self.player2_mock, self.judge_mock
+        )
 
     def test_play_one_move_returns_valid_dict(self):
         self.judge_mock.validate.return_value = GameState.WIN
