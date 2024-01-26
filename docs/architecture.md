@@ -48,30 +48,33 @@ graph LR
 ```mermaid
 sequenceDiagram
 
-Frontend ->> App: HTTP POST /api/chess/submit file
+Frontend ->> App: socketio /gameconnection postcode
 
 App ->> Api: start(file)
-Api ->> Chess: Chess(file)
-Chess -->> Api: chess object
-Api ->> Chess: start()
+Api ->> SocketIOService: create a new service
+Api ->> GameFactory: Create a chess game
+GameFactory ->> Chess: Create
+
+Api ->> Chess: Play
 
 Chess ->> player1: play("")
 player1 -->> Chess: move1
 
 Chess ->> judge: validate(move1)
 judge -->> Chess: True
+Chess ->> SocketIOService: send game state
+SocketIOService ->> Frontend: socketio /gameconnection newmove
 
 Chess ->> player2: play(move1)
 player2 -->> Chess: move2
 
 Chess ->> judge: validate(move2)
 judge -->> Chess: False
+
 Note over Chess: The game ends, either invalid move or player2 lost
+Chess ->> SocketIOService: send game state
+SocketIOService ->> Frontend: socketio /gameconnection newmove
 
-Chess -->> Api: game result as dict
-Api -->> App: game result as dict
-
-App -->> Frontend: HTTP Response game result as JSON
 
 box Container
     participant Frontend
