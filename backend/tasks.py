@@ -1,3 +1,4 @@
+import pty
 from invoke.tasks import task
 
 
@@ -9,7 +10,7 @@ def format(ctx):
 
 @task
 def test(ctx):
-    ctx.run("poetry run pytest src/tests")
+    ctx.run("poetry run pytest src/tests", pty=True)
 
 
 @task
