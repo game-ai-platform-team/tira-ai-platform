@@ -50,3 +50,58 @@ class TestGame(TestCase):
         self.game.send_state(state, move)
 
         self.io_mock.send.assert_called_with("")
+
+    def test_play_continue_continues_game(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2, 3]
+        self.judge_mock.validate.return_value = GameState.CONTINUE
+
+        self.game.play(6)
+
+        self.assertEqual(self.player1_mock.play.call_count, 3)
+        self.assertEqual(self.player2_mock.play.call_count, 3)
+        self.assertEqual(self.judge_mock.validate.call_count, 6)
+
+    def test_play_lose_ends_game(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2, 3]
+        self.judge_mock.validate.side_effect = [GameState.CONTINUE, GameState.LOSE]
+
+        self.game.play(6)
+
+        self.assertEqual(self.player1_mock.play.call_count, 1)
+        self.assertEqual(self.player2_mock.play.call_count, 1)
+        self.assertEqual(self.judge_mock.validate.call_count, 2)
+
+    def test_play_draw_ends_game(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2, 3]
+        self.judge_mock.validate.side_effect = [GameState.CONTINUE, GameState.DRAW]
+
+        self.game.play(6)
+
+        self.assertEqual(self.player1_mock.play.call_count, 1)
+        self.assertEqual(self.player2_mock.play.call_count, 1)
+        self.assertEqual(self.judge_mock.validate.call_count, 2)
+
+    def test_play_illegal_ends_game(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2, 3]
+        self.judge_mock.validate.side_effect = [GameState.CONTINUE, GameState.ILLEGAL]
+
+        self.game.play(6)
+
+        self.assertEqual(self.player1_mock.play.call_count, 1)
+        self.assertEqual(self.player2_mock.play.call_count, 1)
+        self.assertEqual(self.judge_mock.validate.call_count, 2)
+
+    def test_play_invalid_ends_game(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2, 3]
+        self.judge_mock.validate.side_effect = [GameState.CONTINUE, GameState.INVALID]
+
+        self.game.play(6)
+
+        self.assertEqual(self.player1_mock.play.call_count, 1)
+        self.assertEqual(self.player2_mock.play.call_count, 1)
+        self.assertEqual(self.judge_mock.validate.call_count, 2)
