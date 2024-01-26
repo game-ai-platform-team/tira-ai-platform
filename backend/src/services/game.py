@@ -15,11 +15,11 @@ class Game:
         player2: Player,
         judge: Judge,
     ) -> None:
-        self.socketio_service: SocketIOService = socketio_service
-        self.players: list[Player] = [player1, player2]
-        self.judge: Judge = judge
+        self.__socketio_service: SocketIOService = socketio_service
+        self.__players: list[Player] = [player1, player2]
+        self.__judge: Judge = judge
 
-        self.last_player = None
+        self.__previous_player = None
 
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
@@ -42,10 +42,10 @@ class Game:
         state = None
 
         for i in range(turns):
-            player = self.players[i % 2]
+            player = self.__players[i % 2]
 
             turn_result = self.play_one_move(player, previous_move)
-            self.last_player = player
+            self.__previous_player = player
 
             if debug:
                 self._print_debug_info(turn_result)
@@ -57,8 +57,8 @@ class Game:
                 break
 
         result = {
-            "moves": self.judge.get_all_moves(),
-            "player": self.last_player,
+            "moves": self.__judge.get_all_moves(),
+            "player": self.__previous_player,
             "game_state": state,
         }
 
@@ -71,7 +71,7 @@ class Game:
         Terminates all subprocesses.
         """
 
-        for player in self.players:
+        for player in self.__players:
             player.terminate_self()
 
     def play_one_move(self, player: Player, prev_move: str) -> dict[str, Any]:
@@ -81,7 +81,7 @@ class Game:
 
         end_time = int((time.perf_counter() - start_time) * 1000)
 
-        state = self.judge.validate(move)
+        state = self.__judge.validate(move)
 
         self.send_state(state, move, end_time)
 
@@ -89,15 +89,15 @@ class Game:
 
     def send_state(self, state: GameState, move: str, time: int) -> None:
         if state in (GameState.ILLEGAL, GameState.INVALID):
-            self.socketio_service.send("", state.name, time)
+            self.__socketio_service.send("", state.name, time)
             return
 
-        self.socketio_service.send(move, state.name, time)
+        self.__socketio_service.send(move, state.name, time)
 
     def _print_debug_info(self, move: dict[str, Any]) -> None:
         info = "\n".join(
             [
-                self.judge.get_debug_info(),
+                self.__judge.get_debug_info(),
                 str(move),
             ]
         )

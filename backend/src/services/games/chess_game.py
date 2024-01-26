@@ -28,7 +28,7 @@ class ChessGame(Game):
                 break
 
         result = {
-            "moves": self.judge.get_all_moves(),
+            "moves": self.__judge.get_all_moves(),
             "player": self.last_player,
             "game_state": state.name,
         }
@@ -40,7 +40,7 @@ class ChessGame(Game):
     def __play_one_turn(self, delay, debug) -> str:
         last_move = self._get_last_move()
 
-        white_result = self.play_one_move(self.players[0], last_move)
+        white_result = self.play_one_move(self.__players[0], last_move)
 
         white_state = white_result["state"]
         white_move = white_result["move"]
@@ -64,7 +64,7 @@ class ChessGame(Game):
         if white_state != GameState.CONTINUE:
             return white_state
 
-        black_result = self.play_one_move(self.players[1], white_move)
+        black_result = self.play_one_move(self.__players[1], white_move)
 
         black_state = black_result["state"]
         black_move = black_result["move"]
@@ -92,7 +92,7 @@ class ChessGame(Game):
 
     def _get_last_move(self):
         try:
-            move = self.judge.get_all_moves()[-1]
+            move = self.__judge.get_all_moves()[-1]
         except:
             move = ""
 
