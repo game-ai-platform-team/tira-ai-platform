@@ -107,9 +107,9 @@ class GameFactory {
 }
 
 class Game {
-    players: list[Player]
-    judge: Judge
-    socketio_service: SocketIOService
+    -players: list[Player]
+    -judge: Judge
+    -socketio_service: SocketIOService
 
     play(turns: int, delay: float, debug: bool) dict
 }
