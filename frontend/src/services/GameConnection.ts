@@ -19,10 +19,15 @@ export class GameConnection {
         return this.socket.connected;
     }
 
-    setHandleNewMove(handleNewMove: (move: string, state: string, time: number) => void) {
-        this.socket.on("newmove", (data: { move: string, state: string, time: number }) => {
-            handleNewMove(data.move, data.state, data.time );
-        });
+    setHandleNewMove(
+        handleNewMove: (move: string, state: string, time: number) => void,
+    ) {
+        this.socket.on(
+            "newmove",
+            (data: { move: string; state: string; time: number }) => {
+                handleNewMove(data.move, data.state, data.time);
+            },
+        );
     }
 
     postcode(file: string) {
