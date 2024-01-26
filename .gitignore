@@ -4,4 +4,5 @@ backend/.pytest_cache/
 backend/temp/**
 !backend/temp/.gitkeep
 **/*coverage*
+!.coveragerc
 .idea
