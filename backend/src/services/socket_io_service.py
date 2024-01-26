@@ -8,5 +8,8 @@ class SocketIOService:
 
     def send(self, move: str, state: str, time: int) -> None:
         self.socketio.emit(
-            "newmove", {"move": move, "state": state, "time": time}, namespace="/gameconnection", to=self.sid
+            "newmove",
+            {"move": move, "state": state, "time": time},
+            namespace="/gameconnection",
+            to=self.sid,
         )
