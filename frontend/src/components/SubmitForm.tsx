@@ -61,6 +61,7 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
                 <input
                     id="file-input"
                     type="file"
+                    accept=".py, application/x-python-code"
                     onChange={handleFileChange}
                 />
                 {file && <p>File Name: {file.name}</p>}
