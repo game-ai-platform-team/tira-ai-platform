@@ -19,9 +19,9 @@ export class GameConnection {
         return this.socket.connected;
     }
 
-    setHandleNewMove(handleNewMove: (move: string) => void) {
-        this.socket.on("newmove", (data: { move: string }) => {
-            handleNewMove(data.move);
+    setHandleNewMove(handleNewMove: (move: string, state: string, time: number) => void) {
+        this.socket.on("newmove", (data: { move: string, state: string, time: number }) => {
+            handleNewMove(data.move, data.state, data.time );
         });
     }
 

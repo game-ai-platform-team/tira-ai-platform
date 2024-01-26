@@ -83,16 +83,16 @@ class Game:
 
         state = self.judge.validate(move)
 
-        self.send_state(state, move)
+        self.send_state(state, move, end_time)
 
         return {"move": move, "time": end_time, "state": state}
 
-    def send_state(self, state: GameState, move: str) -> None:
+    def send_state(self, state: GameState, move: str, time: int) -> None:
         if state in (GameState.ILLEGAL, GameState.INVALID):
-            self.socketio_service.send("")
+            self.socketio_service.send("", state.name, time)
             return
 
-        self.socketio_service.send(move)
+        self.socketio_service.send(move, state.name, time)
 
     def _print_debug_info(self, move: dict[str, Any]) -> None:
         info = "\n".join(
