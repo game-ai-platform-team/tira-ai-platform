@@ -19,15 +19,17 @@ class TestGame(TestCase):
         state = GameState.CONTINUE
         move = "e2e4"
         time = 3
-        self.game._Game__send_state(state, move, time)
+        eval = 1
+        self.game._Game__send_state(state, move, time, eval)
 
-        self.io_mock.send.assert_called_with(move, "CONTINUE", time)
+        self.io_mock.send.assert_called_with(move, "CONTINUE", time, eval)
 
     def test_send_state_when_state_invalid(self):
         state = GameState.INVALID
         move = "move"
         time = 5
-        self.game._Game__send_state(state, move, time)
+        eval = 1
+        self.game._Game__send_state(state, move, time, eval)
 
         self.io_mock.send.assert_called_with("", "INVALID", time)
 

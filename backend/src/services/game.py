@@ -6,7 +6,6 @@ from entities.judge import Judge
 from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
-from stockfish_engine import get_stockfish_engine
 
 
 class Game:
@@ -22,7 +21,6 @@ class Game:
         self.__judge: Judge = judge
 
         self.__previous_player = None
-        self.__engine = get_stockfish_engine()
 
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
@@ -50,10 +48,7 @@ class Game:
             move, elapsed_time = self.__play_one_move(player, previous_move)
             state = self.__judge.validate(move)
             self.__judge.add_move(move)
-
-            self.__engine.set_fen_position(self.__judge.board.fen())
-            cp = self.__centipawn_eval()
-            eval = self.__white_win_probability(cp)
+            eval = self.__judge.analyze()
 
             self.__send_state(state, move, elapsed_time, eval)
 
@@ -67,7 +62,6 @@ class Game:
                         "state": state,
                         "time": elapsed_time,
                         "eval": eval,
-                        "cp": cp,
                     }
                 )
 
@@ -117,12 +111,3 @@ class Game:
         )
 
         print(info)
-
-    def __centipawn_eval(self):
-        score = self.__engine.get_evaluation()
-        if score["type"] == "cp":
-            return score["value"]
-        return 100 * (21 - min(10, score["value"]))
-
-    def __white_win_probability(self, cp):
-        return 1 / (1 + exp(-0.004 * cp)) * 2 - 1
