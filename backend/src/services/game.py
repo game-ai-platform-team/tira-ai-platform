@@ -6,6 +6,7 @@ from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
 
+
 class Game:
     def __init__(
         self,
