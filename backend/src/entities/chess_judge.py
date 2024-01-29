@@ -58,17 +58,27 @@ class ChessJudge(Judge):
         return [move.uci() for move in self.board.move_stack]
 
     def analyze(self):
-        self.__engine.set_fen_position(self.board.fen())
         cp = self.__centipawn_eval()
         evaluation = self.__white_win_probability(cp)
 
         return evaluation
 
     def __centipawn_eval(self):
+        self.__engine.set_fen_position(self.board.fen())
         score = self.__engine.get_evaluation()
-        if score["type"] == "cp":
+        if score["type"] == "cp" or score["value"] == 0:
             return score["value"]
-        return 100 * (21 - min(10, score["value"]))
+        mate_value = 100 * (21 - min(10, abs(score["value"])))
+        if score["value"] < 0:
+            return mate_value * -1
+        return mate_value
 
     def __white_win_probability(self, cp):
+        if cp == 0:
+            outcome = self.board.outcome()
+            if outcome is None or outcome.winner is None:
+                return 0
+
+            return 1 if outcome.winner else -1
+        
         return 1 / (1 + exp(-0.004 * cp)) * 2 - 1
