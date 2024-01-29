@@ -5,6 +5,8 @@ from entities.judge import Judge
 from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
+from stockfish_engine import get_stockfish_engine
+from math import exp
 
 
 class Game:
@@ -20,6 +22,7 @@ class Game:
         self.__judge: Judge = judge
 
         self.__previous_player = None
+        self.__engine = get_stockfish_engine()
 
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
@@ -48,14 +51,18 @@ class Game:
             state = self.__judge.validate(move)
             self.__judge.add_move(move)
 
-            self.__send_state(state, move, elapsed_time)
+            self.__engine.set_fen_position(self.__judge.board.fen())
+            cp = self.__centipawn_eval()
+            eval = self.__white_win_probability(cp)
+
+            self.__send_state(state, move, elapsed_time, eval)
 
             self.__previous_player = player
             previous_move = move
 
             if debug:
                 self.__print_debug_info(
-                    {"move": move, "state": state, "time": elapsed_time}
+                    {"move": move, "state": state, "time": elapsed_time, "eval": eval, "cp": cp}
                 )
 
             if state != GameState.CONTINUE:
@@ -88,12 +95,12 @@ class Game:
 
         return (move, elapsed_time)
 
-    def __send_state(self, state: GameState, move: str, time: int) -> None:
+    def __send_state(self, state: GameState, move: str, time: int, eval: float) -> None:
         if state in (GameState.ILLEGAL, GameState.INVALID):
             self.__socketio_service.send("", state.name, time)
             return
 
-        self.__socketio_service.send(move, state.name, time)
+        self.__socketio_service.send(move, state.name, time, eval)
 
     def __print_debug_info(self, move: dict[str, Any]) -> None:
         info = "\n".join(
@@ -104,3 +111,12 @@ class Game:
         )
 
         print(info)
+
+    def __centipawn_eval(self):
+        score = self.__engine.get_evaluation()
+        if score["type"] == "cp":
+            return score["value"]
+        return 100*(21-min(10,score["value"]))
+    
+    def __white_win_probability(self, cp):
+        return 1/(1+exp(-0.004*cp))*2-1
