@@ -20,12 +20,27 @@ export class GameConnection {
     }
 
     setHandleNewMove(
-        handleNewMove: (move: string, state: string, time: number, evaluation: number) => void,
+        handleNewMove: (
+            move: string,
+            state: string,
+            time: number,
+            evaluation: number,
+        ) => void,
     ) {
         this.socket.on(
             "newmove",
-            (data: { move: string; state: string; time: number, evaluation: number }) => {
-                handleNewMove(data.move, data.state, data.time, data.evaluation);
+            (data: {
+                move: string;
+                state: string;
+                time: number;
+                evaluation: number;
+            }) => {
+                handleNewMove(
+                    data.move,
+                    data.state,
+                    data.time,
+                    data.evaluation,
+                );
             },
         );
     }

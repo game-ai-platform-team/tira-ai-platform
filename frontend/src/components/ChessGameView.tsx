@@ -86,7 +86,7 @@ function ChessGameView(props: CodeViewProps) {
             </div>
             {winnerMessage}
             <div id="chessboard-container">
-                <EvaluationBar/>
+                <EvaluationBar />
                 <BrowsableChessboard moves={moves} />
             </div>
         </div>
