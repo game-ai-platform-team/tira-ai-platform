@@ -1,5 +1,6 @@
 from unittest import TestCase
 from unittest.mock import Mock, call
+from entities.move import Move
 
 from game_state import GameState
 from services.game import Game
@@ -16,22 +17,17 @@ class TestGame(TestCase):
         )
 
     def test_send_state_calls_socketio_service(self):
-        state = GameState.CONTINUE
-        move = "e2e4"
-        time = 3
-        eval = 1
-        self.game._Game__send_state(state, move, time, eval)
+        move = Move("e2e4", GameState.CONTINUE, 3, 1)
 
-        self.io_mock.send.assert_called_with(move, "CONTINUE", time, eval)
+        self.game._Game__send_state(move)
+
+        self.io_mock.send.assert_called_with(move)
 
     def test_send_state_when_state_invalid(self):
-        state = GameState.INVALID
-        move = "move"
-        time = 5
-        eval = 1
-        self.game._Game__send_state(state, move, time, eval)
+        move = Move("aaa", GameState.INVALID, 100, 1)
+        self.game._Game__send_state(move)
 
-        self.io_mock.send.assert_called_with("", "INVALID", time)
+        self.io_mock.send.assert_called_with(Move("", GameState.INVALID, 100, 1))
 
     def test_play_continue_continues_game(self):
         self.player1_mock.play.side_effect = ["a", "b", "c"]
@@ -117,7 +113,7 @@ class TestGame(TestCase):
         self.game.play(5)
 
         calls = self.io_mock.send.call_args_list
-        move_args = list(map(lambda call: call.args[0], calls))
+        move_args = list(map(lambda call: call.args[0].move, calls))
 
         self.assertEqual(
             move_args,
@@ -135,8 +131,6 @@ class TestGame(TestCase):
         self.game.play(5)
 
         calls = self.io_mock.send.call_args_list
-        state_args = list(map(lambda call: call.args[1], calls))
+        state_args = list(map(lambda call: call.args[0].state, calls))
 
-        states_list = ["CONTINUE", "CONTINUE", "CONTINUE", "CONTINUE", "ILLEGAL"]
-
-        self.assertEqual(state_args, states_list)
+        self.assertEqual(state_args, states)

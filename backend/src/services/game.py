@@ -3,6 +3,7 @@ from math import exp
 from typing import Any
 
 from entities.judge import Judge
+from entities.move import Move
 from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
@@ -50,20 +51,15 @@ class Game:
             self.__judge.add_move(move)
             eval = self.__judge.analyze()
 
-            self.__send_state(state, move, elapsed_time, eval)
+            move_object = Move(move, state, elapsed_time, eval)
+
+            self.__send_state(move_object)
 
             self.__previous_player = player
             previous_move = move
 
             if debug:
-                self.__print_debug_info(
-                    {
-                        "move": move,
-                        "state": state,
-                        "time": elapsed_time,
-                        "eval": eval,
-                    }
-                )
+                self.__print_debug_info(move_object)
 
             if state != GameState.CONTINUE:
                 break
@@ -95,14 +91,13 @@ class Game:
 
         return (move, elapsed_time)
 
-    def __send_state(self, state: GameState, move: str, time: int, eval: float) -> None:
-        if state in (GameState.ILLEGAL, GameState.INVALID):
-            self.__socketio_service.send("", state.name, time)
-            return
+    def __send_state(self, move: Move) -> None:
+        if move.state in (GameState.ILLEGAL, GameState.INVALID):
+            move = Move("", move.state, move.time, move.evaluation)
 
-        self.__socketio_service.send(move, state.name, time, eval)
+        self.__socketio_service.send(move)
 
-    def __print_debug_info(self, move: dict[str, Any]) -> None:
+    def __print_debug_info(self, move: Move) -> None:
         info = "\n".join(
             [
                 self.__judge.get_debug_info(),

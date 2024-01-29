@@ -1,4 +1,5 @@
 from flask_socketio import SocketIO
+from entities.move import Move
 
 
 class SocketIOService:
@@ -6,10 +7,10 @@ class SocketIOService:
         self.socketio: SocketIO = socketio
         self.sid: str = sid
 
-    def send(self, move: str, state: str, time: int, eval: float) -> None:
+    def send(self, move: Move) -> None:
         self.socketio.emit(
             "newmove",
-            {"move": move, "state": state, "time": time, "evaluation": eval},
+            str(move),
             namespace="/gameconnection",
             to=self.sid,
         )
