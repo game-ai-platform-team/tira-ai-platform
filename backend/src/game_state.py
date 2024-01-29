@@ -16,6 +16,6 @@ class GameState(Enum):
             GameState.LOSE: "LOSE",
             GameState.DRAW: "DRAW",
             GameState.INVALID: "INVALID",
-            GameState.ILLEGAL: "ILLEGAL"
+            GameState.ILLEGAL: "ILLEGAL",
         }
         return values[self]
