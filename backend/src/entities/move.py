@@ -13,7 +13,7 @@ class Move:
     def __str__(self) -> str:
         result = {
             "move": self.move,
-            "state": self.state,
+            "state": self.state.name,
             "time": self.time,
             "evaluation": self.evaluation,
         }
