@@ -19,6 +19,8 @@ class ChessJudge(Judge):
 
         if move not in legal_moves:
             return GameState.ILLEGAL
+        
+        self.add_move(move)
 
         if self.board.is_checkmate():
             return GameState.WIN
