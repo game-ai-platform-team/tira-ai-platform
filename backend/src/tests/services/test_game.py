@@ -129,3 +129,13 @@ class TestGame(TestCase):
         self.judge_mock.validate.assert_has_calls(
             [call("a"), call(1), call("b"), call(2), call("c")]
         )
+
+    def test_player_called_with_previous_moves(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2]
+        self.judge_mock.validate.return_value = GameState.CONTINUE
+
+        self.game.play(5)
+
+        self.player1_mock.play.assert_has_calls([call(1), call(2)])
+        self.player2_mock.play.assert_has_calls([call("a"), call("b")])
