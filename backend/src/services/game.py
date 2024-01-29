@@ -48,7 +48,7 @@ class Game:
             self.__previous_player = player
 
             if debug:
-                self._print_debug_info(turn_result)
+                self.__print_debug_info(turn_result)
 
             state = turn_result["state"]
             previous_move = turn_result["move"]
@@ -94,7 +94,7 @@ class Game:
 
         self.__socketio_service.send(move, state.name, time)
 
-    def _print_debug_info(self, move: dict[str, Any]) -> None:
+    def __print_debug_info(self, move: dict[str, Any]) -> None:
         info = "\n".join(
             [
                 self.__judge.get_debug_info(),
