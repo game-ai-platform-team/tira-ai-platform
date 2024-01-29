@@ -20,13 +20,21 @@ class Move:
 
         return json.dumps(result)
 
+    def as_json(self):
+        return {
+            "move": self.move,
+            "state": str(self.state),
+            "time": self.time,
+            "evaluation": self.evaluation,
+        }
+
     def __eq__(self, other: "Move") -> bool:
         if not isinstance(other, Move):
             return False
 
         return (
-            self.move == other.move
-            and self.state == other.state
-            and self.time == other.time
-            and self.evaluation == other.evaluation
+                self.move == other.move
+                and self.state == other.state
+                and self.time == other.time
+                and self.evaluation == other.evaluation
         )

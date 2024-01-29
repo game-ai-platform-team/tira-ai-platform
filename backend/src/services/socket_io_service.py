@@ -11,7 +11,7 @@ class SocketIOService:
     def send(self, move: Move) -> None:
         self.socketio.emit(
             "newmove",
-            str(move),
+            move.as_json(),
             namespace="/gameconnection",
             to=self.sid,
         )
