@@ -1,11 +1,11 @@
 import re
+from math import exp
 
 import chess
 
 from entities.judge import Judge
 from game_state import GameState
 from stockfish_engine import get_stockfish_engine
-from math import exp
 
 
 class ChessJudge(Judge):
@@ -56,14 +56,14 @@ class ChessJudge(Judge):
         """
 
         return [move.uci() for move in self.board.move_stack]
-    
+
     def analyze(self):
         self.__engine.set_fen_position(self.board.fen())
         cp = self.__centipawn_eval()
         evaluation = self.__white_win_probability(cp)
 
         return evaluation
-    
+
     def __centipawn_eval(self):
         score = self.__engine.get_evaluation()
         if score["type"] == "cp":
