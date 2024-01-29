@@ -6,10 +6,10 @@ class SocketIOService:
         self.socketio: SocketIO = socketio
         self.sid: str = sid
 
-    def send(self, move: str, state: str, time: int) -> None:
+    def send(self, move: str, state: str, time: int, eval: float) -> None:
         self.socketio.emit(
             "newmove",
-            {"move": move, "state": state, "time": time},
+            {"move": move, "state": state, "time": time, "evaluation": eval},
             namespace="/gameconnection",
             to=self.sid,
         )
