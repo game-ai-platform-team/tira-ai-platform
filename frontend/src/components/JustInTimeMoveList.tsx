@@ -2,7 +2,7 @@ import "./JustInTimeMoveList.css";
 
 interface JustInTimeMoveListProps {
     moves: string[];
-    onNewMove: (newMove: string) => void;
+    onNewMove: (newMove: string, state: string) => void;
 }
 
 function JustInTimeMoveList(props: JustInTimeMoveListProps) {
