@@ -1,3 +1,5 @@
+import "./JustInTimeMoveList.css";
+
 interface JustInTimeMoveListProps {
     moves: string[];
     onNewMove: (newMove: string) => void;
