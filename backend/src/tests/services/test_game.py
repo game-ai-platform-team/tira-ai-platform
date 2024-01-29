@@ -135,4 +135,6 @@ class TestGame(TestCase):
         calls = self.io_mock.send.call_args_list
         state_args = list(map(lambda call: call.args[1], calls))
 
-        self.assertEqual(state_args, [GameState.CONTINUE.name] * 4)
+        states_list = ["CONTINUE", "CONTINUE", "CONTINUE", "CONTINUE", "ILLEGAL"]
+
+        self.assertEqual(state_args, states_list)
