@@ -29,13 +29,15 @@ function getNewGameConnection() {
 
 function ChessGameView(props: CodeViewProps) {
     const [moves, setMoves] = useState<string[]>(
-        props.testResult?.moves ? props.testResult.moves : [],
+        props.testResult?.moves ? props.testResult.moves : []
     );
 
     const [hasGameStarted, setHasGameStarted] = useState(false);
 
-    const handleNewMove = useCallback((newMove: string) => {
-        setMoves((prevMoves) => [...prevMoves, newMove]);
+    const handleNewMove = useCallback((newMove: string, state: string) => {
+        if (state === "CONTINUE" || state === "WIN" || state === "LOSE" || state === "DRAW") {
+            setMoves((prevMoves) => [...prevMoves, newMove]);
+        }
     }, []);
 
     const [gameConnectionId, setGameConnectionId] = useState<number>();
