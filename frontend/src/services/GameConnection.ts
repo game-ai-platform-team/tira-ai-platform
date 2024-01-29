@@ -4,7 +4,7 @@ export class GameConnection {
     private socket: Socket;
 
     constructor() {
-        this.socket = io("http://localhost:5000/gameconnection");
+        this.socket = io("/gameconnection");
 
         this.socket.on("connect", () => {
             console.log("Connected to the server!");
