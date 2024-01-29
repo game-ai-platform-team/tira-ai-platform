@@ -33,8 +33,8 @@ class Move:
             return False
 
         return (
-                self.move == other.move
-                and self.state == other.state
-                and self.time == other.time
-                and self.evaluation == other.evaluation
+            self.move == other.move
+            and self.state == other.state
+            and self.time == other.time
+            and self.evaluation == other.evaluation
         )
