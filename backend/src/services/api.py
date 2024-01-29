@@ -25,7 +25,7 @@ class Api:
         self.save(fileContents)
 
         socketio_service = SocketIOService(socketio, sid)
-        game = GameFactory.get_chess_game(socketio_service, player1_file = self.ai_file)
+        game = GameFactory.get_chess_game(socketio_service, player1_file=self.ai_file)
         result = game.play()
 
         return result
@@ -38,7 +38,7 @@ class Api:
             content (str): Content to save.
         """
 
-        with open(self.ai_file, mode = "w", encoding = "utf-8") as file:
+        with open(self.ai_file, mode="w", encoding="utf-8") as file:
             file.write(content)
 
 
