@@ -118,3 +118,14 @@ class TestGame(TestCase):
         self.judge_mock.add_move.assert_has_calls(
             [call("a"), call(1), call("b"), call(2), call("c")]
         )
+
+    def test_validate_called_with_correct_moves(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2]
+        self.judge_mock.validate.return_value = GameState.CONTINUE
+
+        self.game.play(5)
+
+        self.judge_mock.validate.assert_has_calls(
+            [call("a"), call(1), call("b"), call(2), call("c")]
+        )
