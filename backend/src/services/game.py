@@ -44,17 +44,22 @@ class Game:
         for i in range(turns):
             player = self.__players[i % 2]
 
-            turn_result = self.__play_one_move(player, previous_move)
-            self.__previous_player = player
+            move, elapsed_time = self.__play_one_move(player, previous_move)
+            state = self.__judge.validate(move)
+            self.__judge.add_move(move)
 
             if debug:
-                self.__print_debug_info(turn_result)
-
-            state = turn_result["state"]
-            previous_move = turn_result["move"]
+                self.__print_debug_info(
+                    {"move": move, "state": state, "time": elapsed_time}
+                )
 
             if state != GameState.CONTINUE:
                 break
+
+            self.__send_state(state, move, elapsed_time)
+
+            self.__previous_player = player
+            previous_move = move
 
         result = {
             "moves": self.__judge.get_all_moves(),
@@ -74,18 +79,14 @@ class Game:
         for player in self.__players:
             player.terminate_self()
 
-    def __play_one_move(self, player: Player, prev_move: str) -> dict[str, Any]:
+    def __play_one_move(self, player: Player, prev_move: str) -> tuple[str, int]:
         start_time = time.perf_counter()
 
         move = player.play(prev_move)
 
-        end_time = int((time.perf_counter() - start_time) * 1000)
+        elapsed_time = int((time.perf_counter() - start_time) * 1000)
 
-        state = self.__judge.validate(move)
-
-        self.__send_state(state, move, end_time)
-
-        return {"move": move, "time": end_time, "state": state}
+        return (move, elapsed_time)
 
     def __send_state(self, state: GameState, move: str, time: int) -> None:
         if state in (GameState.ILLEGAL, GameState.INVALID):
