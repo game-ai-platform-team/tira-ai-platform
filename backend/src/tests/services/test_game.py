@@ -15,28 +15,6 @@ class TestGame(TestCase):
             self.io_mock, self.player1_mock, self.player2_mock, self.judge_mock
         )
 
-    def test_play_one_move_returns_valid_dict(self):
-        self.judge_mock.validate.return_value = GameState.WIN
-        self.player1_mock.play.return_value = "1"
-        self.player2_mock.play.return_value = "2"
-
-        move = self.game._Game__play_one_move(self.player1_mock, "a move")
-
-        self.assertIn("move", move)
-        self.assertIn("state", move)
-        self.assertIn("time", move)
-
-    def test_play_one_move_returns_dict_with_valid_values(self):
-        self.judge_mock.validate.return_value = GameState.WIN
-        self.player1_mock.play.return_value = "1"
-        self.player2_mock.play.return_value = "2"
-
-        move = self.game._Game__play_one_move(self.player1_mock, "a move")
-
-        self.assertIsInstance(move["move"], str)
-        self.assertIn(move["state"], GameState)
-        self.assertIsInstance(move["time"], int)
-
     def test_send_state_calls_socketio_service(self):
         state = GameState.CONTINUE
         move = "e2e4"
@@ -128,3 +106,33 @@ class TestGame(TestCase):
 
         self.player1_mock.play.assert_has_calls([call(1), call(2)])
         self.player2_mock.play.assert_has_calls([call("a"), call("b")])
+
+    def test_play_socketio_called_with_correct_moves(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2]
+        self.judge_mock.validate.return_value = GameState.CONTINUE
+
+        self.game.play(5)
+
+        calls = self.io_mock.send.call_args_list
+        move_args = list(map(lambda call: call.args[0], calls))
+
+        self.assertEqual(
+            move_args,
+            ["a", 1, "b", 2, "c"],
+        )
+
+    def test_play_socketio_called_with_correct_states(self):
+        states = [GameState.CONTINUE] * 4
+        states.append(GameState.ILLEGAL)
+
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2]
+        self.judge_mock.validate.side_effect = states
+
+        self.game.play(5)
+
+        calls = self.io_mock.send.call_args_list
+        state_args = list(map(lambda call: call.args[1], calls))
+
+        self.assertEqual(state_args, [GameState.CONTINUE.name] * 4)
