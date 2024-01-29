@@ -33,6 +33,8 @@ function ChessGameView(props: CodeViewProps) {
     );
 
     const [hasGameStarted, setHasGameStarted] = useState(false);
+    
+    const [gameState, setGameState] = useState("CONTINUE");
 
     const handleNewMove = useCallback((newMove: string, state: string) => {
         if (
@@ -43,6 +45,7 @@ function ChessGameView(props: CodeViewProps) {
         ) {
             setMoves((prevMoves) => [...prevMoves, newMove]);
         }
+        setGameState(state)
     }, []);
 
     const [gameConnectionId, setGameConnectionId] = useState<number>();
@@ -71,7 +74,7 @@ function ChessGameView(props: CodeViewProps) {
     return (
         <div id="chess-game-view">
             <div id="move-list-container">
-                <JustInTimeMoveList moves={moves} onNewMove={handleNewMove} />
+                <JustInTimeMoveList moves={moves} state = {gameState} />
             </div>
             <div id="submit-form-container">
                 <SubmitForm
