@@ -63,6 +63,9 @@ function ChessGameView(props: CodeViewProps) {
 
     return (
         <div id="chess-game-view">
+            <div id="move-list-container">
+                <JustInTimeMoveList moves={moves} onNewMove={handleNewMove} />
+            </div>
             <div id="submit-form-container">
                 <SubmitForm
                     gameConnection={gameConnection}
@@ -71,16 +74,8 @@ function ChessGameView(props: CodeViewProps) {
                 />
             </div>
             {winnerMessage}
-            <div style={{ display: "flex", flexDirection: "row" }}>
-                <div style={{ flexGrow: 0, marginRight: "20px" }}>
-                    <JustInTimeMoveList
-                        moves={moves}
-                        onNewMove={handleNewMove}
-                    />
-                </div>
-                <div style={{ flexGrow: 1 }}>
-                    <BrowsableChessboard moves={moves} />
-                </div>
+            <div style={{ flexGrow: 1 }}>
+                <BrowsableChessboard moves={moves} />
             </div>
         </div>
     );
