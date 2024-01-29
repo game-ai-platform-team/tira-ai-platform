@@ -4,6 +4,7 @@ import { ChessGameResult } from "../types.ts";
 import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
 import JustInTimeMoveList from "./JustInTimeMoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
+import LinearGauge from "./IgrLinearGauge.tsx";
 import "./ChessGameView.css";
 
 interface CodeViewProps {
@@ -85,6 +86,7 @@ function ChessGameView(props: CodeViewProps) {
             </div>
             {winnerMessage}
             <div style={{ flexGrow: 1 }}>
+                <LinearGauge/>
                 <BrowsableChessboard moves={moves} />
             </div>
         </div>
