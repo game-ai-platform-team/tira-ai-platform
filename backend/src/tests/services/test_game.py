@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import Mock, call
-from entities.move import Move
 
+from entities.move import Move
 from game_state import GameState
 from services.game import Game
 
