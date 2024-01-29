@@ -6,7 +6,6 @@ from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
 
-
 class Game:
     def __init__(
         self,
@@ -46,6 +45,7 @@ class Game:
 
             move, elapsed_time = self.__play_one_move(player, previous_move)
             state = self.__judge.validate(move)
+            self.__judge.add_move(move)
 
             self.__send_state(state, move, elapsed_time)
 

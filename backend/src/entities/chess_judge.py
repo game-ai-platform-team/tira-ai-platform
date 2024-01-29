@@ -20,15 +20,16 @@ class ChessJudge(Judge):
         if move not in legal_moves:
             return GameState.ILLEGAL
 
-        self.add_move(move)
+        newboard = self.board.copy()
+        newboard.push_uci(move)
 
-        if self.board.is_checkmate():
+        if newboard.is_checkmate():
             return GameState.WIN
-        if self.board.is_stalemate():
+        if newboard.is_stalemate():
             return GameState.DRAW
-        if self.board.is_insufficient_material():
+        if newboard.is_insufficient_material():
             return GameState.DRAW
-        if self.board.is_fivefold_repetition():
+        if newboard.is_fivefold_repetition():
             return GameState.DRAW
 
         return GameState.CONTINUE
