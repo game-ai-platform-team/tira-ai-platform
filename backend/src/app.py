@@ -12,11 +12,6 @@ socketio.init_app(app, cors_allowed_origins="*")
 CORS(app)
 
 
-@socketio.on("connect", namespace="/gameconnection")
-def test_connect():
-    pass
-
-
 @socketio.on("postcode", namespace="/gameconnection")
 def io_post_code(data):
     api.start(data["content"], socketio, request.sid)
