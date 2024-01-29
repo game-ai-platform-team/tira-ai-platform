@@ -59,14 +59,22 @@ function LinearGauge() {
             >
                 <IgrLinearGraphRange
                     key="range1" // Unique key for the first range
-                    startValue={0} endValue={50}
-                    innerStartExtent={0.075} innerEndExtent={0.075}
-                    outerStartExtent={0.25} outerEndExtent={0.4} />
+                    startValue={0}
+                    endValue={50}
+                    innerStartExtent={0.075}
+                    innerEndExtent={0.075}
+                    outerStartExtent={0.25}
+                    outerEndExtent={0.4}
+                />
                 <IgrLinearGraphRange
                     key="range2" // Unique key for the second range
-                    startValue={50} endValue={100}
-                    innerStartExtent={0.075} innerEndExtent={0.075}
-                    outerStartExtent={0.4} outerEndExtent={0.55} />
+                    startValue={50}
+                    endValue={100}
+                    innerStartExtent={0.075}
+                    innerEndExtent={0.075}
+                    outerStartExtent={0.4}
+                    outerEndExtent={0.55}
+                />
             </IgrLinearGauge>
         </div>
     );
