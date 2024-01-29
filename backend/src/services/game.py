@@ -1,4 +1,5 @@
 import time
+from math import exp
 from typing import Any
 
 from entities.judge import Judge
@@ -6,7 +7,6 @@ from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
 from stockfish_engine import get_stockfish_engine
-from math import exp
 
 
 class Game:
@@ -62,7 +62,13 @@ class Game:
 
             if debug:
                 self.__print_debug_info(
-                    {"move": move, "state": state, "time": elapsed_time, "eval": eval, "cp": cp}
+                    {
+                        "move": move,
+                        "state": state,
+                        "time": elapsed_time,
+                        "eval": eval,
+                        "cp": cp,
+                    }
                 )
 
             if state != GameState.CONTINUE:
@@ -116,7 +122,7 @@ class Game:
         score = self.__engine.get_evaluation()
         if score["type"] == "cp":
             return score["value"]
-        return 100*(21-min(10,score["value"]))
-    
+        return 100 * (21 - min(10, score["value"]))
+
     def __white_win_probability(self, cp):
-        return 1/(1+exp(-0.004*cp))*2-1
+        return 1 / (1 + exp(-0.004 * cp)) * 2 - 1
