@@ -46,7 +46,11 @@ class Game:
 
             move, elapsed_time = self.__play_one_move(player, previous_move)
             state = self.__judge.validate(move)
-            self.__judge.add_move(move)
+
+            self.__send_state(state, move, elapsed_time)
+
+            self.__previous_player = player
+            previous_move = move
 
             if debug:
                 self.__print_debug_info(
@@ -55,11 +59,6 @@ class Game:
 
             if state != GameState.CONTINUE:
                 break
-
-            self.__send_state(state, move, elapsed_time)
-
-            self.__previous_player = player
-            previous_move = move
 
         result = {
             "moves": self.__judge.get_all_moves(),
