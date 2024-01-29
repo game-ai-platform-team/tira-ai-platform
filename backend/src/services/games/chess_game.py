@@ -1,42 +1,11 @@
 import time
-from pathlib import Path
 from typing import Any
 
-from config import DEFAULT_CHESS_AI_PATH
-from entities.chess_judger import ChessJudger
-from entities.player import Player
 from game_state import GameState
+from services.game import Game
 
 
-class ChessGame:
-    def __init__(
-        self,
-        socketio,
-        player1_file: Path = DEFAULT_CHESS_AI_PATH,
-        player2_file: Path = DEFAULT_CHESS_AI_PATH,
-    ) -> None:
-        """
-        Initializes a chess game.
-
-        Args:
-            player1_file (Path, optional):
-                Path to player1 AI file.
-                Defaults to DEFAULT_CHESS_AI_PATH.
-            player2_file (Path, optional):
-                Path to player2 AI file.
-                Defaults to DEFAULT_CHESS_AI_PATH.
-        """
-
-        self.socketio = socketio
-
-        self.judger = ChessJudger()
-
-        self.player1 = Player(player1_file)
-        self.player2 = Player(player2_file)
-
-        self.turn_counter = 0
-        self.last_player = "none"
-
+class ChessGame(Game):
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
     ) -> dict[str, Any]:
@@ -52,9 +21,6 @@ class ChessGame:
             dict[str, Any]: The game result containing winner, moves, etc.
         """
 
-        winner = None
-        self.turn_counter = 0
-
         for _ in range(turns):
             state = self.__play_one_turn(delay, debug)
 
@@ -62,27 +28,28 @@ class ChessGame:
                 break
 
         result = {
-            "moves": self.judger.get_moves_as_uci(),
+            "moves": self.__judge.get_all_moves(),
             "player": self.last_player,
             "game_state": state.name,
         }
 
-        self.player1.terminate_self()
-        self.player2.terminate_self()
+        self._cleanup()
 
         return result
 
     def __play_one_turn(self, delay, debug) -> str:
         last_move = self._get_last_move()
-        white_state, white_move, white_time = self._play_one_move(
-            self.player1, last_move
-        )
+
+        white_result = self.play_one_move(self.__players[0], last_move)
+
+        white_state = white_result["state"]
+        white_move = white_result["move"]
 
         time.sleep(delay)
 
         if debug:
-            self._print_debug_info(white_move, white_state, white_time)
-            self._print_board()
+            self._print_debug_info(white_result)
+
             if white_state == GameState.WIN:
                 print("White won")
             if white_state == GameState.ILLEGAL:
@@ -97,16 +64,18 @@ class ChessGame:
         if white_state != GameState.CONTINUE:
             return white_state
 
-        black_state, black_move, black_time = self._play_one_move(
-            self.player2, white_move
-        )
+        black_result = self.play_one_move(self.__players[1], white_move)
+
+        black_state = black_result["state"]
+        black_move = black_result["move"]
+
         time.sleep(delay)
 
         self.last_player = "black"
 
         if debug:
-            self._print_debug_info(black_move, black_state, black_time)
-            self._print_board()
+            self._print_debug_info(black_result)
+
             if black_state == GameState.WIN:
                 print("Black won")
             if black_state == GameState.ILLEGAL:
@@ -121,29 +90,9 @@ class ChessGame:
 
         return GameState.CONTINUE
 
-    def _play_one_move(self, player: Player, prev_move):
-        self.turn_counter += 1
-        start_time = time.perf_counter()
-        move = player.play(prev_move)
-        end_time = time.perf_counter() - start_time
-        state = self.judger.validate(move)
-
-        self.socketio.emit("newmove", {"move": move}, namespace="/movereceiver")
-
-        return state, move, end_time
-
-    def _print_board(self) -> None:
-        print("\n" + self.judger.get_board_visual() + "\n")
-
-    def _print_debug_info(self, move, state, time):
-        ms_time = int(time * 1000)
-        print(
-            f"[{self.turn_counter}] {move} : {state.name} : {str(ms_time).zfill(3)} ms"
-        )
-
     def _get_last_move(self):
         try:
-            move = self.judger.get_moves_as_uci()[-1]
+            move = self.__judge.get_all_moves()[-1]
         except:
             move = ""
 

@@ -1,49 +1,75 @@
-import React, { ChangeEvent, JSX, useState } from "react";
-import axios from "axios";
-import { ChessGameResult, parseChessGameResult } from "../types.ts";
+import React, { ChangeEvent, useState } from "react";
+import "./SubmitForm.css";
+import { GameConnection } from "../services/GameConnection.ts";
 
 interface SubmitFormProps {
-    setResult: (result: ChessGameResult) => void;
+    gameConnection?: GameConnection;
+    hasGameStarted: boolean;
+    setHasGameStarted: (val: boolean) => void;
 }
 
-/**
- *  Component for submitting code files to server.
- *
- * @returns {JSX.Element}
- */
 function SubmitForm(props: SubmitFormProps): JSX.Element {
-    const [file, setFile] = useState<File>();
+    const [file, setFile] = useState<File | null>(null);
 
-    const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setFile(e.target.files[0]);
         }
     };
 
-    const onSubmit = async (e: React.SyntheticEvent) => {
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        const baseURL = "http://localhost:5000";
-        if (file) {
-            const result = await axios.post(`${baseURL}/api/chess/submit`, {
-                content: await file.text(),
-            });
+    };
 
-            const gameResult = parseChessGameResult(result.data);
-            if (gameResult) {
-                props.setResult(gameResult);
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+
+        if (e.dataTransfer.items) {
+            const droppedFile = e.dataTransfer.items[0].getAsFile();
+            if (droppedFile) {
+                setFile(droppedFile);
             }
         }
     };
 
+    const onSubmit = async (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        if (
+            file &&
+            props.gameConnection &&
+            props.gameConnection.isConnected() &&
+            !props.hasGameStarted
+        ) {
+            props.gameConnection.postcode(await file.text());
+            props.setHasGameStarted(true);
+        }
+    };
+
     return (
-        <>
-            <form onSubmit={onSubmit}>
-                <input id="file-input" type="file" onChange={handleFile} />
+        <div id="drag-and-drop-container">
+            <div
+                id="drag-and-drop-area"
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById("file-input")?.click()}
+            >
+                <label htmlFor="file-input">
+                    Drag & Drop or Click to Upload:
+                </label>
+                <input
+                    id="file-input"
+                    type="file"
+                    accept=".py, application/x-python-code"
+                    onChange={handleFileChange}
+                />
+                {file && <p>File Name: {file.name}</p>}
+            </div>
+            <form id="submit-form" onSubmit={onSubmit}>
                 <button id="submit-button" type="submit">
                     Submit
                 </button>
             </form>
-        </>
+        </div>
     );
 }
 

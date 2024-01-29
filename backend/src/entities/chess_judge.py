@@ -2,14 +2,16 @@ import re
 
 import chess
 
+from entities.judge import Judge
 from game_state import GameState
 
 
-class ChessJudger:
+class ChessJudge(Judge):
     def __init__(self) -> None:
+        super().__init__()
         self.board = chess.Board()
 
-    def validate(self, move: str):
+    def validate(self, move: str) -> GameState:
         if not self.is_valid_uci_move(move):
             return GameState.INVALID
 
@@ -17,8 +19,6 @@ class ChessJudger:
 
         if move not in legal_moves:
             return GameState.ILLEGAL
-
-        self.add_move(move)
 
         if self.board.is_checkmate():
             return GameState.WIN
@@ -38,8 +38,15 @@ class ChessJudger:
     def add_move(self, move):
         self.board.push_uci(move)
 
-    def get_board_visual(self):
+    def get_debug_info(self):
         return str(self.board)
 
-    def get_moves_as_uci(self):
+    def get_all_moves(self) -> list[str]:
+        """
+        Returns all moves in UCI format.
+
+        Returns:
+            list[str]: List of moves.
+        """
+
         return [move.uci() for move in self.board.move_stack]

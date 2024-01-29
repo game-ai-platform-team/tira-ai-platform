@@ -37,38 +37,44 @@ graph LR
 
     style Clientside fill:#FFC0CB,stroke:#333,stroke-width:2px
 ```
+
 - Periodic data is sent every time a move is validated. This is described by the dotted arrow.
-- The cycle described by the line arrow only occurs once. 
-- Game container is separate from app because we're running a foreign script in it. 
-- Factory class is responsible for instantiating correct player1, player2, validator 
+- The cycle described by the line arrow only occurs once.
+- Game container is separate from app because we're running a foreign script in it.
+- Factory class is responsible for instantiating correct player1, player2, validator
+
 ## Initial architecture draft
+
 ```mermaid
 sequenceDiagram
 
-Frontend ->> App: HTTP POST /api/chess/submit file
+Frontend ->> App: socketio /gameconnection postcode
 
 App ->> Api: start(file)
-Api ->> Chess: Chess(file)
-Chess -->> Api: chess object
-Api ->> Chess: start()
+Api ->> SocketIOService: create a new service
+Api ->> GameFactory: Create a chess game
+GameFactory ->> Chess: Create
+
+Api ->> Chess: Play
 
 Chess ->> player1: play("")
 player1 -->> Chess: move1
 
-Chess ->> judger: validate(move1)
-judger -->> Chess: True
+Chess ->> judge: validate(move1)
+judge -->> Chess: True
+Chess ->> SocketIOService: send game state
+SocketIOService ->> Frontend: socketio /gameconnection newmove
 
 Chess ->> player2: play(move1)
 player2 -->> Chess: move2
 
-Chess ->> judger: validate(move2)
-judger -->> Chess: False
+Chess ->> judge: validate(move2)
+judge -->> Chess: False
+
 Note over Chess: The game ends, either invalid move or player2 lost
+Chess ->> SocketIOService: send game state
+SocketIOService ->> Frontend: socketio /gameconnection newmove
 
-Chess -->> Api: game result as dict
-Api -->> App: game result as dict
-
-App -->> Frontend: HTTP Response game result as JSON
 
 box Container
     participant Frontend
@@ -77,7 +83,7 @@ box Container
     participant Chess
     participant player1
     participant player2
-    participant judger
+    participant judge
 end
 ```
 
@@ -87,30 +93,55 @@ end
 classDiagram
 
 App --> Api
-Api --> Chess
-Chess --> Player
-Chess --> ChessJudger
+Api ..> Game
+Api --> GameFactory
+Game --> Player
+Game --> Judge
+Game --> SocketIOService
+GameFactory --> Game
+GameFactory ..> Judge
+GameFactory ..> Player
+GameFactory ..> SocketIOService
+Judge --> GameState
 
-class Chess {
-    start(file: Path) dict
-    player1: Player
-    player2: Player
-    judger: ChessJudger
+class GameFactory {
+    get_chess_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
+    get_othello_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
 }
 
-class ChessJudger {
+class Game {
+    -players: list[Player]
+    -judge: Judge
+    -socketio_service: SocketIOService
+
+    play(turns: int, delay: float, debug: bool) dict
+}
+
+class SocketIOService {
+    +send(move: str)
+}
+
+class Judge {
     validate(move: str) bool
     add_move(move: str)
-    get_board() list[str]
-    get_visual_board() str
+    get_all_moves() list[str]
+    get_debug_info() str
 }
 
 class Player {
     +play(move) str
 }
 
+class GameState {
+    CONTINUE
+    WIN
+    DRAW
+    INVALID
+    ILLEGAL
+}
+
 class Api {
-    start(file: JSON) dict
+    start(file: str) dict
 }
 
 class App {

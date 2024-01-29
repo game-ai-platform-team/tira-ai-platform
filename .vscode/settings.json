@@ -6,4 +6,7 @@
     "isort.args": [
         "--profile=black"
     ],
+    "pylint.args": [
+        "--rcfile=../.pylintrc"
+    ],
 }
