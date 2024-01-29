@@ -4,6 +4,7 @@ import { ChessGameResult } from "../types.ts";
 import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
 import JustInTimeMoveList from "./JustInTimeMoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
+import "./ChessGameView.css";
 
 interface CodeViewProps {
     testResult?: ChessGameResult;
@@ -61,12 +62,14 @@ function ChessGameView(props: CodeViewProps) {
     const winnerMessage = <p>winner: {"testwinner"}</p>;
 
     return (
-        <>
-            <SubmitForm
-                gameConnection={gameConnection}
-                hasGameStarted={hasGameStarted}
-                setHasGameStarted={setHasGameStarted}
-            ></SubmitForm>
+        <div id="chess-game-view">
+            <div id="submit-form-container">
+                <SubmitForm
+                    gameConnection={gameConnection}
+                    hasGameStarted={hasGameStarted}
+                    setHasGameStarted={setHasGameStarted}
+                />
+            </div>
             {winnerMessage}
             <div style={{ display: "flex", flexDirection: "row" }}>
                 <div style={{ flexGrow: 0, marginRight: "20px" }}>
@@ -76,12 +79,10 @@ function ChessGameView(props: CodeViewProps) {
                     />
                 </div>
                 <div style={{ flexGrow: 1 }}>
-                    {" "}
-                    {}
                     <BrowsableChessboard moves={moves} />
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

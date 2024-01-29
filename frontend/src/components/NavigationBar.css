@@ -68,7 +68,3 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
-body {
-    margin-top: 100px;
-}

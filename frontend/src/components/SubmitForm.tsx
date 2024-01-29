@@ -46,13 +46,11 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
     };
 
     return (
-        <div
-            id="drag-and-drop-container"
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-        >
+        <div id="drag-and-drop-container">
             <div
                 id="drag-and-drop-area"
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
                 onClick={() => document.getElementById("file-input")?.click()}
             >
                 <label htmlFor="file-input">
@@ -66,7 +64,7 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
                 />
                 {file && <p>File Name: {file.name}</p>}
             </div>
-            <form onSubmit={onSubmit}>
+            <form id="submit-form" onSubmit={onSubmit}>
                 <button id="submit-button" type="submit">
                     Submit
                 </button>
