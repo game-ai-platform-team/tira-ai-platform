@@ -62,11 +62,11 @@ class Game:
             "game_state": state,
         }
 
-        self._cleanup()
+        self.__cleanup()
 
         return result
 
-    def _cleanup(self) -> None:
+    def __cleanup(self) -> None:
         """
         Terminates all subprocesses.
         """
