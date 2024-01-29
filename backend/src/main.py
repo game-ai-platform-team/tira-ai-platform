@@ -16,7 +16,7 @@ if __name__ == "__main__":
         Mock(),
         Path(ROOTDIR / "src" / "ai.py"),
         Path(ROOTDIR / "../" / "samples" / "chess" / "stupid_ai.py"),
-        #Path(ROOTDIR / "src" / "ai.py"),
+        # Path(ROOTDIR / "src" / "ai.py"),
     )
 
     chess_game.play(1000, 0.1, debug=True)

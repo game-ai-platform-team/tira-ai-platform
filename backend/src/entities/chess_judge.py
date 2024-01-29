@@ -80,5 +80,5 @@ class ChessJudge(Judge):
                 return 0
 
             return 1 if outcome.winner else -1
-        
+
         return 1 / (1 + exp(-0.004 * cp)) * 2 - 1
