@@ -8,21 +8,24 @@ from services.socket_io_service import SocketIOService
 
 
 class Api:
-    def start(self, file: str, socketio: SocketIO, sid: str) -> dict[str, Any]:
+    def __init__(self):
+        self.ai_file = TEMP_DIR / "ai.py"
+
+    def start(self, fileContents: str, socketio: SocketIO, sid: str) -> dict[str, Any]:
         """
         Starts new chess game with the input AI.
 
         Args:
-            file (str): Code of the AI.
+            fileContents (str): Code of the AI.
 
         Returns:
             dict[str, Any]: The game result containing winner, moves, etc.
         """
 
-        self.save(file)
+        self.save(fileContents)
 
         socketio_service = SocketIOService(socketio, sid)
-        game = GameFactory.get_chess_game(socketio_service)
+        game = GameFactory.get_chess_game(socketio_service, player1_file = self.ai_file)
         result = game.play()
 
         return result
@@ -35,7 +38,7 @@ class Api:
             content (str): Content to save.
         """
 
-        with open(TEMP_DIR / "ai.py", mode="w", encoding="utf-8") as file:
+        with open(self.ai_file, mode = "w", encoding = "utf-8") as file:
             file.write(content)
 
 
