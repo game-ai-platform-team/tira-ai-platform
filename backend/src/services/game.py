@@ -44,7 +44,7 @@ class Game:
         for i in range(turns):
             player = self.__players[i % 2]
 
-            turn_result = self.play_one_move(player, previous_move)
+            turn_result = self.__play_one_move(player, previous_move)
             self.__previous_player = player
 
             if debug:
@@ -74,7 +74,7 @@ class Game:
         for player in self.__players:
             player.terminate_self()
 
-    def play_one_move(self, player: Player, prev_move: str) -> dict[str, Any]:
+    def __play_one_move(self, player: Player, prev_move: str) -> dict[str, Any]:
         start_time = time.perf_counter()
 
         move = player.play(prev_move)

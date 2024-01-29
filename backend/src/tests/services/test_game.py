@@ -20,7 +20,7 @@ class TestGame(TestCase):
         self.player1_mock.play.return_value = "1"
         self.player2_mock.play.return_value = "2"
 
-        move = self.game.play_one_move(self.player1_mock, "a move")
+        move = self.game._Game__play_one_move(self.player1_mock, "a move")
 
         self.assertIn("move", move)
         self.assertIn("state", move)
@@ -31,7 +31,7 @@ class TestGame(TestCase):
         self.player1_mock.play.return_value = "1"
         self.player2_mock.play.return_value = "2"
 
-        move = self.game.play_one_move(self.player1_mock, "a move")
+        move = self.game._Game__play_one_move(self.player1_mock, "a move")
 
         self.assertIsInstance(move["move"], str)
         self.assertIn(move["state"], GameState)
