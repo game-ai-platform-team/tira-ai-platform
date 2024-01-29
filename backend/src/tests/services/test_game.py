@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 
 from game_state import GameState
 from services.game import Game
@@ -107,3 +107,14 @@ class TestGame(TestCase):
         self.assertEqual(self.player1_mock.play.call_count, 1)
         self.assertEqual(self.player2_mock.play.call_count, 1)
         self.assertEqual(self.judge_mock.validate.call_count, 2)
+
+    def test_move_added_after_validation(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2]
+        self.judge_mock.validate.return_value = GameState.CONTINUE
+
+        self.game.play(5)
+
+        self.judge_mock.add_move.assert_has_calls(
+            [call("a"), call(1), call("b"), call(2), call("c")]
+        )

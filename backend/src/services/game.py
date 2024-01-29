@@ -52,6 +52,7 @@ class Game:
 
             state = turn_result["state"]
             previous_move = turn_result["move"]
+            self.__judge.add_move(previous_move)
 
             if state != GameState.CONTINUE:
                 break
