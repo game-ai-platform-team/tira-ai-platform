@@ -2,7 +2,7 @@ import "./JustInTimeMoveList.css";
 
 interface JustInTimeMoveListProps {
     moves: string[];
-    onNewMove: (newMove: string, state: string) => void;
+    state: string;
 }
 
 function JustInTimeMoveList(props: JustInTimeMoveListProps) {
@@ -11,9 +11,10 @@ function JustInTimeMoveList(props: JustInTimeMoveListProps) {
             <p>Received moves:</p>
             <ul id="move-list">
                 {props.moves.map((move, index) => (
-                    <li key={index}>{move}</li>
+                    <li key={index}>{move} </li>
                 ))}
             </ul>
+            <p>{props.state}</p>
         </div>
     );
 }
