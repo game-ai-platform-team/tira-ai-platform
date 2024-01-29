@@ -41,7 +41,7 @@ class TestGame(TestCase):
         state = GameState.CONTINUE
         move = "e2e4"
         time = 3
-        self.game.send_state(state, move, time)
+        self.game._Game__send_state(state, move, time)
 
         self.io_mock.send.assert_called_with(move, "CONTINUE", time)
 
@@ -49,7 +49,7 @@ class TestGame(TestCase):
         state = GameState.INVALID
         move = "move"
         time = 5
-        self.game.send_state(state, move, time)
+        self.game._Game__send_state(state, move, time)
 
         self.io_mock.send.assert_called_with("", "INVALID", time)
 
