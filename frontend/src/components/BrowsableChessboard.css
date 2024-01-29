@@ -1,6 +1,6 @@
 #chessboard-header {
     text-align: center;
-    font-size: 24px;
+    font-size: 1.8em;
     margin-bottom: 10px;
 }
 
@@ -8,14 +8,19 @@
     margin: auto;
     width: min-content;
     height: min-content;
-    padding: 30px;
+    padding: 3%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
+    position: fixed;
     transform: scale(1.5);
-    border: 1px solid #a0522d;
+    border: 1px solid #c0bdbb;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-top: 5%;
 }
 
 #nextChessboardButton,
@@ -24,7 +29,7 @@
     color: white;
     padding: 15px;
     margin-right: 10px;
-    margin-top: 5px; /* Add margin-top to move buttons down */
+    margin-top: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -35,4 +40,8 @@
 #nextChessboardButton:hover,
 #previousChessboardButton:hover {
     background-color: #8b4513;
+}
+
+body {
+    margin-bottom: 0;
 }

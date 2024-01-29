@@ -8,8 +8,11 @@
         "build": "tsc && vite build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
-        "test": "jest",
-        "format": "prettier --write ."
+        "test": "vitest",
+        "coverage": "vitest run --coverage",
+        "format": "prettier --write .",
+        "cypress:open": "cypress open",
+        "test:e2e": "cypress run"
     },
     "dependencies": {
         "axios": "^1.6.5",
@@ -21,26 +24,26 @@
     "devDependencies": {
         "@babel/preset-env": "^7.23.8",
         "@babel/preset-react": "^7.23.3",
-        "@testing-library/jest-dom": "^6.2.0",
+        "@testing-library/jest-dom": "^6.2.1",
         "@testing-library/react": "^14.1.2",
         "@testing-library/user-event": "^14.5.2",
         "@types/jest": "^29.5.11",
         "@types/jquery": "^3.5.29",
         "@types/react": "^18.2.43",
         "@types/react-dom": "^18.2.17",
-        "@types/socket.io-client": "^3.0.0",
         "@typescript-eslint/eslint-plugin": "^6.14.0",
         "@typescript-eslint/parser": "^6.14.0",
         "@vitejs/plugin-react": "^4.2.1",
+        "@vitest/coverage-v8": "^1.2.1",
+        "cypress": "^13.6.3",
         "eslint": "^8.55.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.5",
-        "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.7.0",
+        "jsdom": "^24.0.0",
         "prettier": "^3.2.2",
         "socket.io-client": "^4.7.4",
-        "ts-jest": "^29.1.1",
         "typescript": "^5.3.3",
-        "vite": "^5.0.8"
+        "vite": "^5.0.8",
+        "vitest": "^1.2.1"
     }
 }

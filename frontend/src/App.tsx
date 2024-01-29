@@ -1,4 +1,4 @@
-import CodeView from "./components/CodeView.tsx";
+import ChessGameView from "./components/ChessGameView.tsx";
 import NavigationBar from "./components/NavigationBar.tsx";
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
         <div>
             <NavigationBar />
             <>
-                <CodeView></CodeView>
+                <ChessGameView></ChessGameView>
             </>
         </div>
     );

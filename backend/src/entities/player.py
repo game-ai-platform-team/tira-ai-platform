@@ -6,7 +6,7 @@ class Player:
     def __init__(self, path: Path) -> None:
         self.__path: Path = path
         self.__process = subprocess.Popen(
-            args=["python", str(self.__path)],
+            args=["python3", str(self.__path)],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

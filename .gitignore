@@ -1,8 +1,8 @@
 *.tmp
 __pycache__/
 backend/.pytest_cache/
-backend/.coverage
 backend/temp/**
 !backend/temp/.gitkeep
-
+**/*coverage*
+!.coveragerc
 .idea
