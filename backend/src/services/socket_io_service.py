@@ -1,4 +1,5 @@
 from flask_socketio import SocketIO
+
 from entities.move import Move
 
 
