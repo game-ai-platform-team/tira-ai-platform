@@ -86,7 +86,7 @@ function ChessGameView(props: CodeViewProps) {
             </div>
             {winnerMessage}
             <div style={{ flexGrow: 1 }}>
-                <LinearGauge/>
+                <LinearGauge />
                 <BrowsableChessboard moves={moves} />
             </div>
         </div>
