@@ -15,25 +15,27 @@ class ChessJudge(Judge):
         self.__engine = get_stockfish_engine()
 
     def validate(self, move: str) -> GameState:
+        state = GameState.CONTINUE
+
         if not self.is_valid_uci_move(move):
-            return GameState.INVALID
+            state = GameState.INVALID
 
         if chess.Move.from_uci(move) not in list(self.board.legal_moves):
-            return GameState.ILLEGAL
+            state = GameState.ILLEGAL
 
         newboard = self.board.copy()
         newboard.push_uci(move)
 
         if newboard.is_checkmate():
-            return GameState.WIN
+            state = GameState.WIN
         if newboard.is_stalemate():
-            return GameState.DRAW
+            state = GameState.DRAW
         if newboard.is_insufficient_material():
-            return GameState.DRAW
+            state = GameState.DRAW
         if newboard.is_fivefold_repetition():
-            return GameState.DRAW
+            state = GameState.DRAW
 
-        return GameState.CONTINUE
+        return state
 
     def is_valid_uci_move(self, uci_move):
         pattern = re.compile(r"^[a-h][1-8][a-h][1-8][qrbn]?$")
