@@ -7,7 +7,6 @@ from game_state import GameState
 class TestChessJudge(unittest.TestCase):
     def setUp(self) -> None:
         self.judge = ChessJudge()
-        self.board = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
     def test_validate_returns_continue_initially(self):
         move = "e2e4"
