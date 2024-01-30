@@ -23,9 +23,7 @@ class ChessJudge(Judge):
         except InvalidMoveError:
             return GameState.INVALID
 
-        state = GameState.CONTINUE
-
-        if move_object not in list(self.board.legal_moves):
+        if move_object not in self.board.legal_moves:
             return GameState.ILLEGAL
 
         newboard = self.board.copy()
