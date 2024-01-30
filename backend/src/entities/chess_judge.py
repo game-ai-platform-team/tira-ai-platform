@@ -1,7 +1,7 @@
 from math import exp
 
 import chess
-from chess import InvalidMoveError
+from chess import InvalidMoveError, Move
 
 from entities.judge import Judge
 from game_state import GameState
@@ -16,11 +16,9 @@ class ChessJudge(Judge):
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
-        move_object = None
+        move_object = self.__get_move_object(move)
 
-        try:
-            move_object = chess.Move.from_uci(move)
-        except InvalidMoveError:
+        if not move_object:
             return GameState.INVALID
 
         if move_object not in self.board.legal_moves:
@@ -61,6 +59,22 @@ class ChessJudge(Judge):
         evaluation = self.__white_win_probability(cp)
 
         return evaluation
+
+    def __get_move_object(self, move: str) -> Move | None:
+        """
+        Converts UCI move to chess.Move object.
+
+        Args:
+            move (str): Move as UCI string.
+
+        Returns:
+            Move | None: Move object if move is valid, otherwise None.
+        """
+
+        try:
+            return chess.Move.from_uci(move)
+        except InvalidMoveError:
+            return None
 
     def __centipawn_eval(self):
         self.__engine.set_fen_position(self.board.fen())
