@@ -21,8 +21,6 @@ class Game:
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
-        self.__previous_player = None
-
     def play(
         self, turns: int = 100, delay: float = 0.01, debug: bool = False
     ) -> dict[str, Any]:
@@ -42,6 +40,7 @@ class Game:
 
         previous_move = ""
         state = None
+        previous_player = None
 
         for i in range(turns):
             player = self.__players[i % 2]
@@ -55,7 +54,7 @@ class Game:
 
             self.__send_state(move_object)
 
-            self.__previous_player = player
+            previous_player = player
             previous_move = move
 
             if debug:
@@ -66,7 +65,7 @@ class Game:
 
         result = {
             "moves": self.__judge.get_all_moves(),
-            "player": self.__previous_player,
+            "player": previous_player,
             "game_state": state,
         }
 
