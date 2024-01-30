@@ -74,20 +74,22 @@ function ChessGameView(props: CodeViewProps) {
 
     return (
         <div id="chess-game-view">
+            <div id="first-row">
+                <div id="submit-form-container">
+                    <SubmitForm
+                        gameConnection={gameConnection}
+                        hasGameStarted={hasGameStarted}
+                        setHasGameStarted={setHasGameStarted}
+                    />
+                </div>
+                <div id="chessboard-container">
+                    <EvaluationBar />
+                    <BrowsableChessboard moves={moves} />
+                    <div id="winner-message">{winnerMessage}</div>
+                </div>
+            </div>
             <div id="move-list-container">
                 <JustInTimeMoveList moves={moves} state={gameState} />
-            </div>
-            <div id="submit-form-container">
-                <SubmitForm
-                    gameConnection={gameConnection}
-                    hasGameStarted={hasGameStarted}
-                    setHasGameStarted={setHasGameStarted}
-                />
-            </div>
-            {winnerMessage}
-            <div id="chessboard-container">
-                <EvaluationBar />
-                <BrowsableChessboard moves={moves} />
             </div>
         </div>
     );

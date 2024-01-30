@@ -5,8 +5,6 @@
 }
 
 #BrowsableChessboard {
-    position: fixed;
-    left: 50%;
     margin: auto;
     width: min-content;
     height: min-content;
