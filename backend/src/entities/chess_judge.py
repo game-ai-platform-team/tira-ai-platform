@@ -29,11 +29,11 @@ class ChessJudge(Judge):
 
         if newboard.is_checkmate():
             state = GameState.WIN
-        if newboard.is_stalemate():
-            state = GameState.DRAW
-        if newboard.is_insufficient_material():
-            state = GameState.DRAW
-        if newboard.is_fivefold_repetition():
+        elif (
+            newboard.is_stalemate()
+            or newboard.is_insufficient_material()
+            or newboard.is_fivefold_repetition()
+        ):
             state = GameState.DRAW
 
         return state
