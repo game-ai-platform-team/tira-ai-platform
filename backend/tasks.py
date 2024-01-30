@@ -24,7 +24,7 @@ def coverage_xml(ctx):
 
 @task
 def lint(ctx):
-    ctx.run("poetry run pylint src --fail-under=8")
+    ctx.run("poetry run pylint src")
 
 
 @task
