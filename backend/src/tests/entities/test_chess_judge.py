@@ -20,10 +20,10 @@ class TestChessJudge(unittest.TestCase):
         self.assertEqual(GameState.INVALID, game_state)
 
     def test_valid_uci_move(self):
-        self.assertEqual(True, self.judge.is_valid_uci_move("e2e4"))
+        self.assertEqual(self.judge.validate("e2e4"), GameState.CONTINUE)
 
     def test_invalid_uci_move(self):
-        self.assertEqual(False, self.judge.is_valid_uci_move("move"))
+        self.assertEqual(self.judge.validate("move"), GameState.INVALID)
 
     def test_validate_illegal_moves_detected(self):
         self.assertEqual(self.judge.validate("a1f8"), GameState.ILLEGAL)
