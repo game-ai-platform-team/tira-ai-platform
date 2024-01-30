@@ -1,7 +1,7 @@
-import re
 from math import exp
 
 import chess
+from chess import InvalidMoveError
 
 from entities.judge import Judge
 from game_state import GameState
@@ -15,11 +15,15 @@ class ChessJudge(Judge):
         self.__engine = get_stockfish_engine()
 
     def validate(self, move: str) -> GameState:
-        if not self.is_valid_uci_move(move):
+        state = GameState.CONTINUE
+        move_object = None
+
+        try:
+            move_object = chess.Move.from_uci(move)
+        except InvalidMoveError:
             return GameState.INVALID
 
         state = GameState.CONTINUE
-        move_object = chess.Move.from_uci(move)
 
         if move_object not in list(self.board.legal_moves):
             return GameState.ILLEGAL
@@ -37,10 +41,6 @@ class ChessJudge(Judge):
             state = GameState.DRAW
 
         return state
-
-    def is_valid_uci_move(self, uci_move):
-        pattern = re.compile(r"^[a-h][1-8][a-h][1-8][qrbn]?$")
-        return bool(pattern.match(uci_move))
 
     def add_move(self, move):
         self.board.push_uci(move)
