@@ -9,20 +9,20 @@ export default defineConfig({
         globals: true,
         coverage: {
             provider: "v8",
-            reporter: ["json", "html"]
-        }
+            reporter: ["json", "html"],
+        },
     },
     server: {
         proxy: {
             "/socket.io": {
                 target: "http://127.0.0.1:5000",
                 changeOrigin: true,
-                ws: true
+                ws: true,
             },
             "/gameconnection": {
                 target: "ws://127.0.0.1:5000",
-                ws: true
-            }
-        }
-    }
+                ws: true,
+            },
+        },
+    },
 });
