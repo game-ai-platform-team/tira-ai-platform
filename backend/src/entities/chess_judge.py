@@ -1,10 +1,12 @@
 from math import exp
 
 from chess import Board, InvalidMoveError, Move
+from stockfish import Stockfish
+
 from entities.judge import Judge
 from game_state import GameState
 from stockfish_engine import get_stockfish_engine
-from stockfish import Stockfish
+
 
 class ChessJudge(Judge):
     def __init__(self) -> None:
