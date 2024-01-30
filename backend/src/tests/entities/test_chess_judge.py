@@ -1,5 +1,7 @@
 import unittest
 
+from chess import Board
+
 from entities.chess_judge import ChessJudge
 from game_state import GameState
 
@@ -25,3 +27,16 @@ class TestChessJudge(unittest.TestCase):
         self.assertEqual(self.judge.validate("g1c4"), GameState.ILLEGAL)
         self.assertEqual(self.judge.validate("d5g4"), GameState.ILLEGAL)
         self.assertEqual(self.judge.validate("g6c4"), GameState.ILLEGAL)
+
+    def test_validate_returns_win_with_checkmates(self):
+        situations = [
+            (Board("8/1R3Q2/3k4/6R1/8/8/8/K7 w - - 40 1"), "f7f6"),
+            (Board("8/8/3b4/3K1n2/r7/2q5/8/k7 b - - 24 1"), "c3c4"),
+            (Board("7n/R2R4/4k3/8/8/1BB5/3Q4/8 w - - 30 1"), "d2d3"),
+        ]
+
+        for board, move in situations:
+            judge = ChessJudge(board)
+
+            self.assertEqual(judge.validate(move), GameState.WIN)
+
