@@ -20,23 +20,17 @@ class Game:
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
-    def play(
-        self, turns: int = 100, delay: float = 0.01, debug: bool = False
-    ) -> dict[str, Any]:
+    def play(self, turns: int = 100, debug: bool = False) -> dict[str, Any]:
         """
         Starts a game and return result as dict.
 
         Args:
             turns (int, optional): The maximum amount of turns to play. Defaults to 100.
-            delay (float, optional): The delay between turns. Defaults to 0.01.
             debug(bool, optional): If True, prints debug info to console. Defaults to False.
 
         Returns:
             dict[str, Any]: The game result containing winner, moves, etc.
         """
-
-        print(delay, debug)
-
         previous_move = ""
         state = None
         previous_player = None
