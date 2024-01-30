@@ -40,3 +40,14 @@ class TestChessJudge(unittest.TestCase):
 
             self.assertEqual(judge.validate(move), GameState.WIN)
 
+    def test_validate_returns_draw_with_stalemates(self):
+        situations = [
+            (Board("7k/8/R7/8/3K4/8/8/6R1 w - - 48 1"), "a6a7"),
+            (Board("8/8/6k1/8/2n5/8/4r3/K7 b - - 29 1"), "c4a3"),
+            (Board("k7/8/1B1Q4/8/8/8/8/8 w - - 10 1"), "d6c7"),
+        ]
+
+        for board, move in situations:
+            judge = ChessJudge(board)
+
+            self.assertEqual(judge.validate(move), GameState.DRAW)
