@@ -15,11 +15,11 @@ class ChessJudge(Judge):
         self.__engine = get_stockfish_engine()
 
     def validate(self, move: str) -> GameState:
+        if not self.is_valid_uci_move(move):
+            return GameState.INVALID
+
         state = GameState.CONTINUE
         move_object = chess.Move.from_uci(move)
-
-        if not self.is_valid_uci_move(move):
-            state = GameState.INVALID
 
         if move_object not in list(self.board.legal_moves):
             state = GameState.ILLEGAL
