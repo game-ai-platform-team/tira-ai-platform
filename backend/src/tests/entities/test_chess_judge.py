@@ -24,3 +24,9 @@ class TestChessJudge(unittest.TestCase):
 
     def test_invalid_uci_move(self):
         self.assertEqual(False, self.judge.is_valid_uci_move("move"))
+
+    def test_validate_illegal_moves_detected(self):
+        self.assertEqual(self.judge.validate("a1f8"), GameState.ILLEGAL)
+        self.assertEqual(self.judge.validate("g1c4"), GameState.ILLEGAL)
+        self.assertEqual(self.judge.validate("d5g4"), GameState.ILLEGAL)
+        self.assertEqual(self.judge.validate("g6c4"), GameState.ILLEGAL)
