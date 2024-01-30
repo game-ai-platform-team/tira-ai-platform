@@ -9,7 +9,9 @@ from stockfish_engine import get_stockfish_engine
 
 
 class ChessJudge(Judge):
-    def __init__(self, board: Board | None, engine: Stockfish | None) -> None:
+    def __init__(
+        self, board: Board | None = None, engine: Stockfish | None = None
+    ) -> None:
         self.board: Board = board or Board()
         self.__engine: Stockfish = engine or get_stockfish_engine()
 
