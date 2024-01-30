@@ -1,8 +1,6 @@
 from math import exp
 
-import chess
-from chess import InvalidMoveError, Move
-
+from chess import Board, InvalidMoveError, Move
 from entities.judge import Judge
 from game_state import GameState
 from stockfish_engine import get_stockfish_engine
@@ -11,7 +9,7 @@ from stockfish_engine import get_stockfish_engine
 class ChessJudge(Judge):
     def __init__(self) -> None:
         super().__init__()
-        self.board = chess.Board()
+        self.board: Board = Board()
         self.__engine = get_stockfish_engine()
 
     def validate(self, move: str) -> GameState:
@@ -72,7 +70,7 @@ class ChessJudge(Judge):
         """
 
         try:
-            return chess.Move.from_uci(move)
+            return Move.from_uci(move)
         except InvalidMoveError:
             return None
 
