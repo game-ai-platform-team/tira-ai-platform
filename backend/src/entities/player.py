@@ -4,6 +4,7 @@ from pathlib import Path
 
 class Player:
     def __init__(self, path: Path) -> None:
+        # pylint: disable=consider-using-with
         self.__path: Path = path
         self.__process = subprocess.Popen(
             args=["python3", str(self.__path)],
