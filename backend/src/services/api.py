@@ -11,7 +11,7 @@ class Api:
     def __init__(self):
         self.ai_file = TEMP_DIR / "ai.py"
 
-    def start(self, fileContents: str, socketio: SocketIO, sid: str) -> dict[str, Any]:
+    def start(self, file_contents: str, socketio: SocketIO, sid: str) -> dict[str, Any]:
         """
         Starts new chess game with the input AI.
 
@@ -22,7 +22,7 @@ class Api:
             dict[str, Any]: The game result containing winner, moves, etc.
         """
 
-        self.save(fileContents)
+        self.save(file_contents)
 
         socketio_service = SocketIOService(socketio, sid)
         game = GameFactory.get_chess_game(socketio_service, player1_file=self.ai_file)

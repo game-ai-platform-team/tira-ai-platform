@@ -41,9 +41,9 @@ class Game:
             move, elapsed_time = self.__play_one_move(player, previous_move)
             state = self.__judge.validate(move)
             self.__judge.add_move(move)
-            eval = self.__judge.analyze()
+            evaluation = self.__judge.analyze()
 
-            move_object = Move(move, state, elapsed_time, eval)
+            move_object = Move(move, state, elapsed_time, evaluation)
 
             self.__send_state(move_object)
 
