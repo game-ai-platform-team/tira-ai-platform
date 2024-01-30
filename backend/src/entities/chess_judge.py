@@ -4,13 +4,13 @@ from chess import Board, InvalidMoveError, Move
 from entities.judge import Judge
 from game_state import GameState
 from stockfish_engine import get_stockfish_engine
-
+from stockfish import Stockfish
 
 class ChessJudge(Judge):
     def __init__(self) -> None:
         super().__init__()
         self.board: Board = Board()
-        self.__engine = get_stockfish_engine()
+        self.__engine: Stockfish = get_stockfish_engine()
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
