@@ -12,7 +12,7 @@ class ChessJudge(Judge):
     def __init__(
         self, board: Board | None = None, engine: Stockfish | None = None
     ) -> None:
-        self.board: Board = board or Board()
+        self.__board: Board = board or Board()
         self.__engine: Stockfish = engine or get_stockfish_engine()
 
     def validate(self, move: str) -> GameState:
@@ -22,10 +22,10 @@ class ChessJudge(Judge):
         if not move_object:
             return GameState.INVALID
 
-        if move_object not in self.board.legal_moves:
+        if move_object not in self.__board.legal_moves:
             return GameState.ILLEGAL
 
-        newboard = self.board.copy()
+        newboard = self.__board.copy()
         newboard.push(move_object)
 
         if newboard.is_checkmate():
@@ -36,10 +36,10 @@ class ChessJudge(Judge):
         return state
 
     def add_move(self, move):
-        self.board.push_uci(move)
+        self.__board.push_uci(move)
 
     def get_debug_info(self):
-        return str(self.board)
+        return str(self.__board)
 
     def get_all_moves(self) -> list[str]:
         """
@@ -49,7 +49,7 @@ class ChessJudge(Judge):
             list[str]: List of moves.
         """
 
-        return [move.uci() for move in self.board.move_stack]
+        return [move.uci() for move in self.__board.move_stack]
 
     def analyze(self):
         cp = self.__centipawn_eval()
@@ -81,7 +81,7 @@ class ChessJudge(Judge):
         )
 
     def __centipawn_eval(self):
-        self.__engine.set_fen_position(self.board.fen())
+        self.__engine.set_fen_position(self.__board.fen())
         score = self.__engine.get_evaluation()
         if score["type"] == "cp" or score["value"] == 0:
             return score["value"]
@@ -92,7 +92,7 @@ class ChessJudge(Judge):
 
     def __white_win_probability(self, cp):
         if cp == 0:
-            outcome = self.board.outcome()
+            outcome = self.__board.outcome()
             if outcome is None or outcome.winner is None:
                 return 0
 
