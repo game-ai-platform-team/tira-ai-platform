@@ -18,9 +18,7 @@ class ChessJudge(Judge):
         if not self.is_valid_uci_move(move):
             return GameState.INVALID
 
-        legal_moves = [move.uci() for move in list(self.board.legal_moves)]
-
-        if move not in legal_moves:
+        if chess.Move.from_uci(move) not in list(self.board.legal_moves):
             return GameState.ILLEGAL
 
         newboard = self.board.copy()
