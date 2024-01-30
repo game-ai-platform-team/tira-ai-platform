@@ -9,23 +9,19 @@ class TestChessJudge(unittest.TestCase):
         self.judge = ChessJudge()
         self.board = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
-    def test_game_state_should_be_continue_in_start(self):
+    def test_validate_returns_continue_initially(self):
         move = "e2e4"
         game_state = self.judge.validate(move)
         self.assertEqual(GameState.CONTINUE, game_state)
 
-    def test_game_state_when_invalid_move(self):
-        move = "e2ee"
-        game_state = self.judge.validate(move)
-        self.assertEqual(GameState.INVALID, game_state)
-
-    def test_valid_uci_move(self):
-        self.assertEqual(self.judge.validate("e2e4"), GameState.CONTINUE)
-
-    def test_invalid_uci_move(self):
+    def test_validate_returns_invalid_with_invalid_moves(self):
+        self.assertEqual(self.judge.validate("e2ee"), GameState.INVALID)
         self.assertEqual(self.judge.validate("move"), GameState.INVALID)
 
-    def test_validate_illegal_moves_detected(self):
+    def test_validate_returns_continue_with_valid_uci_moves(self):
+        self.assertEqual(self.judge.validate("e2e4"), GameState.CONTINUE)
+
+    def test_validate_returns_illegal_with_illegal_moves(self):
         self.assertEqual(self.judge.validate("a1f8"), GameState.ILLEGAL)
         self.assertEqual(self.judge.validate("g1c4"), GameState.ILLEGAL)
         self.assertEqual(self.judge.validate("d5g4"), GameState.ILLEGAL)
