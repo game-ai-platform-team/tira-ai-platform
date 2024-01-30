@@ -30,11 +30,7 @@ class ChessJudge(Judge):
 
         if newboard.is_checkmate():
             state = GameState.WIN
-        elif (
-            newboard.is_stalemate()
-            or newboard.is_insufficient_material()
-            or newboard.is_fivefold_repetition()
-        ):
+        elif self.__is_draw(newboard):
             state = GameState.DRAW
 
         return state
@@ -76,6 +72,13 @@ class ChessJudge(Judge):
             return Move.from_uci(move)
         except InvalidMoveError:
             return None
+
+    def __is_draw(self, board: Board) -> bool:
+        return (
+            board.is_stalemate()
+            or board.is_insufficient_material()
+            or board.is_fivefold_repetition()
+        )
 
     def __centipawn_eval(self):
         self.__engine.set_fen_position(self.board.fen())
