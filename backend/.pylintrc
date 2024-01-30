@@ -3,6 +3,7 @@ disable=
     missing-module-docstring,
     missing-class-docstring,
     missing-function-docstring,
+ignore=tests
 
 [TYPECHECK]
 ignored-classes=BaseBoard
