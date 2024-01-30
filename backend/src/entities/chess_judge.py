@@ -10,7 +10,6 @@ from stockfish_engine import get_stockfish_engine
 
 class ChessJudge(Judge):
     def __init__(self) -> None:
-        super().__init__()
         self.board: Board = Board()
         self.__engine: Stockfish = get_stockfish_engine()
 
