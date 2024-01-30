@@ -16,15 +16,16 @@ class ChessJudge(Judge):
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
+        move_object = chess.Move.from_uci(move)
 
         if not self.is_valid_uci_move(move):
             state = GameState.INVALID
 
-        if chess.Move.from_uci(move) not in list(self.board.legal_moves):
+        if move_object not in list(self.board.legal_moves):
             state = GameState.ILLEGAL
 
         newboard = self.board.copy()
-        newboard.push_uci(move)
+        newboard.push(move_object)
 
         if newboard.is_checkmate():
             state = GameState.WIN
