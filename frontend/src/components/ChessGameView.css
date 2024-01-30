@@ -47,11 +47,10 @@
 
 @media (max-width: 300px) {
     #chess-game-view {
-      flex-direction: column;
+        flex-direction: column;
     }
 
-
-  #move-list-container {
-    margin-right: 0;
-  }
+    #move-list-container {
+        margin-right: 0;
+    }
 }
