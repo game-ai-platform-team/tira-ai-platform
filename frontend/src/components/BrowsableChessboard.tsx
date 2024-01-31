@@ -47,24 +47,31 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
     };
 
     return (
-        <div id="ChessboardContainer" style={{ display: 'flex', flexDirection: 'row' }}>
-          <div id="BrowsableChessboard">
-            <div id="chessboard-header">Player1 vs Player2</div>
-            <Chessboard position={positions[moveNumber]}></Chessboard>
-            <div>
-              <button onClick={decreaseMoveNumber} id="previousChessboardButton">
-                {"<"}
-              </button>
-              <button onClick={increaseMoveNumber} id="nextChessboardButton">
-                {">"}
-              </button>
+        <div
+            id="ChessboardContainer"
+            style={{ display: "flex", flexDirection: "row" }}
+        >
+            <div id="BrowsableChessboard">
+                <div id="chessboard-header">Player1 vs Player2</div>
+                <Chessboard position={positions[moveNumber]}></Chessboard>
+                <div>
+                    <button
+                        onClick={decreaseMoveNumber}
+                        id="previousChessboardButton"
+                    >
+                        {"<"}
+                    </button>
+                    <button
+                        onClick={increaseMoveNumber}
+                        id="nextChessboardButton"
+                    >
+                        {">"}
+                    </button>
+                </div>
             </div>
-          </div>
-          <div style={{ marginLeft: '100px' }}>
-            <EvaluationBar linePosition={0.5} />
-          </div>
+            <div style={{ marginLeft: "100px" }}>
+                <EvaluationBar linePosition={0.5} />
+            </div>
         </div>
-      );
-      
-      
+    );
 }
