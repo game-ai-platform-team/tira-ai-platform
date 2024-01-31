@@ -3,6 +3,8 @@ import "./JustInTimeMoveList.css";
 interface JustInTimeMoveListProps {
     moves: string[];
     state: string;
+    time: number;
+    advantage: number;
 }
 
 function JustInTimeMoveList(props: JustInTimeMoveListProps) {
@@ -14,7 +16,7 @@ function JustInTimeMoveList(props: JustInTimeMoveListProps) {
                     <li key={index}>{move} </li>
                 ))}
             </ul>
-            <p>{props.state}</p>
+            <p>Time: {props.time} State: {props.state} Advantage: {props.advantage}</p>
         </div>
     );
 }
