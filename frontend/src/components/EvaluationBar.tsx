@@ -1,7 +1,7 @@
 import React from "react";
 
 interface EvaluationBarProps {
-    linePosition?: number; // Prop to control the position of the red line (percentage)
+    linePosition?: number;
 }
 
 const EvaluationBar: React.FC<EvaluationBarProps> = ({ linePosition = 0 }) => {
@@ -17,7 +17,7 @@ const EvaluationBar: React.FC<EvaluationBarProps> = ({ linePosition = 0 }) => {
 
     const lineStyle: React.CSSProperties = {
         position: "absolute",
-        top: `calc(${(clampedLinePosition + 1) * 50}% - 1px)`, // Adjusted to place the line based on linePosition
+        top: `calc(${(clampedLinePosition + 1) * 50}% - 1px)`,
         left: "0",
         width: "100%",
         height: "2px",
