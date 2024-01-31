@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, ANY
 
 from entities.move import Move
 from game_state import GameState
@@ -134,3 +134,12 @@ class TestGame(TestCase):
         state_args = list(map(lambda call: call.args[0].state, calls))
 
         self.assertEqual(state_args, states)
+
+    def test_out_of_turns_gamestate_is_max_turns(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2, 3]
+        self.judge_mock.validate.side_effect = [GameState.CONTINUE] * 5
+
+        self.game.play(2)
+
+        self.io_mock.send.assert_called_with(Move(ANY, GameState.MAX_TURNS, ANY, ANY))
