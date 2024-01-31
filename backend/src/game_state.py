@@ -18,10 +18,10 @@ class GameState(Enum):
             GameState.DRAW: "DRAW",
             GameState.INVALID: "INVALID",
             GameState.ILLEGAL: "ILLEGAL",
-            GameState.MAX_TURNS: "MAX_TURNS"
+            GameState.MAX_TURNS: "MAX_TURNS",
         }
         return values[self]
-    
+
     def __bool__(self):
         values = {
             GameState.CONTINUE: True,
@@ -30,6 +30,6 @@ class GameState(Enum):
             GameState.DRAW: True,
             GameState.INVALID: False,
             GameState.ILLEGAL: False,
-            GameState.MAX_TURNS: False
+            GameState.MAX_TURNS: False,
         }
         return values[self]
