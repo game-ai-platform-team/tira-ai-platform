@@ -41,19 +41,27 @@ function ChessGameView(props: CodeViewProps) {
 
     const [gameAdvantage, setGameAdvantage] = useState(0);
 
-    const handleNewMove = useCallback((newMove: string, state: string, newTime: number, newAdvantage: number) => {
-        if (
-            state === "CONTINUE" ||
-            state === "WIN" ||
-            state === "LOSE" ||
-            state === "DRAW"
-        ) {
-            setMoves((prevMoves) => [...prevMoves, newMove]);
-        }
-        setGameState(state);
-        setMoveTime(newTime);
-        setGameAdvantage(newAdvantage);
-    }, []);
+    const handleNewMove = useCallback(
+        (
+            newMove: string,
+            state: string,
+            newTime: number,
+            newAdvantage: number,
+        ) => {
+            if (
+                state === "CONTINUE" ||
+                state === "WIN" ||
+                state === "LOSE" ||
+                state === "DRAW"
+            ) {
+                setMoves((prevMoves) => [...prevMoves, newMove]);
+            }
+            setGameState(state);
+            setMoveTime(newTime);
+            setGameAdvantage(newAdvantage);
+        },
+        [],
+    );
 
     const [gameConnectionId, setGameConnectionId] = useState<number>();
 
@@ -95,7 +103,12 @@ function ChessGameView(props: CodeViewProps) {
                 </div>
             </div>
             <div id="move-list-container">
-                <JustInTimeMoveList moves={moves} state={gameState} time={moveTime} advantage={gameAdvantage}/>
+                <JustInTimeMoveList
+                    moves={moves}
+                    state={gameState}
+                    time={moveTime}
+                    advantage={gameAdvantage}
+                />
             </div>
         </div>
     );

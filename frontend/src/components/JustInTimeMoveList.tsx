@@ -16,7 +16,10 @@ function JustInTimeMoveList(props: JustInTimeMoveListProps) {
                     <li key={index}>{move} </li>
                 ))}
             </ul>
-            <p>Time: {props.time} State: {props.state} Advantage: {props.advantage}</p>
+            <p>
+                Time: {props.time} State: {props.state} Advantage:{" "}
+                {props.advantage}
+            </p>
         </div>
     );
 }
