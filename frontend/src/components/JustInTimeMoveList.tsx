@@ -1,10 +1,14 @@
 import "./JustInTimeMoveList.css";
 
-interface JustInTimeMoveListProps {
-    moves: string[];
-    state: string;
+interface MoveStatistics {
+    move: string;
     time: number;
     advantage: number;
+  }
+  
+interface JustInTimeMoveListProps {
+    moveStatistics: MoveStatistics[];
+    state: string;
 }
 
 function JustInTimeMoveList(props: JustInTimeMoveListProps) {
@@ -12,13 +16,12 @@ function JustInTimeMoveList(props: JustInTimeMoveListProps) {
         <div>
             <p>Received moves:</p>
             <ul id="move-list">
-                {props.moves.map((move, index) => (
-                    <li key={index}>{move} </li>
+                {props.moveStatistics.map((move, index) => (
+                    <li key={index}>{move.move} Time: {move.time} Advantage: {move.advantage}</li>
                 ))}
             </ul>
             <p>
-                Time: {props.time} State: {props.state} Advantage:{" "}
-                {props.advantage}
+                State: {props.state}
             </p>
         </div>
     );

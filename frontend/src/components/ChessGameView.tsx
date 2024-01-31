@@ -11,6 +11,12 @@ interface CodeViewProps {
     testResult?: ChessGameResult;
 }
 
+interface MoveStatistics {
+    move: string;
+    time: number;
+    advantage: number;
+  }  
+
 const gameConnections: Map<number, GameConnection> = new Map<
     number,
     GameConnection
@@ -33,13 +39,15 @@ function ChessGameView(props: CodeViewProps) {
         props.testResult?.moves ? props.testResult.moves : [],
     );
 
+    const [moveStatisticsList, setMoveStatisticsList] = useState<MoveStatistics[]>([]);
+
+    const addMoveStatistics = (newMoveStatistics: MoveStatistics) => {
+        setMoveStatisticsList((prevList) => [...prevList, newMoveStatistics]);
+    };
+
     const [hasGameStarted, setHasGameStarted] = useState(false);
 
     const [gameState, setGameState] = useState("CONTINUE");
-
-    const [moveTime, setMoveTime] = useState(0);
-
-    const [gameAdvantage, setGameAdvantage] = useState(0);
 
     const handleNewMove = useCallback(
         (
@@ -55,10 +63,15 @@ function ChessGameView(props: CodeViewProps) {
                 state === "DRAW"
             ) {
                 setMoves((prevMoves) => [...prevMoves, newMove]);
-            }
+
+                const newMoveStatistics: MoveStatistics = {
+                    move: newMove,
+                    time: newTime,
+                    advantage: newAdvantage,
+                };
+                addMoveStatistics(newMoveStatistics);
+            }            
             setGameState(state);
-            setMoveTime(newTime);
-            setGameAdvantage(newAdvantage);
         },
         [],
     );
@@ -104,10 +117,8 @@ function ChessGameView(props: CodeViewProps) {
             </div>
             <div id="move-list-container">
                 <JustInTimeMoveList
-                    moves={moves}
+                    moveStatistics={moveStatisticsList}
                     state={gameState}
-                    time={moveTime}
-                    advantage={gameAdvantage}
                 />
             </div>
         </div>
