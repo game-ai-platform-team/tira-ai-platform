@@ -70,7 +70,7 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
                 </div>
             </div>
             <div style={{ marginLeft: "100px" }}>
-                <EvaluationBar linePosition={0.5} />
+                <EvaluationBar linePosition={0.1} />
             </div>
         </div>
     );
