@@ -4,34 +4,33 @@
     height: 490px;
     background: linear-gradient(to bottom, #b5876b, #f0dec7);
     position: relative;
-  }
-  
-  .division-line {
+}
+
+.division-line {
     position: absolute;
     width: 100%;
     height: 2px;
     background-color: black;
-  }
-  
-  .division-line.top {
+}
+
+.division-line.top {
     top: 75%;
-  }
+}
 
-  .division-line.middle {
+.division-line.middle {
     top: 50%;
-  }
+}
 
-  .division-line.bottom {
+.division-line.bottom {
     top: 25%;
-  }
-  
-  .red-line {
+}
+
+.red-line {
     position: absolute;
     top: 50%;
     width: 100%;
     height: 5px;
     background-color: red;
-  }
-  
-  /* Add any additional styling here */
-  
+}
+
+/* Add any additional styling here */
