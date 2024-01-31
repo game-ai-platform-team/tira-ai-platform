@@ -141,6 +141,7 @@ class GameState {
     DRAW
     INVALID
     ILLEGAL
+    MAX_TURNS
 }
 
 class Move {

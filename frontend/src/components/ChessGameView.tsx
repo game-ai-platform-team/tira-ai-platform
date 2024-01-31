@@ -62,7 +62,8 @@ function ChessGameView(props: CodeViewProps) {
                 state === "CONTINUE" ||
                 state === "WIN" ||
                 state === "LOSE" ||
-                state === "DRAW"
+                state === "DRAW" ||
+                state === "MAX_TURNS"
             ) {
                 setMoves((prevMoves) => [...prevMoves, newMove]);
 

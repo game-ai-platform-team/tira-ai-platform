@@ -20,12 +20,12 @@ class Game:
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
-    def play(self, turns: int = 100, debug: bool = False) -> dict[str, Any]:
+    def play(self, turns: int = 250, debug: bool = False) -> dict[str, Any]:
         """
         Starts a game and return result as dict.
 
         Args:
-            turns (int, optional): The maximum amount of turns to play. Defaults to 100.
+            turns (int, optional): The maximum amount of turns to play. Defaults to 250.
             debug(bool, optional): If True, prints debug info to console. Defaults to False.
 
         Returns:
@@ -42,6 +42,9 @@ class Game:
             state = self.__judge.validate(move)
             self.__judge.add_move(move)
             evaluation = self.__judge.analyze()
+
+            if i == turns - 1 and state == GameState.CONTINUE:
+                state = GameState.MAX_TURNS
 
             move_object = Move(move, state, elapsed_time, evaluation)
 
