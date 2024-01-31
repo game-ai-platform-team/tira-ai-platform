@@ -15,7 +15,7 @@ interface MoveStatistics {
     move: string;
     time: number;
     advantage: number;
-  }  
+}
 
 const gameConnections: Map<number, GameConnection> = new Map<
     number,
@@ -39,7 +39,9 @@ function ChessGameView(props: CodeViewProps) {
         props.testResult?.moves ? props.testResult.moves : [],
     );
 
-    const [moveStatisticsList, setMoveStatisticsList] = useState<MoveStatistics[]>([]);
+    const [moveStatisticsList, setMoveStatisticsList] = useState<
+        MoveStatistics[]
+    >([]);
 
     const addMoveStatistics = (newMoveStatistics: MoveStatistics) => {
         setMoveStatisticsList((prevList) => [...prevList, newMoveStatistics]);
@@ -70,7 +72,7 @@ function ChessGameView(props: CodeViewProps) {
                     advantage: newAdvantage,
                 };
                 addMoveStatistics(newMoveStatistics);
-            }            
+            }
             setGameState(state);
         },
         [],
