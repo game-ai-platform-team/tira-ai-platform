@@ -7,18 +7,21 @@ interface JustInTimeMoveListProps {
     state: string;
 }
 
-function JustInTimeMoveList(props: JustInTimeMoveListProps) {
+function JustInTimeMoveList({
+    moveStatistics,
+    state,
+}: JustInTimeMoveListProps) {
     return (
         <div>
             <p>Received moves:</p>
             <ul id="move-list">
-                {props.moveStatistics.map((move, index) => (
+                {moveStatistics.map((move, index) => (
                     <li key={index}>
                         <Move move={move.move} time={move.time} />
                     </li>
                 ))}
             </ul>
-            <p>State: {props.state}</p>
+            <p>State: {state}</p>
         </div>
     );
 }
