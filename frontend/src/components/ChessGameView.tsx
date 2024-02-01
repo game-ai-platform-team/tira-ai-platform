@@ -117,10 +117,7 @@ function ChessGameView(props: CodeViewProps) {
                 </div>
             </div>
             <div id="move-list-container">
-                <MoveList
-                    moves={moveStatisticsList}
-                    state={gameState}
-                />
+                <MoveList moves={moveStatisticsList} state={gameState} />
             </div>
         </div>
     );
