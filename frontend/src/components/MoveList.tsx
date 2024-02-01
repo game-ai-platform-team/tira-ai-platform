@@ -1,13 +1,13 @@
-import "./JustInTimeMoveList.css";
+import "./MoveList.css";
 import Move from "./Move";
 import { MoveProps } from "./Move";
 
-interface JustInTimeMoveListProps {
+interface MoveListProps {
     moves: MoveProps[];
     state: string;
 }
 
-function JustInTimeMoveList({ moves, state }: JustInTimeMoveListProps) {
+function MoveList({ moves, state }: MoveListProps) {
     return (
         <div>
             <p>Received moves:</p>
@@ -23,4 +23,4 @@ function JustInTimeMoveList({ moves, state }: JustInTimeMoveListProps) {
     );
 }
 
-export default JustInTimeMoveList;
+export default MoveList;

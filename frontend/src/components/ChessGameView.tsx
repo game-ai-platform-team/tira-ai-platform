@@ -2,7 +2,7 @@ import SubmitForm from "./SubmitForm.tsx";
 import { useState, useCallback, useEffect } from "react";
 import { ChessGameResult } from "../types.ts";
 import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
-import JustInTimeMoveList from "./JustInTimeMoveList.tsx";
+import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
 import "./ChessGameView.css";
 
@@ -117,7 +117,7 @@ function ChessGameView(props: CodeViewProps) {
                 </div>
             </div>
             <div id="move-list-container">
-                <JustInTimeMoveList
+                <MoveList
                     moves={moveStatisticsList}
                     state={gameState}
                 />
