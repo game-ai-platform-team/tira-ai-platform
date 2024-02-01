@@ -6,9 +6,9 @@ interface MoveProps {
 }
 
 const Move = ({ move, time }: MoveProps) => {
-    const [visible, setVisible] = useState(false)
-    const showWhenVisible = { display: visible ? "" : "none"}
-        return (
+    const [visible, setVisible] = useState(false);
+    const showWhenVisible = { display: visible ? "" : "none" };
+    return (
         <div className="move">
             <a onClick={() => setVisible(!visible)}>
                 <span>Move: {move}</span>
