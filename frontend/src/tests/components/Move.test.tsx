@@ -9,4 +9,4 @@ describe("move component", async () => {
     test("move shown", () => {
         expect(screen.queryByText("e1e2")).not.toBeNull;
     });
-
+});
