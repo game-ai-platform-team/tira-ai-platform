@@ -11,7 +11,7 @@ test("feedback is on the navigation bar", () => {
 test("dropdown menu has chess", () => {
     const { queryAllByText } = render(<NavigationBar />);
     const chessButtons = queryAllByText("Chess");
-    
+
     expect(chessButtons.length).toBe(2);
 });
 
