@@ -10,11 +10,11 @@ const Move = ({ move, time }: MoveProps) => {
     const showWhenVisible = { display: visible ? "" : "none" };
     return (
         <div className="move">
-            <a onClick={() => setVisible(!visible)}>
+            <a className="move-content" onClick={() => setVisible(!visible)}>
                 <span>Move: {move}</span>
             </a>
 
-            <div style={showWhenVisible}>
+            <div className="move-details" style={showWhenVisible}>
                 <span>Time: {time}</span>
             </div>
         </div>
