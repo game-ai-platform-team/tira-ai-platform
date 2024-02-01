@@ -1,13 +1,9 @@
 import "./JustInTimeMoveList.css";
-
-interface MoveStatistics {
-    move: string;
-    time: number;
-    advantage: number;
-}
+import Move from "./Move";
+import { MoveProps } from "./Move";
 
 interface JustInTimeMoveListProps {
-    moveStatistics: MoveStatistics[];
+    moveStatistics: MoveProps[];
     state: string;
 }
 
@@ -18,8 +14,7 @@ function JustInTimeMoveList(props: JustInTimeMoveListProps) {
             <ul id="move-list">
                 {props.moveStatistics.map((move, index) => (
                     <li key={index}>
-                        {move.move} Time: {move.time} Advantage:{" "}
-                        {move.advantage}
+                        <Move move = {move.move} time = {0} state = {""}/>
                     </li>
                 ))}
             </ul>
