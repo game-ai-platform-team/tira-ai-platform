@@ -3,19 +3,16 @@ import Move from "./Move";
 import { MoveProps } from "./Move";
 
 interface JustInTimeMoveListProps {
-    moveStatistics: MoveProps[];
+    moves: MoveProps[];
     state: string;
 }
 
-function JustInTimeMoveList({
-    moveStatistics,
-    state,
-}: JustInTimeMoveListProps) {
+function JustInTimeMoveList({ moves, state }: JustInTimeMoveListProps) {
     return (
         <div>
             <p>Received moves:</p>
             <ul id="move-list">
-                {moveStatistics.map((move, index) => (
+                {moves.map((move, index) => (
                     <li key={index}>
                         <Move move={move.move} time={move.time} />
                     </li>
