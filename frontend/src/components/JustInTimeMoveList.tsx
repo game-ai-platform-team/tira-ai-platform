@@ -14,7 +14,7 @@ function JustInTimeMoveList(props: JustInTimeMoveListProps) {
             <ul id="move-list">
                 {props.moveStatistics.map((move, index) => (
                     <li key={index}>
-                        <Move move={move.move} time={0} state={""} />
+                        <Move move = {move.move} time = {move.time}/>
                     </li>
                 ))}
             </ul>
