@@ -13,13 +13,13 @@ test("Chess board changes when button clicked", async () => {
 
     const user = userEvent.setup();
 
-    const nextButton = component.container.querySelector(
-        "#nextChessboardButton",
+    const previousButton = component.container.querySelector(
+        "#previousChessboardButton",
     );
 
-    expect(nextButton).not.toBeNull();
+    expect(previousButton).not.toBeNull();
 
-    await user.click(nextButton as Element);
+    await user.click(previousButton as Element);
 
     const chessboard2 = component.container.querySelector(".kokopu-chessboard");
     const boardState2 = chessboard2?.outerHTML;
