@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory
+from flask import Flask, request, send_from_directory, send_file
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
@@ -15,6 +15,11 @@ CORS(app)
 @socketio.on("postcode", namespace="/gameconnection")
 def io_post_code(data):
     api.start(data["content"], socketio, request.sid)
+
+
+@app.route("/")
+def index():
+    return send_file("./../frontend/dist/index.html")
 
 
 @app.route("/<path:path>")
