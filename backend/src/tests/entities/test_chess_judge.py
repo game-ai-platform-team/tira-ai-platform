@@ -51,3 +51,21 @@ class TestChessJudge(unittest.TestCase):
             judge = ChessJudge(board)
 
             self.assertEqual(judge.validate(move), GameState.DRAW)
+
+    def test_add_move_updates_internal_state(self):
+        move = "e2e4"
+        self.judge.add_move(move)
+        moves = self.judge.get_all_moves()
+        self.assertIn(move, moves)
+
+    def test_validate_does_not_update_internal_state(self):
+        move = "e2e4"
+        self.judge.validate(move)
+        moves = self.judge.get_all_moves()
+        self.assertNotIn(move, moves)
+    
+    def test_get_all_moves_returns_added_moves(self):
+        self.judge.add_move("e2e4")
+        self.judge.add_move("e7e5")
+        moves = self.judge.get_all_moves()
+        self.assertEqual(moves, ["e2e4", "e7e5"])
