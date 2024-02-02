@@ -65,6 +65,22 @@ class TestChessJudge(unittest.TestCase):
 
             self.assertEqual(judge.validate(move), GameState.DRAW)
 
+    def test_validate_returns_draw_with_fivefold_repetition(self):
+        board = Board("1k6/ppp5/8/8/8/8/5PPP/6K1 w - - 0 1")
+        judge = ChessJudge(board)
+
+        moves = [
+            "g1f1", "b8a8", "f1g1", "a8b8",
+            "g1f1", "b8a8", "f1g1", "a8b8",
+            "g1f1", "b8a8", "f1g1", "a8b8",
+            "g1f1", "b8a8", "f1g1", "a8b8",
+        ]
+
+        for move in moves:
+            judge.add_move(move)
+
+        self.assertEqual(judge.validate("g1f1"), GameState.DRAW)
+
     def test_add_move_updates_internal_state(self):
         move = "e2e4"
         self.judge.add_move(move)
