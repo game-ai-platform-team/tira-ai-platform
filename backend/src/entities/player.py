@@ -1,5 +1,6 @@
 import subprocess
 from pathlib import Path
+import time
 
 
 class Player:
@@ -14,6 +15,9 @@ class Player:
         )
 
     def play(self, move) -> str:
+        if self.__process.poll() is not None:
+            raise ProcessLookupError
+
         input_string = move + "\n"
 
         self.__process.stdin.write(input_string.encode("utf-8"))
@@ -26,3 +30,4 @@ class Player:
 
     def terminate_self(self):
         self.__process.terminate()
+        time.sleep(0.01)
