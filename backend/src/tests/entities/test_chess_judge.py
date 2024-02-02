@@ -51,13 +51,13 @@ class TestChessJudge(unittest.TestCase):
             judge = ChessJudge(board)
 
             self.assertEqual(judge.validate(move), GameState.DRAW)
-    
+
     def test_validate_returns_draw_with_insufficient_material(self):
         situations = [
             (Board("4k3/8/8/8/8/8/8/4K3 w - - 0 1"), "e1e2"),
             (Board("4k3/8/8/8/8/5N2/8/4K3 w - - 0 1"), "f3d4"),
             (Board("4k3/8/8/8/8/7B/8/4K3 w - - 0 1"), "h3f5"),
-            (Board("4k3/1b6/8/8/8/7B/8/4K3 w - - 0 1"), "h3c8")
+            (Board("4k3/1b6/8/8/8/7B/8/4K3 w - - 0 1"), "h3c8"),
         ]
 
         for board, move in situations:
@@ -70,10 +70,22 @@ class TestChessJudge(unittest.TestCase):
         judge = ChessJudge(board)
 
         moves = [
-            "g1f1", "b8a8", "f1g1", "a8b8",
-            "g1f1", "b8a8", "f1g1", "a8b8",
-            "g1f1", "b8a8", "f1g1", "a8b8",
-            "g1f1", "b8a8", "f1g1", "a8b8",
+            "g1f1",
+            "b8a8",
+            "f1g1",
+            "a8b8",
+            "g1f1",
+            "b8a8",
+            "f1g1",
+            "a8b8",
+            "g1f1",
+            "b8a8",
+            "f1g1",
+            "a8b8",
+            "g1f1",
+            "b8a8",
+            "f1g1",
+            "a8b8",
         ]
 
         for move in moves:
@@ -92,7 +104,7 @@ class TestChessJudge(unittest.TestCase):
         self.judge.validate(move)
         moves = self.judge.get_all_moves()
         self.assertNotIn(move, moves)
-    
+
     def test_get_all_moves_returns_added_moves(self):
         self.judge.add_move("e2e4")
         self.judge.add_move("e7e5")
@@ -100,7 +112,9 @@ class TestChessJudge(unittest.TestCase):
         self.assertEqual(moves, ["e2e4", "e7e5"])
 
     def test_analyze_white_win(self):
-        board = Board("r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 1")
+        board = Board(
+            "r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 1"
+        )
 
         self.assertEqual(ChessJudge(board).analyze(), 1)
 
@@ -118,17 +132,17 @@ class TestChessJudge(unittest.TestCase):
         boards = [
             Board("7k/8/R7/8/3K4/8/8/6R1 w - - 48 1"),
             Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"),
-            Board("2k5/3n4/8/4Q3/1Q6/8/3K4/8 b - - 0 1")
+            Board("2k5/3n4/8/4Q3/1Q6/8/3K4/8 b - - 0 1"),
         ]
 
         for board in boards:
             self.assertGreater(ChessJudge(board).analyze(), 0)
-    
+
     def test_analyze_black_advantage(self):
         boards = [
             Board("4k3/8/8/8/8/8/3K4/q7 b - - 0 1"),
             Board("rnbqkbnr/pppppp2/6p1/6p1/4P3/7N/PPPP1PPP/RNB1KB1R b KQkq - 0 1"),
-            Board("2k5/8/8/4q3/q7/3N4/3K4/8 b - - 0 1")
+            Board("2k5/8/8/4q3/q7/3N4/3K4/8 b - - 0 1"),
         ]
 
         for board in boards:
