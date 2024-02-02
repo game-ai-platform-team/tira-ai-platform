@@ -98,3 +98,38 @@ class TestChessJudge(unittest.TestCase):
         self.judge.add_move("e7e5")
         moves = self.judge.get_all_moves()
         self.assertEqual(moves, ["e2e4", "e7e5"])
+
+    def test_analyze_white_win(self):
+        board = Board("r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 1")
+
+        self.assertEqual(ChessJudge(board).analyze(), 1)
+
+    def test_analyze_black_win(self):
+        board = Board("rnb1k1nr/pppp1Npp/8/2b1p3/6P1/8/PPPPPq1P/RNBQKB1R w KQkq - 0 1")
+
+        self.assertEqual(ChessJudge(board).analyze(), -1)
+
+    def test_analyze_draw(self):
+        board = Board("7k/R7/8/8/3K4/8/8/6R1 b - - 48 1")
+
+        self.assertEqual(ChessJudge(board).analyze(), 0)
+
+    def test_analyze_white_advantage(self):
+        boards = [
+            Board("7k/8/R7/8/3K4/8/8/6R1 w - - 48 1"),
+            Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"),
+            Board("2k5/3n4/8/4Q3/1Q6/8/3K4/8 b - - 0 1")
+        ]
+
+        for board in boards:
+            self.assertGreater(ChessJudge(board).analyze(), 0)
+    
+    def test_analyze_black_advantage(self):
+        boards = [
+            Board("4k3/8/8/8/8/8/3K4/q7 b - - 0 1"),
+            Board("rnbqkbnr/pppppp2/6p1/6p1/4P3/7N/PPPP1PPP/RNB1KB1R b KQkq - 0 1"),
+            Board("2k5/8/8/4q3/q7/3N4/3K4/8 b - - 0 1")
+        ]
+
+        for board in boards:
+            self.assertLess(ChessJudge(board).analyze(), 0)
