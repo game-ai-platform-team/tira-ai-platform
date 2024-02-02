@@ -51,6 +51,19 @@ class TestChessJudge(unittest.TestCase):
             judge = ChessJudge(board)
 
             self.assertEqual(judge.validate(move), GameState.DRAW)
+    
+    def test_validate_returns_draw_with_insufficient_material(self):
+        situations = [
+            (Board("4k3/8/8/8/8/8/8/4K3 w - - 0 1"), "e1e2"),
+            (Board("4k3/8/8/8/8/5N2/8/4K3 w - - 0 1"), "f3d4"),
+            (Board("4k3/8/8/8/8/7B/8/4K3 w - - 0 1"), "h3f5"),
+            (Board("4k3/1b6/8/8/8/7B/8/4K3 w - - 0 1"), "h3c8")
+        ]
+
+        for board, move in situations:
+            judge = ChessJudge(board)
+
+            self.assertEqual(judge.validate(move), GameState.DRAW)
 
     def test_add_move_updates_internal_state(self):
         move = "e2e4"
