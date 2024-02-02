@@ -1,9 +1,10 @@
 import unittest
 from pathlib import Path
+
 from entities.player import Player
 
-class TestPlayer(unittest.TestCase):
 
+class TestPlayer(unittest.TestCase):
     def setUp(self):
         self.temp_file = Path("test_script.py")
         with self.temp_file.open("w") as f:
@@ -19,7 +20,7 @@ class TestPlayer(unittest.TestCase):
         player.terminate_self()
 
         self.assertEqual(move, out)
-    
+
     def test_terminate_self_terminates_process(self):
         player = Player(self.temp_file)
         player.terminate_self()
