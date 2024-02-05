@@ -7,7 +7,7 @@ from services.api import Api
 
 class TestApi(TestCase):
     def setUp(self) -> None:
-        if os.path.isdir(TEMP_DIR):
+        if not os.path.exists(TEMP_DIR):
             os.mkdir(TEMP_DIR)
         self.api = Api()
 
@@ -17,5 +17,4 @@ class TestApi(TestCase):
         with open(TEMP_DIR / "ai.py", mode="r", encoding="utf-8") as file:
             content = file.read()
 
-        print(content)
         self.assertEqual(content, "Hello world!")
