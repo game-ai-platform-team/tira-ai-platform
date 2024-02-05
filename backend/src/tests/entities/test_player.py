@@ -26,3 +26,12 @@ class TestPlayer(unittest.TestCase):
         player.terminate_self()
 
         self.assertRaises(ProcessLookupError, player.play, "move")
+
+    def test_raise_error_when_timeout(self):
+        with self.temp_file.open("w") as f:
+            f.truncate(0)
+            f.write("import time\ntime.sleep(2)")
+
+        player = Player(self.temp_file, 1)
+        
+        self.assertRaises(TimeoutError, player.play, "move")
