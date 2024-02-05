@@ -23,13 +23,16 @@ RUN adduser --home /home/user user
 ENV HOME=/home/user
 RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && mkdir -p $HOME/.config/pypoetry \
-    && mkdir $HOME/temp \
     && chown -R user:user $HOME \
-    && chmod -R 755 $HOME 
+    && chmod -R 755 $HOME \
+    && chgrp -R 0 /app \ 
+    && chmod -R g=u /app \
+    && chgrp -R 0 /$HOME \ 
+    && chmod -R g=u /$HOME 
 
 RUN python3 -m poetry install
 RUN ls -la $HOME/.config/pypoetry
-
-USER user
+         
+USER 1001
 EXPOSE 5000:5000
 CMD ["poetry", "run", "python3", "src/app.py"]
