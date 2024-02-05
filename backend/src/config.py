@@ -12,7 +12,6 @@ except FileNotFoundError:
     pass
 
 TEMP_DIR = Path(os.getenv("HOME")) / "temp"
-os.mkdir(TEMP_DIR)
 
 DEFAULT_CHESS_AI_FILENAME = getenv("DEFAULT_CHESS_AI_FILENAME") or "ai.py"
 DEFAULT_CHESS_AI_PATH = ROOTDIR / "src" / DEFAULT_CHESS_AI_FILENAME
