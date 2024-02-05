@@ -23,6 +23,7 @@ RUN adduser --home /home/user user
 ENV HOME=/home/user
 RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && mkdir -p $HOME/.config/pypoetry \
+    && mkdir $HOME/temp \
     && chown -R user:user $HOME \
     && chmod -R 755 $HOME
 
