@@ -25,10 +25,11 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && mkdir -p $HOME/.config/pypoetry \
     && mkdir $HOME/temp \
     && chown -R user:user $HOME \
-    && chmod -R 755 $HOME
+    && chmod -R 755 $HOME 
 
 RUN python3 -m poetry install
 RUN ls -la $HOME/.config/pypoetry
 
+USER user
 EXPOSE 5000:5000
 CMD ["poetry", "run", "python3", "src/app.py"]
