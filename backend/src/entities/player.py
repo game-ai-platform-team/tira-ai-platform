@@ -1,12 +1,15 @@
 import subprocess
 import time
+import select
+from config import DEFAULT_CHESS_TIMEOUT
 from pathlib import Path
 
 
 class Player:
-    def __init__(self, path: Path) -> None:
+    def __init__(self, path: Path, timeout: float=DEFAULT_CHESS_TIMEOUT) -> None:
         # pylint: disable=consider-using-with
         self.__path: Path = path
+        self.__timeout = timeout
         self.__process = subprocess.Popen(
             args=["python3", str(self.__path)],
             stdin=subprocess.PIPE,
@@ -21,8 +24,13 @@ class Player:
         input_string = move + "\n"
 
         self.__process.stdin.write(input_string.encode("utf-8"))
-
         self.__process.stdin.flush()
+
+        readable, _, _ = select.select([self.__process.stdout], [], [], self.__timeout)
+
+        if not readable:
+            self.terminate_self()
+            raise TimeoutError(self.__path)
 
         out = self.__process.stdout.readline()
 
