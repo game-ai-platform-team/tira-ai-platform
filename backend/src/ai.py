@@ -7,8 +7,7 @@ class stockfish_ai:
         self.boardstate = []
 
     def configure_level(self):
-        level = {"Skill Level": 1}
-        self.engine.update_engine_parameters(level)
+        self.engine.set_skill_level(20)
 
     def play(self):
         while True:
