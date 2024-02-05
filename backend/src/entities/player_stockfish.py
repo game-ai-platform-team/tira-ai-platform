@@ -1,6 +1,7 @@
 from stockfish_engine import get_stockfish_engine
 
-class PlayerStockfish():
+
+class PlayerStockfish:
     def __init__(self, level) -> None:
         self.engine = get_stockfish_engine()
         self.boardstate = []
@@ -12,6 +13,6 @@ class PlayerStockfish():
         new_move = self.engine.get_best_move()
         self.boardstate.append(new_move)
         return new_move
-    
+
     def terminate_self(self):
         pass
