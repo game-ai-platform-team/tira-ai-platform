@@ -38,7 +38,15 @@ class Game:
         for i in range(turns):
             player = self.__players[i % 2]
 
-            move, elapsed_time = self.__play_one_move(player, previous_move)
+            try:
+                move, elapsed_time = self.__play_one_move(player, previous_move)
+            except Exception as ex:
+                if type(ex) == TimeoutError:
+                    self.__send_state(Move("", GameState.TIMEOUT, 0, 0))
+                    break
+                else:
+                    raise ex
+
             state = self.__judge.validate(move)
             self.__judge.add_move(move)
             evaluation = self.__judge.analyze()
