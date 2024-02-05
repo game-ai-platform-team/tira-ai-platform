@@ -33,5 +33,5 @@ class TestPlayer(unittest.TestCase):
             f.write("import time\ntime.sleep(2)")
 
         player = Player(self.temp_file, 1)
-        
+
         self.assertRaises(TimeoutError, player.play, "move")
