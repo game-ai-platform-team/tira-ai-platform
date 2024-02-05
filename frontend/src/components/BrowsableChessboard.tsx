@@ -6,6 +6,7 @@ import EvaluationBar from "./EvaluationBar";
 
 interface BrowsableChessboardProps {
     moves?: string[];
+    advantage?: number;
 }
 
 const emptyList: string[] = [];
@@ -69,7 +70,7 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
             <div style={{ marginLeft: "100px" }}>
                 {/* linePosition={0} places the indicator in the middle of the bar */}
                 {/* linePosition={0.1} results to what the bar would look like when the advantage is +0.1 */}
-                <EvaluationBar linePosition={0.1} />
+                <EvaluationBar linePosition={props.advantage || 0} />
             </div>
         </div>
     );
