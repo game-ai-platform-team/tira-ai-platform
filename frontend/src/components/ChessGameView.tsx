@@ -50,6 +50,8 @@ function ChessGameView(props: CodeViewProps) {
 
     const [gameState, setGameState] = useState("CONTINUE");
 
+    const [currentAdvantage, setCurrentAdvantage] = useState<number>(0);
+
     const handleNewMove = useCallback(
         (
             newMove: string,
@@ -71,7 +73,9 @@ function ChessGameView(props: CodeViewProps) {
                     time: newTime,
                     advantage: newAdvantage,
                 };
+
                 addMoveStatistics(newMoveStatistics);
+                setCurrentAdvantage(newAdvantage);
             }
             setGameState(state);
         },
@@ -112,7 +116,10 @@ function ChessGameView(props: CodeViewProps) {
                     />
                 </div>
                 <div id="chessboard-container">
-                    <BrowsableChessboard moves={moves} />
+                    <BrowsableChessboard
+                        moves={moves}
+                        advantage={currentAdvantage}
+                    />
                     <div id="winner-message">{winnerMessage}</div>
                 </div>
             </div>
