@@ -1,12 +1,13 @@
+import select
 import subprocess
 import time
-import select
-from config import DEFAULT_CHESS_TIMEOUT
 from pathlib import Path
+
+from config import DEFAULT_CHESS_TIMEOUT
 
 
 class Player:
-    def __init__(self, path: Path, timeout: float=DEFAULT_CHESS_TIMEOUT) -> None:
+    def __init__(self, path: Path, timeout: float = DEFAULT_CHESS_TIMEOUT) -> None:
         # pylint: disable=consider-using-with
         self.__path: Path = path
         self.__timeout = timeout
