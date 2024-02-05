@@ -1,3 +1,4 @@
+import os
 from os import getenv
 from pathlib import Path
 
@@ -10,8 +11,8 @@ try:
 except FileNotFoundError:
     pass
 
-TEMP_DIRNAME = getenv("TEMP_DIRNAME") or "temp"
-TEMP_DIR = ROOTDIR / TEMP_DIRNAME
+TEMP_DIR = Path(os.getenv("HOME")) / "temp"
+os.mkdir(TEMP_DIR)
 
 DEFAULT_CHESS_AI_FILENAME = getenv("DEFAULT_CHESS_AI_FILENAME") or "ai.py"
 DEFAULT_CHESS_AI_PATH = ROOTDIR / "src" / DEFAULT_CHESS_AI_FILENAME
