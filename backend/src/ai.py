@@ -1,5 +1,6 @@
 from stockfish_engine import get_stockfish_engine
 
+
 class stockfish_ai:
     def __init__(self) -> None:
         self.engine = get_stockfish_engine()
@@ -24,7 +25,7 @@ class stockfish_ai:
             print(new_move)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     sf_ai = stockfish_ai()
     sf_ai.configure_level()
     sf_ai.play()
