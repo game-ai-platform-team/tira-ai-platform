@@ -37,7 +37,8 @@ class Api:
         Args:
             content (str): Content to save.
         """
-
+        self.ai_file.parent.mkdir(parents=True, exist_ok=True)
+        self.ai_file.touch(exist_ok=True)
         with open(self.ai_file, mode="w", encoding="utf-8") as file:
             file.write(content)
 
