@@ -1,45 +1,45 @@
-import re
+from math import exp
 
-import chess
+from chess import Board, InvalidMoveError, Move
+from stockfish import Stockfish
 
 from entities.judge import Judge
 from game_state import GameState
+from stockfish_engine import get_stockfish_engine
 
 
 class ChessJudge(Judge):
-    def __init__(self) -> None:
-        super().__init__()
-        self.board = chess.Board()
+    def __init__(
+        self, board: Board | None = None, engine: Stockfish | None = None
+    ) -> None:
+        self.__board: Board = board or Board()
+        self.__engine: Stockfish = engine or get_stockfish_engine()
 
     def validate(self, move: str) -> GameState:
-        if not self.is_valid_uci_move(move):
+        state = GameState.CONTINUE
+        move_object = self.__get_move_object(move)
+
+        if not move_object:
             return GameState.INVALID
 
-        legal_moves = [move.uci() for move in list(self.board.legal_moves)]
-
-        if move not in legal_moves:
+        if move_object not in self.__board.legal_moves:
             return GameState.ILLEGAL
 
-        if self.board.is_checkmate():
-            return GameState.WIN
-        if self.board.is_stalemate():
-            return GameState.DRAW
-        if self.board.is_insufficient_material():
-            return GameState.DRAW
-        if self.board.is_fivefold_repetition():
-            return GameState.DRAW
+        newboard = self.__board.copy()
+        newboard.push(move_object)
 
-        return GameState.CONTINUE
+        if newboard.is_checkmate():
+            state = GameState.WIN
+        elif self.__is_draw(newboard):
+            state = GameState.DRAW
 
-    def is_valid_uci_move(self, uci_move):
-        pattern = re.compile(r"^[a-h][1-8][a-h][1-8][qrbn]?$")
-        return bool(pattern.match(uci_move))
+        return state
 
     def add_move(self, move):
-        self.board.push_uci(move)
+        self.__board.push_uci(move)
 
     def get_debug_info(self):
-        return str(self.board)
+        return str(self.__board)
 
     def get_all_moves(self) -> list[str]:
         """
@@ -49,4 +49,53 @@ class ChessJudge(Judge):
             list[str]: List of moves.
         """
 
-        return [move.uci() for move in self.board.move_stack]
+        return [move.uci() for move in self.__board.move_stack]
+
+    def analyze(self):
+        cp = self.__centipawn_eval()
+        evaluation = self.__white_win_probability(cp)
+
+        return evaluation
+
+    def __get_move_object(self, move: str) -> Move | None:
+        """
+        Converts UCI move to chess.Move object.
+
+        Args:
+            move (str): Move as UCI string.
+
+        Returns:
+            Move | None: Move object if move is valid, otherwise None.
+        """
+
+        try:
+            return Move.from_uci(move)
+        except InvalidMoveError:
+            return None
+
+    def __is_draw(self, board: Board) -> bool:
+        return (
+            board.is_stalemate()
+            or board.is_insufficient_material()
+            or board.is_fivefold_repetition()
+        )
+
+    def __centipawn_eval(self):
+        self.__engine.set_fen_position(self.__board.fen())
+        score = self.__engine.get_evaluation()
+        if score["type"] == "cp" or score["value"] == 0:
+            return score["value"]
+        mate_value = 100 * (21 - min(10, abs(score["value"])))
+        if score["value"] < 0:
+            return mate_value * -1
+        return mate_value
+
+    def __white_win_probability(self, cp):
+        if cp == 0:
+            outcome = self.__board.outcome()
+            if outcome is None or outcome.winner is None:
+                return 0
+
+            return 1 if outcome.winner else -1
+
+        return round(1 / (1 + exp(-0.004 * cp)) * 2 - 1, 3)

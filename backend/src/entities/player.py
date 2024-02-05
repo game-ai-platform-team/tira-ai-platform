@@ -1,9 +1,11 @@
 import subprocess
+import time
 from pathlib import Path
 
 
 class Player:
     def __init__(self, path: Path) -> None:
+        # pylint: disable=consider-using-with
         self.__path: Path = path
         self.__process = subprocess.Popen(
             args=["python3", str(self.__path)],
@@ -13,6 +15,9 @@ class Player:
         )
 
     def play(self, move) -> str:
+        if self.__process.poll() is not None:
+            raise ProcessLookupError
+
         input_string = move + "\n"
 
         self.__process.stdin.write(input_string.encode("utf-8"))
@@ -25,3 +30,4 @@ class Player:
 
     def terminate_self(self):
         self.__process.terminate()
+        time.sleep(0.01)

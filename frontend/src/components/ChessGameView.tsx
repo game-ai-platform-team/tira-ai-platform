@@ -2,12 +2,18 @@ import SubmitForm from "./SubmitForm.tsx";
 import { useState, useCallback, useEffect } from "react";
 import { ChessGameResult } from "../types.ts";
 import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
-import JustInTimeMoveList from "./JustInTimeMoveList.tsx";
+import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
 import "./ChessGameView.css";
 
 interface CodeViewProps {
     testResult?: ChessGameResult;
+}
+
+interface MoveStatistics {
+    move: string;
+    time: number;
+    advantage: number;
 }
 
 const gameConnections: Map<number, GameConnection> = new Map<
@@ -32,18 +38,45 @@ function ChessGameView(props: CodeViewProps) {
         props.testResult?.moves ? props.testResult.moves : [],
     );
 
+    const [moveStatisticsList, setMoveStatisticsList] = useState<
+        MoveStatistics[]
+    >([]);
+
+    const addMoveStatistics = (newMoveStatistics: MoveStatistics) => {
+        setMoveStatisticsList((prevList) => [...prevList, newMoveStatistics]);
+    };
+
     const [hasGameStarted, setHasGameStarted] = useState(false);
 
-    const handleNewMove = useCallback((newMove: string, state: string) => {
-        if (
-            state === "CONTINUE" ||
-            state === "WIN" ||
-            state === "LOSE" ||
-            state === "DRAW"
-        ) {
-            setMoves((prevMoves) => [...prevMoves, newMove]);
-        }
-    }, []);
+    const [gameState, setGameState] = useState("CONTINUE");
+
+    const handleNewMove = useCallback(
+        (
+            newMove: string,
+            state: string,
+            newTime: number,
+            newAdvantage: number,
+        ) => {
+            if (
+                state === "CONTINUE" ||
+                state === "WIN" ||
+                state === "LOSE" ||
+                state === "DRAW" ||
+                state === "MAX_TURNS"
+            ) {
+                setMoves((prevMoves) => [...prevMoves, newMove]);
+
+                const newMoveStatistics: MoveStatistics = {
+                    move: newMove,
+                    time: newTime,
+                    advantage: newAdvantage,
+                };
+                addMoveStatistics(newMoveStatistics);
+            }
+            setGameState(state);
+        },
+        [],
+    );
 
     const [gameConnectionId, setGameConnectionId] = useState<number>();
 
@@ -70,19 +103,21 @@ function ChessGameView(props: CodeViewProps) {
 
     return (
         <div id="chess-game-view">
+            <div id="first-row">
+                <div id="submit-form-container">
+                    <SubmitForm
+                        gameConnection={gameConnection}
+                        hasGameStarted={hasGameStarted}
+                        setHasGameStarted={setHasGameStarted}
+                    />
+                </div>
+                <div id="chessboard-container">
+                    <BrowsableChessboard moves={moves} />
+                    <div id="winner-message">{winnerMessage}</div>
+                </div>
+            </div>
             <div id="move-list-container">
-                <JustInTimeMoveList moves={moves} onNewMove={handleNewMove} />
-            </div>
-            <div id="submit-form-container">
-                <SubmitForm
-                    gameConnection={gameConnection}
-                    hasGameStarted={hasGameStarted}
-                    setHasGameStarted={setHasGameStarted}
-                />
-            </div>
-            {winnerMessage}
-            <div style={{ flexGrow: 1 }}>
-                <BrowsableChessboard moves={moves} />
+                <MoveList moves={moveStatisticsList} state={gameState} />
             </div>
         </div>
     );

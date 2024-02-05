@@ -1,26 +1,56 @@
 #chess-game-view {
     display: flex;
+    align-items: flex-start;
     flex-direction: column;
-    align-items: center;
-    margin-top: 5%;
+    margin-top: 100px;
+}
+
+#first-row {
+    display: flex;
+    justify-content: space-between;
 }
 
 #submit-form-container {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 5px;
 }
 
 #move-list-container {
-    position: absolute;
-    left: 3%;
-    right: 100;
-    height: 100%;
-    max-height: 450px;
-    margin-top: 20%;
-    padding: 0.7%;
     border: 1px solid #c0bdbb;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-radius: 20px;
+    padding: 2%;
+    text-align: center;
+    width: 8%;
+    min-width: 200px;
+    max-width: 200px;
+    height: 350px;
+    margin-left: 20px;
+    font-size: 1.2em;
+    margin-top: -230px;
+}
+
+#chessboard-container {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: auto;
+    width: calc(100% - 40px);
+    max-width: 800px;
+    height: calc(100% - 500px - 20px);
+    margin-top: 15%;
+    margin-left: 60%;
+}
+
+#winner-message {
+    margin-right: auto;
+    position: relative;
+    right: 10%;
+}
+
+@media (max-width: 300px) {
+    #chess-game-view {
+        flex-direction: column;
+    }
+
+    #move-list-container {
+        margin-right: 0;
+    }
 }

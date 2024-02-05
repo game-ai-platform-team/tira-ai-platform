@@ -8,9 +8,6 @@ class Judge(ABC):
     An abstract class for validating moves and generating debug infos of a game.
     """
 
-    def __init__(self, moves: list[str] | None = None) -> None:
-        self.__moves: list[str] = moves or []
-
     @abstractmethod
     def validate(self, move: str) -> GameState:
         """
