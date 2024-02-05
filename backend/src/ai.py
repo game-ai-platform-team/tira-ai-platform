@@ -1,17 +1,30 @@
 from stockfish_engine import get_stockfish_engine
 
-engine = get_stockfish_engine()
-boardstate = []
+class stockfish_ai:
+    def __init__(self) -> None:
+        self.engine = get_stockfish_engine()
+        self.boardstate = []
 
-while True:
-    move = input()
+    def configure_level(self):
+        level = {"Skill Level": 1}
+        self.engine.update_engine_parameters(level)
 
-    if move != "":
-        boardstate.append(move)
+    def play(self):
+        while True:
+            move = input()
 
-    engine.set_position(boardstate)
+            if move != "":
+                self.boardstate.append(move)
 
-    new_move = engine.get_best_move()
-    boardstate.append(new_move)
+            self.engine.set_position(self.boardstate)
 
-    print(new_move)
+            new_move = self.engine.get_best_move()
+            self.boardstate.append(new_move)
+
+            print(new_move)
+
+
+if __name__=="__main__":
+    sf_ai = stockfish_ai()
+    sf_ai.configure_level()
+    sf_ai.play()
