@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
@@ -17,13 +17,9 @@ def io_post_code(data):
     api.start(data["content"], socketio, request.sid)
 
 
-@app.route("/api/chess/submit", methods=["POST"])
-def api_submit():
-    code_file = request.data.decode("utf-8")
-
-    result = api.start(code_file, socketio)
-
-    return jsonify(result)
+@app.route("/")
+def index():
+    return send_file("./../frontend/dist/index.html")
 
 
 @app.route("/<path:path>")

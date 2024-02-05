@@ -2,6 +2,7 @@ import time
 from typing import Any
 
 from entities.judge import Judge
+from entities.move import Move
 from entities.player import Player
 from game_state import GameState
 from services.socket_io_service import SocketIOService
@@ -19,55 +20,56 @@ class Game:
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
-        self.__previous_player = None
-
-    def play(
-        self, turns: int = 100, delay: float = 0.01, debug: bool = False
-    ) -> dict[str, Any]:
+    def play(self, turns: int = 250, debug: bool = False) -> dict[str, Any]:
         """
         Starts a game and return result as dict.
 
         Args:
-            turns (int, optional): The maximum amount of turns to play. Defaults to 100.
-            delay (float, optional): The delay between turns. Defaults to 0.01.
+            turns (int, optional): The maximum amount of turns to play. Defaults to 250.
             debug(bool, optional): If True, prints debug info to console. Defaults to False.
 
         Returns:
             dict[str, Any]: The game result containing winner, moves, etc.
         """
-
-        print(delay, debug)
-
         previous_move = ""
         state = None
+        previous_player = None
 
         for i in range(turns):
             player = self.__players[i % 2]
 
-            turn_result = self.play_one_move(player, previous_move)
-            self.__previous_player = player
+            move, elapsed_time = self.__play_one_move(player, previous_move)
+            state = self.__judge.validate(move)
+            self.__judge.add_move(move)
+            evaluation = self.__judge.analyze()
+
+            if i == turns - 1 and state == GameState.CONTINUE:
+                state = GameState.MAX_TURNS
+
+            move_object = Move(move, state, elapsed_time, evaluation)
+
+            self.__send_state(move_object)
+
+            previous_player = player
+            previous_move = move
 
             if debug:
-                self._print_debug_info(turn_result)
-
-            state = turn_result["state"]
-            previous_move = turn_result["move"]
-            self.__judge.add_move(previous_move)
+                self.__print_debug_info(move_object)
 
             if state != GameState.CONTINUE:
                 break
 
         result = {
             "moves": self.__judge.get_all_moves(),
-            "player": self.__previous_player,
+            "player": previous_player,
             "game_state": state,
         }
 
-        self._cleanup()
+        self.__cleanup()
 
         return result
 
-    def _cleanup(self) -> None:
+    def __cleanup(self) -> None:
         """
         Terminates all subprocesses.
         """
@@ -75,27 +77,22 @@ class Game:
         for player in self.__players:
             player.terminate_self()
 
-    def play_one_move(self, player: Player, prev_move: str) -> dict[str, Any]:
+    def __play_one_move(self, player: Player, prev_move: str) -> tuple[str, int]:
         start_time = time.perf_counter()
 
         move = player.play(prev_move)
 
-        end_time = int((time.perf_counter() - start_time) * 1000)
+        elapsed_time = int((time.perf_counter() - start_time) * 1000)
 
-        state = self.__judge.validate(move)
+        return (move, elapsed_time)
 
-        self.send_state(state, move, end_time)
+    def __send_state(self, move: Move) -> None:
+        if move.state in (GameState.ILLEGAL, GameState.INVALID):
+            move = Move("", move.state, move.time, move.evaluation)
 
-        return {"move": move, "time": end_time, "state": state}
+        self.__socketio_service.send(move)
 
-    def send_state(self, state: GameState, move: str, time: int) -> None:
-        if state in (GameState.ILLEGAL, GameState.INVALID):
-            self.__socketio_service.send("", state.name, time)
-            return
-
-        self.__socketio_service.send(move, state.name, time)
-
-    def _print_debug_info(self, move: dict[str, Any]) -> None:
+    def __print_debug_info(self, move: Move) -> None:
         info = "\n".join(
             [
                 self.__judge.get_debug_info(),

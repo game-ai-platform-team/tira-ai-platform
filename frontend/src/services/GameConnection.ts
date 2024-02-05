@@ -4,7 +4,7 @@ export class GameConnection {
     private socket: Socket;
 
     constructor() {
-        this.socket = io("http://localhost:5000/gameconnection");
+        this.socket = io("/gameconnection");
 
         this.socket.on("connect", () => {
             console.log("Connected to the server!");
@@ -20,12 +20,27 @@ export class GameConnection {
     }
 
     setHandleNewMove(
-        handleNewMove: (move: string, state: string, time: number) => void,
+        handleNewMove: (
+            move: string,
+            state: string,
+            time: number,
+            evaluation: number,
+        ) => void,
     ) {
         this.socket.on(
             "newmove",
-            (data: { move: string; state: string; time: number }) => {
-                handleNewMove(data.move, data.state, data.time);
+            (data: {
+                move: string;
+                state: string;
+                time: number;
+                evaluation: number;
+            }) => {
+                handleNewMove(
+                    data.move,
+                    data.state,
+                    data.time,
+                    data.evaluation,
+                );
             },
         );
     }

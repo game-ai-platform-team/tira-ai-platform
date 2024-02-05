@@ -97,12 +97,15 @@ Api ..> Game
 Api --> GameFactory
 Game --> Player
 Game --> Judge
+Game --> Move
 Game --> SocketIOService
 GameFactory --> Game
 GameFactory ..> Judge
 GameFactory ..> Player
 GameFactory ..> SocketIOService
 Judge --> GameState
+
+SocketIOService ..> Move
 
 class GameFactory {
     get_chess_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
@@ -118,7 +121,7 @@ class Game {
 }
 
 class SocketIOService {
-    +send(move: str)
+    +send(move: Move)
 }
 
 class Judge {
@@ -129,7 +132,7 @@ class Judge {
 }
 
 class Player {
-    +play(move) str
+    +play(move: str) str
 }
 
 class GameState {
@@ -138,6 +141,14 @@ class GameState {
     DRAW
     INVALID
     ILLEGAL
+    MAX_TURNS
+}
+
+class Move {
+    move: str,
+    state: GameState,
+    time: int,
+    evaluation: int
 }
 
 class Api {

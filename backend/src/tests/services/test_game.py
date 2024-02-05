@@ -1,6 +1,7 @@
 from unittest import TestCase
-from unittest.mock import Mock, call
+from unittest.mock import ANY, Mock, call
 
+from entities.move import Move
 from game_state import GameState
 from services.game import Game
 
@@ -15,43 +16,18 @@ class TestGame(TestCase):
             self.io_mock, self.player1_mock, self.player2_mock, self.judge_mock
         )
 
-    def test_play_one_move_returns_valid_dict(self):
-        self.judge_mock.validate.return_value = GameState.WIN
-        self.player1_mock.play.return_value = "1"
-        self.player2_mock.play.return_value = "2"
-
-        move = self.game.play_one_move(self.player1_mock, "a move")
-
-        self.assertIn("move", move)
-        self.assertIn("state", move)
-        self.assertIn("time", move)
-
-    def test_play_one_move_returns_dict_with_valid_values(self):
-        self.judge_mock.validate.return_value = GameState.WIN
-        self.player1_mock.play.return_value = "1"
-        self.player2_mock.play.return_value = "2"
-
-        move = self.game.play_one_move(self.player1_mock, "a move")
-
-        self.assertIsInstance(move["move"], str)
-        self.assertIn(move["state"], GameState)
-        self.assertIsInstance(move["time"], int)
-
     def test_send_state_calls_socketio_service(self):
-        state = GameState.CONTINUE
-        move = "e2e4"
-        time = 3
-        self.game.send_state(state, move, time)
+        move = Move("e2e4", GameState.CONTINUE, 3, 1)
 
-        self.io_mock.send.assert_called_with(move, "CONTINUE", time)
+        self.game._Game__send_state(move)
+
+        self.io_mock.send.assert_called_with(move)
 
     def test_send_state_when_state_invalid(self):
-        state = GameState.INVALID
-        move = "move"
-        time = 5
-        self.game.send_state(state, move, time)
+        move = Move("aaa", GameState.INVALID, 100, 1)
+        self.game._Game__send_state(move)
 
-        self.io_mock.send.assert_called_with("", "INVALID", time)
+        self.io_mock.send.assert_called_with(Move("", GameState.INVALID, 100, 1))
 
     def test_play_continue_continues_game(self):
         self.player1_mock.play.side_effect = ["a", "b", "c"]
@@ -108,17 +84,6 @@ class TestGame(TestCase):
         self.assertEqual(self.player2_mock.play.call_count, 1)
         self.assertEqual(self.judge_mock.validate.call_count, 2)
 
-    def test_move_added_after_validation(self):
-        self.player1_mock.play.side_effect = ["a", "b", "c"]
-        self.player2_mock.play.side_effect = [1, 2]
-        self.judge_mock.validate.return_value = GameState.CONTINUE
-
-        self.game.play(5)
-
-        self.judge_mock.add_move.assert_has_calls(
-            [call("a"), call(1), call("b"), call(2), call("c")]
-        )
-
     def test_validate_called_with_correct_moves(self):
         self.player1_mock.play.side_effect = ["a", "b", "c"]
         self.player2_mock.play.side_effect = [1, 2]
@@ -139,3 +104,42 @@ class TestGame(TestCase):
 
         self.player1_mock.play.assert_has_calls([call(1), call(2)])
         self.player2_mock.play.assert_has_calls([call("a"), call("b")])
+
+    def test_play_socketio_called_with_correct_moves(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2]
+        self.judge_mock.validate.return_value = GameState.CONTINUE
+
+        self.game.play(5)
+
+        calls = self.io_mock.send.call_args_list
+        move_args = list(map(lambda call: call.args[0].move, calls))
+
+        self.assertEqual(
+            move_args,
+            ["a", 1, "b", 2, "c"],
+        )
+
+    def test_play_socketio_called_with_correct_states(self):
+        states = [GameState.CONTINUE] * 4
+        states.append(GameState.ILLEGAL)
+
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2]
+        self.judge_mock.validate.side_effect = states
+
+        self.game.play(5)
+
+        calls = self.io_mock.send.call_args_list
+        state_args = list(map(lambda call: call.args[0].state, calls))
+
+        self.assertEqual(state_args, states)
+
+    def test_out_of_turns_gamestate_is_max_turns(self):
+        self.player1_mock.play.side_effect = ["a", "b", "c"]
+        self.player2_mock.play.side_effect = [1, 2, 3]
+        self.judge_mock.validate.side_effect = [GameState.CONTINUE] * 5
+
+        self.game.play(2)
+
+        self.io_mock.send.assert_called_with(Move(ANY, GameState.MAX_TURNS, ANY, ANY))

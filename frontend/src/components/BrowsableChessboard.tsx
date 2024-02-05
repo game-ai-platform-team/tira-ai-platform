@@ -2,6 +2,7 @@ import { Position } from "kokopu";
 import { Chessboard } from "kokopu-react";
 import { useEffect, useState } from "react";
 import "./BrowsableChessboard.css";
+import EvaluationBar from "./EvaluationBar";
 
 interface BrowsableChessboardProps {
     moves?: string[];
@@ -26,10 +27,7 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
             oldPosition = newPos;
         }
         setPositions(set);
-    }, [moves]);
-
-    useEffect(() => {
-        setMoveNumber(moves.length - 1);
+        setMoveNumber(moves.length);
     }, [moves]);
 
     const increaseMoveNumber = () => {
@@ -46,19 +44,32 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
     };
 
     return (
-        <div id="BrowsableChessboard">
-            <div id="chessboard-header">Player1 vs Player2</div>
-            <Chessboard position={positions[moveNumber]}></Chessboard>
-            <div>
-                <button
-                    onClick={decreaseMoveNumber}
-                    id="previousChessboardButton"
-                >
-                    {"<"}
-                </button>
-                <button onClick={increaseMoveNumber} id="nextChessboardButton">
-                    {">"}
-                </button>
+        <div
+            id="ChessboardContainer"
+            style={{ display: "flex", flexDirection: "row" }}
+        >
+            <div id="BrowsableChessboard">
+                <div id="chessboard-header">Player1 vs Player2</div>
+                <Chessboard position={positions[moveNumber]}></Chessboard>
+                <div>
+                    <button
+                        onClick={decreaseMoveNumber}
+                        id="previousChessboardButton"
+                    >
+                        {"<"}
+                    </button>
+                    <button
+                        onClick={increaseMoveNumber}
+                        id="nextChessboardButton"
+                    >
+                        {">"}
+                    </button>
+                </div>
+            </div>
+            <div style={{ marginLeft: "100px" }}>
+                {/* linePosition={0} places the indicator in the middle of the bar */}
+                {/* linePosition={0.1} results to what the bar would look like when the advantage is +0.1 */}
+                <EvaluationBar linePosition={0.1} />
             </div>
         </div>
     );
