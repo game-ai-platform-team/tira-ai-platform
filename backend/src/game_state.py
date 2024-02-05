@@ -20,6 +20,6 @@ class GameState(Enum):
             GameState.INVALID: "INVALID",
             GameState.ILLEGAL: "ILLEGAL",
             GameState.MAX_TURNS: "MAX_TURNS",
-            GameState.TIMEOUT: "TIMEOUT"
+            GameState.TIMEOUT: "TIMEOUT",
         }
         return values[self]
