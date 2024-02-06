@@ -3,6 +3,8 @@
     height: 490px;
     background: linear-gradient(to bottom, #b5876b, #f0dec7);
     position: relative;
+    border: 1px solid #c0bdbb;
+    margin-left: 2%;
 }
 
 .division-line {
