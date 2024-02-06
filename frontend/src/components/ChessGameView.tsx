@@ -122,9 +122,9 @@ function ChessGameView(props: CodeViewProps) {
                     />
                     <div id="winner-message">{winnerMessage}</div>
                 </div>
-            </div>
-            <div id="move-list-container">
-                <MoveList moves={moveStatisticsList} state={gameState} />
+                <div id="move-list-container">
+                    <MoveList moves={moveStatisticsList} state={gameState} />
+                </div>
             </div>
         </div>
     );
