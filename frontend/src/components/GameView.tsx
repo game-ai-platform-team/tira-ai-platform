@@ -4,7 +4,7 @@ import { ChessGameResult } from "../types.ts";
 import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
 import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
-import "./ChessGameView.css";
+import "./GameView.css";
 
 interface CodeViewProps {
     testResult?: ChessGameResult;
@@ -33,7 +33,7 @@ function getNewGameConnection() {
     return id;
 }
 
-function ChessGameView(props: CodeViewProps) {
+function GameView(props: CodeViewProps) {
     const [moves, setMoves] = useState<string[]>(
         props.testResult?.moves ? props.testResult.moves : [],
     );
@@ -130,4 +130,4 @@ function ChessGameView(props: CodeViewProps) {
     );
 }
 
-export default ChessGameView;
+export default GameView;
