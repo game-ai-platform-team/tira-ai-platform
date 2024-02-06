@@ -222,8 +222,6 @@ namespace UI {
 ```mermaid
 classDiagram
 
-box
-
 rootState -- moveReducer
 rootState -- gameReducer
 rootState -- boardReducer
