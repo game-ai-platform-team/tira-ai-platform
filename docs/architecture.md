@@ -104,6 +104,7 @@ GameFactory ..> Judge
 GameFactory ..> Player
 GameFactory ..> SocketIOService
 Judge --> GameState
+Player ..> PlayerLogger
 
 SocketIOService ..> Move
 
@@ -142,6 +143,10 @@ class GameState {
     INVALID
     ILLEGAL
     MAX_TURNS
+}
+
+class PlayerLogger {
+    logs: str[]
 }
 
 class Move {
