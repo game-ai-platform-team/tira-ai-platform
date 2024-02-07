@@ -186,9 +186,9 @@ MoveList --> Move
 Move --> MoveProps
 
 SubmitForm --> gameReducer: NEW_GAME
-Board -- store: subscribe
-MoveList -- store: subscribe
-AdvantageBar -- store: subscribe
+Board -- store
+MoveList -- store
+AdvantageBar -- store
 
 namespace interfaces {
     class MoveProps {
