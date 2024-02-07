@@ -18,3 +18,46 @@ jobs:
           CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}
         with:
           working-directory: frontend
+
+  e2e_local:
+    runs-on: ubuntu-latest
+    needs:
+      - start_backend
+      - start_frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run end-to-end tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: frontend
+
+  start_frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start frontend
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: frontend
+          start: npm run dev
+          runTests: false
+
+  start_backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up backend
+        uses: ./.github/workflows/setup-poetry
+
+      - name: Start backend
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: backend
+          start: poetry run invoke start
+          runTests: false
