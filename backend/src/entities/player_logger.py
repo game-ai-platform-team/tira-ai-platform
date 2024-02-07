@@ -12,6 +12,6 @@ class PlayerLogger:
         """
         Returns the accumulated logs as a single string and clears the log buffer.
         """
-        current_logs = '\n'.join(self.__logs)
+        current_logs = "\n".join(self.__logs)
         self.__logs = []
         return current_logs
