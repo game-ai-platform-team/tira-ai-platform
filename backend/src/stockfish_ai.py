@@ -6,8 +6,8 @@ class stockfish_ai:
         self.engine = get_stockfish_engine()
         self.boardstate = []
 
-    def configure_level(self):
-        self.engine.set_skill_level(20)
+    def configure_elo(self):
+        self.engine.set_elo_rating(1350)
 
     def play(self):
         while True:
@@ -26,5 +26,5 @@ class stockfish_ai:
 
 if __name__ == "__main__":
     sf_ai = stockfish_ai()
-    sf_ai.configure_level()
+    sf_ai.configure_elo()
     sf_ai.play()

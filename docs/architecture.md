@@ -104,7 +104,7 @@ GameFactory ..> Judge
 GameFactory ..> Player
 GameFactory ..> SocketIOService
 Judge --> GameState
-Player ..> PlayerLogger
+Player --> PlayerLogger
 
 SocketIOService ..> Move
 
@@ -254,7 +254,7 @@ namespace services {
 }
 
 class gameConfig {
-    difficulty: string | number
+    elo: string | number
     depth: number
     player1File: string
     player2File: string

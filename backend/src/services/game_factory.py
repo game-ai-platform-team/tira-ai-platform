@@ -14,15 +14,15 @@ class GameFactory:
         socketio_service: SocketIOService,
         player1_file=None,
         player2_file=None,
-        level=0,
+        elo=1350,
     ) -> Game:
         if player1_file is None:
-            player1 = PlayerStockfish(level)
+            player1 = PlayerStockfish(elo)
         else:
             player1 = Player(player1_file)
 
         if player2_file is None:
-            player2 = PlayerStockfish(level)
+            player2 = PlayerStockfish(elo)
         else:
             player2 = Player(player2_file)
 
