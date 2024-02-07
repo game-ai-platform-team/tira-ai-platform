@@ -1,15 +1,16 @@
 import { MoveProps } from "../components/Move";
 
 export function getStatistics(moves: MoveProps[]): {
-    longest: { move: MoveProps | null; time: number };
-    shortest: { move: MoveProps | null; time: number };
+    longest: MoveProps;
+    shortest: MoveProps;
     average: number;
     advantages: number[];
 } {
     if (moves.length === 0) {
+        const defaultMove: MoveProps = { move: "", time: 0, advantage: 0 };
         return {
-            longest: { move: null, time: 0 },
-            shortest: { move: null, time: 0 },
+            longest: defaultMove,
+            shortest: defaultMove,
             average: 0,
             advantages: [0],
         };
@@ -21,8 +22,8 @@ export function getStatistics(moves: MoveProps[]): {
     const advantages = getAdvantages(moves);
 
     return {
-        longest: { move: longestMove, time: longestMove.time },
-        shortest: { move: shortestMove, time: shortestMove.time },
+        longest: longestMove,
+        shortest: shortestMove,
         average: average,
         advantages: advantages,
     };
