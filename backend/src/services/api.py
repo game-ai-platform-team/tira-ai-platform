@@ -12,7 +12,7 @@ class Api:
         self.ai_file = TEMP_DIR / "ai.py"
 
     def start(
-        self, file_contents: str, socketio: SocketIO, sid: str, level: int
+        self, file_contents: str, level: int, socketio: SocketIO, sid: str
     ) -> dict[str, Any]:
         """
         Starts new chess game with the input AI.

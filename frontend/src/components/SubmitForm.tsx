@@ -42,11 +42,12 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
         e.preventDefault();
         if (
             file &&
+            difficulty &&
             props.gameConnection &&
             props.gameConnection.isConnected() &&
             !props.hasGameStarted
         ) {
-            props.gameConnection.postcode(await file.text());
+            props.gameConnection.postcode(await file.text(), difficulty);
             props.setHasGameStarted(true);
         }
     };
