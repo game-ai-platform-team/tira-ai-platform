@@ -4,10 +4,12 @@ import { ChessGameResult } from "../types.ts";
 import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
 import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
+import AdvantageBar from "./AdvantageBar";
 import "./GameView.css";
 
 interface CodeViewProps {
     testResult?: ChessGameResult;
+    advantage?: number;
 }
 
 interface MoveStatistics {
@@ -121,6 +123,11 @@ function GameView(props: CodeViewProps) {
                         advantage={currentAdvantage}
                     />
                     <div id="winner-message">{winnerMessage}</div>
+                </div>
+                <div id="advantage-bar">
+                    {/* linePosition={0} places the indicator in the middle of the bar */}
+                    {/* linePosition={0.1} results to what the bar would look like when the advantage is +0.1 */}
+                    <AdvantageBar linePosition={props.advantage || 0} />
                 </div>
                 <div id="move-list-container">
                     <MoveList moves={moveStatisticsList} state={gameState} />
