@@ -40,12 +40,12 @@ class TestPlayer(unittest.TestCase):
         with self.temp_file.open("w") as f:
             f.truncate(0)
             f.write("import time\ntime.sleep(1)\nprint(input())")
-        
+
         player = Player(self.temp_file, 2)
         out = player.play("move")
 
         self.assertEqual(out, "move")
-    
+
     def test_process_is_terminated_after_timeout(self):
         with self.temp_file.open("w") as f:
             f.truncate(0)
