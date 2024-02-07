@@ -8,6 +8,7 @@ export function getStatistics(
     shortest: MoveProps;
     average: number;
     advantages: number[];
+    times: number[];
 } {
     let movesOfColor: MoveProps[];
     if (color === "white") {
@@ -24,6 +25,7 @@ export function getStatistics(
             shortest: { move: "none", time: 0, advantage: 0 },
             average: 0,
             advantages: [0],
+            times: [0]
         };
     }
 
@@ -31,12 +33,14 @@ export function getStatistics(
     const shortestMove = calculateShortestMove(movesOfColor);
     const average = calculateAverageTime(movesOfColor);
     const advantages = getAdvantages(moves);
+    const times = getTimes(movesOfColor);
 
     return {
         longest: longestMove,
         shortest: shortestMove,
         average: average,
         advantages: advantages,
+        times: times,
     };
 }
 
@@ -78,3 +82,13 @@ function getAdvantages(moves: MoveProps[]): number[] {
     }
     return advantages;
 }
+
+function getTimes(moves: MoveProps[]) {
+    const times: number[] = [];
+    for (let i = 0; i < moves.length; i++) {
+        const advantage = moves[i].time;
+        times.push(advantage);
+    }
+    return times;
+}
+

@@ -5,6 +5,11 @@ import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
 import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
 import "./GameView.css";
+import "./AdvantageChart.tsx";
+import "../services/StatisticsService.tsx";
+import AdvantageChart from "./AdvantageChart.tsx";
+import { getStatistics } from "../services/StatisticsService.tsx";
+import TimeChart from "./TimeChart.tsx";
 
 interface CodeViewProps {
     testResult?: ChessGameResult;
@@ -105,6 +110,8 @@ function GameView(props: CodeViewProps) {
 
     const winnerMessage = <p>winner: {"testwinner"}</p>;
 
+    const stats = getStatistics(moveStatisticsList);
+
     return (
         <div id="chess-game-view">
             <div id="first-row">
@@ -125,6 +132,10 @@ function GameView(props: CodeViewProps) {
                 <div id="move-list-container">
                     <MoveList moves={moveStatisticsList} state={gameState} />
                 </div>
+            </div>
+            <div id="statistics">
+                <AdvantageChart data={stats.advantages} />
+                <TimeChart data={stats.times} />
             </div>
         </div>
     );

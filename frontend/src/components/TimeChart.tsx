@@ -7,7 +7,7 @@ interface LineChartProps {
 const TimeChart: React.FC<LineChartProps> = ({ data }) => {
     const viewBoxWidth = 400; // Width of the viewBox
     const viewBoxHeight = 200; // Height of the viewBox
-    const padding = 20; // Padding for the chart within the viewBox
+    const padding = 24; // Padding for the chart within the viewBox
     const chartWidth = viewBoxWidth - 2 * padding; // Width of the chart area
     const chartHeight = viewBoxHeight - 2 * padding; // Height of the chart area
 
