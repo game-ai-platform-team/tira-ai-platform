@@ -1,15 +1,15 @@
 import React from "react";
-import "./AdvantageBar.css";
+import "./EvaluationBar.css";
 
-interface AdvantageBarProps {
+interface EvaluationBarProps {
     linePosition?: number;
 }
 
-const AdvantageBar: React.FC<AdvantageBarProps> = ({ linePosition = 0 }) => {
+const EvaluationBar: React.FC<EvaluationBarProps> = ({ linePosition = 0 }) => {
     const clampedLinePosition = Math.max(-1, Math.min(1, linePosition));
 
     return (
-        <div className="advantage-bar">
+        <div className="evaluation-bar">
             <div className="division-line top"></div>
             <div className="division-line middle"></div>
             <div className="division-line bottom"></div>
@@ -23,4 +23,4 @@ const AdvantageBar: React.FC<AdvantageBarProps> = ({ linePosition = 0 }) => {
     );
 };
 
-export default AdvantageBar;
+export default EvaluationBar;
