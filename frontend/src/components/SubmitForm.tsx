@@ -73,9 +73,7 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
                 {file && <p>File Name: {file.name}</p>}
             </div>
             <div id="elo-config">
-                <label htmlFor="elo-slider">
-                    Select Stockfish Elo:
-                </label>
+                <label htmlFor="elo-slider">Select Stockfish Elo:</label>
                 <input
                     id="elo-slider"
                     type="range"
