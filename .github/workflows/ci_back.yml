@@ -2,7 +2,7 @@ name: CI (backend)
 on:
   push:
   pull_request:
-    branches: [main]
+    branches: [dev]
   workflow_dispatch:
 
 defaults:

@@ -9,6 +9,7 @@ class GameState(Enum):
     INVALID = 4
     ILLEGAL = 5
     MAX_TURNS = 6
+    TIMEOUT = 7
 
     def __str__(self):
         values = {
@@ -19,17 +20,6 @@ class GameState(Enum):
             GameState.INVALID: "INVALID",
             GameState.ILLEGAL: "ILLEGAL",
             GameState.MAX_TURNS: "MAX_TURNS",
-        }
-        return values[self]
-
-    def __bool__(self):
-        values = {
-            GameState.CONTINUE: True,
-            GameState.WIN: True,
-            GameState.LOSE: True,
-            GameState.DRAW: True,
-            GameState.INVALID: False,
-            GameState.ILLEGAL: False,
-            GameState.MAX_TURNS: False,
+            GameState.TIMEOUT: "TIMEOUT",
         }
         return values[self]

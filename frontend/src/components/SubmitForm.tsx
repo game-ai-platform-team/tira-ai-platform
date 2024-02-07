@@ -10,6 +10,7 @@ interface SubmitFormProps {
 
 function SubmitForm(props: SubmitFormProps): JSX.Element {
     const [file, setFile] = useState<File | null>(null);
+    const [difficulty, setDifficulty] = useState<number>(1);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -32,21 +33,28 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
         }
     };
 
+    const handleDifficultyChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        setDifficulty(value);
+    };
+
     const onSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (
             file &&
+            difficulty &&
             props.gameConnection &&
             props.gameConnection.isConnected() &&
             !props.hasGameStarted
         ) {
-            props.gameConnection.postcode(await file.text());
+            props.gameConnection.postcode(await file.text(), difficulty);
             props.setHasGameStarted(true);
         }
     };
 
     return (
         <div id="drag-and-drop-container">
+            <div id="submit-header">Upload your file</div>
             <div
                 id="drag-and-drop-area"
                 onDragOver={handleDragOver}
@@ -63,6 +71,20 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
                     onChange={handleFileChange}
                 />
                 {file && <p>File Name: {file.name}</p>}
+            </div>
+            <div id="difficulty-config">
+                <label htmlFor="difficulty-slider">
+                    Select Stockfish Difficulty:
+                </label>
+                <input
+                    id="difficulty-slider"
+                    type="range"
+                    min={0}
+                    max={20}
+                    value={difficulty}
+                    onChange={handleDifficultyChange}
+                />
+                <p>Difficulty: {difficulty}</p>
             </div>
             <form id="submit-form" onSubmit={onSubmit}>
                 <button id="submit-button" type="submit">
