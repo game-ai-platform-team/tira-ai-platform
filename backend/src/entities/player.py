@@ -1,10 +1,11 @@
-from pathlib import Path
-import subprocess
 import select
+import subprocess
 import time
+from pathlib import Path
 
 from config import DEFAULT_CHESS_TIMEOUT
 from entities.player_logger import PlayerLogger
+
 
 class Player:
     def __init__(self, path: Path, timeout: float = DEFAULT_CHESS_TIMEOUT) -> None:
@@ -37,7 +38,7 @@ class Player:
         while True:
             out = self.__process.stdout.readline().decode("utf-8")
             print(out)
-            
+
             if not out:
                 break
             if out.startswith("INFO: "):
@@ -45,7 +46,6 @@ class Player:
             elif out.startswith("MOVE: "):
                 return out[5:].strip()
 
-        
         return ""
 
     def terminate_self(self):
