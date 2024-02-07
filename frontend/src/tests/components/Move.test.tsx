@@ -8,7 +8,7 @@ describe("move component", () => {
 
     beforeEach(() => {
         container = render(
-            <Move move={"e1e2"} time={100} advantage={0} logs={""}/>,
+            <Move move={"e1e2"} time={100} advantage={0} logs={""} />,
         ).container;
     });
 

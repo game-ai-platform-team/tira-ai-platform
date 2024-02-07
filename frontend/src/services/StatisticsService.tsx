@@ -27,7 +27,7 @@ export function getStatistics(
             average: 0,
             advantages: [0],
             times: [0],
-            logs: ""
+            logs: "",
         };
     }
 
