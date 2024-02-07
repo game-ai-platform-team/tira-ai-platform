@@ -3,9 +3,11 @@
     height: 490px;
     background: linear-gradient(to bottom, #b5876b, #f0dec7);
     position: relative;
-    border: 1px solid #c0bdbb;
+    border: 1px solid black;
+    border-radius: 5px;
     margin-left: 2%;
 }
+
 
 .division-line {
     position: absolute;
