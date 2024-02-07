@@ -41,10 +41,10 @@ class Player:
 
             if not out:
                 break
-            if out.startswith("INFO: "):
-                self.__logger.log(out[6:].strip())
             elif out.startswith("MOVE: "):
                 return out[5:].strip()
+            else: 
+                self.__logger.log(out[6:].strip())
 
         return ""
 

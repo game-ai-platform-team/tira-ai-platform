@@ -15,11 +15,11 @@ class TestPlayer(unittest.TestCase):
 
     def test_play_returns_move(self):
         player = Player(self.temp_file)
-        move = "move"
+        move = "MOVE: e2e4"
         out = player.play(move)
         player.terminate_self()
 
-        self.assertEqual(move, out)
+        self.assertEqual("e2e4", out)
 
     def test_terminate_self_terminates_process(self):
         player = Player(self.temp_file)
@@ -42,9 +42,9 @@ class TestPlayer(unittest.TestCase):
             f.write("import time\ntime.sleep(1)\nprint(input())")
 
         player = Player(self.temp_file, 2)
-        out = player.play("move")
+        out = player.play("MOVE: e2e4")
 
-        self.assertEqual(out, "move")
+        self.assertEqual("e2e4", out)
 
     def test_process_is_terminated_after_timeout(self):
         with self.temp_file.open("w") as f:
