@@ -90,7 +90,7 @@ const AdvantageChart: React.FC<LineChartProps> = ({ data }) => {
                     cy={point.y}
                     r="4"
                     stroke="blue"
-                    fill={index % 2 === 0 ? 'white' : 'black'}
+                    fill={index % 2 === 0 ? "white" : "black"}
                 />
             ))}
         </svg>

@@ -25,7 +25,7 @@ export function getStatistics(
             shortest: { move: "none", time: 0, advantage: 0 },
             average: 0,
             advantages: [0],
-            times: [0]
+            times: [0],
         };
     }
 
@@ -91,4 +91,3 @@ function getTimes(moves: MoveProps[]) {
     }
     return times;
 }
-

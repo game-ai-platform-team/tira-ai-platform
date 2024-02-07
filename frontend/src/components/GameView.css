@@ -46,7 +46,7 @@
     right: 10%;
 }
 
-#statistics{
+#statistics {
     margin-right: auto;
     margin-left: auto;
     margin-bottom: auto;
@@ -55,7 +55,6 @@
     margin-top: 2%;
     margin-left: 33%;
 }
-
 
 @media (max-width: 300px) {
     #chess-game-view {
