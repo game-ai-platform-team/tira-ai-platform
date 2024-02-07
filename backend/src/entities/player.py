@@ -43,7 +43,7 @@ class Player:
                 break
             elif out.startswith("MOVE: "):
                 return out[5:].strip()
-            else: 
+            else:
                 self.__logger.log(out[6:].strip())
 
         return ""

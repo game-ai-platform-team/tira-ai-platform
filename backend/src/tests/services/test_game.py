@@ -142,4 +142,6 @@ class TestGame(TestCase):
 
         self.game.play(2)
 
-        self.io_mock.send.assert_called_with(Move(ANY, GameState.MAX_TURNS, ANY, ANY, ANY))
+        self.io_mock.send.assert_called_with(
+            Move(ANY, GameState.MAX_TURNS, ANY, ANY, ANY)
+        )
