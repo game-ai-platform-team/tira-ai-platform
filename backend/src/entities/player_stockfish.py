@@ -2,10 +2,10 @@ from stockfish_engine import get_stockfish_engine
 
 
 class PlayerStockfish:
-    def __init__(self, level) -> None:
+    def __init__(self, elo) -> None:
         self.engine = get_stockfish_engine()
         self.boardstate = []
-        self.engine.set_skill_level(level)
+        self.engine.set_elo_rating(elo)
 
     def play(self, move):
         self.boardstate.append(move)
