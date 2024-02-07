@@ -19,6 +19,7 @@ interface MoveStatistics {
     move: string;
     time: number;
     advantage: number;
+    logs: string;
 }
 
 const gameConnections: Map<number, GameConnection> = new Map<
@@ -63,6 +64,7 @@ function GameView(props: CodeViewProps) {
             state: string,
             newTime: number,
             newAdvantage: number,
+            newLogs: string,
         ) => {
             if (
                 state === "CONTINUE" ||
@@ -77,6 +79,7 @@ function GameView(props: CodeViewProps) {
                     move: newMove,
                     time: newTime,
                     advantage: newAdvantage,
+                    logs: newLogs,
                 };
 
                 addMoveStatistics(newMoveStatistics);
