@@ -17,17 +17,17 @@ class TestGame(TestCase):
         )
 
     def test_send_state_calls_socketio_service(self):
-        move = Move("e2e4", GameState.CONTINUE, 3, 1)
+        move = Move("e2e4", GameState.CONTINUE, 3, 1, "")
 
         self.game._Game__send_state(move)
 
         self.io_mock.send.assert_called_with(move)
 
     def test_send_state_when_state_invalid(self):
-        move = Move("aaa", GameState.INVALID, 100, 1)
+        move = Move("aaa", GameState.INVALID, 100, 1, "")
         self.game._Game__send_state(move)
 
-        self.io_mock.send.assert_called_with(Move("", GameState.INVALID, 100, 1))
+        self.io_mock.send.assert_called_with(Move("", GameState.INVALID, 100, 1, ""))
 
     def test_play_continue_continues_game(self):
         self.player1_mock.play.side_effect = ["a", "b", "c"]
@@ -142,4 +142,4 @@ class TestGame(TestCase):
 
         self.game.play(2)
 
-        self.io_mock.send.assert_called_with(Move(ANY, GameState.MAX_TURNS, ANY, ANY))
+        self.io_mock.send.assert_called_with(Move(ANY, GameState.MAX_TURNS, ANY, ANY, ANY))
