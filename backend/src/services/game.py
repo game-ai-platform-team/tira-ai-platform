@@ -37,7 +37,6 @@ class Game:
 
         for i in range(turns):
             player = self.__players[i % 2]
-
             try:
                 move, elapsed_time = self.__play_one_move(player, previous_move)
             except Exception as ex:
@@ -54,7 +53,9 @@ class Game:
             if i == turns - 1 and state == GameState.CONTINUE:
                 state = GameState.MAX_TURNS
 
-            move_object = Move(move, state, elapsed_time, evaluation)
+            logs = player.get_and_reset_current_logs()
+
+            move_object = Move(move, state, elapsed_time, evaluation, logs)
 
             self.__send_state(move_object)
 
@@ -96,7 +97,7 @@ class Game:
 
     def __send_state(self, move: Move) -> None:
         if move.state in (GameState.ILLEGAL, GameState.INVALID):
-            move = Move("", move.state, move.time, move.evaluation)
+            move = Move("", move.state, move.time, move.evaluation, move.logs)
 
         self.__socketio_service.send(move)
 
