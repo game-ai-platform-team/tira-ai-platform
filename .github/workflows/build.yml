@@ -18,6 +18,7 @@ jobs:
         run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/tira-app:latest
 
   Build_and_Push:
+    needs: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
