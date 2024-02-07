@@ -1,6 +1,6 @@
 import unittest
-
 from unittest.mock import Mock
+
 from entities.player_stockfish import PlayerStockfish
 
 
@@ -10,8 +10,8 @@ class TestPlayerStockfish(unittest.TestCase):
         self.sf_player.engine = Mock()
         self.move1 = "e2e4"
         self.move2 = "f7f6"
-    
-    def test_updates_board(self): 
+
+    def test_updates_board(self):
         self.sf_player.play(self.move1)
 
         self.assertEqual(self.sf_player.boardstate[0], self.move1)
