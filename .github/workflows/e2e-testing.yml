@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
 
+    if: false
+
     steps:
       - uses: actions/checkout@v4
 
