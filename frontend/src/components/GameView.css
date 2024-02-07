@@ -8,10 +8,11 @@
 #first-row {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 3%;
 }
 
 #submit-form-container {
-    margin-bottom: 5px;
+    margin-bottom: 50px;
 }
 
 #move-list-container {
@@ -23,9 +24,9 @@
     min-width: 200px;
     max-width: 200px;
     height: 350px;
-    margin-left: 20px;
+    margin-left: 5%;
     font-size: 1.2em;
-    margin-top: -230px;
+    margin-top: 15%;
 }
 
 #chessboard-container {
@@ -36,13 +37,23 @@
     max-width: 800px;
     height: calc(100% - 500px - 20px);
     margin-top: 15%;
-    margin-left: 60%;
+    margin-left: 45%;
 }
 
 #winner-message {
     margin-right: auto;
     position: relative;
     right: 10%;
+}
+
+#statistics {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: auto;
+    width: calc(100% - 40px);
+    max-width: 600px;
+    margin-top: 2%;
+    margin-left: 33%;
 }
 
 @media (max-width: 300px) {

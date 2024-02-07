@@ -4,7 +4,12 @@ import { ChessGameResult } from "../types.ts";
 import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
 import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
-import "./ChessGameView.css";
+import "./GameView.css";
+import "./AdvantageChart.tsx";
+import "../services/StatisticsService.tsx";
+import AdvantageChart from "./AdvantageChart.tsx";
+import { getStatistics } from "../services/StatisticsService.tsx";
+import TimeChart from "./TimeChart.tsx";
 
 interface CodeViewProps {
     testResult?: ChessGameResult;
@@ -14,6 +19,7 @@ interface MoveStatistics {
     move: string;
     time: number;
     advantage: number;
+    logs: string;
 }
 
 const gameConnections: Map<number, GameConnection> = new Map<
@@ -33,7 +39,7 @@ function getNewGameConnection() {
     return id;
 }
 
-function ChessGameView(props: CodeViewProps) {
+function GameView(props: CodeViewProps) {
     const [moves, setMoves] = useState<string[]>(
         props.testResult?.moves ? props.testResult.moves : [],
     );
@@ -58,6 +64,7 @@ function ChessGameView(props: CodeViewProps) {
             state: string,
             newTime: number,
             newAdvantage: number,
+            newLogs: string,
         ) => {
             if (
                 state === "CONTINUE" ||
@@ -72,6 +79,7 @@ function ChessGameView(props: CodeViewProps) {
                     move: newMove,
                     time: newTime,
                     advantage: newAdvantage,
+                    logs: newLogs,
                 };
 
                 addMoveStatistics(newMoveStatistics);
@@ -105,6 +113,8 @@ function ChessGameView(props: CodeViewProps) {
 
     const winnerMessage = <p>winner: {"testwinner"}</p>;
 
+    const stats = getStatistics(moveStatisticsList);
+
     return (
         <div id="chess-game-view">
             <div id="first-row">
@@ -122,12 +132,16 @@ function ChessGameView(props: CodeViewProps) {
                     />
                     <div id="winner-message">{winnerMessage}</div>
                 </div>
+                <div id="move-list-container">
+                    <MoveList moves={moveStatisticsList} state={gameState} />
+                </div>
             </div>
-            <div id="move-list-container">
-                <MoveList moves={moveStatisticsList} state={gameState} />
+            <div id="statistics">
+                <AdvantageChart data={stats.advantages} />
+                <TimeChart data={stats.times} />
             </div>
         </div>
     );
 }
 
-export default ChessGameView;
+export default GameView;

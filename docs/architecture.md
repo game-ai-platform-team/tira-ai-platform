@@ -104,6 +104,7 @@ GameFactory ..> Judge
 GameFactory ..> Player
 GameFactory ..> SocketIOService
 Judge --> GameState
+Player ..> PlayerLogger
 
 SocketIOService ..> Move
 
@@ -144,6 +145,10 @@ class GameState {
     MAX_TURNS
 }
 
+class PlayerLogger {
+    logs: str[]
+}
+
 class Move {
     move: str,
     state: GameState,
@@ -159,4 +164,146 @@ class App {
     route1()
     route2()
 }
+```
+
+## Frontend
+
+Frontend uses React Redux to store and access states.
+
+### UI architecture
+
+```mermaid
+classDiagram
+store -- App: Provider
+
+App --> NavigationBar
+App --> GameView
+
+GameView --> SubmitForm
+GameView --> MoveList
+GameView --> Board
+GameView --> AdvantageBar
+
+Board <|-- ChessBoard
+Board --> BoardProps
+
+MoveList --> Move
+Move --> MoveProps
+
+SubmitForm --> gameReducer: NEW_GAME
+Board -- store
+MoveList -- store
+AdvantageBar -- store
+
+namespace interfaces {
+    class MoveProps {
+    <<interface>>
+    move: string
+    time: number
+    advantage:
+    }
+
+    class BoardProps {
+        <<interface>>
+    }
+}
+
+
+namespace UI {
+    class App
+    class NavigationBar
+    class GameView
+    class SubmitForm
+    class AdvantageBar
+    class Board
+    class ChessBoard
+    class Move
+    class MoveList
+}
+```
+
+### React Redux part and logic
+
+```mermaid
+classDiagram
+
+store -- moveReducer
+store -- gameReducer
+store -- boardReducer
+
+gameReducer ..> NEW_GAME
+gameReducer ..> END_GAME
+moveReducer ..> NEW_MOVE
+boardReducer ..> NEW_BOARD
+NEW_GAME ..> gameConfig
+
+gameReducer --> SocketService
+gameReducer --> StatisticsService
+moveReducer <-- SocketService
+
+SocketService ..> gameConfig
+
+namespace services {
+    class SocketService {
+        +startGame(config: gameConfig)
+    }
+
+    class StatisticsService {
+        +getStatistics()
+    }
+}
+
+class gameConfig {
+    difficulty: string | number
+    depth: number
+    player1File: string
+    player2File: string
+}
+
+class store {
+    moves: MoveProps[]
+    boards: BoardProps[]
+    boardIndex: number
+    in_progress: boolean
+    game_result: GameResult
+}
+
+
+namespace ReducersAndActionCreators {
+    class moveReducer {
+        <<module>>
+        moveReducer(state, action)
+        newMove(move: MoveProps) NEW_MOVE
+    }
+
+    class gameReducer {
+        <<module>>
+        gameReducer(state, action)
+        newGame(gameConfig) NEW_GAME
+        endGame() END_GAME
+    }
+
+    class boardReducer {
+        <<module>>
+        boardReducer(state, action)
+        newBoard(board: BoardProps) NEW_BOARD
+    }
+}
+
+namespace Actions {
+    class NEW_MOVE {
+        payload: MoveProps
+    }
+
+    class NEW_BOARD {
+        payload: BoardProps
+    }
+
+    class NEW_GAME {
+        payload: gameConfig
+    }
+
+    class END_GAME
+}
+
 ```

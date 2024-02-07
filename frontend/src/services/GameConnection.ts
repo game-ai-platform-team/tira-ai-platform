@@ -25,6 +25,7 @@ export class GameConnection {
             state: string,
             time: number,
             evaluation: number,
+            logs: string,
         ) => void,
     ) {
         this.socket.on(
@@ -34,19 +35,22 @@ export class GameConnection {
                 state: string;
                 time: number;
                 evaluation: number;
+                logs: string;
             }) => {
+                console.log("Received 'newmove' event:", data);
                 handleNewMove(
                     data.move,
                     data.state,
                     data.time,
                     data.evaluation,
+                    data.logs,
                 );
             },
         );
     }
 
-    postcode(file: string) {
-        this.socket.emit("postcode", { content: file });
+    postcode(file: string, difficulty: number) {
+        this.socket.emit("postcode", { content: file, difficulty });
     }
 
     connect() {
