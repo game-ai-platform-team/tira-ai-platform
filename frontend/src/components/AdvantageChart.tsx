@@ -5,9 +5,9 @@ interface LineChartProps {
 }
 
 const AdvantageChart: React.FC<LineChartProps> = ({ data }) => {
-    const viewBoxWidth = 400; // Width of the viewBox
+    const viewBoxWidth = 500; // Width of the viewBox
     const viewBoxHeight = 200; // Height of the viewBox
-    const padding = 20; // Padding for the chart within the viewBox
+    const padding = 24; // Padding for the chart within the viewBox
     const chartWidth = viewBoxWidth - 2 * padding; // Width of the chart area
     const chartHeight = viewBoxHeight - 2 * padding; // Height of the chart area
 
@@ -43,7 +43,7 @@ const AdvantageChart: React.FC<LineChartProps> = ({ data }) => {
                 fontSize="16"
                 fill="black"
             >
-                The advance of the game:
+                Game Advantage:
             </text>
             {/* Box around the chart */}
             <rect
@@ -80,7 +80,7 @@ const AdvantageChart: React.FC<LineChartProps> = ({ data }) => {
             ))}
 
             {/* Line chart */}
-            <path d={path} fill="none" stroke="blue" strokeWidth="2" />
+            <path d={path} fill="none" stroke="blue" strokeWidth="3" />
 
             {/* Points on the line */}
             {points.map((point, index) => (
@@ -89,7 +89,8 @@ const AdvantageChart: React.FC<LineChartProps> = ({ data }) => {
                     cx={point.x}
                     cy={point.y}
                     r="4"
-                    fill="blue"
+                    stroke="blue"
+                    fill={index % 2 === 0 ? 'white' : 'black'}
                 />
             ))}
         </svg>
