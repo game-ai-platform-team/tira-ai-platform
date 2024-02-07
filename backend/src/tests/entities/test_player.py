@@ -35,3 +35,23 @@ class TestPlayer(unittest.TestCase):
         player = Player(self.temp_file, 1)
 
         self.assertRaises(TimeoutError, player.play, "move")
+
+    def test_dont_raise_error_when_no_timeout(self):
+        with self.temp_file.open("w") as f:
+            f.truncate(0)
+            f.write("import time\ntime.sleep(1)\nprint(input())")
+        
+        player = Player(self.temp_file, 2)
+        out = player.play("move")
+
+        self.assertEqual(out, "move")
+    
+    def test_process_is_terminated_after_timeout(self):
+        with self.temp_file.open("w") as f:
+            f.truncate(0)
+            f.write("import time\ntime.sleep(2)\nprint(input())")
+
+        player = Player(self.temp_file, 1)
+
+        self.assertRaises(TimeoutError, player.play, "move")
+        self.assertRaises(ProcessLookupError, player.play, "move")
