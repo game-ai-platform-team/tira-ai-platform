@@ -17,11 +17,11 @@ const Move = ({ move, time, logs }: MoveProps) => {
             </a>
 
             <div className="move-details" style={showWhenVisible}>
-                <p/>
+                <p />
                 <span>Time: {time}</span>
-                <p/>
+                <p />
                 <span>Logging: {logs} </span>
-                <p/>
+                <p />
             </div>
         </div>
     );
