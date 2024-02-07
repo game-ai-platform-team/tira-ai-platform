@@ -3,6 +3,7 @@ import { useState } from "react";
 interface MoveProps {
     move: string;
     time: number;
+    advantage: number;
 }
 
 const Move = ({ move, time }: MoveProps) => {

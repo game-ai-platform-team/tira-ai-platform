@@ -7,7 +7,7 @@ describe("move component", () => {
     let container: HTMLElement;
 
     beforeEach(() => {
-        container = render(<Move move={"e1e2"} time={100} />).container;
+        container = render(<Move move={"e1e2"} time={100} advantage={0}/>).container;
     });
 
     test("move shown", () => {
