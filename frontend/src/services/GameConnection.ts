@@ -45,8 +45,8 @@ export class GameConnection {
         );
     }
 
-    postcode(file: string) {
-        this.socket.emit("postcode", { content: file });
+    postcode(file: string, difficulty: number) {
+        this.socket.emit("postcode", { content: file, difficulty });
     }
 
     connect() {

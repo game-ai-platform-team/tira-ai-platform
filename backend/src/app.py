@@ -14,8 +14,7 @@ CORS(app)
 
 @socketio.on("postcode", namespace="/gameconnection")
 def io_post_code(data):
-    level = 20
-    api.start(data["content"], socketio, request.sid, level)
+    api.start(data["content"], data["difficulty"], socketio, request.sid)
 
 
 @app.route("/")
