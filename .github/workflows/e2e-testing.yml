@@ -12,11 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: echo ${{ env.CYPRESS_BASE_URL }}
-
       - name: Run end-to-end tests
         uses: cypress-io/github-action@v6
         env:
-          CYPRESS_BASE_URL: ${{ env.CYPRESS_BASE_URL }}
+          CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}
         with:
           working-directory: frontend
