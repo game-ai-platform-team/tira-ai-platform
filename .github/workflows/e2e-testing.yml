@@ -58,8 +58,5 @@ jobs:
         uses: ./.github/workflows/setup-poetry
 
       - name: Start backend
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: backend
-          start: poetry run invoke start
-          runTests: false
+        run: poetry run invoke start
+        working-directory: ./backend
