@@ -9,7 +9,7 @@ defaults:
     working-directory: ./frontend
 
 jobs:
-  Unit_test:
+  e2e_staging:
     runs-on: ubuntu-latest
 
     steps:
