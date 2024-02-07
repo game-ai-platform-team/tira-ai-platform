@@ -2,7 +2,7 @@ import { Position } from "kokopu";
 import { Chessboard } from "kokopu-react";
 import { useEffect, useState } from "react";
 import "./BrowsableChessboard.css";
-import EvaluationBar from "./EvaluationBar";
+import AdvantageBar from "./AdvantageBar";
 
 interface BrowsableChessboardProps {
     moves?: string[];
@@ -70,7 +70,7 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
             <div style={{ marginLeft: "100px" }}>
                 {/* linePosition={0} places the indicator in the middle of the bar */}
                 {/* linePosition={0.1} results to what the bar would look like when the advantage is +0.1 */}
-                <EvaluationBar linePosition={props.advantage || 0} />
+                <AdvantageBar linePosition={props.advantage || 0} />
             </div>
         </div>
     );
