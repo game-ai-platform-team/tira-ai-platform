@@ -1,24 +1,35 @@
 import { MoveProps } from "../components/Move";
 
-export function getStatistics(moves: MoveProps[]): {
+export function getStatistics(
+    moves: MoveProps[],
+    color?: "white" | "black",
+): {
     longest: MoveProps;
     shortest: MoveProps;
     average: number;
     advantages: number[];
 } {
-    if (moves.length === 0) {
-        const defaultMove: MoveProps = { move: "", time: 0, advantage: 0 };
+    let movesOfColor: MoveProps[];
+    if (color === "white") {
+        movesOfColor = moves.filter((_, index) => index % 2 === 0);
+    } else if (color === "black") {
+        movesOfColor = moves.filter((_, index) => index % 2 !== 0);
+    } else {
+        movesOfColor = moves;
+    }
+
+    if (movesOfColor.length === 0) {
         return {
-            longest: defaultMove,
-            shortest: defaultMove,
+            longest: { move: "none", time: 0, advantage: 0 },
+            shortest: { move: "none", time: 0, advantage: 0 },
             average: 0,
             advantages: [0],
         };
     }
 
-    const longestMove = calculateLongestMove(moves);
-    const shortestMove = calculateShortestMove(moves);
-    const average = calculateAverageTime(moves);
+    const longestMove = calculateLongestMove(movesOfColor);
+    const shortestMove = calculateShortestMove(movesOfColor);
+    const average = calculateAverageTime(movesOfColor);
     const advantages = getAdvantages(moves);
 
     return {
