@@ -79,7 +79,7 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
                 <input
                     id="difficulty-slider"
                     type="range"
-                    min={1}
+                    min={0}
                     max={20}
                     value={difficulty}
                     onChange={handleDifficultyChange}
