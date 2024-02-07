@@ -18,6 +18,7 @@ function MoveList({ moves, state }: MoveListProps) {
                             move={move.move}
                             time={move.time}
                             advantage={move.advantage}
+                            logs={move.logs}
                         />
                     </li>
                 ))}
