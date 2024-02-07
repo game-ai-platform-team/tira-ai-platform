@@ -16,8 +16,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up
-        uses: ./.github/workflows/setup-node
-
-      - name: Run E2E tests
-        run: npm run test:e2e
+      - name: Run end-to-end tests
+        uses: cypress-io/github-action@v6
