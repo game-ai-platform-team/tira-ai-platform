@@ -169,7 +169,7 @@ Frontend uses React Redux to store and access states.
 
 ```mermaid
 classDiagram
-rootState -- App: Provider
+store -- App: Provider
 
 App --> NavigationBar
 App --> GameView
@@ -186,9 +186,9 @@ MoveList --> Move
 Move --> MoveProps
 
 SubmitForm --> gameReducer: NEW_GAME
-Board -- rootState: subscribe
-MoveList -- rootState: subscribe
-AdvantageBar -- rootState: subscribe
+Board -- store: subscribe
+MoveList -- store: subscribe
+AdvantageBar -- store: subscribe
 
 namespace interfaces {
     class MoveProps {
@@ -222,9 +222,9 @@ namespace UI {
 ```mermaid
 classDiagram
 
-rootState -- moveReducer
-rootState -- gameReducer
-rootState -- boardReducer
+store -- moveReducer
+store -- gameReducer
+store -- boardReducer
 
 gameReducer ..> NEW_GAME
 gameReducer ..> END_GAME
@@ -255,7 +255,7 @@ class gameConfig {
     player2File: string
 }
 
-class rootState {
+class store {
     moves: MoveProps[]
     boards: BoardProps[]
     boardIndex: number
