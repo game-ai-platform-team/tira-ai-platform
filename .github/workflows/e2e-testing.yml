@@ -14,5 +14,7 @@ jobs:
 
       - name: Run end-to-end tests
         uses: cypress-io/github-action@v6
+        env:
+          CYPRESS_BASE_URL: ${{ env.CYPRESS_BASE_URL }}
         with:
           working-directory: frontend
