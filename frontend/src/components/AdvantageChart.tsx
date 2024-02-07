@@ -80,7 +80,7 @@ const AdvantageChart: React.FC<LineChartProps> = ({ data }) => {
             ))}
 
             {/* Line chart */}
-            <path d={path} fill="none" stroke="blue" strokeWidth="3" />
+            <path d={path} fill="none" stroke="#f0dec7" strokeWidth="3" />
 
             {/* Points on the line */}
             {points.map((point, index) => (
@@ -89,7 +89,7 @@ const AdvantageChart: React.FC<LineChartProps> = ({ data }) => {
                     cx={point.x}
                     cy={point.y}
                     r="4"
-                    stroke="blue"
+                    stroke="#b5876b"
                     fill={index % 2 === 0 ? "white" : "black"}
                 />
             ))}

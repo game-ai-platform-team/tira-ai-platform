@@ -10,7 +10,7 @@ interface SubmitFormProps {
 
 function SubmitForm(props: SubmitFormProps): JSX.Element {
     const [file, setFile] = useState<File | null>(null);
-    const [difficulty, setDifficulty] = useState<number>(1);
+    const [elo, setElo] = useState<number>(1350);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -33,21 +33,21 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
         }
     };
 
-    const handleDifficultyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleEloChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value, 10);
-        setDifficulty(value);
+        setElo(value);
     };
 
     const onSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (
             file &&
-            difficulty &&
+            elo &&
             props.gameConnection &&
             props.gameConnection.isConnected() &&
             !props.hasGameStarted
         ) {
-            props.gameConnection.postcode(await file.text(), difficulty);
+            props.gameConnection.postcode(await file.text(), elo);
             props.setHasGameStarted(true);
         }
     };
@@ -72,19 +72,19 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
                 />
                 {file && <p>File Name: {file.name}</p>}
             </div>
-            <div id="difficulty-config">
-                <label htmlFor="difficulty-slider">
-                    Select Stockfish Difficulty:
+            <div id="elo-config">
+                <label htmlFor="elo-slider">
+                    Select Stockfish Elo:
                 </label>
                 <input
-                    id="difficulty-slider"
+                    id="elo-slider"
                     type="range"
                     min={0}
-                    max={20}
-                    value={difficulty}
-                    onChange={handleDifficultyChange}
+                    max={4000}
+                    value={elo}
+                    onChange={handleEloChange}
                 />
-                <p>Difficulty: {difficulty}</p>
+                <p>Elo: {elo}</p>
             </div>
             <form id="submit-form" onSubmit={onSubmit}>
                 <button id="submit-button" type="submit">

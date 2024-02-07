@@ -20,11 +20,11 @@ test("submit button exists", () => {
     expect(submitButton).not.toBe(null);
 });
 
-test("difficulty slider exists", () => {
+test("elo slider exists", () => {
     const component = render(
         <SubmitForm hasGameStarted={false} setHasGameStarted={vitest.fn()} />,
     );
-    const fileInput = component.container.querySelector("#difficulty-config");
+    const fileInput = component.container.querySelector("#elo-config");
 
     expect(fileInput).not.toBe(null);
 });
