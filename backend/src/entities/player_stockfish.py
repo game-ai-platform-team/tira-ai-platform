@@ -14,5 +14,8 @@ class PlayerStockfish:
         self.boardstate.append(new_move)
         return new_move
 
+    def get_and_reset_current_logs(self):
+        return ""
+
     def terminate_self(self):
         pass

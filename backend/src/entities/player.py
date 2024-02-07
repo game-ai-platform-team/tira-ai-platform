@@ -1,15 +1,14 @@
-import select
-import subprocess
-import time
 from pathlib import Path
+import subprocess
+import select
+import time
 
 from config import DEFAULT_CHESS_TIMEOUT
-
+from entities.player_logger import PlayerLogger
 
 class Player:
     def __init__(self, path: Path, timeout: float = DEFAULT_CHESS_TIMEOUT) -> None:
-        # pylint: disable=consider-using-with
-        self.__path: Path = path
+        self.__path = path
         self.__timeout = timeout
         self.__process = subprocess.Popen(
             args=["python3", str(self.__path)],
@@ -17,26 +16,38 @@ class Player:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
+        self.__logger = PlayerLogger()
+
+    def get_and_reset_current_logs(self) -> str:
+        return self.__logger.get_and_clear_logs()
 
     def play(self, move) -> str:
         if self.__process.poll() is not None:
-            raise ProcessLookupError
+            raise ProcessLookupError("Process has terminated unexpectedly.")
 
         input_string = move + "\n"
-
         self.__process.stdin.write(input_string.encode("utf-8"))
         self.__process.stdin.flush()
 
         readable, _, _ = select.select([self.__process.stdout], [], [], self.__timeout)
-
         if not readable:
             self.terminate_self()
-            raise TimeoutError(self.__path)
+            raise TimeoutError(f"Operation timed out: {self.__path}")
 
-        out = self.__process.stdout.readline()
+        while True:
+            out = self.__process.stdout.readline().decode("utf-8")
+            print(out)
+            
+            if not out:
+                break
+            if out.startswith("INFO: "):
+                self.__logger.log(out[6:].strip())
+            elif out.startswith("MOVE: "):
+                return out[5:].strip()
 
-        return out.decode("utf-8").replace("\n", "")
+        
+        return ""
 
     def terminate_self(self):
         self.__process.terminate()
-        time.sleep(0.01)
+        self.__process.wait()
