@@ -1,7 +1,7 @@
 import SubmitForm from "./SubmitForm.tsx";
 import { useState, useCallback, useEffect } from "react";
 import { ChessGameResult } from "../types.ts";
-import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
+import Chessboard from "./Chessboard.tsx";
 import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
 import "./GameView.css";
@@ -127,10 +127,7 @@ function GameView(props: CodeViewProps) {
                 />
 
                 <div id="chessboard-container">
-                    <BrowsableChessboard
-                        moves={moves}
-                        advantage={currentAdvantage}
-                    />
+                    <Chessboard moves={moves} advantage={currentAdvantage} />
                     <div id="winner-message">{winnerMessage}</div>
                 </div>
                 <MoveList moves={moveStatisticsList} state={gameState} />
