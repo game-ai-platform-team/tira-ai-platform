@@ -6,7 +6,7 @@ import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
 import "./GameView.css";
 import AdvantageChart from "./AdvantageChart.tsx";
-import { getStatistics } from "../services/StatisticsService.tsx";
+import { getEvaluations, getStatistics } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
 
 interface CodeViewProps {
@@ -112,6 +112,7 @@ function GameView(props: CodeViewProps) {
     const winnerMessage = <p>winner: {"testwinner"}</p>;
 
     const stats = getStatistics(moveStatisticsList);
+    const evals = getEvaluations(moveStatisticsList);
 
     return (
         <div id="chess-game-view">
@@ -135,7 +136,7 @@ function GameView(props: CodeViewProps) {
                 </div>
             </div>
             <div id="statistics">
-                <AdvantageChart data={stats.advantages} />
+                <AdvantageChart data={evals.advantages} />
                 <TimeChart data={stats.times} />
             </div>
         </div>
