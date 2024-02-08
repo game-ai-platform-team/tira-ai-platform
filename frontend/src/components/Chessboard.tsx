@@ -43,12 +43,18 @@ const Chessboard = (props: ChessboardProps) => {
         });
     };
 
+    let arrow: string = "G";
+    if (moveNumber > 0) {
+        arrow = arrow + moves[moveNumber-1].slice(0,4)
+    }
+
     return (
         <div id="chessboard">
             <h2 id="chessboard-header">Player1 vs Player2</h2>
             <KokopuChessboard
                 position={positions[moveNumber]}
                 squareSize={60}
+                arrowMarkers={arrow}
             />
             <div>
                 <button
