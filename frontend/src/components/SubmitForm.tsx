@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import "./SubmitForm.css";
+import "../scss/SubmitForm.scss";
 import { GameConnection } from "../services/GameConnection.ts";
 
 interface SubmitFormProps {
