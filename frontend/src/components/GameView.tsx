@@ -120,13 +120,12 @@ function GameView(props: CodeViewProps) {
     return (
         <div id="chess-game-view">
             <div id="first-row">
-                <div id="submit-form-container">
-                    <SubmitForm
-                        gameConnection={gameConnection}
-                        hasGameStarted={hasGameStarted}
-                        setHasGameStarted={setHasGameStarted}
-                    />
-                </div>
+                <SubmitForm
+                    gameConnection={gameConnection}
+                    hasGameStarted={hasGameStarted}
+                    setHasGameStarted={setHasGameStarted}
+                />
+
                 <div id="chessboard-container">
                     <BrowsableChessboard
                         moves={moves}
