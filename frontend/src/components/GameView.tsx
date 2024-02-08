@@ -134,9 +134,7 @@ function GameView(props: CodeViewProps) {
                     />
                     <div id="winner-message">{winnerMessage}</div>
                 </div>
-                <div id="move-list-container">
-                    <MoveList moves={moveStatisticsList} state={gameState} />
-                </div>
+                <MoveList moves={moveStatisticsList} state={gameState} />
             </div>
             <div id="statistics">
                 <AdvantageChart data={evals.advantages} />

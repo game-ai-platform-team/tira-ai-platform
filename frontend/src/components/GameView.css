@@ -15,20 +15,6 @@
     margin-bottom: 50px;
 }
 
-#move-list-container {
-    border: 1px solid #c0bdbb;
-    border-radius: 20px;
-    padding: 2%;
-    text-align: center;
-    width: 8%;
-    min-width: 200px;
-    max-width: 200px;
-    height: 350px;
-    margin-left: 5%;
-    font-size: 1.2em;
-    margin-top: 15%;
-}
-
 #chessboard-container {
     margin-right: auto;
     margin-left: auto;

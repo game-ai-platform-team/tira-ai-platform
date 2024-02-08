@@ -1,4 +1,4 @@
-import "./MoveList.css";
+import "./MoveList.scss";
 import Move, { MoveProps } from "./Move";
 
 interface MoveListProps {
@@ -8,9 +8,10 @@ interface MoveListProps {
 
 function MoveList({ moves, state }: MoveListProps) {
     return (
-        <div>
+        <div className="move-list">
+            <p>State: {state}</p>
             <p>Received moves:</p>
-            <ul id="move-list">
+            <ul>
                 {moves.map((move, index) => (
                     <li key={index}>
                         <Move
@@ -22,7 +23,6 @@ function MoveList({ moves, state }: MoveListProps) {
                     </li>
                 ))}
             </ul>
-            <p>State: {state}</p>
         </div>
     );
 }
