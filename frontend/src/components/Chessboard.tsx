@@ -67,11 +67,6 @@ const Chessboard = (props: ChessboardProps) => {
                     </button>
                 </div>
             </div>
-            <div style={{ marginLeft: "100px" }}>
-                {/* linePosition={0} places the indicator in the middle of the bar */}
-                {/* linePosition={0.1} results to what the bar would look like when the advantage is +0.1 */}
-                <AdvantageBar linePosition={props.advantage || 0} />
-            </div>
         </div>
     );
 };

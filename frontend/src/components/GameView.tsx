@@ -11,6 +11,7 @@ import {
     getStatistics,
 } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
+import AdvantageBar from "./AdvantageBar.tsx";
 
 interface MoveStatistics {
     move: string;
@@ -38,6 +39,7 @@ function getNewGameConnection() {
 
 function GameView({
     testResult,
+    advantage,
 }: {
     testResult: ChessGameResult;
     advantage: number;
@@ -128,9 +130,9 @@ function GameView({
 
             <Chessboard moves={moves} advantage={currentAdvantage} />
             <div id="winner-message">{winnerMessage}</div>
+            <AdvantageBar linePosition={advantage} />
 
             <MoveList moves={moveStatisticsList} state={gameState} />
-
             <div id="statistics">
                 <AdvantageChart data={evals.advantages} />
                 <TimeChart data={stats.times} />
