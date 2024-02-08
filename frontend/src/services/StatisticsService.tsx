@@ -1,4 +1,5 @@
 import { MoveProps } from "../components/Move";
+const STARTING_ADVANTAGE: number = 0.066;
 
 export function getStatistics(
     moves: MoveProps[],
@@ -7,7 +8,6 @@ export function getStatistics(
     longest: MoveProps;
     shortest: MoveProps;
     average: number;
-    advantages: number[];
     times: number[];
     logs: string;
 } {
@@ -25,7 +25,6 @@ export function getStatistics(
             longest: { move: "none", time: 0, advantage: 0, logs: "" },
             shortest: { move: "none", time: 0, advantage: 0, logs: "" },
             average: 0,
-            advantages: [0],
             times: [0],
             logs: "",
         };
@@ -34,17 +33,25 @@ export function getStatistics(
     const longestMove = calculateLongestMove(movesOfColor);
     const shortestMove = calculateShortestMove(movesOfColor);
     const average = calculateAverageTime(movesOfColor);
-    const advantages = getAdvantages(moves);
     const times = getTimes(movesOfColor);
 
     return {
         longest: longestMove,
         shortest: shortestMove,
         average: average,
-        advantages: advantages,
         times: times,
         logs: "",
     };
+}
+
+export function getEvaluations(moves: MoveProps[]): {
+    advantages: number[];
+    moveClasses: string[];
+} {
+    const advantages = getAdvantages(moves);
+    const moveClasses = getMoveClasses(advantages);
+    advantages.splice(0, 0, STARTING_ADVANTAGE);
+    return { advantages, moveClasses };
 }
 
 function calculateLongestMove(moves: MoveProps[]): MoveProps {
@@ -86,11 +93,71 @@ function getAdvantages(moves: MoveProps[]): number[] {
     return advantages;
 }
 
-function getTimes(moves: MoveProps[]) {
+function getTimes(moves: MoveProps[]): number[] {
     const times: number[] = [];
     for (let i = 0; i < moves.length; i++) {
         const advantage = moves[i].time;
         times.push(advantage);
     }
     return times;
+}
+
+function getMoveClasses(advantages: number[]): string[] {
+    const moveClasses: string[] = [];
+    
+    for (let i = 0; i < advantages.length; i++) {
+        const thisAdvantage = advantages[i];
+        let increasing: boolean = false;
+        let mult: number = 1;
+        let prevAdvantage: number = 0;
+        let change: number = 0;
+
+        if (i > 0) {
+            prevAdvantage = advantages[i - 1];
+        } else {
+            prevAdvantage = STARTING_ADVANTAGE;
+        }
+
+        change = Math.abs(prevAdvantage - thisAdvantage);
+
+        if (prevAdvantage < thisAdvantage) {
+            increasing = true;
+        }
+
+        if (Math.abs(thisAdvantage) > 0.8) {
+            mult = 0.1;
+        } else if (Math.abs(thisAdvantage) > 0.5) {
+            mult = 0.5;
+        } else {
+            mult = 1;
+        }
+
+        switch (true) {
+            case (i % 2 == 0 && increasing) || (i % 2 != 0 && !increasing):
+                moveClasses.push("GREAT");
+                break;
+            default:
+                switch (true) {
+                    case change <= 0:
+                        moveClasses.push("BEST");
+                        break;
+                    case change <= 0.02 * mult:
+                        moveClasses.push("EXCELLENT");
+                        break;
+                    case change <= 0.05 * mult:
+                        moveClasses.push("GOOD");
+                        break;
+                    case change <= 0.1 * mult:
+                        moveClasses.push("INACCURACY");
+                        break;
+                    case change <= 0.2 * mult:
+                        moveClasses.push("MISTAKE");
+                        break;
+                    default:
+                        moveClasses.push("BLUNDER");
+                }
+        }
+    }
+
+    return moveClasses;
 }
