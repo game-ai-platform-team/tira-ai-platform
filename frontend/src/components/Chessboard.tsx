@@ -2,7 +2,6 @@ import { Position } from "kokopu";
 import { Chessboard as KokopuChessboard } from "kokopu-react";
 import { useEffect, useState } from "react";
 import "./Chessboard.css";
-import AdvantageBar from "./AdvantageBar";
 
 interface ChessboardProps {
     moves?: string[];
