@@ -104,7 +104,7 @@ function getTimes(moves: MoveProps[]): number[] {
 
 function getMoveClasses(advantages: number[]): string[] {
     const moveClasses: string[] = [];
-    
+
     for (let i = 0; i < advantages.length; i++) {
         const thisAdvantage = advantages[i];
         let increasing: boolean = false;
