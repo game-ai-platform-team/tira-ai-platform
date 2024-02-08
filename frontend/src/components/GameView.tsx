@@ -6,7 +6,10 @@ import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
 import "./GameView.css";
 import AdvantageChart from "./AdvantageChart.tsx";
-import { getEvaluations, getStatistics } from "../services/StatisticsService.tsx";
+import {
+    getEvaluations,
+    getStatistics,
+} from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
 
 interface CodeViewProps {
