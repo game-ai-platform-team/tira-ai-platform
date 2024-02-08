@@ -1,6 +1,5 @@
 import "./MoveList.css";
-import Move from "./Move";
-import { MoveProps } from "./Move";
+import Move, { MoveProps } from "./Move";
 
 interface MoveListProps {
     moves: MoveProps[];
