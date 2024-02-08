@@ -5,7 +5,7 @@ const moveSlice = createSlice({
     name: "moves",
     initialState: new Array<MoveProps>(),
     reducers: {
-        newMove(state, action: PayloadAction<MoveProps>) {
+        createMove(state, action: PayloadAction<MoveProps>) {
             state.push(action.payload);
         },
     },
@@ -13,4 +13,4 @@ const moveSlice = createSlice({
 
 export default moveSlice.reducer;
 
-export const { newMove } = moveSlice.actions;
+export const { createMove } = moveSlice.actions;
