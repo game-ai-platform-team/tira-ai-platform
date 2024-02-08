@@ -3,9 +3,14 @@ import NavigationBar from "./components/NavigationBar.tsx";
 
 function App() {
     return (
-        <div>
-            <NavigationBar />
-            <GameView />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+            <header>
+                <NavigationBar />
+            </header>
+
+            <main>
+                <GameView />
+            </main>
         </div>
     );
 }
