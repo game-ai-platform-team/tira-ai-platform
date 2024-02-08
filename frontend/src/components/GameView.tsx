@@ -12,10 +12,6 @@ import {
 } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
 
-interface CodeViewProps {
-    testResult?: ChessGameResult;
-}
-
 interface MoveStatistics {
     move: string;
     time: number;
@@ -40,9 +36,15 @@ function getNewGameConnection() {
     return id;
 }
 
-function GameView(props: CodeViewProps) {
+function GameView({
+    testResult,
+    advantage,
+}: {
+    testResult: ChessGameResult;
+    advantage: number;
+}) {
     const [moves, setMoves] = useState<string[]>(
-        props.testResult?.moves ? props.testResult.moves : [],
+        testResult?.moves ? testResult.moves : [],
     );
 
     const [moveStatisticsList, setMoveStatisticsList] = useState<
