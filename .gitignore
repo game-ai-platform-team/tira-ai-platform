@@ -6,3 +6,4 @@ backend/temp/**
 **/*coverage*
 !.coveragerc
 .idea
+move_current
