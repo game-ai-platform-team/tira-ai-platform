@@ -54,7 +54,8 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
 
     return (
         <div id="drag-and-drop-container">
-            <div id="submit-header">Upload your file</div>
+            <h2 id="submit-header">Upload your file</h2>
+
             <div
                 id="drag-and-drop-area"
                 onDragOver={handleDragOver}
