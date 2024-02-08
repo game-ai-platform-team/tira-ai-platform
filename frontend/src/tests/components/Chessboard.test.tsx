@@ -1,11 +1,11 @@
-import { BrowsableChessboard } from "../../components/BrowsableChessboard.tsx";
+import Chessboard from "../../components/Chessboard.tsx";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 test("Chess board changes when button clicked", async () => {
     const moves = ["c2c3", "c7c6", "a2a4", "d7d5", "d2d4"];
 
-    const ui = <BrowsableChessboard moves={moves} />;
+    const ui = <Chessboard moves={moves} />;
     const component = render(ui);
     const chessboard = component.container.querySelector(".kokopu-chessboard");
     const boardState1 = chessboard?.outerHTML;

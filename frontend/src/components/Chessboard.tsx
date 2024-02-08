@@ -1,17 +1,17 @@
 import { Position } from "kokopu";
-import { Chessboard } from "kokopu-react";
+import { Chessboard as KokopuChessboard } from "kokopu-react";
 import { useEffect, useState } from "react";
-import "./BrowsableChessboard.css";
+import "./Chessboard.css";
 import AdvantageBar from "./AdvantageBar";
 
-interface BrowsableChessboardProps {
+interface ChessboardProps {
     moves?: string[];
     advantage?: number;
 }
 
 const emptyList: string[] = [];
 
-export function BrowsableChessboard(props: BrowsableChessboardProps) {
+const Chessboard = (props: ChessboardProps) => {
     new Position();
     const moves = props.moves ? props.moves : emptyList;
     const [moveNumber, setMoveNumber] = useState<number>(0);
@@ -51,7 +51,7 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
         >
             <div id="BrowsableChessboard">
                 <div id="chessboard-header">Player1 vs Player2</div>
-                <Chessboard position={positions[moveNumber]}></Chessboard>
+                <KokopuChessboard position={positions[moveNumber]} />
                 <div>
                     <button
                         onClick={decreaseMoveNumber}
@@ -74,4 +74,6 @@ export function BrowsableChessboard(props: BrowsableChessboardProps) {
             </div>
         </div>
     );
-}
+};
+
+export default Chessboard;
