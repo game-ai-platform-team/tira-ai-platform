@@ -38,7 +38,6 @@ function getNewGameConnection() {
 
 function GameView({
     testResult,
-    advantage,
 }: {
     testResult: ChessGameResult;
     advantage: number;
