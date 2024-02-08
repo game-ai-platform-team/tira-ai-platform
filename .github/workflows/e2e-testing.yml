@@ -31,7 +31,7 @@ jobs:
         uses: ./.github/workflows/setup-poetry
 
       - name: Start backend
-        run: poetry run invoke start &&
+        run: poetry run invoke start &
         working-directory: ./backend
 
       - name: Start frontend
