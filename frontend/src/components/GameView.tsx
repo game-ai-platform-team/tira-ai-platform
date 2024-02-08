@@ -1,6 +1,5 @@
 import SubmitForm from "./SubmitForm.tsx";
-import { useState, useCallback, useEffect } from "react";
-import { ChessGameResult } from "../types.ts";
+import { useState, useEffect } from "react";
 import Chessboard from "./Chessboard.tsx";
 import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
@@ -13,6 +12,8 @@ import {
 import TimeChart from "./TimeChart.tsx";
 import AdvantageBar from "./AdvantageBar.tsx";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
+import { useSelector } from "react-redux";
+import { RootState } from "../store.ts";
 
 const gameConnections: Map<number, GameConnection> = new Map<
     number,
@@ -31,16 +32,8 @@ function getNewGameConnection() {
     return id;
 }
 
-function GameView({
-    testResult,
-    advantage,
-}: {
-    testResult: ChessGameResult;
-    advantage: number;
-}) {
-    const [moves, setMoves] = useState<string[]>(
-        testResult?.moves ? testResult.moves : [],
-    );
+function GameView({ advantage }: { advantage: number }) {
+    const moves = useSelector((state: RootState) => state.moves);
 
     const [moveStatisticsList, setMoveStatisticsList] = useState<
         MoveStatistics[]
@@ -55,38 +48,6 @@ function GameView({
     const [gameState, setGameState] = useState("CONTINUE");
 
     const [currentAdvantage, setCurrentAdvantage] = useState<number>(0);
-
-    const handleNewMove = useCallback(
-        (
-            newMove: string,
-            state: string,
-            newTime: number,
-            newAdvantage: number,
-            newLogs: string,
-        ) => {
-            if (
-                state === "CONTINUE" ||
-                state === "WIN" ||
-                state === "LOSE" ||
-                state === "DRAW" ||
-                state === "MAX_TURNS"
-            ) {
-                setMoves((prevMoves) => [...prevMoves, newMove]);
-
-                const newMoveStatistics: MoveStatistics = {
-                    move: newMove,
-                    time: newTime,
-                    advantage: newAdvantage,
-                    logs: newLogs,
-                };
-
-                addMoveStatistics(newMoveStatistics);
-                setCurrentAdvantage(newAdvantage);
-            }
-            setGameState(state);
-        },
-        [],
-    );
 
     const [gameConnectionId, setGameConnectionId] = useState<number>();
 
@@ -105,10 +66,6 @@ function GameView({
         gameConnection = gameConnections.get(gameConnectionId);
     }
 
-    useEffect(() => {
-        if (gameConnection) gameConnection.setHandleNewMove(handleNewMove);
-    }, [handleNewMove, gameConnection]);
-
     const winnerMessage = <p>winner: {"testwinner"}</p>;
 
     const stats = getStatistics(moveStatisticsList);
@@ -122,7 +79,10 @@ function GameView({
                 setHasGameStarted={setHasGameStarted}
             />
 
-            <Chessboard moves={moves} advantage={currentAdvantage} />
+            <Chessboard
+                moves={moves.map((move) => move.move)}
+                advantage={currentAdvantage}
+            />
             <div id="winner-message">{winnerMessage}</div>
             <AdvantageBar linePosition={advantage} />
 
