@@ -1,4 +1,4 @@
-import "./MoveList.scss";
+import "../scss/MoveList.scss";
 import Move, { MoveProps } from "./Move";
 
 interface MoveListProps {
