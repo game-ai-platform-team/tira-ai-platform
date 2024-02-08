@@ -45,7 +45,7 @@ const Chessboard = (props: ChessboardProps) => {
 
     let arrow: string = "G";
     if (moveNumber > 0) {
-        arrow = arrow + moves[moveNumber-1].slice(0,4)
+        arrow = arrow + moves[moveNumber - 1].slice(0, 4);
     }
 
     return (
