@@ -45,27 +45,22 @@ const Chessboard = (props: ChessboardProps) => {
     };
 
     return (
-        <div
-            id="ChessboardContainer"
-            style={{ display: "flex", flexDirection: "row" }}
-        >
-            <div id="BrowsableChessboard">
-                <div id="chessboard-header">Player1 vs Player2</div>
-                <KokopuChessboard position={positions[moveNumber]} />
-                <div>
-                    <button
-                        onClick={decreaseMoveNumber}
-                        id="previousChessboardButton"
-                    >
-                        {"<"}
-                    </button>
-                    <button
-                        onClick={increaseMoveNumber}
-                        id="nextChessboardButton"
-                    >
-                        {">"}
-                    </button>
-                </div>
+        <div id="chessboard">
+            <h2 id="chessboard-header">Player1 vs Player2</h2>
+            <KokopuChessboard
+                position={positions[moveNumber]}
+                squareSize={60}
+            />
+            <div>
+                <button
+                    onClick={decreaseMoveNumber}
+                    id="previousChessboardButton"
+                >
+                    {"<"}
+                </button>
+                <button onClick={increaseMoveNumber} id="nextChessboardButton">
+                    {">"}
+                </button>
             </div>
         </div>
     );
