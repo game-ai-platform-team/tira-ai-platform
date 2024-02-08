@@ -120,19 +120,17 @@ function GameView({
 
     return (
         <div id="game-view">
-            <div id="first-row">
-                <SubmitForm
-                    gameConnection={gameConnection}
-                    hasGameStarted={hasGameStarted}
-                    setHasGameStarted={setHasGameStarted}
-                />
+            <SubmitForm
+                gameConnection={gameConnection}
+                hasGameStarted={hasGameStarted}
+                setHasGameStarted={setHasGameStarted}
+            />
 
-                <div id="chessboard-container">
-                    <Chessboard moves={moves} advantage={currentAdvantage} />
-                    <div id="winner-message">{winnerMessage}</div>
-                </div>
-                <MoveList moves={moveStatisticsList} state={gameState} />
-            </div>
+            <Chessboard moves={moves} advantage={currentAdvantage} />
+            <div id="winner-message">{winnerMessage}</div>
+
+            <MoveList moves={moveStatisticsList} state={gameState} />
+
             <div id="statistics">
                 <AdvantageChart data={evals.advantages} />
                 <TimeChart data={stats.times} />
