@@ -119,7 +119,7 @@ function GameView({
     const evals = getEvaluations(moveStatisticsList);
 
     return (
-        <div id="chess-game-view">
+        <div id="game-view">
             <div id="first-row">
                 <SubmitForm
                     gameConnection={gameConnection}

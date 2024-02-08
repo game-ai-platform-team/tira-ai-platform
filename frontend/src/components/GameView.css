@@ -1,4 +1,4 @@
-#chess-game-view {
+#game-view {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -39,7 +39,7 @@
 }
 
 @media (max-width: 300px) {
-    #chess-game-view {
+    #game-view {
         flex-direction: column;
     }
 
