@@ -7,10 +7,11 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "lint:fix": "eslint --fix .",
         "preview": "vite preview",
         "test": "vitest",
         "coverage": "vitest run --coverage",
-        "format": "prettier --write . && eslint --fix .",
+        "format": "prettier --write .",
         "cypress:open": "cypress open",
         "test:e2e": "cypress run"
     },
