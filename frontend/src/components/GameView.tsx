@@ -5,8 +5,6 @@ import { BrowsableChessboard } from "./BrowsableChessboard.tsx";
 import MoveList from "./MoveList.tsx";
 import { GameConnection } from "../services/GameConnection.ts";
 import "./GameView.css";
-import "./AdvantageChart.tsx";
-import "../services/StatisticsService.tsx";
 import AdvantageChart from "./AdvantageChart.tsx";
 import { getStatistics } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
