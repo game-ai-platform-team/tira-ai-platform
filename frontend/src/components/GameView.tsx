@@ -12,13 +12,7 @@ import {
 } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
 import AdvantageBar from "./AdvantageBar.tsx";
-
-interface MoveStatistics {
-    move: string;
-    time: number;
-    advantage: number;
-    logs: string;
-}
+import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
 const gameConnections: Map<number, GameConnection> = new Map<
     number,
