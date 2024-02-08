@@ -12,9 +12,6 @@
 }
 
 #chessboard-container {
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: auto;
     width: calc(100% - 40px);
     max-width: 800px;
     height: calc(100% - 500px - 20px);
