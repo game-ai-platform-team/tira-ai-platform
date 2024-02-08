@@ -13,7 +13,7 @@ test("move list gets rendered", async () => {
         />
     );
     const component = render(ui);
-    const moveList = component.container.querySelector("#chessboard-container");
+    const moveList = component.container.querySelector(".move-list");
 
     expect(moveList).not.toBeEmptyDOMElement();
 });
