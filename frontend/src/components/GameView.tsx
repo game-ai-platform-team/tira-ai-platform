@@ -5,13 +5,12 @@ import "./GameView.css";
 import AdvantageChart from "./AdvantageChart.tsx";
 import {
     getEvaluations,
-    getStatistics
+    getStatistics,
 } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
 import AdvantageBar from "./AdvantageBar.tsx";
 import { useSelector } from "react-redux";
 import store, { RootState } from "../store.ts";
-
 
 function GameView() {
     const moves = useSelector((state: RootState) => state.moves);
@@ -23,17 +22,17 @@ function GameView() {
     return (
         <div id="game-view">
             <SubmitForm />
-            <Chessboard
-                moves={moves.map((move) => move.move)}
-            />
+            <Chessboard moves={moves.map((move) => move.move)} />
             <div id="winner-message">{winnerMessage}</div>
             <AdvantageBar linePosition={0.5} />
 
             <MoveList />
-            {false && <div id="statistics">
-                <AdvantageChart data={evals.advantages} />
-                <TimeChart data={stats.times} />
-            </div>}
+            {false && (
+                <div id="statistics">
+                    <AdvantageChart data={evals.advantages} />
+                    <TimeChart data={stats.times} />
+                </div>
+            )}
         </div>
     );
 }

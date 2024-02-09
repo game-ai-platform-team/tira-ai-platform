@@ -2,7 +2,7 @@ import { useState } from "react";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
 interface MoveProps {
-    statistics:MoveStatistics
+    statistics: MoveStatistics;
 }
 
 const Move = ({ statistics }: MoveProps) => {

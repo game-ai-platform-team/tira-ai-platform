@@ -2,10 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import GameReducer from "./reducers/GameReducer";
 import moveReducer from "./reducers/moveReducer";
 
-console.log("store")
+console.log("store");
 
 const store = configureStore({
-    reducer: { moves: moveReducer, game: GameReducer }
+    reducer: { moves: moveReducer, game: GameReducer },
 });
 
 export default store;

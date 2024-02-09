@@ -2,7 +2,6 @@ import "../scss/MoveList.scss";
 import Move from "./Move";
 import store from "../store.ts";
 
-
 function MoveList() {
     const moves = store.getState().moves;
     return (
@@ -12,8 +11,7 @@ function MoveList() {
             <ul>
                 {moves.map((move, index) => (
                     <li key={index}>
-                        <Move statistics={move}
-                        />
+                        <Move statistics={move} />
                     </li>
                 ))}
             </ul>
