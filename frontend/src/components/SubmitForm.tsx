@@ -1,14 +1,10 @@
 import React, { ChangeEvent, useState } from "react";
 import "../scss/SubmitForm.scss";
-import { GameConnection } from "../services/SocketService.ts";
+import store from "../store.ts";
+import { newGame } from "../reducers/GameReducer.ts";
+import { GameConfig } from "../types.ts";
 
-interface SubmitFormProps {
-    gameConnection?: GameConnection;
-    hasGameStarted: boolean;
-    setHasGameStarted: (val: boolean) => void;
-}
-
-function SubmitForm(props: SubmitFormProps): JSX.Element {
+function SubmitForm(): JSX.Element {
     const [file, setFile] = useState<File | null>(null);
     const [elo, setElo] = useState<number>(1350);
 
@@ -43,12 +39,10 @@ function SubmitForm(props: SubmitFormProps): JSX.Element {
         if (
             file &&
             elo &&
-            props.gameConnection &&
-            props.gameConnection.isConnected() &&
-            !props.hasGameStarted
+            !store.getState().game.isGameRunning
         ) {
-            props.gameConnection.postcode(await file.text(), elo);
-            props.setHasGameStarted(true);
+            const gameConfig: GameConfig = { elo: elo, file: await file.text() };
+            store.dispatch(newGame(gameConfig));
         }
     };
 

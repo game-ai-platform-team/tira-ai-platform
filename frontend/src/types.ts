@@ -1,22 +1,20 @@
-export interface ChessGameResult {
-    moves: string[];
-    winner: string;
+export interface GameConfig {
+    file: string;
+    elo: number;
 }
 
-export function isChessGameResult(data: unknown): data is ChessGameResult {
-    if (!data || typeof data !== "object") return false;
-    if (!("moves" in data) || !isStringArray(data.moves)) return false;
-    if (!("winner" in data) || !isString(data.winner)) return false;
-    return true;
+export enum GameState {
+    CONTINUE = "CONTINUE",
+    WIN = "WIN",
+    LOSE = "LOSE",
+    DRAW = "DRAW",
+    INVALID = "INVALID",
+    ILLEGAL = "ILLEGAL",
+    MAX_TURNS = "MAX_TURNS",
+    TIMEOUT = "TIMEOUT"
 }
 
-export function parseChessGameResult(
-    data: unknown,
-): ChessGameResult | undefined {
-    if (isChessGameResult(data)) return data;
-    return undefined;
-}
-
+/*
 function isStringArray(data: unknown): data is string[] {
     if (!Array.isArray(data)) return false;
     return data.every((value) => isString(value));
@@ -25,3 +23,4 @@ function isStringArray(data: unknown): data is string[] {
 function isString(value: unknown): value is string {
     return typeof value === "string" || value instanceof String;
 }
+*/

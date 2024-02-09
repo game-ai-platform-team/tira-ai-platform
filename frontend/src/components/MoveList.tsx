@@ -1,24 +1,20 @@
 import "../scss/MoveList.scss";
-import Move, { MoveProps } from "./Move";
+import Move from "./Move";
+import store from "../store.ts";
 
 interface MoveListProps {
-    moves: MoveProps[];
-    state: string;
 }
 
-function MoveList({ moves, state }: MoveListProps) {
+function MoveList(_: MoveListProps) {
+    const moves = store.getState().moves;
     return (
         <div className="move-list">
-            <p>State: {state}</p>
+            <p>State: {store.getState().game.state}</p>
             <p>Received moves:</p>
             <ul>
                 {moves.map((move, index) => (
                     <li key={index}>
-                        <Move
-                            move={move.move}
-                            time={move.time}
-                            advantage={move.advantage}
-                            logs={move.logs}
+                        <Move statistics={move}
                         />
                     </li>
                 ))}
