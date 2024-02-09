@@ -1,8 +1,8 @@
 import { io, Socket } from "socket.io-client";
 import store from "../store";
 import { createMove } from "../reducers/moveReducer";
-import { MoveProps } from "../components/Move";
 import { GameConfig } from "../types.ts";
+import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
 console.log("socket");
 
@@ -35,7 +35,7 @@ export function startGame(config: GameConfig) {
     const socket = io("/gameconnection");
     socket.connect();
 
-    socket.on("newmove", ({ move, time, advantage, logs }: MoveProps) => {
+    socket.on("newmove", ({ move, time, advantage, logs }: MoveStatistics) => {
         console.log("Received 'newmove' event:", {
             move,
             time,
