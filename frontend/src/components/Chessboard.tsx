@@ -5,7 +5,6 @@ import "./Chessboard.css";
 
 interface ChessboardProps {
     moves?: string[];
-    advantage?: number;
 }
 
 const emptyList: string[] = [];

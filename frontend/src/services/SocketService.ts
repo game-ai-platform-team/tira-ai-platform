@@ -2,6 +2,9 @@ import { io, Socket } from "socket.io-client";
 import store from "../store";
 import { createMove } from "../reducers/moveReducer";
 import { MoveProps } from "../components/Move";
+import { GameConfig } from "../types.ts";
+
+console.log("socket")
 
 export class GameConnection {
     private socket: Socket;
@@ -9,26 +12,7 @@ export class GameConnection {
     constructor() {
         this.socket = io("/gameconnection");
 
-        this.socket.on("connect", () => {
-            console.log("Connected to the server!");
-        });
 
-        this.socket.on(
-            "newmove",
-            ({ move, time, advantage, logs }: MoveProps) => {
-                console.log("Received 'newmove' event:", {
-                    move,
-                    time,
-                    advantage,
-                    logs,
-                });
-                store.dispatch(createMove({ move, time, advantage, logs }));
-            },
-        );
-
-        this.socket.on("disconnect", () => {
-            console.log("Disconnected from the server.");
-        });
     }
 
     isConnected(): boolean {
@@ -47,4 +31,26 @@ export class GameConnection {
         console.log("disconnected");
         this.socket.disconnect();
     }
+}
+
+
+export function startGame(config: GameConfig) {
+    const socket = io("/gameconnection");
+    socket.connect();
+
+    socket.on(
+        "newmove",
+        ({ move, time, advantage, logs }: MoveProps) => {
+            console.log("Received 'newmove' event:", {
+                move,
+                time,
+                advantage,
+                logs
+            });
+            store.dispatch(createMove({ move, time, advantage, logs }));
+        }
+    );
+    socket.emit("postcode", config);
+
+
 }

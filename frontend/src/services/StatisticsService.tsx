@@ -1,17 +1,17 @@
-import { MoveProps } from "../components/Move";
+import MoveStatistics from "../interfaces/MoveStatistics.ts";
 const STARTING_ADVANTAGE: number = 0.066;
 
 export function getStatistics(
-    moves: MoveProps[],
+    moves: MoveStatistics[],
     color?: "white" | "black",
 ): {
-    longest: MoveProps;
-    shortest: MoveProps;
+    longest: MoveStatistics;
+    shortest: MoveStatistics;
     average: number;
     times: number[];
     logs: string;
 } {
-    let movesOfColor: MoveProps[];
+    let movesOfColor: MoveStatistics[];
     if (color === "white") {
         movesOfColor = moves.filter((_, index) => index % 2 === 0);
     } else if (color === "black") {
@@ -44,7 +44,7 @@ export function getStatistics(
     };
 }
 
-export function getEvaluations(moves: MoveProps[]): {
+export function getEvaluations(moves: MoveStatistics[]): {
     advantages: number[];
     moveClasses: string[];
 } {
@@ -54,8 +54,8 @@ export function getEvaluations(moves: MoveProps[]): {
     return { advantages, moveClasses };
 }
 
-function calculateLongestMove(moves: MoveProps[]): MoveProps {
-    let longestMove: MoveProps = moves[0];
+function calculateLongestMove(moves: MoveStatistics[]): MoveStatistics {
+    let longestMove: MoveStatistics = moves[0];
     for (let i = 1; i < moves.length; i++) {
         const move = moves[i];
         if (move.time > longestMove.time) {
@@ -65,8 +65,8 @@ function calculateLongestMove(moves: MoveProps[]): MoveProps {
     return longestMove;
 }
 
-function calculateShortestMove(moves: MoveProps[]): MoveProps {
-    let shortestMove: MoveProps = moves[0];
+function calculateShortestMove(moves: MoveStatistics[]): MoveStatistics {
+    let shortestMove: MoveStatistics = moves[0];
     for (let i = 1; i < moves.length; i++) {
         const move = moves[i];
         if (move.time < shortestMove.time) {
@@ -76,7 +76,7 @@ function calculateShortestMove(moves: MoveProps[]): MoveProps {
     return shortestMove;
 }
 
-function calculateAverageTime(moves: MoveProps[]): number {
+function calculateAverageTime(moves: MoveStatistics[]): number {
     let total = 0;
     for (let i = 0; i < moves.length; i++) {
         total += moves[i].time;
@@ -84,7 +84,7 @@ function calculateAverageTime(moves: MoveProps[]): number {
     return total / moves.length;
 }
 
-function getAdvantages(moves: MoveProps[]): number[] {
+function getAdvantages(moves: MoveStatistics[]): number[] {
     const advantages: number[] = [];
     for (let i = 0; i < moves.length; i++) {
         const advantage = moves[i].advantage;
@@ -93,7 +93,7 @@ function getAdvantages(moves: MoveProps[]): number[] {
     return advantages;
 }
 
-function getTimes(moves: MoveProps[]): number[] {
+function getTimes(moves: MoveStatistics[]): number[] {
     const times: number[] = [];
     for (let i = 0; i < moves.length; i++) {
         const advantage = moves[i].time;
