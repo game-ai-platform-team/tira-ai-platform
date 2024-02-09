@@ -2,12 +2,11 @@
     display: flex;
     align-items: flex-start;
     flex-direction: row;
-    gap: 100px;
+    justify-content: space-between;
     margin-top: 20px;
+    flex-wrap: wrap;
 }
 
 #winner-message {
-    margin-right: auto;
     position: relative;
-    right: 10%;
 }
