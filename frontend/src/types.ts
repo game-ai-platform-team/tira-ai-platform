@@ -11,7 +11,7 @@ export enum GameState {
     INVALID = "INVALID",
     ILLEGAL = "ILLEGAL",
     MAX_TURNS = "MAX_TURNS",
-    TIMEOUT = "TIMEOUT"
+    TIMEOUT = "TIMEOUT",
 }
 
 /*

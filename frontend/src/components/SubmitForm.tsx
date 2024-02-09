@@ -36,12 +36,11 @@ function SubmitForm(): JSX.Element {
 
     const onSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        if (
-            file &&
-            elo &&
-            !store.getState().game.isGameRunning
-        ) {
-            const gameConfig: GameConfig = { elo: elo, file: await file.text() };
+        if (file && elo && !store.getState().game.isGameRunning) {
+            const gameConfig: GameConfig = {
+                elo: elo,
+                file: await file.text(),
+            };
             store.dispatch(newGame(gameConfig));
         }
     };

@@ -8,7 +8,9 @@ describe("move component", () => {
 
     beforeEach(() => {
         container = render(
-            <Move statistics={{ move: "e1e2", logs: "", advantage: 0, time: 100 }}/>,
+            <Move
+                statistics={{ move: "e1e2", logs: "", advantage: 0, time: 100 }}
+            />,
         ).container;
     });
 
