@@ -71,7 +71,7 @@ function SubmitForm(): JSX.Element {
                 <input
                     id="elo-slider"
                     type="range"
-                    min={0}
+                    min={1}
                     max={4000}
                     value={elo}
                     onChange={handleEloChange}
