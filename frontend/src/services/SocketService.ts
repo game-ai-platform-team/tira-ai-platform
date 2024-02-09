@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
 import store from "../store";
 import { createMove } from "../reducers/moveReducer";
+import { newBoard } from "../reducers/BoardReducer.ts";
 import { GameConfig } from "../types.ts";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
@@ -16,6 +17,7 @@ export function startGame(config: GameConfig) {
             logs,
         });
         store.dispatch(createMove({ move, time, advantage, logs }));
+        store.dispatch(newBoard({ move, time, advantage, logs }));
     });
     socket.emit("postcode", config);
 }

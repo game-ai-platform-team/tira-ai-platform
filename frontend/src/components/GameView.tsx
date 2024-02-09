@@ -9,11 +9,9 @@ import {
 } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
 import AdvantageBar from "./AdvantageBar.tsx";
-import { useSelector } from "react-redux";
-import store, { RootState } from "../store.ts";
+import store from "../store.ts";
 
 function GameView() {
-    const moves = useSelector((state: RootState) => state.moves);
     const winnerMessage = <p>winner: {"testwinner"}</p>;
 
     const stats = getStatistics(store.getState().moves);
@@ -22,7 +20,7 @@ function GameView() {
     return (
         <div id="game-view">
             <SubmitForm />
-            <Chessboard moves={moves.map((move) => move.move)} />
+            <Chessboard />
             <div id="winner-message">{winnerMessage}</div>
             <AdvantageBar linePosition={0.5} />
 
