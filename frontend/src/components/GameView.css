@@ -5,6 +5,7 @@
     justify-content: space-between;
     margin-top: 20px;
     flex-wrap: wrap;
+    gap: 5px;
 }
 
 #winner-message {
