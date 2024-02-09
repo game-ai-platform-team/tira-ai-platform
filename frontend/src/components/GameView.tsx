@@ -2,7 +2,7 @@ import SubmitForm from "./SubmitForm.tsx";
 import { useState, useEffect } from "react";
 import Chessboard from "./Chessboard.tsx";
 import MoveList from "./MoveList.tsx";
-import { GameConnection } from "../services/GameConnection.ts";
+import { GameConnection } from "../services/SocketService.ts";
 import "./GameView.css";
 import AdvantageChart from "./AdvantageChart.tsx";
 import {
