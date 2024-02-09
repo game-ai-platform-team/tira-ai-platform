@@ -1,10 +1,9 @@
 import { render } from "@testing-library/react";
 import SubmitForm from "../../components/SubmitForm";
-import { vitest } from "vitest";
 
 test("file path field exists", () => {
     const component = render(
-        <SubmitForm hasGameStarted={false} setHasGameStarted={vitest.fn()} />,
+        <SubmitForm />
     );
     const fileInput = component.container.querySelector("#file-input");
 
@@ -13,7 +12,7 @@ test("file path field exists", () => {
 
 test("submit button exists", () => {
     const component = render(
-        <SubmitForm hasGameStarted={false} setHasGameStarted={vitest.fn()} />,
+        <SubmitForm />
     );
     const submitButton = component.container.querySelector("#submit-button");
 
@@ -22,7 +21,7 @@ test("submit button exists", () => {
 
 test("elo slider exists", () => {
     const component = render(
-        <SubmitForm hasGameStarted={false} setHasGameStarted={vitest.fn()} />,
+        <SubmitForm />
     );
     const fileInput = component.container.querySelector("#elo-config");
 
