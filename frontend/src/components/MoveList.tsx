@@ -2,10 +2,8 @@ import "../scss/MoveList.scss";
 import Move from "./Move";
 import store from "../store.ts";
 
-interface MoveListProps {
-}
 
-function MoveList(_: MoveListProps) {
+function MoveList() {
     const moves = store.getState().moves;
     return (
         <div className="move-list">
