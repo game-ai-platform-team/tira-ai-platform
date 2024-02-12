@@ -1,5 +1,5 @@
 import { Chessboard as KokopuChessboard } from "kokopu-react";
-import "./Chessboard.css";
+import "../scss/Chessboard.scss";
 import store from "../store";
 import {
     increaseMoveNumber,

@@ -1,7 +1,7 @@
 import SubmitForm from "./SubmitForm.tsx";
 import Chessboard from "./Chessboard.tsx";
 import MoveList from "./MoveList.tsx";
-import "./GameView.css";
+import "../scss/GameView.scss";
 import AdvantageChart from "./AdvantageChart.tsx";
 import {
     getEvaluations,

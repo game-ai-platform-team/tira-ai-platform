@@ -1,4 +1,4 @@
-import "./AdvantageBar.css";
+import "../scss/AdvantageBar.scss";
 
 interface AdvantageBarProps {
     linePosition?: number;
