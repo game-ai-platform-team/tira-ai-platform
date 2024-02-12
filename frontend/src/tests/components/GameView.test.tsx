@@ -8,7 +8,7 @@ import { createMove } from "../../reducers/moveReducer.ts";
 
 test("move list gets rendered", async () => {
     store.dispatch(
-        createMove({ move: "c2c3", logs: "", time: 100, advantage: 0 }),
+        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
     );
     const ui = (
         <Provider store={store}>
