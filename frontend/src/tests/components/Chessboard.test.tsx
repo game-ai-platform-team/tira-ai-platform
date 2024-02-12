@@ -7,10 +7,10 @@ import { Provider } from "react-redux";
 
 describe("Chessboard", () => {
     const ui = (
-            <Provider store={store}>
-                <Chessboard />
-            </Provider>
-        );
+        <Provider store={store}>
+            <Chessboard />
+        </Provider>
+    );
 
     beforeEach(() => {
         store.dispatch(
@@ -27,11 +27,11 @@ describe("Chessboard", () => {
     });
 
     test("is rendered", () => {
-        let component = render(ui);
+        const component = render(ui);
 
         const chessboard =
             component.container.querySelector(".kokopu-chessboard");
-        
+
         expect(chessboard).not.toBeUndefined();
     });
 
