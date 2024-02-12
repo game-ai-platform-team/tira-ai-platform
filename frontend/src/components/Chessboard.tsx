@@ -3,20 +3,21 @@ import "../scss/Chessboard.scss";
 import {
     increaseMoveNumber,
     decreaseMoveNumber,
-} from "../reducers/boardReducer";
+} from "../reducers/boardIndexReducer";
 import { useAppDispatch, useAppSelector } from "../hook";
 import BoardProps from "../interfaces/BoardProps";
 
 const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
     let arrow: string = "G";
     const dispatch = useAppDispatch();
-    const board = useAppSelector((state) => state.chessboard);
+    const boards = useAppSelector((state) => state.chessboard);
     const moves = useAppSelector((state) => state.moves);
+    const boardIndex = useAppSelector((state) => state.boardIndex);
 
-    if (board.boardIndex >= 1) {
+    if (boardIndex >= 1) {
         console.log(moves);
-        console.log(board.boardIndex);
-        arrow = arrow + moves[board.boardIndex - 1].move.slice(0, 4);
+        console.log(boardIndex);
+        arrow = arrow + moves[boardIndex - 1].move.slice(0, 4);
     }
 
     increaseMove = increaseMove || (() => dispatch(increaseMoveNumber()));
@@ -26,7 +27,7 @@ const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
         <div id="chessboard">
             <h2 id="chessboard-header">Player1 vs Player2</h2>
             <KokopuChessboard
-                position={board.position[board.boardIndex]}
+                position={boards[boardIndex]}
                 squareSize={60}
                 arrowMarkers={arrow}
             />
