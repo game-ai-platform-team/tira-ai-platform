@@ -9,8 +9,8 @@ import Chessboard from "../../components/Chessboard.tsx";
 
 describe("GameView", () => {
     beforeEach(() => {
-        store.dispatch(resetMoves())
-    })
+        store.dispatch(resetMoves());
+    });
 
     test("move list gets rendered", async () => {
         store.dispatch(

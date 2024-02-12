@@ -46,6 +46,6 @@ describe("Chess game", function () {
 
         cy.wait(5000);
         cy.get("#move-container > :nth-child(1) > .move-content").click();
-        cy.get(".move-details").contains("Time:")
+        cy.get(".move-details").contains("Time:");
     });
 });

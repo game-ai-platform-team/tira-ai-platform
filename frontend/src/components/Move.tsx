@@ -4,7 +4,9 @@ import MoveStatistics from "../interfaces/MoveStatistics.ts";
 const Move = ({ move, logs, time }: MoveStatistics) => {
     const [visible, setVisible] = useState(false);
     const showWhenVisible = { display: visible ? "" : "none" };
-    const dropdownImage = visible ? "dropdown_mark_open.svg" : "dropdown_mark.svg";
+    const dropdownImage = visible
+        ? "dropdown_mark_open.svg"
+        : "dropdown_mark.svg";
 
     return (
         <div className="move">

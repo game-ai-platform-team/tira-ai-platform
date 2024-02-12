@@ -11,8 +11,8 @@ const moveSlice = createSlice({
             state.push(action.payload);
         },
         resetMoves() {
-            return new Array<MoveStatistics>()
-        }
+            return new Array<MoveStatistics>();
+        },
     },
 });
 
