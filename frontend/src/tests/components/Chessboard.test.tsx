@@ -6,6 +6,12 @@ import { createMove } from "../../reducers/moveReducer.ts";
 import { Provider } from "react-redux";
 
 describe("Chessboard", () => {
+    const ui = (
+            <Provider store={store}>
+                <Chessboard />
+            </Provider>
+        );
+
     beforeEach(() => {
         store.dispatch(
             createMove({
@@ -20,15 +26,16 @@ describe("Chessboard", () => {
         );
     });
 
-    test("is rendered", () => {});
+    test("is rendered", () => {
+        let component = render(ui);
+
+        const chessboard =
+            component.container.querySelector(".kokopu-chessboard");
+        
+        expect(chessboard).not.toBeUndefined();
+    });
 
     test("Chess board changes when button clicked", async () => {
-        const ui = (
-            <Provider store={store}>
-                <Chessboard />
-            </Provider>
-        );
-
         let component = render(ui);
 
         const chessboard =
@@ -53,8 +60,6 @@ describe("Chessboard", () => {
         ) as Element;
         const boardState2 = chessboard2?.outerHTML;
 
-        console.log(boardState1);
-        console.log(boardState2);
         expect(chessboard2).not.toBeUndefined();
 
         expect(boardState1).not.toEqual(boardState2);
