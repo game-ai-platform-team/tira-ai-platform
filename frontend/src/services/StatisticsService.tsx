@@ -44,13 +44,25 @@ export function getStatistics(
     };
 }
 
-export function getEvaluations(moves: MoveStatistics[]): {
+export function getEvaluations(
+    moves: MoveStatistics[],
+    startingAdvantage: boolean,
+    color?: "white" | "black",
+): {
     advantages: number[];
     moveClasses: string[];
 } {
+    if (color == "white") {
+        moves = moves.filter((_, index) => index % 2 === 0);
+    } else if (color == "black") {
+        moves = moves.filter((_, index) => index % 2 !== 0);
+    }
+
     const advantages = getAdvantages(moves);
     const moveClasses = getMoveClasses(advantages);
-    advantages.splice(0, 0, STARTING_ADVANTAGE);
+    if (startingAdvantage) {
+        advantages.splice(0, 0, STARTING_ADVANTAGE);
+    }
     return { advantages, moveClasses };
 }
 

@@ -15,7 +15,7 @@ function GameView() {
     const winnerMessage = <p>winner: {"testwinner"}</p>;
 
     const stats = getStatistics(store.getState().moves);
-    const evals = getEvaluations(store.getState().moves);
+    const evals = getEvaluations(store.getState().moves, true);
 
     return (
         <div id="game-view">
