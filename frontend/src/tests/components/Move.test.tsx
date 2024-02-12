@@ -9,8 +9,12 @@ describe("move component", () => {
     beforeEach(() => {
         const statistics = { move: "e1e2", logs: "", evaluation: 0, time: 100 };
         container = render(
-            <Move evaluation={statistics.evaluation} move={statistics.move} logs={statistics.logs}
-                  time={statistics.time} />
+            <Move
+                evaluation={statistics.evaluation}
+                move={statistics.move}
+                logs={statistics.logs}
+                time={statistics.time}
+            />,
         ).container;
     });
 
@@ -27,7 +31,7 @@ describe("move component", () => {
     test("details is shown after click", async () => {
         const user = userEvent.setup();
         const moveContent = container.querySelector(
-            ".move-content"
+            ".move-content",
         ) as HTMLElement;
 
         await user.click(moveContent);
@@ -40,7 +44,7 @@ describe("move component", () => {
     test("details can be hidden after click", async () => {
         const user = userEvent.setup();
         const moveContent = container.querySelector(
-            ".move-content"
+            ".move-content",
         ) as HTMLElement;
 
         await user.click(moveContent);

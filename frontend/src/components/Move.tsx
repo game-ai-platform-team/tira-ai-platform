@@ -2,7 +2,6 @@ import { useState } from "react";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
 const Move = ({ move, logs, time }: MoveStatistics) => {
-
     const [visible, setVisible] = useState(false);
     const showWhenVisible = { display: visible ? "" : "none" };
     return (
