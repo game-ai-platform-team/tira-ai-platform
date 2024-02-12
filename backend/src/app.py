@@ -7,12 +7,12 @@ from services.api import api
 app = Flask("game-ai-testing-platform")
 app.config["SECRET_KEY"] = "secret!"
 socketio = SocketIO(app)
-socketio.init_app(app, cors_allowed_origins = "*")
+socketio.init_app(app, cors_allowed_origins="*")
 
 CORS(app)
 
 
-@socketio.on("startgame", namespace = "/gameconnection")
+@socketio.on("startgame", namespace="/gameconnection")
 def io_post_code(data):
     api.start(data["file"], data["elo"], socketio, request.sid)
 
@@ -33,4 +33,4 @@ def default(path):
 
 
 if __name__ == "__main__":
-    socketio.run(app, host = "0.0.0.0", port = 5000, allow_unsafe_werkzeug = True)
+    socketio.run(app, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
