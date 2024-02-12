@@ -7,7 +7,7 @@ import BoardProps from "../interfaces/BoardProps";
 const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
     let arrow: string = "G";
     const dispatch = useAppDispatch();
-    const boards = useAppSelector((state) => state.chessboard);
+    const boards = useAppSelector((state) => state.boards);
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
 
