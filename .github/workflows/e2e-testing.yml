@@ -1,47 +1,20 @@
 name: End-to-end testing
+
 on:
-  schedule:
-    - cron: 0 */4 * * *
-  workflow_dispatch:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
 
 jobs:
-  e2e_staging:
-    runs-on: ubuntu-latest
-    environment: staging
-
-    if: false
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run end-to-end tests
-        uses: cypress-io/github-action@v6
-        env:
-          CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}
-        with:
-          working-directory: frontend
-
-  e2e_local:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up backend
+      - uses: actions/checkout@v2
+      - name: Set up
         uses: ./.github/workflows/setup-poetry
-
-      - name: Start backend
-        run: poetry run invoke start &
-        working-directory: ./backend
-
-      - name: Start frontend
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: frontend
-          start: npm run dev
-          runTests: false
-
-      - name: Run end-to-end tests
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: frontend
+      - name: Set up Node
+        uses: ./.github/workflows/setup-node
+      - name: Do tests
+        run: run_e2e_tests.sh
