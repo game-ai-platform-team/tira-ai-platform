@@ -12,8 +12,6 @@ const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
     const boardIndex = useAppSelector((state) => state.boardIndex);
 
     if (boardIndex >= 1) {
-        console.log(moves);
-        console.log(boardIndex);
         arrow = arrow + moves[boardIndex - 1].move.slice(0, 4);
     }
 

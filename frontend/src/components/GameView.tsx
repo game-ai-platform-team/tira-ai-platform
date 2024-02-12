@@ -5,7 +5,7 @@ import AdvantageChart from "./AdvantageChart.tsx";
 import {
     getEvaluations,
     getStatistics,
-    UCIToPGN,
+    uciToPGN,
 } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
 import AdvantageBar from "./AdvantageBar.tsx";
@@ -33,7 +33,7 @@ function GameView({ children }: { children: ReactNode }) {
                 <AdvantageChart data={evals.advantages} />
                 <TimeChart data={stats.times} />
             </div>
-            <p>{UCIToPGN(store.getState().moves)}</p>
+            <p>{uciToPGN(store.getState().moves)}</p>
         </div>
     );
 }

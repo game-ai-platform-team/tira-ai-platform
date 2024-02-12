@@ -67,17 +67,17 @@ export function getEvaluations(
     return { advantages, moveClasses };
 }
 
-export function UCIToPGN(moves: MoveStatistics[]): string {
+export function uciToPGN(moves: MoveStatistics[]): string {
     const game = new Game();
     const position = new Position("start");
     let current = game.mainVariation();
     for (let i = 0; i < moves.length; i++) {
         const move = moves[i];
         const san = position.notation(position.uci(move.move));
-        position.play(san)
+        position.play(san);
         current = current.play(san);
     }
-    return pgnWrite(game)
+    return pgnWrite(game);
 }
 
 function calculateLongestMove(moves: MoveStatistics[]): MoveStatistics {
