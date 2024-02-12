@@ -5,9 +5,13 @@ import {
     increaseMoveNumber,
     decreaseMoveNumber,
 } from "../reducers/boardReducer";
+import { useAppDispatch } from "../hook";
+import BoardProps from "../interfaces/BoardProps";
 
-const Chessboard = () => {
+const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
     let arrow: string = "G";
+    const dispatch = useAppDispatch();
+
     if (store.getState().chessboard.moveNumber > 1) {
         console.log(store.getState().moves);
         console.log(store.getState().chessboard.moveNumber);
@@ -19,6 +23,9 @@ const Chessboard = () => {
                     store.getState().chessboard.moveNumber - 1
                 ].move.slice(0, 4);
     }
+
+    increaseMove = increaseMove || (() => dispatch(increaseMoveNumber()));
+    decreaseMove = decreaseMove || (() => dispatch(decreaseMoveNumber()));
 
     return (
         <div id="chessboard">
@@ -33,20 +40,10 @@ const Chessboard = () => {
                 arrowMarkers={arrow}
             />
             <div>
-                <button
-                    onClick={() => {
-                        store.dispatch(decreaseMoveNumber());
-                    }}
-                    id="previousChessboardButton"
-                >
+                <button onClick={decreaseMove} id="previousChessboardButton">
                     {"<"}
                 </button>
-                <button
-                    onClick={() => {
-                        store.dispatch(increaseMoveNumber());
-                    }}
-                    id="nextChessboardButton"
-                >
+                <button onClick={increaseMove} id="nextChessboardButton">
                     {">"}
                 </button>
             </div>
