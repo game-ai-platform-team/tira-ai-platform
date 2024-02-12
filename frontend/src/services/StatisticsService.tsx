@@ -84,11 +84,11 @@ export function uciToPGN(
         current = current.play(san);
     }
     game.date(new Date());
-    game.site("tira-ai-platform")
+    game.site("tira-ai-platform");
     if (whiteName != null) game.playerName("w", whiteName);
     if (blackName != null) game.playerName("b", blackName);
     if (whiteElo != null) game.playerElo("w", whiteElo);
-    if (blackElo != null) game.playerElo("b", blackElo)
+    if (blackElo != null) game.playerElo("b", blackElo);
 
     return pgnWrite(game);
 }

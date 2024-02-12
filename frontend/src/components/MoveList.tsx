@@ -8,7 +8,14 @@ function MoveList() {
         <div className="move-list">
             <p>State: {store.getState().game.state}</p>
             <p>Received moves:</p>
-            <div id="move-container" style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
+            <div
+                id="move-container"
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    textAlign: "left",
+                }}
+            >
                 {moves.map((move) => (
                     <Move
                         move={move.move}
