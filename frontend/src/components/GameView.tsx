@@ -1,5 +1,4 @@
 import SubmitForm from "./SubmitForm.tsx";
-import Chessboard from "./Chessboard.tsx";
 import MoveList from "./MoveList.tsx";
 import "../scss/GameView.scss";
 import AdvantageChart from "./AdvantageChart.tsx";
@@ -10,8 +9,9 @@ import {
 import TimeChart from "./TimeChart.tsx";
 import AdvantageBar from "./AdvantageBar.tsx";
 import store from "../store.ts";
+import { ReactNode } from "react";
 
-function GameView() {
+function GameView({ children }: { children: ReactNode }) {
     const winnerMessage = <p>winner: {"testwinner"}</p>;
 
     const stats = getStatistics(store.getState().moves);
@@ -20,7 +20,7 @@ function GameView() {
     return (
         <div id="game-view">
             <SubmitForm />
-            <Chessboard />
+            {children}
             <div id="winner-message">{winnerMessage}</div>
             <AdvantageBar linePosition={evals.advantages.at(-1)} />
 
