@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Position } from "kokopu";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
-console.log("game");
-
 const boardSlice = createSlice({
     name: "board",
     initialState: { position: [new Position()], boardIndex: 0 },
