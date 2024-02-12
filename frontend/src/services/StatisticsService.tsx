@@ -1,5 +1,5 @@
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
-import { Game, Position, pgnWrite } from "kokopu";
+import { AbstractNode, Game, Position, pgnWrite } from "kokopu";
 const STARTING_ADVANTAGE: number = 0.066;
 
 export function getStatistics(
@@ -67,16 +67,29 @@ export function getEvaluations(
     return { advantages, moveClasses };
 }
 
-export function uciToPGN(moves: MoveStatistics[]): string {
+export function uciToPGN(
+    moves: MoveStatistics[],
+    whiteName?: string,
+    blackName?: string,
+    whiteElo?: number,
+    blackElo?: number,
+): string {
     const game = new Game();
     const position = new Position("start");
-    let current = game.mainVariation();
+    let current: AbstractNode = game.mainVariation();
     for (let i = 0; i < moves.length; i++) {
         const move = moves[i];
         const san = position.notation(position.uci(move.move));
         position.play(san);
         current = current.play(san);
     }
+    game.date(new Date());
+    game.site("tira-ai-platform")
+    if (whiteName != null) game.playerName("w", whiteName);
+    if (blackName != null) game.playerName("b", blackName);
+    if (whiteElo != null) game.playerElo("w", whiteElo);
+    if (blackElo != null) game.playerElo("b", blackElo)
+
     return pgnWrite(game);
 }
 
