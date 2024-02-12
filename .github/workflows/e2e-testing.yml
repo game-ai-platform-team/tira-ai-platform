@@ -18,4 +18,4 @@ jobs:
       - name: Set up Node
         uses: ./.github/workflows/setup-node
       - name: Do tests
-        run: run_e2e_tests.sh
+        run: bash run_e2e_tests.sh
