@@ -4,7 +4,11 @@ import moveReducer from "./reducers/moveReducer";
 import BoardReducer from "./reducers/boardReducer";
 
 const store = configureStore({
-    reducer: { moves: moveReducer, game: GameReducer, chessboard: BoardReducer },
+    reducer: {
+        moves: moveReducer,
+        game: GameReducer,
+        chessboard: BoardReducer,
+    },
 });
 
 export default store;
