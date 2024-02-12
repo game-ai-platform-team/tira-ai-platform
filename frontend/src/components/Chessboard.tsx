@@ -5,23 +5,20 @@ import {
     increaseMoveNumber,
     decreaseMoveNumber,
 } from "../reducers/boardReducer";
-import { useAppDispatch } from "../hook";
+import { useAppDispatch, useAppSelector } from "../hook";
 import BoardProps from "../interfaces/BoardProps";
 
 const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
     let arrow: string = "G";
     const dispatch = useAppDispatch();
+    const board = useAppSelector((state) => state.chessboard);
 
-    if (store.getState().chessboard.boardIndex > 1) {
+    if (board.boardIndex > 1) {
         console.log(store.getState().moves);
-        console.log(store.getState().chessboard.boardIndex);
+        console.log(board.boardIndex);
         arrow =
             arrow +
-            store
-                .getState()
-                .moves[
-                    store.getState().chessboard.boardIndex - 1
-                ].move.slice(0, 4);
+            store.getState().moves[board.boardIndex - 1].move.slice(0, 4);
     }
 
     increaseMove = increaseMove || (() => dispatch(increaseMoveNumber()));
@@ -31,11 +28,7 @@ const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
         <div id="chessboard">
             <h2 id="chessboard-header">Player1 vs Player2</h2>
             <KokopuChessboard
-                position={
-                    store.getState().chessboard.position[
-                        store.getState().chessboard.boardIndex
-                    ]
-                }
+                position={board.position[board.boardIndex]}
                 squareSize={60}
                 arrowMarkers={arrow}
             />
