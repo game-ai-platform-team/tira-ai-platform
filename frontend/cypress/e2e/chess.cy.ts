@@ -33,4 +33,19 @@ describe("Chess game", function () {
             });
         });
     });
+
+    it("pressing move opens move stats", function () {
+        cy.visit("/");
+        cy.wait(100);
+        cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
+
+        cy.get("#file-input").selectFile("./../samples/chess/stupid_ai.py", {
+            force: true,
+        });
+        cy.get("#submit-button").click();
+
+        cy.wait(5000);
+        cy.get(".move-content").click();
+        cy.get(".move-details").contains("Time:")
+    });
 });
