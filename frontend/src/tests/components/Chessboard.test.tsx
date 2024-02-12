@@ -17,7 +17,7 @@ describe("Chessboard", () => {
             }),
         );
         store.dispatch(
-            newBoard({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+            newBoard({ move: "d2d3", logs: "", time: 100, evaluation: 0 }),
         );
     });
 
@@ -25,10 +25,16 @@ describe("Chessboard", () => {
         <Provider store={store}>
             <Chessboard />
         </Provider>
+test("Chess board changes when button clicked", async () => {
+    store.dispatch(
+        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+    );
+    store.dispatch(
+        newBoard({ move: "d2d3", logs: "", time: 100, evaluation: 0 }),
     );
 
     test("is rendered", () => {
-        
+
     })
 
     test("Chess board changes when button clicked", async () => {
