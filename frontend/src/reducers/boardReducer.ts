@@ -4,15 +4,15 @@ import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
 const boardSlice = createSlice({
     name: "board",
-    initialState: [new Position()],
+    initialState: [new Position().fen()],
     reducers: {
         newBoard(state, action: PayloadAction<MoveStatistics>) {
-            const oldPosition = state[state.length - 1] as Position;
+            const oldPosition = state[state.length - 1];
             const position = new Position(oldPosition);
 
             position.play(position.uci(action.payload.move));
 
-            state.push(position);
+            state.push(position.fen());
         },
     },
 });
