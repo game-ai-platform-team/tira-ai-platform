@@ -10,9 +10,12 @@ const moveSlice = createSlice({
         createMove(state, action: PayloadAction<MoveStatistics>) {
             state.push(action.payload);
         },
+        resetMoves() {
+            return new Array<MoveStatistics>()
+        }
     },
 });
 
 export default moveSlice.reducer;
 
-export const { createMove } = moveSlice.actions;
+export const { createMove, resetMoves } = moveSlice.actions;

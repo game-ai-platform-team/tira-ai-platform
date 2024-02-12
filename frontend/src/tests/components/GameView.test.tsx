@@ -4,82 +4,89 @@ import GameView from "../../components/GameView.tsx";
 import "@testing-library/jest-dom";
 import { Provider } from "react-redux";
 import store from "../../store.ts";
-import { createMove } from "../../reducers/moveReducer.ts";
+import { createMove, resetMoves } from "../../reducers/moveReducer.ts";
 import Chessboard from "../../components/Chessboard.tsx";
 
-test("move list gets rendered", async () => {
-    store.dispatch(
-        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
-    );
-    const ui = (
-        <Provider store={store}>
-            <GameView children={<p></p>} />
-        </Provider>
-    );
-    const component = render(ui);
-    const moveList = component.container.querySelector(".move-list");
+describe("GameView", () => {
+    beforeEach(() => {
+        store.dispatch(resetMoves())
+    })
 
-    expect(moveList).not.toBeEmptyDOMElement();
-});
+    test("move list gets rendered", async () => {
+        store.dispatch(
+            createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+        );
+        const ui = (
+            <Provider store={store}>
+                <GameView children={<p></p>} />
+            </Provider>
+        );
+        const component = render(ui);
+        const moveList = component.container.querySelector(".move-list");
 
-test("submit form gets rendered", async () => {
-    store.dispatch(
-        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
-    );
-    const ui = (
-        <Provider store={store}>
-            <GameView children={<p></p>} />
-        </Provider>
-    );
-    const component = render(ui);
-    const submitform = component.container.querySelector(
-        "#drag-and-drop-container",
-    );
+        expect(moveList).not.toBeEmptyDOMElement();
+    });
 
-    expect(submitform).not.toBeEmptyDOMElement();
-});
+    test("submit form gets rendered", async () => {
+        store.dispatch(
+            createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+        );
+        const ui = (
+            <Provider store={store}>
+                <GameView children={<p></p>} />
+            </Provider>
+        );
+        const component = render(ui);
+        const submitform = component.container.querySelector(
+            "#drag-and-drop-container",
+        );
 
-test("chessboard gets rendered", async () => {
-    store.dispatch(
-        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
-    );
-    const ui = (
-        <Provider store={store}>
-            <GameView children={<Chessboard />} />
-        </Provider>
-    );
-    const component = render(ui);
-    const chessboard = component.container.querySelector("#chessboard");
+        expect(submitform).not.toBeEmptyDOMElement();
+    });
 
-    expect(chessboard).not.toBeEmptyDOMElement();
-});
+    test("chessboard gets rendered", async () => {
+        store.dispatch(
+            createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+        );
+        const ui = (
+            <Provider store={store}>
+                <GameView children={<Chessboard />} />
+            </Provider>
+        );
+        const component = render(ui);
+        const chessboard = component.container.querySelector("#chessboard");
 
-test("AdvantageBar gets rendered", async () => {
-    store.dispatch(
-        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
-    );
-    const ui = (
-        <Provider store={store}>
-            <GameView children={<Chessboard />} />
-        </Provider>
-    );
-    const component = render(ui);
-    const advantagebar = component.container.querySelector(".advantage-bar");
+        expect(chessboard).not.toBeEmptyDOMElement();
+    });
 
-    expect(advantagebar).not.toBeEmptyDOMElement();
-});
+    test("AdvantageBar gets rendered", async () => {
+        store.dispatch(
+            createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+        );
+        const ui = (
+            <Provider store={store}>
+                <GameView children={<Chessboard />} />
+            </Provider>
+        );
+        const component = render(ui);
+        const advantagebar =
+            component.container.querySelector(".advantage-bar");
 
-test("statistics get rendered", async () => {
-    store.dispatch(
-        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
-    );
-    const ui = (
-        <Provider store={store}>
-            <GameView children={<Chessboard />} />
-        </Provider>
-    );
-    const component = render(ui);
-    const statistics = component.container.querySelector("#statistics");
+        expect(advantagebar).not.toBeEmptyDOMElement();
+    });
 
-    expect(statistics).not.toBeEmptyDOMElement();
+    test("statistics get rendered", async () => {
+        store.dispatch(
+            createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+        );
+        const ui = (
+            <Provider store={store}>
+                <GameView children={<Chessboard />} />
+            </Provider>
+        );
+        const component = render(ui);
+        const statistics = component.container.querySelector("#statistics");
+
+        expect(statistics).not.toBeEmptyDOMElement();
+    });
 });
