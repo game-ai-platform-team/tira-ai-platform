@@ -14,5 +14,5 @@ export function startGame(config: GameConfig) {
         store.dispatch(createMove(move));
         store.dispatch(newBoard(move));
     });
-    socket.emit("postcode", config);
+    socket.emit("startgame", config);
 }
