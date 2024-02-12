@@ -12,7 +12,7 @@ test("move list gets rendered", async () => {
     );
     const ui = (
         <Provider store={store}>
-            <GameView />
+            <GameView children={<p></p>} />
         </Provider>
     );
     const component = render(ui);
