@@ -6,7 +6,7 @@ console.log("game");
 
 const boardSlice = createSlice({
     name: "board",
-    initialState: { position: [new Position()], moveNumber: 0},
+    initialState: { position: [new Position()], boardIndex: 0},
     reducers: {
         newBoard(state, action: PayloadAction<MoveStatistics>) {
             const oldPosition: Position = state.position[state.position.length-1] as Position
@@ -16,13 +16,13 @@ const boardSlice = createSlice({
             return { ...state, position: newArray, moveNumber: newArray.length-1};
         },
         increaseMoveNumber(state) {
-            const next = state.moveNumber + 1;
-            const clamped = next < state.position.length ? next : state.moveNumber;
+            const next = state.boardIndex + 1;
+            const clamped = next < state.position.length ? next : state.boardIndex;
             return { ...state, moveNumber: clamped}
         },
         decreaseMoveNumber(state) {
-            const next = state.moveNumber - 1;
-            const clamped = next >= 0 ? next : state.moveNumber;
+            const next = state.boardIndex - 1;
+            const clamped = next >= 0 ? next : state.boardIndex;
             return { ...state, moveNumber: clamped}
         }
     },

@@ -12,15 +12,15 @@ const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
     let arrow: string = "G";
     const dispatch = useAppDispatch();
 
-    if (store.getState().chessboard.moveNumber > 1) {
+    if (store.getState().chessboard.boardIndex > 1) {
         console.log(store.getState().moves);
-        console.log(store.getState().chessboard.moveNumber);
+        console.log(store.getState().chessboard.boardIndex);
         arrow =
             arrow +
             store
                 .getState()
                 .moves[
-                    store.getState().chessboard.moveNumber - 1
+                    store.getState().chessboard.boardIndex - 1
                 ].move.slice(0, 4);
     }
 
@@ -33,7 +33,7 @@ const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
             <KokopuChessboard
                 position={
                     store.getState().chessboard.position[
-                        store.getState().chessboard.moveNumber
+                        store.getState().chessboard.boardIndex
                     ]
                 }
                 squareSize={60}
