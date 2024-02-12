@@ -1,5 +1,11 @@
 #!/bin/bash
 
+cd frontend
+
+npm run build
+
+cd ..
+
 cd backend
 
 poetry run python3 src/app.py &
