@@ -25,12 +25,11 @@ function GameView() {
             <AdvantageBar linePosition={0.5} />
 
             <MoveList />
-            {false && (
-                <div id="statistics">
-                    <AdvantageChart data={evals.advantages} />
-                    <TimeChart data={stats.times} />
-                </div>
-            )}
+
+            <div id="statistics">
+                <AdvantageChart data={evals.advantages} />
+                <TimeChart data={stats.times} />
+            </div>
         </div>
     );
 }
