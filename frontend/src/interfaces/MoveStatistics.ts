@@ -1,7 +1,7 @@
 interface MoveStatistics {
     move: string;
     time: number;
-    advantage: number;
+    evaluation: number;
     logs: string;
 }
 

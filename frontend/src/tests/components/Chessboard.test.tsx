@@ -7,10 +7,10 @@ import { newBoard } from "../../reducers/boardReducer.ts";
 
 test("Chess board changes when button clicked", async () => {
     store.dispatch(
-        createMove({ move: "c2c3", logs: "", time: 100, advantage: 0 }),
+        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
     );
     store.dispatch(
-        newBoard({ move: "c2c3", logs: "", time: 100, advantage: 0 }),
+        newBoard({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
     );
     const ui = <Chessboard />;
     const component = render(ui);

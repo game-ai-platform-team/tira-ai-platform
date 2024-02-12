@@ -22,7 +22,7 @@ function GameView() {
             <SubmitForm />
             <Chessboard />
             <div id="winner-message">{winnerMessage}</div>
-            <AdvantageBar linePosition={0.5} />
+            <AdvantageBar linePosition={evals.advantages.at(-1)} />
 
             <MoveList />
 

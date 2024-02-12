@@ -22,8 +22,8 @@ export function getStatistics(
 
     if (movesOfColor.length === 0) {
         return {
-            longest: { move: "none", time: 0, advantage: 0, logs: "" },
-            shortest: { move: "none", time: 0, advantage: 0, logs: "" },
+            longest: { move: "none", time: 0, evaluation: 0, logs: "" },
+            shortest: { move: "none", time: 0, evaluation: 0, logs: "" },
             average: 0,
             times: [0],
             logs: "",
@@ -99,7 +99,7 @@ function calculateAverageTime(moves: MoveStatistics[]): number {
 function getAdvantages(moves: MoveStatistics[]): number[] {
     const advantages: number[] = [];
     for (let i = 0; i < moves.length; i++) {
-        const advantage = moves[i].advantage;
+        const advantage = moves[i].evaluation;
         advantages.push(advantage);
     }
     return advantages;
