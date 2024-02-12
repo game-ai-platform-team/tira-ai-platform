@@ -1,3 +1,4 @@
+import Chessboard from "./components/Chessboard.tsx";
 import GameView from "./components/GameView.tsx";
 import NavigationBar from "./components/NavigationBar.tsx";
 
@@ -9,7 +10,9 @@ function App() {
             </header>
 
             <main>
-                <GameView />
+                <GameView>
+                    <Chessboard />
+                </GameView>
             </main>
         </div>
     );
