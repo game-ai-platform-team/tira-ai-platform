@@ -4,7 +4,7 @@ import store from "../store";
 import {
     increaseMoveNumber,
     decreaseMoveNumber,
-} from "../reducers/BoardReducer";
+} from "../reducers/boardReducer";
 
 const Chessboard = () => {
     let arrow: string = "G";

@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import store from "../store";
 import { createMove } from "../reducers/moveReducer";
-import { newBoard } from "../reducers/BoardReducer.ts";
+import { newBoard } from "../reducers/boardReducer.ts";
 import { GameConfig } from "../types.ts";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
 

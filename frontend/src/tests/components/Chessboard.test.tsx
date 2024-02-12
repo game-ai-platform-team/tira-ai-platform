@@ -3,13 +3,15 @@ import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import store from "../../store.ts";
 import { createMove } from "../../reducers/moveReducer.ts";
-import { newBoard } from "../../reducers/BoardReducer.ts";
+import { newBoard } from "../../reducers/boardReducer.ts";
 
 test("Chess board changes when button clicked", async () => {
     store.dispatch(
         createMove({ move: "c2c3", logs: "", time: 100, advantage: 0 }),
     );
-    store.dispatch(newBoard({ move: "c2c3", logs: "", time: 100, advantage: 0 }));
+    store.dispatch(
+        newBoard({ move: "c2c3", logs: "", time: 100, advantage: 0 }),
+    );
     const ui = <Chessboard />;
     const component = render(ui);
     const chessboard = component.container.querySelector(".kokopu-chessboard");

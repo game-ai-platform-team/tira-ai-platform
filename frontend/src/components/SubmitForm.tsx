@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import "../scss/SubmitForm.scss";
 import store from "../store.ts";
-import { newGame } from "../reducers/GameReducer.ts";
+import { newGame } from "../reducers/gameReducer.ts";
 import { GameConfig } from "../types.ts";
 
 function SubmitForm(): JSX.Element {
