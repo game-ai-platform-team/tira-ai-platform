@@ -188,19 +188,20 @@ Board <|-- ChessBoard
 Board --> BoardProps
 
 MoveList --> Move
-Move --> MoveProps
+Move --> MoveStatistics
 
-SubmitForm --> gameReducer: NEW_GAME
+SubmitForm --> gameReducer: newGame
 Board -- store
 MoveList -- store
 AdvantageBar -- store
 
 namespace interfaces {
-    class MoveProps {
+    class MoveStatistics {
     <<interface>>
     move: string
     time: number
-    advantage:
+    evaluation: number
+    logs: string
     }
 
     class BoardProps {
@@ -231,15 +232,18 @@ store -- moveReducer
 store -- gameReducer
 store -- boardReducer
 
-gameReducer ..> NEW_GAME
-gameReducer ..> END_GAME
-moveReducer ..> NEW_MOVE
-boardReducer ..> NEW_BOARD
-NEW_GAME ..> gameConfig
+gameReducer ..> newGame
+gameReducer ..> endGame
+moveReducer ..> newMove
+boardReducer ..> newBoard
+newGame ..> gameConfig
 
 gameReducer --> SocketService
 gameReducer --> StatisticsService
 moveReducer <-- SocketService
+
+boardIndexReducer ..> nextBoard
+boardIndexReducer ..> previousBoard
 
 SocketService ..> gameConfig
 
@@ -261,7 +265,7 @@ class gameConfig {
 }
 
 class store {
-    moves: MoveProps[]
+    moves: MoveStatistics[]
     boards: BoardProps[]
     boardIndex: number
     in_progress: boolean
@@ -273,37 +277,48 @@ namespace ReducersAndActionCreators {
     class moveReducer {
         <<module>>
         moveReducer(state, action)
-        newMove(move: MoveProps) NEW_MOVE
+        newMove(move: MoveStatistics) newMove
     }
 
     class gameReducer {
         <<module>>
         gameReducer(state, action)
-        newGame(gameConfig) NEW_GAME
-        endGame() END_GAME
+        newGame(gameConfig) newGame
+        endGame() endGame
     }
 
     class boardReducer {
         <<module>>
         boardReducer(state, action)
-        newBoard(board: BoardProps) NEW_BOARD
+        newBoard(board: BoardProps) newBoard
+    }
+
+    class boardIndexReducer {
+        <<module>>
+        nextBoard(state, action)
+        previousBoard(state, action)
+        newBoard(board: BoardProps) newBoard
     }
 }
 
 namespace Actions {
-    class NEW_MOVE {
-        payload: MoveProps
+    class newMove {
+        payload: MoveStatistics
     }
 
-    class NEW_BOARD {
+    class newBoard {
         payload: BoardProps
     }
 
-    class NEW_GAME {
+    class newGame {
         payload: gameConfig
     }
 
-    class END_GAME
+    class endGame
+
+    class nextBoard
+
+    class previousBoard
 }
 
 ```
