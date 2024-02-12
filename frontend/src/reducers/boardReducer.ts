@@ -7,17 +7,15 @@ const boardSlice = createSlice({
     initialState: { position: [new Position()], boardIndex: 0 },
     reducers: {
         newBoard(state, action: PayloadAction<MoveStatistics>) {
-            const oldPosition: Position = state.position[
+            const oldPosition = state.position[
                 state.position.length - 1
             ] as Position;
-            const newPos = new Position(oldPosition);
-            newPos.play(newPos.uci(action.payload.move));
-            const newArray = [...state.position, newPos];
-            return {
-                ...state,
-                position: newArray,
-                moveNumber: newArray.length - 1,
-            };
+            const position = new Position(oldPosition);
+
+            position.play(position.uci(action.payload.move));
+
+            state.boardIndex++;
+            state.position.push(position);
         },
         increaseMoveNumber(state) {
             const next = state.boardIndex + 1;
