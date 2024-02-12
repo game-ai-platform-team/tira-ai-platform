@@ -3,7 +3,6 @@ import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import store from "../../store.ts";
 import { createMove } from "../../reducers/moveReducer.ts";
-import { newBoard } from "../../reducers/boardReducer.ts";
 import { Provider } from "react-redux";
 
 describe("Chessboard", () => {
@@ -13,51 +12,45 @@ describe("Chessboard", () => {
                 move: "c2c3",
                 logs: "",
                 time: 100,
-                evaluation: 0,
-            }),
+                evaluation: 0
+            })
         );
         store.dispatch(
-            newBoard({ move: "d2d3", logs: "", time: 100, evaluation: 0 }),
+            createMove({ move: "d7d6", logs: "", time: 100, evaluation: 0 })
         );
     });
 
-    const ui = (
-        <Provider store={store}>
-            <Chessboard />
-        </Provider>
-test("Chess board changes when button clicked", async () => {
-    store.dispatch(
-        createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
-    );
-    store.dispatch(
-        newBoard({ move: "d2d3", logs: "", time: 100, evaluation: 0 }),
-    );
 
     test("is rendered", () => {
 
-    })
+    });
 
     test("Chess board changes when button clicked", async () => {
+        const ui = (
+            <Provider store={store}>
+                <Chessboard />
+            </Provider>
+        );
 
-        const component = render(ui);
-        const chessboard =
-            component.container.querySelector(".kokopu-chessboard");
+        let component = render(ui);
+
+        const chessboard = component.container.querySelector(".kokopu-chessboard");
         const boardState1 = chessboard?.outerHTML;
         expect(boardState1).not.toBeUndefined();
 
         const user = userEvent.setup();
 
         const previousButton = component.container.querySelector(
-            "#previousChessboardButton",
+            "#previousChessboardButton"
         );
 
         expect(previousButton).not.toBeNull();
 
         await user.click(previousButton as Element);
 
-        const chessboard2 = component.container.querySelector(
-            ".kokopu-chessboard",
-        ) as Element;
+        component = render(ui);
+
+        const chessboard2 = component.container.querySelector(".kokopu-chessboard") as Element;
         const boardState2 = chessboard2?.outerHTML;
 
         console.log(boardState1);
