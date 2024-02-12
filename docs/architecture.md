@@ -48,7 +48,7 @@ graph LR
 ```mermaid
 sequenceDiagram
 
-Frontend ->> App: socketio /gameconnection postcode
+Frontend ->> App: socketio /gameconnection startgame
 
 App ->> Api: start(file)
 Api ->> SocketIOService: create a new service

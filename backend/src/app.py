@@ -12,7 +12,7 @@ socketio.init_app(app, cors_allowed_origins="*")
 CORS(app)
 
 
-@socketio.on("postcode", namespace="/gameconnection")
+@socketio.on("startgame", namespace="/gameconnection")
 def io_post_code(data):
     api.start(data["file"], data["elo"], socketio, request.sid)
 
