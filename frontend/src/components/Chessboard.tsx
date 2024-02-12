@@ -1,9 +1,6 @@
 import { Chessboard as KokopuChessboard } from "kokopu-react";
 import "../scss/Chessboard.scss";
-import {
-    increaseMoveNumber,
-    decreaseMoveNumber,
-} from "../reducers/boardIndexReducer";
+import { nextBoard, previousBoard } from "../reducers/boardIndexReducer";
 import { useAppDispatch, useAppSelector } from "../hook";
 import BoardProps from "../interfaces/BoardProps";
 
@@ -20,8 +17,8 @@ const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
         arrow = arrow + moves[boardIndex - 1].move.slice(0, 4);
     }
 
-    increaseMove = increaseMove || (() => dispatch(increaseMoveNumber()));
-    decreaseMove = decreaseMove || (() => dispatch(decreaseMoveNumber()));
+    increaseMove = increaseMove || (() => dispatch(nextBoard()));
+    decreaseMove = decreaseMove || (() => dispatch(previousBoard()));
 
     return (
         <div id="chessboard">

@@ -4,10 +4,10 @@ const boardIndexSlice = createSlice({
     name: "boardIndex",
     initialState: 0,
     reducers: {
-        increaseMoveNumber(state) {
+        nextBoard(state) {
             return state + 1;
         },
-        decreaseMoveNumber(state) {
+        previousBoard(state) {
             return state - 1;
         },
     },
@@ -15,5 +15,4 @@ const boardIndexSlice = createSlice({
 
 export default boardIndexSlice.reducer;
 
-export const { increaseMoveNumber, decreaseMoveNumber } =
-    boardIndexSlice.actions;
+export const { nextBoard, previousBoard } = boardIndexSlice.actions;
