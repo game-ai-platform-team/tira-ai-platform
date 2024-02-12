@@ -17,8 +17,24 @@ const Chessboard = ({ increaseMove, decreaseMove }: BoardProps) => {
         arrow = arrow + moves[boardIndex - 1].move.slice(0, 4);
     }
 
-    increaseMove = increaseMove || (() => dispatch(nextBoard()));
-    decreaseMove = decreaseMove || (() => dispatch(previousBoard()));
+    increaseMove =
+        increaseMove ||
+        (() => {
+            if (boardIndex + 1 >= boards.length) {
+                return;
+            }
+
+            dispatch(nextBoard());
+        });
+    decreaseMove =
+        decreaseMove ||
+        (() => {
+            if (boardIndex - 1 < 0) {
+                return;
+            }
+
+            dispatch(previousBoard());
+        });
 
     return (
         <div id="chessboard">
