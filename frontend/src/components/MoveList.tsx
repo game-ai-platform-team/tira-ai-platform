@@ -11,7 +11,12 @@ function MoveList() {
             <ul>
                 {moves.map((move, index) => (
                     <li key={index}>
-                        <Move statistics={move} />
+                        <Move
+                            move={move.move}
+                            logs={move.logs}
+                            time={move.time}
+                            evaluation={move.evaluation}
+                        />
                     </li>
                 ))}
             </ul>
