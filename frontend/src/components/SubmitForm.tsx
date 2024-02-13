@@ -7,6 +7,7 @@ import { GameConfig } from "../types.ts";
 function SubmitForm(): JSX.Element {
     const [file, setFile] = useState<File | null>(null);
     const [elo, setElo] = useState<number>(1350);
+    const [games, setGames] = useState<number>(1);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -32,6 +33,11 @@ function SubmitForm(): JSX.Element {
     const handleEloChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value, 10);
         setElo(value);
+    };
+
+    const handleGamesChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        setGames(value);
     };
 
     const onSubmit = async (e: React.SyntheticEvent) => {
@@ -66,7 +72,7 @@ function SubmitForm(): JSX.Element {
                 />
                 {file && <p>File Name: {file.name}</p>}
             </div>
-            <div id="elo-config">
+            <div id="config-slider">
                 <label htmlFor="elo-slider">Select Stockfish Elo:</label>
                 <input
                     id="elo-slider"
@@ -77,6 +83,18 @@ function SubmitForm(): JSX.Element {
                     onChange={handleEloChange}
                 />
                 <p>Elo: {elo}</p>
+            </div>
+            <div id="config-slider">
+                <label htmlFor="game-slider">Select How Many Games To Play:</label>
+                <input
+                    id="game-slider"
+                    type="range"
+                    min={1}
+                    max={10}
+                    value={games}
+                    onChange={handleGamesChange}
+                />
+                <p>Games: {games}</p>
             </div>
             <form id="submit-form" onSubmit={onSubmit}>
                 <button id="submit-button" type="submit">
