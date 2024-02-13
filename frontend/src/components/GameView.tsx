@@ -5,7 +5,7 @@ import AdvantageChart from "./AdvantageChart.tsx";
 import {
     getEvaluations,
     getStatistics,
-    uciToPGN
+    uciToPGN,
 } from "../services/StatisticsService.tsx";
 import TimeChart from "./TimeChart.tsx";
 import AdvantageBar from "./AdvantageBar.tsx";
@@ -22,18 +22,18 @@ function GameView({ children }: { children: ReactNode }) {
 
     const handleCopyPGN = () => {
         const text = uciToPGN(store.getState().moves);
-        let pgn = document.createElement("textarea");
+        const pgn = document.createElement("textarea");
         pgn.value = text;
         pgn.style.position = "fixed";
 
         pgn.select();
         try {
-            navigator.clipboard.writeText(pgn.value)
+            navigator.clipboard.writeText(pgn.value);
             console.log("Text copied to clipboard:", text);
         } catch (error) {
             console.error("Unable to copy text to clipboard:", error);
         }
-        
+
         document.body.removeChild(pgn);
     };
 
