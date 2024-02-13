@@ -92,17 +92,18 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
             )}
 
             {/* Points on the line */}
-            {points && points.map((point, index) => (
-                <text
-                    key={index}
-                    x={point.x}
-                    y={point.y - 10}
-                    textAnchor="middle"
-                    fill="#000000"
-                >
-                    {data[index]}
-                </text>
-            ))}
+            {points &&
+                points.map((point, index) => (
+                    <text
+                        key={index}
+                        x={point.x}
+                        y={point.y - 10}
+                        textAnchor="middle"
+                        fill="#000000"
+                    >
+                        {data[index]}
+                    </text>
+                ))}
         </svg>
     );
 };
