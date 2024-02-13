@@ -16,14 +16,17 @@ function MoveList() {
                     textAlign: "left",
                 }}
             >
-                {moves.map((move) => (
-                    <Move
-                        move={move.move}
-                        logs={move.logs}
-                        time={move.time}
-                        evaluation={move.evaluation}
-                    />
-                ))}
+                <ul>
+                    {moves.map((move, index) => (
+                        <Move
+                            key={index}
+                            move={move.move}
+                            logs={move.logs}
+                            time={move.time}
+                            evaluation={move.evaluation}
+                        />
+                    ))}
+                </ul>
             </div>
         </div>
     );
