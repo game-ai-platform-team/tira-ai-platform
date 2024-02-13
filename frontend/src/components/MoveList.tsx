@@ -23,7 +23,7 @@ function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
                 <ul style={{ minWidth: "200px", minHeight: "400px" }}>
                     {moves.map((move, index) => (
                         <Move
-                            key={index}
+                            index={index}
                             move={move.move}
                             logs={move.logs}
                             time={move.time}
