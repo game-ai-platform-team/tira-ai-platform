@@ -18,4 +18,5 @@ const boardIndexSlice = createSlice({
 
 export default boardIndexSlice.reducer;
 
-export const { nextBoard, previousBoard, resetBoardIndex } = boardIndexSlice.actions;
+export const { nextBoard, previousBoard, resetBoardIndex } =
+    boardIndexSlice.actions;
