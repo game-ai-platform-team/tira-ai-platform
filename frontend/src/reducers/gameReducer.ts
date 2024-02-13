@@ -10,9 +10,12 @@ const gameSlice = createSlice({
             startGame(action.payload);
             return { ...state, isGameRunning: true, state: GameState.CONTINUE };
         },
+        resetGame() {
+            return { isGameRunning: false, state: GameState.INVALID };
+        },
     },
 });
 
 export default gameSlice.reducer;
 
-export const { newGame } = gameSlice.actions;
+export const { newGame, resetGame } = gameSlice.actions;

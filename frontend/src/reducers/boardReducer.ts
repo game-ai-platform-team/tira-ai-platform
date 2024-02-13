@@ -14,9 +14,12 @@ const boardSlice = createSlice({
 
             state.push(position.fen());
         },
+        resetBoards() {
+            return [new Position().fen()];
+        }
     },
 });
 
 export default boardSlice.reducer;
 
-export const { newBoard } = boardSlice.actions;
+export const { newBoard, resetBoards } = boardSlice.actions;
