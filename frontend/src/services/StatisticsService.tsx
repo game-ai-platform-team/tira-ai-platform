@@ -92,20 +92,20 @@ export function uciToPGN(
 
     const text = pgnWrite(game);
 
-    let pgn = document.createElement("textarea");
+    const pgn = document.createElement("textarea");
     pgn.value = text;
     pgn.style.position = "fixed";
 
     pgn.select();
     try {
-        navigator.clipboard.writeText(pgn.value)
+        navigator.clipboard.writeText(pgn.value);
         console.log("Text copied to clipboard:", text);
-      } catch (error) {
+    } catch (error) {
         console.error("Unable to copy text to clipboard:", error);
-      }
-    
-      document.body.removeChild(pgn);
     }
+
+    document.body.removeChild(pgn);
+}
 
 function calculateLongestMove(moves: MoveStatistics[]): MoveStatistics {
     let longestMove: MoveStatistics = moves[0];

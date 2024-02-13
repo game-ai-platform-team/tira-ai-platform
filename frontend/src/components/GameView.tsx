@@ -37,7 +37,9 @@ function GameView({ children }: { children: ReactNode }) {
                 <AdvantageChart data={evals.advantages} />
                 <TimeChart data={stats.times} />
             </div>
-            <a href="#" onClick={handleCopyPGN}>Copy PGN</a>
+            <a href="#" onClick={handleCopyPGN}>
+                Copy PGN
+            </a>
         </div>
     );
 }
