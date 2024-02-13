@@ -45,27 +45,18 @@ const AdvantageBar = ({
                     fill="url(#background)"
                     style={{ stroke: "black", strokeWidth: "2px" }}
                 />
-                <line
-                    x1="0%"
-                    x2="100%"
-                    y1="25%"
-                    y2="25%"
-                    style={{ stroke: "black", width: "2px" }}
-                />
-                <line
-                    x1="0%"
-                    x2="100%"
-                    y1="50%"
-                    y2="50%"
-                    style={{ stroke: "black", width: "2px" }}
-                />
-                <line
-                    x1="0%"
-                    x2="100%"
-                    y1="75%"
-                    y2="75%"
-                    style={{ stroke: "black", width: "2px" }}
-                />
+                {[0.25, 0.5, 0.75].map((position) => (
+                    <line
+                        x1="0%"
+                        x2="100%"
+                        y1={`${position * 100}%`}
+                        y2={`${position * 100}%`}
+                        style={{
+                            stroke: "black",
+                            width: "2px",
+                        }}
+                    />
+                ))}
                 <line
                     x1="0%"
                     x2="100%"
