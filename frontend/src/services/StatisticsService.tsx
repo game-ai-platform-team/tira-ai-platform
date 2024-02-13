@@ -26,7 +26,7 @@ export function getStatistics(
             longest: { move: "none", time: 0, evaluation: 0, logs: "" },
             shortest: { move: "none", time: 0, evaluation: 0, logs: "" },
             average: 0,
-            times: [0],
+            times: [],
             logs: "",
         };
     }
