@@ -14,7 +14,6 @@ import { ReactNode } from "react";
 import { useAppSelector } from "../hook.ts";
 
 function GameView({ children }: { children: ReactNode }) {
-    const winnerMessage = <p>winner: {"testwinner"}</p>;
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
 
     const stats = getStatistics(store.getState().moves);
@@ -41,7 +40,6 @@ function GameView({ children }: { children: ReactNode }) {
         <div id="game-view">
             <SubmitForm />
             {children}
-            <div id="winner-message">{winnerMessage}</div>
             <AdvantageBar linePosition={evals.advantages.at(moveIndex)} />
 
             <MoveList handleCopyPGN={handleCopyPGN} />
