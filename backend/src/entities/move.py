@@ -30,7 +30,7 @@ class Move:
             "state": str(self.state),
             "time": self.time,
             "evaluation": self.evaluation,
-            "logging": self.logs,
+            "logs": self.logs,
         }
 
     def __eq__(self, other: "Move") -> bool:

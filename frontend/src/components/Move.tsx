@@ -18,9 +18,13 @@ const Move = ({ move, logs, time }: MoveStatistics) => {
             <div className="move-details" style={showWhenVisible}>
                 <p />
                 <span>Time: {time}</span>
-                <p />
-                <span>Logging: {logs} </span>
-                <p />
+                {logs && logs !== "" && (
+                    <>
+                        <p />
+                        <span>Logs: {logs}</span>
+                        <p />
+                    </>
+                )}
             </div>
         </div>
     );

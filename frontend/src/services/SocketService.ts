@@ -11,7 +11,6 @@ export function startGame(config: GameConfig) {
     socket.connect();
 
     socket.on("newmove", (move: MoveStatistics) => {
-        console.log("Received 'newmove' event:", move);
         store.dispatch(createMove(move));
         store.dispatch(newBoard(move));
         store.dispatch(nextBoard());
