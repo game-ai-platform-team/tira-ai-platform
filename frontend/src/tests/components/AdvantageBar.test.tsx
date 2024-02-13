@@ -15,6 +15,7 @@ describe("advantage bar", () => {
         ) as HTMLElement;
 
         expect(indicator.getAttribute("y1")).toBe((0.5 * height).toString());
+        expect(indicator.getAttribute("y2")).toBe((0.5 * height).toString());
     });
 
     test("draws indicator to top when position is 1", () => {
@@ -27,6 +28,7 @@ describe("advantage bar", () => {
         ) as HTMLElement;
 
         expect(indicator.getAttribute("y1")).toBe(height.toString());
+        expect(indicator.getAttribute("y2")).toBe(height.toString());
     });
 
     test("draws indicator to bottom when position is -1", () => {
@@ -39,5 +41,6 @@ describe("advantage bar", () => {
         ) as HTMLElement;
 
         expect(indicator.getAttribute("y1")).toBe("0");
+        expect(indicator.getAttribute("y2")).toBe("0");
     });
 });
