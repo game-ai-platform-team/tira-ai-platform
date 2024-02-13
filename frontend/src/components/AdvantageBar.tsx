@@ -47,6 +47,7 @@ const AdvantageBar = ({
                 />
                 {[0.25, 0.5, 0.75].map((position) => (
                     <line
+                        key={position}
                         x1="0%"
                         x2="100%"
                         y1={`${position * 100}%`}
