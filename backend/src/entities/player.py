@@ -37,14 +37,13 @@ class Player:
 
         while True:
             out = self.__process.stdout.readline().decode("utf-8")
-            print(out)
 
             if not out:
                 break
             elif out.startswith("MOVE: "):
                 return out[5:].strip()
             else:
-                self.__logger.log(out[6:].strip())
+                self.__logger.log(out.strip() + "\n")
 
         return ""
 

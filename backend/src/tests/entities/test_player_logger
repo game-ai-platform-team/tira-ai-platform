@@ -7,7 +7,7 @@ class TestPlayer(unittest.TestCase):
     def setUp(self):
         self.logger = PlayerLogger()
 
-    def test_logging(self):
+    def test_logs(self):
         self.logger.log("test log")
         logs = self.logger.get_and_clear_logs()
         self.assertEqual(logs, "test log")
