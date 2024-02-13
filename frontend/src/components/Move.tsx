@@ -1,7 +1,12 @@
 import { useState } from "react";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
-const Move = ({ move, logs, time, index }: MoveStatistics & { index: number }) => {
+const Move = ({
+    move,
+    logs,
+    time,
+    index,
+}: MoveStatistics & { index: number }) => {
     const [visible, setVisible] = useState(false);
     const showWhenVisible = { display: visible ? "" : "none" };
     const dropdownImage = visible
@@ -12,7 +17,9 @@ const Move = ({ move, logs, time, index }: MoveStatistics & { index: number }) =
         <div className="move">
             <a className="move-content" onClick={() => setVisible(!visible)}>
                 <img src={dropdownImage} />
-                <span>{index + 1}: {move}</span>
+                <span>
+                    {index + 1}: {move}
+                </span>
             </a>
 
             <div className="move-details" style={showWhenVisible}>
