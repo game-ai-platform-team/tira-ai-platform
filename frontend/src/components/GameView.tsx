@@ -20,6 +20,10 @@ function GameView({ children }: { children: ReactNode }) {
     const stats = getStatistics(store.getState().moves);
     const evals = getEvaluations(store.getState().moves, true);
 
+    const handleCopyPGN = () => {
+        uciToPGN(store.getState().moves);
+    };
+
     return (
         <div id="game-view">
             <SubmitForm />
@@ -33,7 +37,7 @@ function GameView({ children }: { children: ReactNode }) {
                 <AdvantageChart data={evals.advantages} />
                 <TimeChart data={stats.times} />
             </div>
-            <p>{uciToPGN(store.getState().moves)}</p>
+            <a href="#" onClick={handleCopyPGN}>Copy PGN</a>
         </div>
     );
 }
