@@ -21,10 +21,10 @@ def main():
         choice = random.choice(legal_moves)
         board.push_uci(choice)
 
-        # example about logging
-        print(f"{choice}\n")
+        # example about logs
+        print(f"I moved {choice}\n")
         # example about posting a move
-        print(f"MOVE: {choice}\n")
+        print(f"MOVE: {choice}\n")                                                                                                              
 
 if __name__ == "__main__":
     main()
