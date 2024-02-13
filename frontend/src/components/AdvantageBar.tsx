@@ -1,6 +1,7 @@
 import "../scss/AdvantageBar.scss";
 
 interface AdvantageBarProps {
+    // linePosition as a number between [-1, 1]
     linePosition?: number;
     width?: number;
     height?: number;
