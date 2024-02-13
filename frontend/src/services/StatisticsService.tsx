@@ -73,7 +73,7 @@ export function uciToPGN(
     blackName?: string,
     whiteElo?: number,
     blackElo?: number,
-): string {
+) {
     const game = new Game();
     const position = new Position("start");
     let current: AbstractNode = game.mainVariation();
@@ -90,8 +90,22 @@ export function uciToPGN(
     if (whiteElo != null) game.playerElo("w", whiteElo);
     if (blackElo != null) game.playerElo("b", blackElo);
 
-    return pgnWrite(game);
-}
+    const text = pgnWrite(game);
+
+    let pgn = document.createElement("textarea");
+    pgn.value = text;
+    pgn.style.position = "fixed";
+
+    pgn.select();
+    try {
+        navigator.clipboard.writeText(pgn.value)
+        console.log("Text copied to clipboard:", text);
+      } catch (error) {
+        console.error("Unable to copy text to clipboard:", error);
+      }
+    
+      document.body.removeChild(pgn);
+    }
 
 function calculateLongestMove(moves: MoveStatistics[]): MoveStatistics {
     let longestMove: MoveStatistics = moves[0];
