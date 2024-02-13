@@ -92,8 +92,8 @@ export function uciToPGN(
 
     const text = pgnWrite(game);
 
-    return text
-    }
+    return text;
+}
 
 function calculateLongestMove(moves: MoveStatistics[]): MoveStatistics {
     let longestMove: MoveStatistics = moves[0];
