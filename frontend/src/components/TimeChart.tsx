@@ -87,10 +87,12 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
             ))}
 
             {/* Line chart */}
-            <path d={path} fill="none" stroke="#f0dec7" strokeWidth="2" />
+            {path && (
+                <path d={path} fill="none" stroke="#f0dec7" strokeWidth="2" />
+            )}
 
             {/* Points on the line */}
-            {points.map((point, index) => (
+            {points && points.map((point, index) => (
                 <text
                     key={index}
                     x={point.x}
