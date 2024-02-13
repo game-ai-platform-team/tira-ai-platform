@@ -16,7 +16,7 @@ const boardSlice = createSlice({
         },
         resetBoards() {
             return [new Position().fen()];
-        }
+        },
     },
 });
 
