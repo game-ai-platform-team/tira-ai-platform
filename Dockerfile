@@ -3,7 +3,7 @@ FROM node:latest as node_build
 WORKDIR /frontend
 
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm install --omit=dev
 COPY ./frontend .
 RUN npm run build
 
@@ -30,7 +30,7 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && chgrp -R 0 /$HOME \ 
     && chmod -R g=u /$HOME 
 
-RUN python3 -m poetry install
+RUN python3 -m poetry install --without dev
 RUN ls -la $HOME/.config/pypoetry
          
 USER 1001
