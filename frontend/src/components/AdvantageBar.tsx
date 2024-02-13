@@ -58,7 +58,8 @@ const AdvantageBar = ({
                         }}
                     />
                 ))}
-                <line id="indicator-line"
+                <line
+                    id="indicator-line"
                     x1="0%"
                     x2="100%"
                     y1={indicatorPosition}
