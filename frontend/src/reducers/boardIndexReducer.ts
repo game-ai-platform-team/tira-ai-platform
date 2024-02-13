@@ -10,9 +10,12 @@ const boardIndexSlice = createSlice({
         previousBoard(state) {
             return state - 1;
         },
+        resetBoardIndex() {
+            return 0;
+        },
     },
 });
 
 export default boardIndexSlice.reducer;
 
-export const { nextBoard, previousBoard } = boardIndexSlice.actions;
+export const { nextBoard, previousBoard, resetBoardIndex } = boardIndexSlice.actions;
