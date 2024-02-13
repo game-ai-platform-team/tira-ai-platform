@@ -40,7 +40,7 @@ const Chessboard = () => {
             setArrow(newArrow);
         }
     };
-    
+
     return (
         <div id="chessboard">
             <h2 id="chessboard-header">Player1 vs Player2</h2>
@@ -55,7 +55,7 @@ const Chessboard = () => {
                 <input
                     type="range"
                     min="0"
-                    max={moves.length - 1} 
+                    max={moves.length - 1}
                     value={currentMove}
                     onChange={handleMoveChange}
                     id="moveSlider"
