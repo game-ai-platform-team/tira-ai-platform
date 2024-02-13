@@ -206,6 +206,8 @@ namespace interfaces {
 
     class BoardProps {
         <<interface>>
+        increaseMove?: MouseEventHandler
+        decreaseMove?: MouseEventHandler
     }
 }
 
