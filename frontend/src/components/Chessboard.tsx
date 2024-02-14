@@ -34,7 +34,7 @@ const Chessboard = () => {
     };
 
     const increaseMove = () => {
-        if (currentMove < moves.length - 1) {
+        if (currentMove < moves.length) {
             setCurrentMove(currentMove + 1);
             const newArrow = "G" + moves[currentMove + 1].move.slice(0, 4);
             setArrow(newArrow);
@@ -55,7 +55,7 @@ const Chessboard = () => {
                 <input
                     type="range"
                     min="0"
-                    max={moves.length - 1}
+                    max={moves.length}
                     value={currentMove}
                     onChange={handleMoveChange}
                     id="moveSlider"
