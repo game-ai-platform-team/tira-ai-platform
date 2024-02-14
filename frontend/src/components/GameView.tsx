@@ -1,17 +1,17 @@
-import SubmitForm from "./SubmitForm.tsx";
-import MoveList from "./MoveList.tsx";
+import SubmitForm from "./SubmitForm";
+import MoveList from "./MoveList";
 import "../scss/GameView.scss";
-import AdvantageChart from "./AdvantageChart.tsx";
+import AdvantageChart from "./AdvantageChart";
 import {
     getEvaluations,
     getStatistics,
     uciToPGN,
 } from "../services/StatisticsService";
-import TimeChart from "./TimeChart.tsx";
-import AdvantageBar from "./AdvantageBar.tsx";
-import store from "../store.ts";
+import TimeChart from "./TimeChart";
+import AdvantageBar from "./AdvantageBar";
+import store from "../store";
 import { ReactNode } from "react";
-import { useAppSelector } from "../hook.ts";
+import { useAppSelector } from "../hook";
 
 function GameView({ children }: { children: ReactNode }) {
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;

@@ -1,5 +1,5 @@
-import store from "../../store.ts";
-import { createMove } from "../../reducers/moveReducer.ts";
+import store from "../../store";
+import { createMove } from "../../reducers/moveReducer";
 
 describe("Move redux", () => {
     test("goes through", () => {
