@@ -12,16 +12,15 @@ function getStatistics(
     times: number[];
     logs: string;
 } {
-    let movesOfColor: MoveStatistics[];
+    let movesOfColor: MoveStatistics[] = moves;
+
     if (color === "white") {
         movesOfColor = moves.filter((_, index) => index % 2 === 0);
     } else if (color === "black") {
         movesOfColor = moves.filter((_, index) => index % 2 !== 0);
-    } else {
-        movesOfColor = moves;
     }
 
-    if (movesOfColor.length === 0) {
+    if (!movesOfColor) {
         return {
             longest: { move: "none", time: 0, evaluation: 0, logs: "" },
             shortest: { move: "none", time: 0, evaluation: 0, logs: "" },
