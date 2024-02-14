@@ -18,7 +18,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView children={<p></p>} />
+                <GameView>
+                    <p></p>
+                </GameView>
             </Provider>
         );
         const component = render(ui);
@@ -33,7 +35,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView children={<p></p>} />
+                <GameView>
+                    <p></p>
+                </GameView>
             </Provider>
         );
         const component = render(ui);
@@ -50,7 +54,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView children={<Chessboard />} />
+                <GameView>
+                    <Chessboard />
+                </GameView>
             </Provider>
         );
         const component = render(ui);
@@ -65,7 +71,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView children={<Chessboard />} />
+                <GameView>
+                    <Chessboard />
+                </GameView>
             </Provider>
         );
         const component = render(ui);
@@ -81,7 +89,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView children={<Chessboard />} />
+                <GameView>
+                    <Chessboard />
+                </GameView>
             </Provider>
         );
         const component = render(ui);
