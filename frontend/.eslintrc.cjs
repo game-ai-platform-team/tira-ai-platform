@@ -19,6 +19,9 @@ module.exports = {
             { allowConstantExport: true },
         ],
         "import/no-named-as-default": ["off"],
+        "prefer-const": ["error"],
+        "object-shorthand": ["error"],
+        "prefer-template": ["error"],
     },
     settings: {
         react: {
