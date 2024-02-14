@@ -7,5 +7,13 @@ describe("StatisticsService", () => {
             const statistics = statisticsService.getStatistics([]);
             expect(statistics).toBeNull();
         });
+
+        test("returns null if only color 1 is null", () => {
+            const statistics = statisticsService.getStatistics(
+                [{ move: "aaa", time: 100, logs: "", evaluation: 0 }],
+                1,
+            );
+            expect(statistics).toBeNull();
+        });
     });
 });
