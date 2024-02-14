@@ -43,16 +43,12 @@ function filterByColor(moves: MoveStatistics[], color: number) {
 function getEvaluations(
     moves: MoveStatistics[],
     startingAdvantage: boolean,
-    color?: "white" | "black",
+    color?: 0 | 1,
 ): {
     advantages: number[];
     moveClasses: string[];
 } {
-    if (color == "white") {
-        moves = moves.filter((_, index) => index % 2 === 0);
-    } else if (color == "black") {
-        moves = moves.filter((_, index) => index % 2 !== 0);
-    }
+    moves = color ? filterByColor(moves, color) : moves;
 
     const advantages = getAdvantages(moves);
     const moveClasses = getMoveClasses(advantages);
