@@ -14,20 +14,16 @@ function getStatistics(
     moves: MoveStatistics[],
     color?: 0 | 1,
 ): Statistics | null {
-    let movesOfColor: MoveStatistics[] = moves;
+    moves = color ? filterByColor(moves, color) : moves;
 
-    if (color) {
-        movesOfColor = moves.filter((_, index) => index % 2 === color);
-    }
-
-    if (movesOfColor.length === 0) {
+    if (moves.length === 0) {
         return null;
     }
 
-    const longestMove = calculateLongestMove(movesOfColor);
-    const shortestMove = calculateShortestMove(movesOfColor);
-    const average = calculateAverageTime(movesOfColor);
-    const times = getTimes(movesOfColor);
+    const longestMove = calculateLongestMove(moves);
+    const shortestMove = calculateShortestMove(moves);
+    const average = calculateAverageTime(moves);
+    const times = getTimes(moves);
 
     return {
         longest: longestMove,
@@ -36,6 +32,10 @@ function getStatistics(
         times: times,
         logs: "",
     };
+}
+
+function filterByColor(moves: MoveStatistics[], color: number) {
+    return moves.filter((_, index) => index % 2 === color);
 }
 
 function getEvaluations(
