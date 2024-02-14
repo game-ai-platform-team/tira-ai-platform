@@ -10,6 +10,7 @@ describe("move component", () => {
         const statistics = { move: "e1e2", logs: "", evaluation: 0, time: 100 };
         container = render(
             <Move
+                index={1}
                 evaluation={statistics.evaluation}
                 move={statistics.move}
                 logs={statistics.logs}
