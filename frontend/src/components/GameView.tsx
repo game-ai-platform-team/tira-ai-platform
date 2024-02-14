@@ -2,11 +2,7 @@ import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
 import AdvantageChart from "./AdvantageChart";
-import {
-    getEvaluations,
-    getStatistics,
-    uciToPGN,
-} from "../services/StatisticsService";
+import statisticsService from "../services/StatisticsService";
 import TimeChart from "./TimeChart";
 import AdvantageBar from "./AdvantageBar";
 import store from "../store";
@@ -16,11 +12,14 @@ import { useAppSelector } from "../hook";
 function GameView({ children }: { children: ReactNode }) {
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
 
-    const stats = getStatistics(store.getState().moves);
-    const evals = getEvaluations(store.getState().moves, true);
+    const stats = statisticsService.getStatistics(store.getState().moves);
+    const evals = statisticsService.getEvaluations(
+        store.getState().moves,
+        true,
+    );
 
     const handleCopyPGN = () => {
-        const text = uciToPGN(store.getState().moves);
+        const text = statisticsService.uciToPGN(store.getState().moves);
         const pgn = document.createElement("textarea");
         pgn.value = text;
         pgn.style.position = "fixed";
