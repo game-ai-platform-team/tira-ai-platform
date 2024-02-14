@@ -2,7 +2,7 @@ import MoveStatistics from "../interfaces/MoveStatistics";
 import { AbstractNode, Game, Position, pgnWrite } from "kokopu";
 const STARTING_ADVANTAGE: number = 0.066;
 
-export function getStatistics(
+function getStatistics(
     moves: MoveStatistics[],
     color?: "white" | "black",
 ): {
@@ -45,7 +45,7 @@ export function getStatistics(
     };
 }
 
-export function getEvaluations(
+function getEvaluations(
     moves: MoveStatistics[],
     startingAdvantage: boolean,
     color?: "white" | "black",
@@ -67,7 +67,7 @@ export function getEvaluations(
     return { advantages, moveClasses };
 }
 
-export function uciToPGN(
+function uciToPGN(
     moves: MoveStatistics[],
     whiteName?: string,
     blackName?: string,
