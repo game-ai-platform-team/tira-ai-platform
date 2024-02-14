@@ -309,5 +309,53 @@ describe("StatisticsService", () => {
                 ).toBeCloseTo(3.33, 2);
             });
         });
+
+        describe("times", () => {
+            test("is correct if only one move", () => {
+                const moves = [
+                    {
+                        move: "d2f7",
+                        time: 4,
+                        logs: "aaaaa",
+                        evaluation: 0.62,
+                    },
+                ];
+                expect(statisticsService.getStatistics(moves)?.times).toEqual([
+                    4,
+                ]);
+            });
+
+            test("is in provided order", () => {
+                const moves = [
+                    {
+                        move: "d2f7",
+                        time: 4,
+                        logs: "aaaaa",
+                        evaluation: 0.62,
+                    },
+                    {
+                        move: "aaa",
+                        time: 100,
+                        logs: "aaaaa",
+                        evaluation: -0.6,
+                    },
+                    {
+                        move: "c2c7",
+                        time: 200,
+                        logs: "bbbb",
+                        evaluation: 0.34,
+                    },
+                    {
+                        move: "c2c7",
+                        time: 99,
+                        logs: "bbbb",
+                        evaluation: 0.34,
+                    },
+                ];
+                expect(statisticsService.getStatistics(moves)?.times).toEqual([
+                    4, 100, 200, 99,
+                ]);
+            });
+        });
     });
 });
