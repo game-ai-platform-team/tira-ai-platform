@@ -3,8 +3,8 @@ import { AbstractNode, Game, Position, pgnWrite } from "kokopu";
 const STARTING_ADVANTAGE: number = 0.066;
 
 interface Statistics {
-    longest: MoveStatistics | null;
-    shortest: MoveStatistics | null;
+    longest: MoveStatistics;
+    shortest: MoveStatistics;
     average: number;
     times: number[];
     logs: string;
@@ -13,7 +13,7 @@ interface Statistics {
 function getStatistics(
     moves: MoveStatistics[],
     color?: "white" | "black",
-): Statistics {
+): Statistics | null {
     let movesOfColor: MoveStatistics[] = moves;
 
     if (color === "white") {
@@ -23,13 +23,7 @@ function getStatistics(
     }
 
     if (!movesOfColor) {
-        return {
-            longest: null,
-            shortest: null,
-            average: 0,
-            times: [],
-            logs: "",
-        };
+        return null;
     }
 
     const longestMove = calculateLongestMove(movesOfColor);
