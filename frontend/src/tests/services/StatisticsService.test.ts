@@ -361,6 +361,7 @@ describe("StatisticsService", () => {
         const moves = [
             { move: "a2a4", time: 200, logs: "", evaluation: 1 },
             { move: "a7a5", time: 100, logs: "", evaluation: 1 },
+            { move: "g1f3", time: 300, logs: "", evaluation: 0.6 },
         ];
 
         describe("without optional parameters", () => {
@@ -423,6 +424,20 @@ describe("StatisticsService", () => {
                         1300,
                     ),
                 ).toContain('[BlackElo "1300"]');
+            });
+            test("pgn list has a correct move listed", () => {
+                expect(
+                    statisticsService.uciToPGN(
+                        moves,
+                    ),
+                ).toContain('1. a4');
+            });
+            test("pgn list has correct moves listed", () => {
+                expect(
+                    statisticsService.uciToPGN(
+                        moves,
+                    ),
+                ).toContain('1. a4 a5 2. Nf3');
             });
         });
     });
