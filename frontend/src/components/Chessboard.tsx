@@ -12,7 +12,7 @@ const Chessboard = () => {
 
     useEffect(() => {
         if (boardIndex >= 1 && moves.length > 0) {
-            const newArrow = "G" + moves[boardIndex - 1].move.slice(0, 4);
+            const newArrow = `G${  moves[boardIndex - 1].move.slice(0, 4)}`;
             setArrow(newArrow);
             setCurrentMove(boardIndex);
         }
@@ -21,14 +21,14 @@ const Chessboard = () => {
     const handleMoveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newIndex = parseInt(event.target.value);
         setCurrentMove(newIndex);
-        const newArrow = "G" + moves[newIndex - 1].move.slice(0, 4);
+        const newArrow = `G${  moves[newIndex - 1].move.slice(0, 4)}`;
         setArrow(newArrow);
     };
 
     const decreaseMove = () => {
         if (currentMove > 0) {
             setCurrentMove(currentMove - 1);
-            const newArrow = "G" + moves[currentMove - 1].move.slice(0, 4);
+            const newArrow = `G${  moves[currentMove - 1].move.slice(0, 4)}`;
             setArrow(newArrow);
         }
     };
@@ -36,7 +36,7 @@ const Chessboard = () => {
     const increaseMove = () => {
         if (currentMove < moves.length) {
             setCurrentMove(currentMove + 1);
-            const newArrow = "G" + moves[currentMove + 1].move.slice(0, 4);
+            const newArrow = `G${  moves[currentMove + 1].move.slice(0, 4)}`;
             setArrow(newArrow);
         }
     };
