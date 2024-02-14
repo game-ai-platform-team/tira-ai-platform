@@ -1,5 +1,7 @@
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { AbstractNode, Game, Position, pgnWrite } from "kokopu";
+import _ from "lodash";
+
 const STARTING_ADVANTAGE: number = 0.066;
 
 interface Statistics {
@@ -20,10 +22,10 @@ function getStatistics(
         return null;
     }
 
-    const longestMove = calculateLongestMove(moves);
-    const shortestMove = calculateShortestMove(moves);
-    const average = calculateAverageTime(moves);
-    const times = getTimes(moves);
+    const longestMove = _(moves).maxBy("time") as MoveStatistics;
+    const shortestMove = _(moves).minBy("time") as MoveStatistics;
+    const average = _(moves).meanBy("time");
+    const times = _(moves).map("time").value();
 
     return {
         longest: longestMove,
@@ -88,36 +90,6 @@ function uciToPGN(
     return text;
 }
 
-function calculateLongestMove(moves: MoveStatistics[]): MoveStatistics {
-    let longestMove: MoveStatistics = moves[0];
-    for (let i = 1; i < moves.length; i++) {
-        const move = moves[i];
-        if (move.time > longestMove.time) {
-            longestMove = move;
-        }
-    }
-    return longestMove;
-}
-
-function calculateShortestMove(moves: MoveStatistics[]): MoveStatistics {
-    let shortestMove: MoveStatistics = moves[0];
-    for (let i = 1; i < moves.length; i++) {
-        const move = moves[i];
-        if (move.time < shortestMove.time) {
-            shortestMove = move;
-        }
-    }
-    return shortestMove;
-}
-
-function calculateAverageTime(moves: MoveStatistics[]): number {
-    let total = 0;
-    for (let i = 0; i < moves.length; i++) {
-        total += moves[i].time;
-    }
-    return total / moves.length;
-}
-
 function getAdvantages(moves: MoveStatistics[]): number[] {
     const advantages: number[] = [];
     for (let i = 0; i < moves.length; i++) {
@@ -125,15 +97,6 @@ function getAdvantages(moves: MoveStatistics[]): number[] {
         advantages.push(advantage);
     }
     return advantages;
-}
-
-function getTimes(moves: MoveStatistics[]): number[] {
-    const times: number[] = [];
-    for (let i = 0; i < moves.length; i++) {
-        const advantage = moves[i].time;
-        times.push(advantage);
-    }
-    return times;
 }
 
 function getMoveClasses(advantages: number[]): string[] {
