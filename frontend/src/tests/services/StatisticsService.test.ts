@@ -1,6 +1,5 @@
 import { describe, expect, test } from "vitest";
 import statisticsService from "../../services/StatisticsService";
-import _ from "lodash";
 
 describe("StatisticsService", () => {
     describe("getStatistics", () => {
