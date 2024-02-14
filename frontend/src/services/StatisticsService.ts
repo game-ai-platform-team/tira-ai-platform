@@ -202,3 +202,5 @@ function getMoveClasses(advantages: number[]): string[] {
 
     return moveClasses;
 }
+
+export default { getStatistics, getEvaluations, uciToPGN };
