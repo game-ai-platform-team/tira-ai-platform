@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
 import statisticsService from "../../services/StatisticsService";
+import _ from "lodash";
 
 describe("StatisticsService", () => {
     describe("getStatistics", () => {
@@ -205,6 +206,107 @@ describe("StatisticsService", () => {
                 expect(shortest).toContainEqual(
                     statisticsService.getStatistics(moves)?.shortest,
                 );
+            });
+        });
+
+        describe("average time", () => {
+            test("is correct if only one move", () => {
+                const moves = [
+                    {
+                        move: "d2f7",
+                        time: 190,
+                        logs: "aaaaa",
+                        evaluation: 0.6,
+                    },
+                ];
+
+                expect(statisticsService.getStatistics(moves)?.average).toBe(
+                    190,
+                );
+            });
+
+            test("is correct if multiple moves with same time", () => {
+                const moves = [
+                    {
+                        move: "d2f7",
+                        time: 190,
+                        logs: "aaaaa",
+                        evaluation: 0.6,
+                    },
+                    {
+                        move: "aaa",
+                        time: 190,
+                        logs: "aaaaa",
+                        evaluation: -0.6,
+                    },
+                    {
+                        move: "c2c7",
+                        time: 190,
+                        logs: "bbbb",
+                        evaluation: 0.5,
+                    },
+                ];
+                expect(
+                    statisticsService.getStatistics(moves)?.average,
+                ).toBeCloseTo(190, 2);
+            });
+
+            test("is correct if multiple moves with different times", () => {
+                const moves = [
+                    {
+                        move: "d2f7",
+                        time: 1,
+                        logs: "aaaaa",
+                        evaluation: 0.62,
+                    },
+                    {
+                        move: "aaa",
+                        time: 99,
+                        logs: "aaaaa",
+                        evaluation: -0.6,
+                    },
+                    {
+                        move: "c2c7",
+                        time: 200,
+                        logs: "bbbb",
+                        evaluation: 0.34,
+                    },
+                    {
+                        move: "d8e8",
+                        time: 10,
+                        logs: "bbbb",
+                        evaluation: -0.5,
+                    },
+                ];
+                expect(
+                    statisticsService.getStatistics(moves)?.average,
+                ).toBeCloseTo(77.5, 2);
+            });
+
+            test("is correct if average is not accurate as float", () => {
+                const moves = [
+                    {
+                        move: "d2f7",
+                        time: 4,
+                        logs: "aaaaa",
+                        evaluation: 0.62,
+                    },
+                    {
+                        move: "aaa",
+                        time: 3,
+                        logs: "aaaaa",
+                        evaluation: -0.6,
+                    },
+                    {
+                        move: "c2c7",
+                        time: 3,
+                        logs: "bbbb",
+                        evaluation: 0.34,
+                    },
+                ];
+                expect(
+                    statisticsService.getStatistics(moves)?.average,
+                ).toBeCloseTo(3.33, 2);
             });
         });
     });
