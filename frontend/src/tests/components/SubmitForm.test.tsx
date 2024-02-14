@@ -1,5 +1,6 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import SubmitForm from "../../components/SubmitForm";
+import { test, expect } from "vitest";
 
 test("file path field exists", () => {
     const component = render(<SubmitForm />);
@@ -17,7 +18,9 @@ test("submit button exists", () => {
 
 test("elo slider exists", () => {
     const component = render(<SubmitForm />);
-    const fileInput = component.container.querySelector("#elo-config");
+    const eloSlider = component.container.querySelector(
+        "#elo-slider",
+    ) as HTMLElement;
 
-    expect(fileInput).not.toBe(null);
+    expect(eloSlider).not.toBeNull();
 });
