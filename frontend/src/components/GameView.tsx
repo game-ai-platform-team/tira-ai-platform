@@ -6,7 +6,7 @@ import {
     getEvaluations,
     getStatistics,
     uciToPGN,
-} from "../services/StatisticsService.tsx";
+} from "../services/StatisticsService";
 import TimeChart from "./TimeChart.tsx";
 import AdvantageBar from "./AdvantageBar.tsx";
 import store from "../store.ts";
