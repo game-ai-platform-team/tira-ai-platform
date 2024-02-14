@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import "../scss/SubmitForm.scss";
-import store from "../store.ts";
-import { newGame } from "../reducers/gameReducer.ts";
-import { GameConfig } from "../types.ts";
+import store from "../store";
+import { newGame } from "../reducers/gameReducer";
+import { GameConfig } from "../types";
 
 function SubmitForm(): JSX.Element {
     const [file, setFile] = useState<File | null>(null);

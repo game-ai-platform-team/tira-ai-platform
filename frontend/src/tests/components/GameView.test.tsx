@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom/vitest";
 import { render } from "@testing-library/react";
-import GameView from "../../components/GameView.tsx";
+import GameView from "../../components/GameView";
 import "@testing-library/jest-dom";
 import { Provider } from "react-redux";
-import store from "../../store.ts";
-import { createMove, resetMoves } from "../../reducers/moveReducer.ts";
-import Chessboard from "../../components/Chessboard.tsx";
+import store from "../../store";
+import { createMove, resetMoves } from "../../reducers/moveReducer";
+import Chessboard from "../../components/Chessboard";
 
 describe("GameView", () => {
     beforeEach(() => {

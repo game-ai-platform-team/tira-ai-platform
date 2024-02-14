@@ -1,6 +1,6 @@
 import "../scss/MoveList.scss";
 import Move from "./Move";
-import store from "../store.ts";
+import store from "../store";
 
 function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
     const moves = store.getState().moves;

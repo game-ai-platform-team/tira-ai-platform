@@ -1,6 +1,6 @@
-import store from "../../store.ts";
-import { newBoard } from "../../reducers/boardReducer.ts";
-import resetStateReducer from "../../reducers/resetReducer.ts";
+import store from "../../store";
+import { newBoard } from "../../reducers/boardReducer";
+import resetStateReducer from "../../reducers/resetReducer";
 
 describe("BoardReducer", () => {
     beforeEach(() => {

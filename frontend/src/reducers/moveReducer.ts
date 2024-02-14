@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import MoveStatistics from "../interfaces/MoveStatistics.ts";
+import MoveStatistics from "../interfaces/MoveStatistics";
 
 const moveSlice = createSlice({
     name: "moves",

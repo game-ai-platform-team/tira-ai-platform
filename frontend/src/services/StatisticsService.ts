@@ -1,4 +1,4 @@
-import MoveStatistics from "../interfaces/MoveStatistics.ts";
+import MoveStatistics from "../interfaces/MoveStatistics";
 import { AbstractNode, Game, Position, pgnWrite } from "kokopu";
 const STARTING_ADVANTAGE: number = 0.066;
 

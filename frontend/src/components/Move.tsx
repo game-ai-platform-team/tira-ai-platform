@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MoveStatistics from "../interfaces/MoveStatistics.ts";
+import MoveStatistics from "../interfaces/MoveStatistics";
 
 const Move = ({
     move,

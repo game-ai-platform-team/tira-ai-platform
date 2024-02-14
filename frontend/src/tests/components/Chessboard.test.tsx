@@ -1,8 +1,8 @@
-import Chessboard from "../../components/Chessboard.tsx";
+import Chessboard from "../../components/Chessboard";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import store from "../../store.ts";
-import { createMove } from "../../reducers/moveReducer.ts";
+import store from "../../store";
+import { createMove } from "../../reducers/moveReducer";
 import { Provider } from "react-redux";
 
 describe("Chessboard", () => {
