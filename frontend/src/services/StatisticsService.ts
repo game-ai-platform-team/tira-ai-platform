@@ -12,14 +12,12 @@ interface Statistics {
 
 function getStatistics(
     moves: MoveStatistics[],
-    color?: "white" | "black",
+    color?: 0 | 1,
 ): Statistics | null {
     let movesOfColor: MoveStatistics[] = moves;
 
-    if (color === "white") {
-        movesOfColor = moves.filter((_, index) => index % 2 === 0);
-    } else if (color === "black") {
-        movesOfColor = moves.filter((_, index) => index % 2 !== 0);
+    if (color) {
+        movesOfColor = moves.filter((_, index) => index % 2 === color);
     }
 
     if (movesOfColor.length === 0) {
