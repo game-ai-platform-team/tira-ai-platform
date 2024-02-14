@@ -13,10 +13,7 @@ function GameView({ children }: { children: ReactNode }) {
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
-    const evals = statisticsService.getEvaluations(
-        moves,
-        true,
-    );
+    const evals = statisticsService.getEvaluations(moves, true);
 
     const handleCopyPGN = () => {
         const text = statisticsService.uciToPGN(moves);
