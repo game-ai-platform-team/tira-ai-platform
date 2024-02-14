@@ -1,8 +1,3 @@
-export interface GameConfig {
-    file: string;
-    elo: number;
-}
-
 export enum GameState {
     CONTINUE = "CONTINUE",
     WIN = "WIN",

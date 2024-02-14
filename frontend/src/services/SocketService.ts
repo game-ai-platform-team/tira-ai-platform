@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import store from "../store";
 import { createMove } from "../reducers/moveReducer";
 import { newBoard } from "../reducers/boardReducer";
-import { GameConfig } from "../types";
+import GameConfig from "../interfaces/GameConfig";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { nextBoard } from "../reducers/boardIndexReducer";
 
