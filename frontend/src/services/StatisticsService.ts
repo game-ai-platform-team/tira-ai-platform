@@ -66,7 +66,15 @@ function uciToPGN(
     blackElo?: number,
 ): string {
     const game = new Game();
+    game.date(new Date());
+    game.site("tira-ai-platform");
+    game.playerName("w", whiteName);
+    game.playerName("b", blackName);
+    game.playerElo("w", whiteElo);
+    game.playerElo("b", blackElo);
+
     const position = new Position("start");
+
     let current: AbstractNode = game.mainVariation();
     for (let i = 0; i < moves.length; i++) {
         const move = moves[i];
@@ -74,12 +82,6 @@ function uciToPGN(
         position.play(san);
         current = current.play(san);
     }
-    game.date(new Date());
-    game.site("tira-ai-platform");
-    if (whiteName != null) game.playerName("w", whiteName);
-    if (blackName != null) game.playerName("b", blackName);
-    if (whiteElo != null) game.playerElo("w", whiteElo);
-    if (blackElo != null) game.playerElo("b", blackElo);
 
     const text = pgnWrite(game);
 
@@ -155,4 +157,9 @@ function getMoveClasses(advantages: number[]): string[] {
     return moveClasses;
 }
 
-export default { getStatistics, getEvaluations, uciToPGN };
+export default {
+    getStatistics,
+    getEvaluations,
+    uciToPGN,
+    _getMoveClass: getMoveClasses,
+};

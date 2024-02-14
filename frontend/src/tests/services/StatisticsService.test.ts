@@ -357,4 +357,73 @@ describe("StatisticsService", () => {
             });
         });
     });
+    describe("uciToPGN", () => {
+        const moves = [
+            { move: "a2a4", time: 200, logs: "", evaluation: 1 },
+            { move: "a7a5", time: 100, logs: "", evaluation: 1 },
+        ];
+
+        describe("without optional parameters", () => {
+            test("white name is ?", () => {
+                expect(statisticsService.uciToPGN(moves)).toContain(
+                    '[White "?"]',
+                );
+            });
+
+            test("black name is ?", () => {
+                expect(statisticsService.uciToPGN(moves)).toContain(
+                    '[Black "?"]',
+                );
+            });
+
+            test("white elo is empty", () => {
+                expect(statisticsService.uciToPGN(moves)).not.toContain(
+                    "WhiteElo",
+                );
+            });
+
+            test("black elo is empty", () => {
+                expect(statisticsService.uciToPGN(moves)).not.toContain(
+                    "BlackElo",
+                );
+            });
+        });
+
+        describe("with optional parameters", () => {
+            test("white name is correct", () => {
+                expect(
+                    statisticsService.uciToPGN(moves, "NameOfWhite"),
+                ).toContain('[White "NameOfWhite"]');
+            });
+
+            test("black name is ?", () => {
+                expect(
+                    statisticsService.uciToPGN(moves, undefined, "NameOfBlack"),
+                ).toContain('[Black "NameOfBlack"]');
+            });
+
+            test("white elo is not empty", () => {
+                expect(
+                    statisticsService.uciToPGN(
+                        moves,
+                        undefined,
+                        undefined,
+                        1500,
+                    ),
+                ).toContain('[WhiteElo "1500"]');
+            });
+
+            test("black elo is not empty", () => {
+                expect(
+                    statisticsService.uciToPGN(
+                        moves,
+                        undefined,
+                        undefined,
+                        undefined,
+                        1300,
+                    ),
+                ).toContain('[BlackElo "1300"]');
+            });
+        });
+    });
 });
