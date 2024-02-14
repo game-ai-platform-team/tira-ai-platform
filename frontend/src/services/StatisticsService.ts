@@ -2,16 +2,18 @@ import MoveStatistics from "../interfaces/MoveStatistics";
 import { AbstractNode, Game, Position, pgnWrite } from "kokopu";
 const STARTING_ADVANTAGE: number = 0.066;
 
-function getStatistics(
-    moves: MoveStatistics[],
-    color?: "white" | "black",
-): {
-    longest: MoveStatistics;
-    shortest: MoveStatistics;
+interface Statistics {
+    longest: MoveStatistics | null;
+    shortest: MoveStatistics | null;
     average: number;
     times: number[];
     logs: string;
-} {
+}
+
+function getStatistics(
+    moves: MoveStatistics[],
+    color?: "white" | "black",
+): Statistics {
     let movesOfColor: MoveStatistics[] = moves;
 
     if (color === "white") {
@@ -22,8 +24,8 @@ function getStatistics(
 
     if (!movesOfColor) {
         return {
-            longest: { move: "none", time: 0, evaluation: 0, logs: "" },
-            shortest: { move: "none", time: 0, evaluation: 0, logs: "" },
+            longest: null,
+            shortest: null,
             average: 0,
             times: [],
             logs: "",
