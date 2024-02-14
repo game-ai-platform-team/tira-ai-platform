@@ -426,18 +426,12 @@ describe("StatisticsService", () => {
                 ).toContain('[BlackElo "1300"]');
             });
             test("pgn list has a correct move listed", () => {
-                expect(
-                    statisticsService.uciToPGN(
-                        moves,
-                    ),
-                ).toContain('1. a4');
+                expect(statisticsService.uciToPGN(moves)).toContain("1. a4");
             });
             test("pgn list has correct moves listed", () => {
-                expect(
-                    statisticsService.uciToPGN(
-                        moves,
-                    ),
-                ).toContain('1. a4 a5 2. Nf3');
+                expect(statisticsService.uciToPGN(moves)).toContain(
+                    "1. a4 a5 2. Nf3",
+                );
             });
         });
     });
