@@ -85,7 +85,9 @@ function SubmitForm(): JSX.Element {
                 <p>Elo: {elo}</p>
             </div>
             <div id="config-slider">
-                <label htmlFor="game-slider">Select How Many Games To Play:</label>
+                <label htmlFor="game-slider">
+                    Select How Many Games To Play:
+                </label>
                 <input
                     id="game-slider"
                     type="range"
