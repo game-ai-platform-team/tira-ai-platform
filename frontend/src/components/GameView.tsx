@@ -5,21 +5,21 @@ import AdvantageChart from "./AdvantageChart";
 import statisticsService from "../services/StatisticsService";
 import TimeChart from "./TimeChart";
 import AdvantageBar from "./AdvantageBar";
-import store from "../store";
 import { ReactNode } from "react";
 import { useAppSelector } from "../hook";
 
 function GameView({ children }: { children: ReactNode }) {
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
+    const moves = useAppSelector((state) => state.moves);
 
-    const stats = statisticsService.getStatistics(store.getState().moves);
+    const stats = statisticsService.getStatistics(moves);
     const evals = statisticsService.getEvaluations(
-        store.getState().moves,
+        moves,
         true,
     );
 
     const handleCopyPGN = () => {
-        const text = statisticsService.uciToPGN(store.getState().moves);
+        const text = statisticsService.uciToPGN(moves);
         const pgn = document.createElement("textarea");
         pgn.value = text;
         pgn.style.position = "fixed";
