@@ -30,8 +30,8 @@ function getStatistics(
     return {
         longest: longestMove,
         shortest: shortestMove,
-        average: average,
-        times: times,
+        average,
+        times,
         logs: "",
     };
 }

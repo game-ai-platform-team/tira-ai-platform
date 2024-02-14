@@ -44,7 +44,7 @@ function SubmitForm(): JSX.Element {
         e.preventDefault();
         if (file && elo && !store.getState().game.isGameRunning) {
             const gameConfig: GameConfig = {
-                elo: elo,
+                elo,
                 file: await file.text(),
             };
             store.dispatch(newGame(gameConfig));
