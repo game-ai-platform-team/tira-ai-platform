@@ -22,7 +22,7 @@ function getStatistics(
         movesOfColor = moves.filter((_, index) => index % 2 !== 0);
     }
 
-    if (!movesOfColor) {
+    if (movesOfColor.length === 0) {
         return null;
     }
 
