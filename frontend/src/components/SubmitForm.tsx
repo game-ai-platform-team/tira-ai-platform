@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import "../scss/SubmitForm.scss";
 import store from "../store";
 import { newGame } from "../reducers/gameReducer";
-import { GameConfig } from "../types";
+import GameConfig from "../interfaces/GameConfig";
 
 function SubmitForm(): JSX.Element {
     const [file, setFile] = useState<File | null>(null);

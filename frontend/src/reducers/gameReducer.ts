@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import GameConfig from "../interfaces/GameConfig";
 import { startGame } from "../services/SocketService";
-import { GameConfig, GameState } from "../types";
+import { GameState } from "../types";
 
 const gameSlice = createSlice({
     name: "game",
