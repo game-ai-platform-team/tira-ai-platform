@@ -14,10 +14,13 @@ interface LineChartProps {
 }
 
 const TimeChart: React.FC<LineChartProps> = ({ data }) => {
-    const chartData = [{ turn: 0, w_time: undefined, b_time: undefined }, ...data.map((value, index) => ({
-        turn: index + 1,
-        [index % 2 === 0 ? "w_time" : "b_time"]: value,
-    }))];
+    const chartData = [
+        { turn: 0, w_time: undefined, b_time: undefined },
+        ...data.map((value, index) => ({
+            turn: index + 1,
+            [index % 2 === 0 ? "w_time" : "b_time"]: value,
+        })),
+    ];
 
     return (
         <LineChart
@@ -28,7 +31,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
         >
             <XAxis dataKey="turn" />
             <YAxis />
-            <Tooltip cursor={{ stroke: "red" }} content={<CustomTooltip/>} />
+            <Tooltip cursor={{ stroke: "red" }} content={<CustomTooltip />} />
             <CartesianGrid stroke="#f5f5f5" />
             <Line
                 animationDuration={0}

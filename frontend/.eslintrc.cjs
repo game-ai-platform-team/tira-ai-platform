@@ -22,7 +22,7 @@ module.exports = {
         "prefer-const": ["error"],
         "object-shorthand": ["error"],
         "prefer-template": ["error"],
-        complexity: ["error", { "max": 10 }],
+        complexity: ["error", { max: 10 }],
     },
     settings: {
         react: {

@@ -16,7 +16,7 @@ function getStatistics(
     moves: MoveStatistics[],
     color?: 0 | 1,
 ): Statistics | null {
-    moves = color != undefined? filterByColor(moves, color) : moves;
+    moves = color != undefined ? filterByColor(moves, color) : moves;
 
     if (moves.length === 0) {
         return null;
@@ -48,7 +48,7 @@ function getEvaluations(
     advantages: number[];
     moveClasses: string[];
 } {
-    moves = color != undefined? filterByColor(moves, color) : moves;
+    moves = color != undefined ? filterByColor(moves, color) : moves;
 
     const advantages = getAdvantages(moves);
     const moveClasses = getMoveClasses(advantages);
@@ -104,9 +104,17 @@ function getMoveClasses(advantages: AdvantageArray): string[] {
 
     for (let i = 0; i < advantages.length; i++) {
         const thisAdvantage: number = advantages[i];
-        const prevAdvantage: number = getPreviousAdvantage(i, advantages, STARTING_ADVANTAGE);
+        const prevAdvantage: number = getPreviousAdvantage(
+            i,
+            advantages,
+            STARTING_ADVANTAGE,
+        );
         const change: number = Math.abs(prevAdvantage - thisAdvantage);
-        const increasing: boolean = isAdvantageIncreasing(i, thisAdvantage, prevAdvantage);
+        const increasing: boolean = isAdvantageIncreasing(
+            i,
+            thisAdvantage,
+            prevAdvantage,
+        );
         const mult: number = calculateMultiplier(thisAdvantage);
 
         if (isGreatMove(i, increasing)) {
@@ -119,16 +127,28 @@ function getMoveClasses(advantages: AdvantageArray): string[] {
     return moveClasses;
 }
 
-function getPreviousAdvantage(index: number, advantages: AdvantageArray, startingAdvantage: number): number {
+function getPreviousAdvantage(
+    index: number,
+    advantages: AdvantageArray,
+    startingAdvantage: number,
+): number {
     return index > 0 ? advantages[index - 1] : startingAdvantage;
 }
 
-function isAdvantageIncreasing(_: number, thisAdvantage: number, prevAdvantage: number): boolean {
+function isAdvantageIncreasing(
+    _: number,
+    thisAdvantage: number,
+    prevAdvantage: number,
+): boolean {
     return thisAdvantage > prevAdvantage;
 }
 
 function calculateMultiplier(thisAdvantage: number): number {
-    return Math.abs(thisAdvantage) > 0.8 ? 0.1 : (Math.abs(thisAdvantage) > 0.5 ? 0.5 : 1);
+    return Math.abs(thisAdvantage) > 0.8
+        ? 0.1
+        : Math.abs(thisAdvantage) > 0.5
+          ? 0.5
+          : 1;
 }
 
 function isGreatMove(index: number, increasing: boolean): boolean {
@@ -150,8 +170,6 @@ function getMoveClass(change: number, mult: number): string {
         return "BLUNDER";
     }
 }
-
-
 
 export default {
     getStatistics,
