@@ -1,12 +1,12 @@
 import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
-import AdvantageChart from "./AdvantageChart";
 import statisticsService from "../services/StatisticsService";
-import TimeChart from "./TimeChart";
 import AdvantageBar from "./AdvantageBar";
 import { ReactNode } from "react";
 import { useAppSelector } from "../hook";
+import AdvantageChart from "./AdvantageChart";
+import TimeChart from "./TimeChart";
 
 function GameView({ children }: { children: ReactNode }) {
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
@@ -45,8 +45,8 @@ function GameView({ children }: { children: ReactNode }) {
             </div>
 
             <div id="statistics" className="card">
-                <AdvantageChart data={evals.advantages} />
-                {stats && <TimeChart data={stats.times} />}
+                <AdvantageChart data={evals.advantages}/>
+                {stats && <TimeChart data={stats.times}/>}
             </div>
         </div>
     );
