@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 import { useAppSelector } from "../hook";
 import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
+import CSVCreater from "./CSVCreater.tsx"
 
 function GameView({ children }: { children: ReactNode }) {
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
@@ -42,6 +43,7 @@ function GameView({ children }: { children: ReactNode }) {
 
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
+                <CSVCreater moves={moves}/>
             </div>
 
             <div id="statistics" className="card">
