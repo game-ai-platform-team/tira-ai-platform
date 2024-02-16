@@ -9,8 +9,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build:
+  Build_staging:
     runs-on: ubuntu-latest
+    environment: staging
 
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +25,7 @@ jobs:
           containerfiles: |
             ./Dockerfile
           build-args: |
-            STAGING=true
+            MODE={{ $env.MODE }}
 
       - name: Push to Docker Hub
         uses: redhat-actions/push-to-registry@v2
