@@ -7,7 +7,7 @@ import MoveStatistics from "../interfaces/MoveStatistics";
 import { nextBoard } from "../reducers/boardIndexReducer";
 
 export function startGame(config: GameConfig) {
-    const socket = io("/gameconnection");
+    const socket = io("/gameconnection", { path: "/ai-platform/socket.io" });
     socket.connect();
 
     socket.on("newmove", (move: MoveStatistics) => {
