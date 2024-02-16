@@ -180,6 +180,7 @@ App --> NavigationBar
 App --> GameView
 
 GameView --> SubmitForm
+GameView --> StatisticsService
 GameView --> MoveList
 GameView --> Board
 GameView --> AdvantageBar
@@ -211,6 +212,13 @@ namespace interfaces {
     }
 }
 
+namespace services {
+    class StatisticsService {
+        +getStatistics()
+        +getEvaluations()
+        +uciToPGN()
+    }
+}
 
 namespace UI {
     class App
@@ -235,13 +243,11 @@ store -- gameReducer
 store -- boardReducer
 
 gameReducer ..> newGame
-gameReducer ..> endGame
 moveReducer ..> newMove
 boardReducer ..> newBoard
 newGame ..> gameConfig
 
 gameReducer --> SocketService
-gameReducer --> StatisticsService
 moveReducer <-- SocketService
 
 boardIndexReducer ..> nextBoard
@@ -249,13 +255,14 @@ boardIndexReducer ..> previousBoard
 
 SocketService ..> gameConfig
 
+resetReducer ..> moveReducer
+resetReducer ..> boardReducer
+resetReducer ..> gameReducer
+resetReducer ..> boardIndexReducer
+
 namespace services {
     class SocketService {
         +startGame(config: gameConfig)
-    }
-
-    class StatisticsService {
-        +getStatistics()
     }
 }
 
@@ -280,19 +287,21 @@ namespace ReducersAndActionCreators {
         <<module>>
         moveReducer(state, action)
         newMove(move: MoveStatistics) newMove
+        resetMoves() resetMoves
     }
 
     class gameReducer {
         <<module>>
         gameReducer(state, action)
         newGame(gameConfig) newGame
-        endGame() endGame
+        resetGame() resetGame
     }
 
     class boardReducer {
         <<module>>
         boardReducer(state, action)
         newBoard(board: BoardProps) newBoard
+        resetBoards() resetBoards
     }
 
     class boardIndexReducer {
@@ -300,6 +309,10 @@ namespace ReducersAndActionCreators {
         nextBoard(state, action)
         previousBoard(state, action)
         newBoard(board: BoardProps) newBoard
+        resetBoardIndex() resetBoardIndex
+    }
+    
+    class resetReducer {
     }
 }
 
@@ -315,8 +328,6 @@ namespace Actions {
     class newGame {
         payload: gameConfig
     }
-
-    class endGame
 
     class nextBoard
 
