@@ -25,7 +25,7 @@ jobs:
           containerfiles: |
             ./Dockerfile
           build-args: |
-            MODE=${{ env.MODE }}
+            MODE=${{ vars.MODE }}
 
       - name: Push to Docker Hub
         uses: redhat-actions/push-to-registry@v2
