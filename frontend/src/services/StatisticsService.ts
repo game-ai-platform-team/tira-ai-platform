@@ -16,7 +16,7 @@ function getStatistics(
     moves: MoveStatistics[],
     color?: 0 | 1,
 ): Statistics | null {
-    moves = color ? filterByColor(moves, color) : moves;
+    moves = color != undefined? filterByColor(moves, color) : moves;
 
     if (moves.length === 0) {
         return null;
@@ -48,7 +48,7 @@ function getEvaluations(
     advantages: number[];
     moveClasses: string[];
 } {
-    moves = color ? filterByColor(moves, color) : moves;
+    moves = color != undefined? filterByColor(moves, color) : moves;
 
     const advantages = getAdvantages(moves);
     const moveClasses = getMoveClasses(advantages);

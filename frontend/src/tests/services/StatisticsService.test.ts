@@ -481,5 +481,36 @@ describe("StatisticsService", () => {
             const evaluations = statisticsService.getEvaluations(moves, true);
             expect(evaluations.moveClasses).length(0);
         });
+
+        test("Move class is calculated properly", () => {
+            const moves = [
+                { move: "a7a5", time: 100, logs: "", evaluation: 0.06},     //Excellent
+                { move: "a7a5", time: 100, logs: "", evaluation: 0},        //Great
+                { move: "g1f3", time: 300, logs: "", evaluation: 0 },       //Best
+                { move: "a2a4", time: 200, logs: "", evaluation: 0.025 },   //Good
+                { move: "a2a4", time: 200, logs: "", evaluation: -0.05 },   //Inaccuracy
+                { move: "a7a5", time: 100, logs: "", evaluation: 0},        //Good
+                { move: "g1f3", time: 300, logs: "", evaluation: -0.2 },    //Mistake
+                { move: "g1f3", time: 300, logs: "", evaluation: 0.5 },     //Blunder
+            ];
+            
+            const evaluations = statisticsService.getEvaluations(moves, true);
+            expect(evaluations.moveClasses).toEqual(['EXCELLENT', 'GREAT', 'BEST', 'GOOD', 'INACCURACY', 'GOOD', 'MISTAKE', 'BLUNDER' ]);
+        });
+
+        test("Filtering by color works", () => {
+            const moves = [
+                { move: "a7a5", time: 100, logs: "", evaluation: 0.06},     
+                { move: "a7a5", time: 100, logs: "", evaluation: 0},        
+                { move: "g1f3", time: 300, logs: "", evaluation: 0 },       
+                { move: "a2a4", time: 200, logs: "", evaluation: 0.025 },
+                { move: "a2a4", time: 200, logs: "", evaluation: 0.025 }   
+            ];
+            
+            const whiteEvaluations = statisticsService.getEvaluations(moves, false, 0);
+            const blackEvaluations = statisticsService.getEvaluations(moves, false, 1);
+            expect(whiteEvaluations.moveClasses.length).toEqual(3);
+            expect(blackEvaluations.moveClasses.length).toEqual(2);
+        });
     });
 });
