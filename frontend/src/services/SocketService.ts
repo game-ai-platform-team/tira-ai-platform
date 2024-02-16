@@ -6,8 +6,10 @@ import GameConfig from "../interfaces/GameConfig";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { nextBoard } from "../reducers/boardIndexReducer";
 
+const path = `${import.meta.env.BASE_URL}/socket.io`.replace("//", "/");
+
 export function startGame(config: GameConfig) {
-    const socket = io("/gameconnection", { path: "/ai-platform/socket.io" });
+    const socket = io("/gameconnection", { path });
     socket.connect();
 
     socket.on("newmove", (move: MoveStatistics) => {

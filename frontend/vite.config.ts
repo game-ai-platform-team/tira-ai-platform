@@ -29,7 +29,7 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            "/ai-platform/socket.io": {
+            "/socket.io": {
                 target: "http://127.0.0.1:5000",
                 changeOrigin: true,
                 ws: true,
