@@ -1,5 +1,7 @@
 FROM node:latest as node_build
 
+ARG MODE
+
 WORKDIR /frontend
 
 COPY frontend/package*.json ./
