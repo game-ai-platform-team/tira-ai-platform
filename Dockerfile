@@ -25,9 +25,9 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && mkdir -p $HOME/.config/pypoetry \
     && chown -R user:user $HOME \
     && chmod -R 755 $HOME \
-    && chgrp -R 0 /app \ 
+    && chgrp -R 0 /app \
     && chmod -R g=u /app \
-    && chgrp -R 0 /$HOME \ 
+    && chgrp -R 0 /$HOME \
     && chmod -R g=u /$HOME 
 
 RUN python3 -m poetry install --without dev
