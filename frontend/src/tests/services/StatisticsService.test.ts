@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
 import statisticsService from "../../services/StatisticsService";
+import MoveStatistics from "../../interfaces/MoveStatistics.ts";
 
 describe("StatisticsService", () => {
     describe("getStatistics", () => {
@@ -11,7 +12,7 @@ describe("StatisticsService", () => {
         test("returns null if only moves of color 1 is null", () => {
             const statistics = statisticsService.getStatistics(
                 [{ move: "aaa", time: 100, logs: "", evaluation: 0 }],
-                1,
+                1
             );
             expect(statistics).toBeNull();
         });
@@ -23,10 +24,10 @@ describe("StatisticsService", () => {
                         move: "aaa",
                         time: 100,
                         logs: "",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ],
-                0,
+                0
             );
 
             expect(statistics).not.toBeNull();
@@ -39,16 +40,16 @@ describe("StatisticsService", () => {
                         move: "aaa",
                         time: 100,
                         logs: "",
-                        evaluation: 0,
+                        evaluation: 0
                     },
                     {
                         move: "bbb",
                         time: 10,
                         logs: "logs of something",
-                        evaluation: 1,
-                    },
+                        evaluation: 1
+                    }
                 ],
-                1,
+                1
             );
 
             expect(statistics).not.toBeNull();
@@ -61,8 +62,8 @@ describe("StatisticsService", () => {
                         move: "d2d4",
                         time: 40,
                         logs: "",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ];
                 const statistics = statisticsService.getStatistics(moves);
                 expect(statistics?.longest.time).toBe(40);
@@ -73,8 +74,8 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 500,
                         logs: "sssss",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ];
 
                 const moves = longest.concat([
@@ -82,18 +83,18 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 10,
                         logs: "asdas",
-                        evaluation: 0,
+                        evaluation: 0
                     },
                     {
                         move: "e2f1",
                         time: 100,
                         logs: "bbbbb",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ]);
 
                 expect(longest).toContainEqual(
-                    statisticsService.getStatistics(moves)?.longest,
+                    statisticsService.getStatistics(moves)?.longest
                 );
             });
             test("if multiple longest", () => {
@@ -102,14 +103,14 @@ describe("StatisticsService", () => {
                         move: "e2f1",
                         time: 15,
                         logs: "bbbbb",
-                        evaluation: 0,
+                        evaluation: 0
                     },
                     {
                         move: "d2f7",
                         time: 15,
                         logs: "sssss",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ];
 
                 const moves = longest.concat([
@@ -117,12 +118,12 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 10,
                         logs: "asdas",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ]);
 
                 expect(longest).toContainEqual(
-                    statisticsService.getStatistics(moves)?.longest,
+                    statisticsService.getStatistics(moves)?.longest
                 );
             });
         });
@@ -134,12 +135,12 @@ describe("StatisticsService", () => {
                         move: "e2f1",
                         time: 1,
                         logs: "",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ];
 
                 expect(
-                    statisticsService.getStatistics(moves)?.shortest.time,
+                    statisticsService.getStatistics(moves)?.shortest.time
                 ).toBe(1);
             });
             test("if only one shortest", () => {
@@ -148,8 +149,8 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 5,
                         logs: "sssss",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ];
 
                 const moves = shortest.concat([
@@ -157,18 +158,18 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 10,
                         logs: "asdas",
-                        evaluation: 0,
+                        evaluation: 0
                     },
                     {
                         move: "e2f1",
                         time: 100,
                         logs: "bbbbb",
-                        evaluation: 0,
-                    },
+                        evaluation: 0
+                    }
                 ]);
 
                 expect(shortest).toContainEqual(
-                    statisticsService.getStatistics(moves)?.shortest,
+                    statisticsService.getStatistics(moves)?.shortest
                 );
             });
             test("if multiple shortest", () => {
@@ -177,14 +178,14 @@ describe("StatisticsService", () => {
                         move: "e2f1",
                         time: 5,
                         logs: "bbbbb",
-                        evaluation: -1,
+                        evaluation: -1
                     },
                     {
                         move: "d2f7",
                         time: 5,
                         logs: "sssss",
-                        evaluation: 0.8,
-                    },
+                        evaluation: 0.8
+                    }
                 ];
 
                 const moves = shortest.concat([
@@ -192,18 +193,18 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 10,
                         logs: "asdas",
-                        evaluation: 1,
+                        evaluation: 1
                     },
                     {
                         move: "d2f7",
                         time: 190,
                         logs: "aaaaa",
-                        evaluation: 0.6,
-                    },
+                        evaluation: 0.6
+                    }
                 ]);
 
                 expect(shortest).toContainEqual(
-                    statisticsService.getStatistics(moves)?.shortest,
+                    statisticsService.getStatistics(moves)?.shortest
                 );
             });
         });
@@ -215,12 +216,12 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 190,
                         logs: "aaaaa",
-                        evaluation: 0.6,
-                    },
+                        evaluation: 0.6
+                    }
                 ];
 
                 expect(statisticsService.getStatistics(moves)?.average).toBe(
-                    190,
+                    190
                 );
             });
 
@@ -230,23 +231,23 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 190,
                         logs: "aaaaa",
-                        evaluation: 0.6,
+                        evaluation: 0.6
                     },
                     {
                         move: "aaa",
                         time: 190,
                         logs: "aaaaa",
-                        evaluation: -0.6,
+                        evaluation: -0.6
                     },
                     {
                         move: "c2c7",
                         time: 190,
                         logs: "bbbb",
-                        evaluation: 0.5,
-                    },
+                        evaluation: 0.5
+                    }
                 ];
                 expect(
-                    statisticsService.getStatistics(moves)?.average,
+                    statisticsService.getStatistics(moves)?.average
                 ).toBeCloseTo(190, 2);
             });
 
@@ -256,29 +257,29 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 1,
                         logs: "aaaaa",
-                        evaluation: 0.62,
+                        evaluation: 0.62
                     },
                     {
                         move: "aaa",
                         time: 99,
                         logs: "aaaaa",
-                        evaluation: -0.6,
+                        evaluation: -0.6
                     },
                     {
                         move: "c2c7",
                         time: 200,
                         logs: "bbbb",
-                        evaluation: 0.34,
+                        evaluation: 0.34
                     },
                     {
                         move: "d8e8",
                         time: 10,
                         logs: "bbbb",
-                        evaluation: -0.5,
-                    },
+                        evaluation: -0.5
+                    }
                 ];
                 expect(
-                    statisticsService.getStatistics(moves)?.average,
+                    statisticsService.getStatistics(moves)?.average
                 ).toBeCloseTo(77.5, 2);
             });
 
@@ -288,23 +289,23 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 4,
                         logs: "aaaaa",
-                        evaluation: 0.62,
+                        evaluation: 0.62
                     },
                     {
                         move: "aaa",
                         time: 3,
                         logs: "aaaaa",
-                        evaluation: -0.6,
+                        evaluation: -0.6
                     },
                     {
                         move: "c2c7",
                         time: 3,
                         logs: "bbbb",
-                        evaluation: 0.34,
-                    },
+                        evaluation: 0.34
+                    }
                 ];
                 expect(
-                    statisticsService.getStatistics(moves)?.average,
+                    statisticsService.getStatistics(moves)?.average
                 ).toBeCloseTo(3.33, 2);
             });
         });
@@ -316,11 +317,11 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 4,
                         logs: "aaaaa",
-                        evaluation: 0.62,
-                    },
+                        evaluation: 0.62
+                    }
                 ];
                 expect(statisticsService.getStatistics(moves)?.times).toEqual([
-                    4,
+                    4
                 ]);
             });
 
@@ -330,29 +331,29 @@ describe("StatisticsService", () => {
                         move: "d2f7",
                         time: 4,
                         logs: "aaaaa",
-                        evaluation: 0.62,
+                        evaluation: 0.62
                     },
                     {
                         move: "aaa",
                         time: 100,
                         logs: "aaaaa",
-                        evaluation: -0.6,
+                        evaluation: -0.6
                     },
                     {
                         move: "c2c7",
                         time: 200,
                         logs: "bbbb",
-                        evaluation: 0.34,
+                        evaluation: 0.34
                     },
                     {
                         move: "c2c7",
                         time: 99,
                         logs: "bbbb",
-                        evaluation: 0.34,
-                    },
+                        evaluation: 0.34
+                    }
                 ];
                 expect(statisticsService.getStatistics(moves)?.times).toEqual([
-                    4, 100, 200, 99,
+                    4, 100, 200, 99
                 ]);
             });
         });
@@ -361,31 +362,31 @@ describe("StatisticsService", () => {
         const moves = [
             { move: "a2a4", time: 200, logs: "", evaluation: 1 },
             { move: "a7a5", time: 100, logs: "", evaluation: 1 },
-            { move: "g1f3", time: 300, logs: "", evaluation: 0.6 },
+            { move: "g1f3", time: 300, logs: "", evaluation: 0.6 }
         ];
 
         describe("without optional parameters", () => {
             test("white name is ?", () => {
                 expect(statisticsService.uciToPGN(moves)).toContain(
-                    '[White "?"]',
+                    "[White \"?\"]"
                 );
             });
 
             test("black name is ?", () => {
                 expect(statisticsService.uciToPGN(moves)).toContain(
-                    '[Black "?"]',
+                    "[Black \"?\"]"
                 );
             });
 
             test("white elo is empty", () => {
                 expect(statisticsService.uciToPGN(moves)).not.toContain(
-                    "WhiteElo",
+                    "WhiteElo"
                 );
             });
 
             test("black elo is empty", () => {
                 expect(statisticsService.uciToPGN(moves)).not.toContain(
-                    "BlackElo",
+                    "BlackElo"
                 );
             });
         });
@@ -393,14 +394,14 @@ describe("StatisticsService", () => {
         describe("with optional parameters", () => {
             test("white name is correct", () => {
                 expect(
-                    statisticsService.uciToPGN(moves, "NameOfWhite"),
-                ).toContain('[White "NameOfWhite"]');
+                    statisticsService.uciToPGN(moves, "NameOfWhite")
+                ).toContain("[White \"NameOfWhite\"]");
             });
 
             test("black name is ?", () => {
                 expect(
-                    statisticsService.uciToPGN(moves, undefined, "NameOfBlack"),
-                ).toContain('[Black "NameOfBlack"]');
+                    statisticsService.uciToPGN(moves, undefined, "NameOfBlack")
+                ).toContain("[Black \"NameOfBlack\"]");
             });
 
             test("white elo is not empty", () => {
@@ -409,9 +410,9 @@ describe("StatisticsService", () => {
                         moves,
                         undefined,
                         undefined,
-                        1500,
-                    ),
-                ).toContain('[WhiteElo "1500"]');
+                        1500
+                    )
+                ).toContain("[WhiteElo \"1500\"]");
             });
 
             test("black elo is not empty", () => {
@@ -421,18 +422,61 @@ describe("StatisticsService", () => {
                         undefined,
                         undefined,
                         undefined,
-                        1300,
-                    ),
-                ).toContain('[BlackElo "1300"]');
+                        1300
+                    )
+                ).toContain("[BlackElo \"1300\"]");
             });
             test("pgn list has a correct move listed", () => {
                 expect(statisticsService.uciToPGN(moves)).toContain("1. a4");
             });
             test("pgn list has correct moves listed", () => {
                 expect(statisticsService.uciToPGN(moves)).toContain(
-                    "1. a4 a5 2. Nf3",
+                    "1. a4 a5 2. Nf3"
                 );
             });
         });
+    });
+    describe("getEvaluations", () => {
+        test("advantages is correct if multiple moves", () => {
+            const moves = [
+                { move: "a2a4", time: 200, logs: "", evaluation: 1 },
+                { move: "a7a5", time: 100, logs: "", evaluation: 1 },
+                { move: "g1f3", time: 300, logs: "", evaluation: 0.6 }
+            ];
+
+            const evaluations = statisticsService.getEvaluations(moves, true);
+            expect(evaluations.advantages).toEqual([0.066, 1, 1, 0.6]);
+
+        });
+
+        test("advantages is correct no moves", () => {
+            const moves: MoveStatistics[] = [];
+
+            const evaluations = statisticsService.getEvaluations(moves, true);
+            expect(evaluations.advantages).toEqual([0.066]);
+
+        });
+        test("move classes is correct if multiple moves", () => {
+            const moves = [
+                { move: "a2a4", time: 200, logs: "", evaluation: 1 },
+                { move: "a7a5", time: 100, logs: "", evaluation: 1 },
+                { move: "g1f3", time: 300, logs: "", evaluation: 0.6 }
+            ];
+
+            const evaluations = statisticsService.getEvaluations(moves, true);
+            for (const moveClass of evaluations.moveClasses) {
+                expect(moveClass).oneOf(["GREAT", "BEST", "EXCELLENT", "GOOD", "INACCURACY", "MISTAKE", "BLUNDER"]);
+            }
+
+        });
+
+        test("move classes is correct no moves", () => {
+            const moves: MoveStatistics[] = [];
+
+            const evaluations = statisticsService.getEvaluations(moves, true);
+            expect(evaluations.moveClasses).length(0);
+        });
+
+
     });
 });
