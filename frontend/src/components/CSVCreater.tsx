@@ -5,9 +5,7 @@ interface CSVCreaterProps {
     moves: MoveStatistics[] | null;
 }
 
-const CSVCreater: React.FC<CSVCreaterProps> = ({
-    moves
-}) => {
+const CSVCreater: React.FC<CSVCreaterProps> = ({ moves }) => {
     const [includeAdvantages, setIncludeAdvantages] = useState(true);
     const [includeTimes, setIncludeTimes] = useState(true);
     const [includeWhite, setIncludeWhite] = useState(true);
@@ -30,10 +28,10 @@ const CSVCreater: React.FC<CSVCreaterProps> = ({
 
         moves.forEach(() => {
             if (index % 2 == 1 && includeWhite) {
-                csv += ConvertTurnToCSV((index));
+                csv += ConvertTurnToCSV(index);
             }
             if (index % 2 == 0 && includeBlack) {
-                csv += ConvertTurnToCSV((index));
+                csv += ConvertTurnToCSV(index);
             }
             index++;
         });
@@ -44,8 +42,8 @@ const CSVCreater: React.FC<CSVCreaterProps> = ({
     const ConvertTurnToCSV = (i: number) => {
         let moveAsText = "";
 
-        moveAsText+=`${moves[i].move },`;
-        
+        moveAsText += `${moves[i].move},`;
+
         if (includeAdvantages) {
             moveAsText += `${moves[i].evaluation || "0"},`;
         }
