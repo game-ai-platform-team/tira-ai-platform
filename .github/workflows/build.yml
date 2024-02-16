@@ -24,7 +24,7 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tira-app:latest
           containerfiles: |
             ./Dockerfile
-          envs: |
+          build-args: |
             MODE=${{ vars.MODE }}
 
       - name: Push to Docker Hub
