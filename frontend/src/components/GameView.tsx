@@ -34,13 +34,17 @@ function GameView({ children }: { children: ReactNode }) {
 
     return (
         <div id="game-view">
-            <SubmitForm />
+            <div className="card">
+                <SubmitForm />
+            </div>
             {children}
             <AdvantageBar linePosition={evals.advantages.at(moveIndex)} />
 
-            <MoveList handleCopyPGN={handleCopyPGN} />
+            <div className="card">
+                <MoveList handleCopyPGN={handleCopyPGN} />
+            </div>
 
-            <div id="statistics">
+            <div id="statistics" className="card">
                 <AdvantageChart data={evals.advantages} />
                 {stats && <TimeChart data={stats.times} />}
             </div>
