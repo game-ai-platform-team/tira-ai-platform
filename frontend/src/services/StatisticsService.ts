@@ -97,65 +97,61 @@ function getAdvantages(moves: MoveStatistics[]): number[] {
     return advantages;
 }
 
-function getMoveClasses(advantages: number[]): string[] {
+type AdvantageArray = number[];
+
+function getMoveClasses(advantages: AdvantageArray): string[] {
     const moveClasses: string[] = [];
 
     for (let i = 0; i < advantages.length; i++) {
-        const thisAdvantage = advantages[i];
-        let increasing: boolean = false;
-        let mult: number = 1;
-        let prevAdvantage: number = 0;
-        let change: number = 0;
+        const thisAdvantage: number = advantages[i];
+        const prevAdvantage: number = getPreviousAdvantage(i, advantages, STARTING_ADVANTAGE);
+        const change: number = Math.abs(prevAdvantage - thisAdvantage);
+        const increasing: boolean = isAdvantageIncreasing(i, thisAdvantage, prevAdvantage);
+        const mult: number = calculateMultiplier(thisAdvantage);
 
-        if (i > 0) {
-            prevAdvantage = advantages[i - 1];
+        if (isGreatMove(i, increasing)) {
+            moveClasses.push("GREAT");
         } else {
-            prevAdvantage = STARTING_ADVANTAGE;
-        }
-
-        change = Math.abs(prevAdvantage - thisAdvantage);
-
-        if (prevAdvantage < thisAdvantage) {
-            increasing = true;
-        }
-
-        if (Math.abs(thisAdvantage) > 0.8) {
-            mult = 0.1;
-        } else if (Math.abs(thisAdvantage) > 0.5) {
-            mult = 0.5;
-        } else {
-            mult = 1;
-        }
-
-        switch (true) {
-            case (i % 2 == 0 && increasing) || (i % 2 != 0 && !increasing):
-                moveClasses.push("GREAT");
-                break;
-            default:
-                switch (true) {
-                    case change <= 0:
-                        moveClasses.push("BEST");
-                        break;
-                    case change <= 0.02 * mult:
-                        moveClasses.push("EXCELLENT");
-                        break;
-                    case change <= 0.05 * mult:
-                        moveClasses.push("GOOD");
-                        break;
-                    case change <= 0.1 * mult:
-                        moveClasses.push("INACCURACY");
-                        break;
-                    case change <= 0.2 * mult:
-                        moveClasses.push("MISTAKE");
-                        break;
-                    default:
-                        moveClasses.push("BLUNDER");
-                }
+            moveClasses.push(getMoveClass(change, mult));
         }
     }
 
     return moveClasses;
 }
+
+function getPreviousAdvantage(index: number, advantages: AdvantageArray, startingAdvantage: number): number {
+    return index > 0 ? advantages[index - 1] : startingAdvantage;
+}
+
+function isAdvantageIncreasing(_: number, thisAdvantage: number, prevAdvantage: number): boolean {
+    return thisAdvantage > prevAdvantage;
+}
+
+function calculateMultiplier(thisAdvantage: number): number {
+    return Math.abs(thisAdvantage) > 0.8 ? 0.1 : (Math.abs(thisAdvantage) > 0.5 ? 0.5 : 1);
+}
+
+function isGreatMove(index: number, increasing: boolean): boolean {
+    return (index % 2 === 0 && increasing) || (index % 2 !== 0 && !increasing);
+}
+
+function getMoveClass(change: number, mult: number): string {
+    if (change <= 0) {
+        return "BEST";
+    } else if (change <= 0.02 * mult) {
+        return "EXCELLENT";
+    } else if (change <= 0.05 * mult) {
+        return "GOOD";
+    } else if (change <= 0.1 * mult) {
+        return "INACCURACY";
+    } else if (change <= 0.2 * mult) {
+        return "MISTAKE";
+    } else {
+        return "BLUNDER";
+    }
+}
+
+
 
 export default {
     getStatistics,
