@@ -7,7 +7,7 @@ export const CustomTooltip = ({
     label,
 }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
-        const emoji = label % 2 === 0 ? "⚫" : "⚪";
+        const emoji = label === 0 ? "🔴" : label % 2 === 0 ? "⚫" : "⚪";
         return (
             <div className="custom-tooltip">
                 <p className="label">{`${label} ${emoji} : ${payload[0].value}`}</p>
