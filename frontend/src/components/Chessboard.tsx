@@ -47,7 +47,9 @@ const Chessboard = () => {
         setSelectedTheme(event.target.value);
     };
 
-    const handlePiecesetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const handlePiecesetChange = (
+        event: React.ChangeEvent<HTMLSelectElement>,
+    ) => {
         setSelectedPieceset(event.target.value);
     };
 
@@ -87,12 +89,17 @@ const Chessboard = () => {
                         </option>
                     ))}
                 </select>
-                <select value={selectedPieceset} onChange={handlePiecesetChange}>
-                    {Object.keys(KokopuChessboard.piecesets()).map((pieceset) => (
-                        <option key={pieceset} value={pieceset}>
-                            {pieceset}
-                        </option>
-                    ))}
+                <select
+                    value={selectedPieceset}
+                    onChange={handlePiecesetChange}
+                >
+                    {Object.keys(KokopuChessboard.piecesets()).map(
+                        (pieceset) => (
+                            <option key={pieceset} value={pieceset}>
+                                {pieceset}
+                            </option>
+                        ),
+                    )}
                 </select>
             </div>
         </div>
