@@ -6,8 +6,7 @@ from services.api import api
 
 app = Flask("game-ai-testing-platform")
 app.config["SECRET_KEY"] = "secret!"
-socketio = SocketIO(app)
-socketio.init_app(app, cors_allowed_origins="*")
+socketio = SocketIO(app, path="/ai-platform/socket.io", cors_allowed_origins="*")
 
 CORS(app)
 
