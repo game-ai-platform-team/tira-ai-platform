@@ -7,6 +7,8 @@ import {
     CartesianGrid,
     Tooltip,
 } from "recharts";
+import "../scss/CustomTooltip.scss";
+import { CustomTooltip } from "./CustomTooltip";
 
 interface AdvantageChartProps {
     data: number[];
@@ -19,13 +21,18 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
             height={400}
             data={data.map((value, index) => ({ value, index }))}
             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+            onClick={(data) => {
+                // Set chessboard active move to data.activeLabel
+                console.log(data.activeLabel);
+            }}
         >
             <YAxis ticks={[-1, 0, 1]} />
             <XAxis />
-            <Tooltip />
+            <Tooltip cursor={{ stroke: "red" }} content={<CustomTooltip />} />
             <CartesianGrid stroke="#f5f5f5" />
             <Line
-                type="monotone"
+                animationDuration={0}
+                type="linear"
                 dataKey="value"
                 stroke="#b5876b"
                 dot={({ cx, cy, index }) => {

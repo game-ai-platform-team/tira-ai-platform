@@ -7,16 +7,17 @@ import {
     CartesianGrid,
     Tooltip,
 } from "recharts";
+import { CustomTooltip } from "./CustomTooltip";
 
 interface LineChartProps {
     data: number[];
 }
 
 const TimeChart: React.FC<LineChartProps> = ({ data }) => {
-    const chartData = data.map((value, index) => ({
-        turn: index,
+    const chartData = [{ turn: 0, w_time: undefined, b_time: undefined }, ...data.map((value, index) => ({
+        turn: index + 1,
         [index % 2 === 0 ? "w_time" : "b_time"]: value,
-    }));
+    }))];
 
     return (
         <LineChart
@@ -27,18 +28,20 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
         >
             <XAxis dataKey="turn" />
             <YAxis />
-            <Tooltip />
+            <Tooltip cursor={{ stroke: "red" }} content={<CustomTooltip/>} />
             <CartesianGrid stroke="#f5f5f5" />
             <Line
+                animationDuration={0}
                 connectNulls
-                type="monotone"
+                type="linear"
                 dataKey="w_time"
                 stroke="#d6baa9"
                 fill="white"
             />
             <Line
+                animationDuration={0}
                 connectNulls
-                type="monotone"
+                type="linear"
                 dataKey="b_time"
                 stroke="#706056"
                 fill="black"
