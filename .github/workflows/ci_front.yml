@@ -25,7 +25,6 @@ jobs:
 
   Format:
     runs-on: ubuntu-latest
-    needs: Unit_test
 
     permissions:
       contents: write
