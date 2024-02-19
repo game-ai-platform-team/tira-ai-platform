@@ -9,12 +9,18 @@ import {
 } from "recharts";
 import "../scss/CustomTooltip.scss";
 import { CustomTooltip } from "./CustomTooltip";
+import { setBoardIndex } from "../reducers/boardIndexReducer";
+import store from "../store";
 
 interface AdvantageChartProps {
     data: number[];
 }
 
 const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
+    const handleChartClick = (move: string) => {
+        store.dispatch(setBoardIndex(move))
+    }
+
     return (
         <div>
             <h2 className="card-header">Advantage Chart</h2>
@@ -24,8 +30,9 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
                 data={data.map((value, index) => ({ value, index }))}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                 onClick={(data) => {
-                    // Set chessboard active move to data.activeLabel
-                    console.log(data.activeLabel);
+                    if (data.activeLabel !== undefined) {
+                        handleChartClick(data.activeLabel)
+                    }
                 }}
             >
                 <CartesianGrid stroke="#f5f5f5" />
