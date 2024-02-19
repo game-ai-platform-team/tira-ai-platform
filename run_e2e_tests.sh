@@ -2,7 +2,7 @@
 
 cd frontend
 
-npm run build
+pnpm run build
 
 cd ..
 
@@ -18,7 +18,7 @@ cd ..
 
 cd frontend
 
-npm run test:e2e
+pnpm run test:e2e
 
 status=$?
 
