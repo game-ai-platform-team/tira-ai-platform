@@ -12,10 +12,10 @@ class Player:
         self.__path = path
         self.__timeout = timeout
         self.__process = subprocess.Popen(
-            args = ["python3", str(self.__path)],
-            stdin = subprocess.PIPE,
-            stdout = subprocess.PIPE,
-            stderr = subprocess.PIPE,
+            args=["python3", str(self.__path)],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
         )
         self.__turn_logger = PlayerLogger()
         self.__all_logger = PlayerLogger()
