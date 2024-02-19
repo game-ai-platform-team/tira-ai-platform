@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/workflows/setup-node
 
       - name: Run unit tests
-        run: npm run coverage
+        run: pnpm run coverage
 
       - name: Upload coverage report artifact
         uses: actions/upload-artifact@v4
@@ -43,10 +43,10 @@ jobs:
         uses: ./.github/workflows/setup-node
 
       - name: Format code
-        run: npm run format
+        run: pnpm run format
 
       - name: Fix lint issues
-        run: npm run lint:fix
+        run: pnpm run lint:fix
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -64,4 +64,4 @@ jobs:
         uses: ./.github/workflows/setup-node
 
       - name: Run lint
-        run: npm run lint
+        run: pnpm run lint
