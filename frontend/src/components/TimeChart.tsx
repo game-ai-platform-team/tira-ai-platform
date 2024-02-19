@@ -8,6 +8,7 @@ import {
     Tooltip,
     ReferenceLine,
 } from "recharts";
+import "../scss/CustomTooltip.scss";
 import { CustomTooltip } from "./CustomTooltip";
 import { setBoardIndex } from "../reducers/boardIndexReducer";
 import store from "../store";
@@ -53,6 +54,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
                     cursor={{ stroke: "red" }}
                     content={<CustomTooltip />}
                 />
+                <ReferenceLine x={referenceIndex} stroke="#FF9999"/>
                 <Line
                     animationDuration={0}
                     connectNulls
@@ -69,7 +71,6 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
                     stroke="#706056"
                     fill="black"
                 />
-                <ReferenceLine x={referenceIndex} stroke="#FF9999" />
             </LineChart>
         </div>
     );
