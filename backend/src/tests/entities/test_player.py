@@ -1,8 +1,8 @@
 import unittest
 from pathlib import Path
 
-from entities.player import Player
 from entities.cloned_repository import ClonedRepository
+from entities.player import Player
 
 
 class TestPlayer(unittest.TestCase):
