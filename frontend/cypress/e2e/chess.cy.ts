@@ -61,6 +61,6 @@ describe("Chess game", function () {
 
         cy.wait(5000);
         cy.get("#download-csv").click();
-        cy.readFile("cypress/downloads/statistics.csv")
+        cy.readFile("cypress/downloads/statistics.csv");
     });
 });

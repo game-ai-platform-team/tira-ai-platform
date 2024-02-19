@@ -11,8 +11,8 @@ const store = configureStore({
         game: gameReducer,
         boards: boardReducer,
         boardIndex: boardIndexReducer,
-        allLog: allLogReducer
-    }
+        allLog: allLogReducer,
+    },
 });
 
 export default store;

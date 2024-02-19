@@ -9,8 +9,8 @@ const allLogSlice = createSlice({
         },
         resetAlLLog() {
             return "0";
-        }
-    }
+        },
+    },
 });
 
 export default allLogSlice.reducer;
