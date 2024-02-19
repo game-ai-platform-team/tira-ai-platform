@@ -2,6 +2,8 @@
 
 cd frontend
 
+pnpm cypress install
+
 pnpm run build
 
 cd ..
