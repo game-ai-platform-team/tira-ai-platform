@@ -4,14 +4,14 @@ env:
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ github.token }}
-  APP_NAME: ai-platform
+  APP_NAME: nationalparks
   IMAGE_TAGS: latest ${{ github.sha }}
 
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   OPENSHIFT_NAMESPACE: "%PROJECT%"
 
-  APP_PORT: "5000"
+  APP_PORT: "8080"
 
 on:
   workflow_run:
