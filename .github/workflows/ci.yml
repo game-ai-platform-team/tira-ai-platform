@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [dev]
+  workflow_dispatch:
+
+jobs:
+  ci_frontend:
+    name: CI (front-end)
+    permissions:
+      contents: write
+
+    uses: ./.github/workflows/ci_frontend.yml
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  ci_backend:
+    name: CI (back-end)
+    permissions:
+      contents: write
+
+    uses: ./.github/workflows/ci_backend.yml
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  e2e_test:
+    name: End-to-end test
+
+    uses: ./.github/workflows/e2e_test.yml

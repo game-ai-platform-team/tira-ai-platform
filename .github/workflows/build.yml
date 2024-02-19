@@ -2,14 +2,19 @@ name: Build
 
 on:
   workflow_run:
-    workflows: ["CI (frontend)", "CI (backend)"]
+    workflows: [CI]
     types:
       - completed
     branches: [dev]
   workflow_dispatch:
 
+concurrency:
+  group: build
+  cancel-in-progress: true
+
 jobs:
   Build_staging:
+    name: Build (staging)
     runs-on: ubuntu-latest
     environment: staging
 
