@@ -21,7 +21,9 @@ describe("Chess game", function () {
         cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
-        cy.get("#url-field").type("https://github.com/game-ai-platform-team/stupid-chess-ai.git")
+        cy.get("#url-field").type(
+            "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
+        );
         cy.get("#submit-button").click();
 
         cy.wait(10000);
@@ -37,7 +39,9 @@ describe("Chess game", function () {
         cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
-        cy.get("#url-field").type("https://github.com/game-ai-platform-team/stupid-chess-ai.git")
+        cy.get("#url-field").type(
+            "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
+        );
 
         cy.get("#submit-button").click();
 
@@ -51,7 +55,9 @@ describe("Chess game", function () {
         cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
-        cy.get("#url-field").type("https://github.com/game-ai-platform-team/stupid-chess-ai.git")
+        cy.get("#url-field").type(
+            "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
+        );
 
         cy.get("#submit-button").click();
 
