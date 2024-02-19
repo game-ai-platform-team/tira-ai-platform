@@ -13,7 +13,7 @@ CORS(app)
 
 @socketio.on("startgame", namespace="/gameconnection")
 def io_post_code(data):
-    api.start(data["file"], data["elo"], socketio, request.sid)
+    api.start(data["githubUrl"], data["elo"], socketio, request.sid)
 
 
 @app.route("/ping")

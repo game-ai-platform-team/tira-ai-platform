@@ -9,6 +9,8 @@ function SubmitForm(): JSX.Element {
     const [elo, setElo] = useState<number>(1350);
     const [games, setGames] = useState<number>(1);
 
+    const [githubUrl, setGithubUrl] = useState<string>("");
+
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setFile(e.target.files[0]);
@@ -45,7 +47,18 @@ function SubmitForm(): JSX.Element {
         if (file && elo && !store.getState().game.isGameRunning) {
             const gameConfig: GameConfig = {
                 elo,
-                file: await file.text(),
+                file: await file.text()
+            };
+            store.dispatch(newGame(gameConfig));
+        }
+    };
+
+    const onSubmitGithub = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        if (githubUrl && elo && !store.getState().game.isGameRunning) {
+            const gameConfig: GameConfig = {
+                elo,
+                githubUrl
             };
             store.dispatch(newGame(gameConfig));
         }
@@ -102,6 +115,12 @@ function SubmitForm(): JSX.Element {
                 <button id="submit-button" type="submit">
                     Submit
                 </button>
+            </form>
+
+
+            <form id="github-submit-form" onSubmit={onSubmitGithub}>
+                <input type="url" value={githubUrl} onChange={event => setGithubUrl(event.target.value)} />
+                <button type="submit"> Submit</button>
             </form>
         </div>
     );

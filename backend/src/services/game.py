@@ -20,7 +20,7 @@ class Game:
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
-    def play(self, turns: int = 250, debug: bool = False) -> dict[str, Any]:
+    def play(self, turns: int = 250, debug: bool = False):
         """
         Starts a game and return result as dict.
 
