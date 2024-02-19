@@ -55,7 +55,7 @@ const Chessboard = () => {
 
     return (
         <div id="chessboard" className="card">
-            <h2 id="chessboard-header">Player1 vs Player2</h2>
+            <h2 id="card-header">Player1 vs Player2</h2>
             <KokopuChessboard
                 position={boards[currentMove]}
                 squareSize={60}
