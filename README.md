@@ -1,5 +1,4 @@
-[![Backend Passing Tests](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci_back.yml/badge.svg)](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci_back.yml)
-[![Frontend Passing Tests](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci_front.yml/badge.svg)](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci_front.yml)
+[![CI](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/game-ai-platform-team/tira-ai-platform/graph/badge.svg?token=1X0SYPT0QS)](https://codecov.io/gh/game-ai-platform-team/tira-ai-platform)
 
 # tira-ai-platform
