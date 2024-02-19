@@ -18,8 +18,8 @@ interface AdvantageChartProps {
 
 const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
     const handleChartClick = (move: string) => {
-        store.dispatch(setBoardIndex(move))
-    }
+        store.dispatch(setBoardIndex(move));
+    };
 
     return (
         <div>
@@ -31,7 +31,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                 onClick={(data) => {
                     if (data.activeLabel !== undefined) {
-                        handleChartClick(data.activeLabel)
+                        handleChartClick(data.activeLabel);
                     }
                 }}
             >
