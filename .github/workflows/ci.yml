@@ -1,0 +1,10 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ci_frontend:
+    uses: ./.github/workflows/ci_front.yml
+  ci_backend:
+    uses: ./.github/workflows/ci_back.yml
