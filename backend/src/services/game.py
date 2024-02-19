@@ -10,11 +10,11 @@ from services.socket_io_service import SocketIOService
 
 class Game:
     def __init__(
-        self,
-        socketio_service: SocketIOService,
-        player1: Player,
-        player2: Player,
-        judge: Judge,
+            self,
+            socketio_service: SocketIOService,
+            player1: Player,
+            player2: Player,
+            judge: Judge,
     ) -> None:
         self.__socketio_service: SocketIOService = socketio_service
         self.__players: list[Player] = [player1, player2]
@@ -33,7 +33,6 @@ class Game:
         """
         previous_move = ""
         state = None
-        previous_player = None
 
         for i in range(turns):
             player = self.__players[i % 2]
@@ -59,7 +58,6 @@ class Game:
 
             self.__send_state(move_object)
 
-            previous_player = player
             previous_move = move
 
             if debug:
