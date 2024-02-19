@@ -11,9 +11,9 @@ export const CustomTooltip = ({
     label,
 }: TooltipProps<ValueType, NameType>) => {
     const moves = useAppSelector((state) => state.moves);
-    const moveLabel =
-        label == 0 ? "START" : moves && moves[Math.max(label - 1, 0)].move;
     if (active && payload && payload.length) {
+        const moveLabel =
+            label === 0 ? "START" : moves && moves[Math.max(label - 1, 0)].move;
         const emoji = label === 0 ? "🔴" : label % 2 === 0 ? "⚫" : "⚪";
         return (
             <div className="custom-tooltip">
