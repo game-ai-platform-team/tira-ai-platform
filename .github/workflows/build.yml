@@ -10,6 +10,7 @@ on:
 
 jobs:
   Build_staging:
+    name: Build (staging)
     runs-on: ubuntu-latest
     environment: staging
 

@@ -8,11 +8,13 @@ on:
 
 jobs:
   ci_frontend:
+    name: CI (front-end)
     permissions:
       contents: write
 
     uses: ./.github/workflows/ci/ci_frontend.yml
   ci_backend:
+    name: CI (back-end)
     permissions:
       contents: write
 
