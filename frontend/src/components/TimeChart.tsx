@@ -6,16 +6,20 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
+    ReferenceLine,
 } from "recharts";
 import { CustomTooltip } from "./CustomTooltip";
 import { setBoardIndex } from "../reducers/boardIndexReducer";
 import store from "../store";
+import { useAppSelector } from "../hook";
 
 interface LineChartProps {
     data: number[];
 }
 
 const TimeChart: React.FC<LineChartProps> = ({ data }) => {
+    const referenceIndex = useAppSelector((state) => state.boardIndex);
+
     const handleChartClick = (move: string) => {
         store.dispatch(setBoardIndex(move));
     };
@@ -32,7 +36,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
         <div>
             <h2 className="card-header">Time Chart</h2>
             <LineChart
-                width={800}
+                width={1200}
                 height={400}
                 data={chartData}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
@@ -65,6 +69,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
                     stroke="#706056"
                     fill="black"
                 />
+                <ReferenceLine x={referenceIndex} stroke="#FF9999"/>
             </LineChart>
         </div>
     );

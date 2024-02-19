@@ -6,17 +6,21 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
+    ReferenceLine,
 } from "recharts";
 import "../scss/CustomTooltip.scss";
 import { CustomTooltip } from "./CustomTooltip";
 import { setBoardIndex } from "../reducers/boardIndexReducer";
 import store from "../store";
+import { useAppSelector } from "../hook";
 
 interface AdvantageChartProps {
     data: number[];
 }
 
 const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
+    const referenceIndex = useAppSelector((state) => state.boardIndex);
+
     const handleChartClick = (move: string) => {
         store.dispatch(setBoardIndex(move));
     };
@@ -25,7 +29,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
         <div>
             <h2 className="card-header">Advantage Chart</h2>
             <LineChart
-                width={800}
+                width={1200}
                 height={400}
                 data={data.map((value, index) => ({ value, index }))}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
@@ -65,6 +69,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
                         );
                     }}
                 />
+                <ReferenceLine x={referenceIndex} stroke="#FF9999"/>
             </LineChart>
         </div>
     );
