@@ -1,93 +1,74 @@
 import React, { ChangeEvent, useState } from "react";
-import "./SubmitForm.css";
-import { GameConnection } from "../services/GameConnection.ts";
+import "../scss/SubmitForm.scss";
+import store from "../store";
+import { newGame } from "../reducers/gameReducer";
+import GameConfig from "../interfaces/GameConfig";
 
-interface SubmitFormProps {
-    gameConnection?: GameConnection;
-    hasGameStarted: boolean;
-    setHasGameStarted: (val: boolean) => void;
-}
+function SubmitForm(): JSX.Element {
+    const [elo, setElo] = useState<number>(1350);
+    const [games, setGames] = useState<number>(1);
 
-function SubmitForm(props: SubmitFormProps): JSX.Element {
-    const [file, setFile] = useState<File | null>(null);
-    const [difficulty, setDifficulty] = useState<number>(1);
-
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setFile(e.target.files[0]);
-        }
-    };
-
-    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-    };
-
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
-
-        if (e.dataTransfer.items) {
-            const droppedFile = e.dataTransfer.items[0].getAsFile();
-            if (droppedFile) {
-                setFile(droppedFile);
-            }
-        }
-    };
-
-    const handleDifficultyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const [githubUrl, setGithubUrl] = useState<string>("");
+    const handleEloChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value, 10);
-        setDifficulty(value);
+        setElo(value);
     };
 
-    const onSubmit = async (e: React.SyntheticEvent) => {
+    const handleGamesChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        setGames(value);
+    };
+
+    const onSubmitGithub = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        if (
-            file &&
-            difficulty &&
-            props.gameConnection &&
-            props.gameConnection.isConnected() &&
-            !props.hasGameStarted
-        ) {
-            props.gameConnection.postcode(await file.text(), difficulty);
-            props.setHasGameStarted(true);
+        if (githubUrl && elo && !store.getState().game.isGameRunning) {
+            const gameConfig: GameConfig = {
+                elo,
+                githubUrl,
+            };
+            store.dispatch(newGame(gameConfig));
         }
     };
 
     return (
         <div id="drag-and-drop-container">
-            <div id="submit-header">Upload your file</div>
-            <div
-                id="drag-and-drop-area"
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-                onClick={() => document.getElementById("file-input")?.click()}
-            >
-                <label htmlFor="file-input">
-                    Drag & Drop or Click to Upload:
-                </label>
+            <h2 className="card-header">Upload your file</h2>
+
+            <div id="config-slider">
+                <label htmlFor="elo-slider">Select Stockfish Elo:</label>
                 <input
-                    id="file-input"
-                    type="file"
-                    accept=".py, application/x-python-code"
-                    onChange={handleFileChange}
-                />
-                {file && <p>File Name: {file.name}</p>}
-            </div>
-            <div id="difficulty-config">
-                <label htmlFor="difficulty-slider">
-                    Select Stockfish Difficulty:
-                </label>
-                <input
-                    id="difficulty-slider"
+                    id="elo-slider"
                     type="range"
-                    min={0}
-                    max={20}
-                    value={difficulty}
-                    onChange={handleDifficultyChange}
+                    min={1}
+                    max={4000}
+                    value={elo}
+                    onChange={handleEloChange}
                 />
-                <p>Difficulty: {difficulty}</p>
+                <p>Elo: {elo}</p>
             </div>
-            <form id="submit-form" onSubmit={onSubmit}>
-                <button id="submit-button" type="submit">
+            <div id="config-slider">
+                <label htmlFor="game-slider">
+                    Select How Many Games To Play:
+                </label>
+                <input
+                    id="game-slider"
+                    type="range"
+                    min={1}
+                    max={10}
+                    value={games}
+                    onChange={handleGamesChange}
+                />
+                <p>Games: {games}</p>
+            </div>
+            <form id="github-submit-form" onSubmit={onSubmitGithub}>
+                <input
+                    id="url-field"
+                    type="url"
+                    value={githubUrl}
+                    onChange={(event) => setGithubUrl(event.target.value)}
+                />
+                <button type="submit" id="submit-button">
+                    {" "}
                     Submit
                 </button>
             </form>

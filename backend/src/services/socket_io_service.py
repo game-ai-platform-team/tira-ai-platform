@@ -15,3 +15,6 @@ class SocketIOService:
             namespace="/gameconnection",
             to=self.sid,
         )
+
+    def send_final_state(self, param):
+        self.socketio.emit("final", param, namespace="/gameconnection", to=self.sid)

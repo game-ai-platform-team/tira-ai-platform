@@ -1,99 +1,77 @@
 import React from "react";
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    ReferenceLine,
+} from "recharts";
+import "../scss/CustomTooltip.scss";
+import { CustomTooltip } from "./CustomTooltip";
+import { setBoardIndex } from "../reducers/boardIndexReducer";
+import store from "../store";
+import { useAppSelector } from "../hook";
 
-interface LineChartProps {
+interface AdvantageChartProps {
     data: number[];
 }
 
-const AdvantageChart: React.FC<LineChartProps> = ({ data }) => {
-    const viewBoxWidth = 500; // Width of the viewBox
-    const viewBoxHeight = 200; // Height of the viewBox
-    const padding = 24; // Padding for the chart within the viewBox
-    const chartWidth = viewBoxWidth - 2 * padding; // Width of the chart area
-    const chartHeight = viewBoxHeight - 2 * padding; // Height of the chart area
+const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
+    const referenceIndex = useAppSelector((state) => state.boardIndex);
 
-    // Calculate the x and y coordinates of each point
-    const points = data.map((value, index) => {
-        // Clamp the value between -1 and 1
-        const clampedValue = Math.max(-1, Math.min(1, value));
-        return {
-            x: (index / (data.length - 1)) * chartWidth + padding,
-            y: ((1 - clampedValue) * chartHeight) / 2 + padding,
-        };
-    });
-
-    // Generate the path string for the line connecting the points
-    const path = points
-        .map(
-            (point, index) =>
-                `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`,
-        )
-        .join(" ");
+    const handleChartClick = (move: string) => {
+        store.dispatch(setBoardIndex(move));
+    };
 
     return (
-        <svg
-            viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-            width="100%"
-            height="100%"
-        >
-            {/* Title */}
-            <text
-                x={viewBoxWidth / 2}
-                y={padding / 2}
-                textAnchor="middle"
-                fontSize="16"
-                fill="black"
+        <div>
+            <h2 className="card-header">Advantage Chart</h2>
+            <LineChart
+                width={1200}
+                height={400}
+                data={data.map((value, index) => ({ value, index }))}
+                margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                onClick={(data) => {
+                    if (data.activeLabel !== undefined) {
+                        handleChartClick(data.activeLabel);
+                    }
+                }}
             >
-                Game Advantage:
-            </text>
-            {/* Box around the chart */}
-            <rect
-                x={padding}
-                y={padding}
-                width={chartWidth}
-                height={chartHeight}
-                fill="none"
-                stroke="black"
-                strokeWidth="2"
-            />
-
-            {/* Horizontal line in the middle */}
-            <line
-                x1={padding}
-                y1={padding + chartHeight / 2}
-                x2={padding + chartWidth}
-                y2={padding + chartHeight / 2}
-                stroke="gray"
-                strokeWidth="1"
-            />
-
-            {/* Vertical lines at data points */}
-            {points.map((point, index) => (
-                <line
-                    key={index}
-                    x1={point.x}
-                    y1={padding}
-                    x2={point.x}
-                    y2={padding + chartHeight}
-                    stroke="gray"
-                    strokeWidth="1"
+                <CartesianGrid stroke="#f5f5f5" />
+                <YAxis ticks={[-1, 0, 1]} />
+                <XAxis />
+                <Tooltip
+                    cursor={{ stroke: "red" }}
+                    content={<CustomTooltip />}
                 />
-            ))}
-
-            {/* Line chart */}
-            <path d={path} fill="none" stroke="blue" strokeWidth="3" />
-
-            {/* Points on the line */}
-            {points.map((point, index) => (
-                <circle
-                    key={index}
-                    cx={point.x}
-                    cy={point.y}
-                    r="4"
-                    stroke="blue"
-                    fill={index % 2 === 0 ? "white" : "black"}
+                <ReferenceLine x={referenceIndex} stroke="#FF9999" />
+                <Line
+                    animationDuration={0}
+                    type="linear"
+                    dataKey="value"
+                    stroke="#b5876b"
+                    dot={({ cx, cy, index }) => {
+                        const color =
+                            index === 0
+                                ? "#f0dec7"
+                                : index % 2 === 0
+                                  ? "black"
+                                  : "white";
+                        return (
+                            <circle
+                                cx={cx}
+                                cy={cy}
+                                r={4}
+                                stroke="#b5876b"
+                                fill={color}
+                            />
+                        );
+                    }}
                 />
-            ))}
-        </svg>
+            </LineChart>
+        </div>
     );
 };
 

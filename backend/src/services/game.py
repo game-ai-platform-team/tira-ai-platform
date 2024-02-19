@@ -20,7 +20,7 @@ class Game:
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
-    def play(self, turns: int = 250, debug: bool = False) -> dict[str, Any]:
+    def play(self, turns: int = 250, debug: bool = False):
         """
         Starts a game and return result as dict.
 
@@ -33,7 +33,6 @@ class Game:
         """
         previous_move = ""
         state = None
-        previous_player = None
 
         for i in range(turns):
             player = self.__players[i % 2]
@@ -59,7 +58,6 @@ class Game:
 
             self.__send_state(move_object)
 
-            previous_player = player
             previous_move = move
 
             if debug:
@@ -68,15 +66,8 @@ class Game:
             if state != GameState.CONTINUE:
                 break
 
-        result = {
-            "moves": self.__judge.get_all_moves(),
-            "player": previous_player,
-            "game_state": state,
-        }
-
+        self.__sendGameEnd(state)
         self.__cleanup()
-
-        return result
 
     def __cleanup(self) -> None:
         """
@@ -100,6 +91,15 @@ class Game:
             move = Move("", move.state, move.time, move.evaluation, move.logs)
 
         self.__socketio_service.send(move)
+
+    def __sendGameEnd(self, state):
+        if state != GameState.CONTINUE:
+            self.__socketio_service.send_final_state(
+                {
+                    "state": str(state),
+                    "allLogs": self.__players[0].get_and_reset_all_logs(),
+                }
+            )
 
     def __print_debug_info(self, move: Move) -> None:
         info = "\n".join(

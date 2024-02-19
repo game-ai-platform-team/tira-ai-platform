@@ -1,13 +1,7 @@
 import random
-import sys
 import chess
-import os
-
-move_pipe = open('move_current', 'w')
-
-def send_move(message):
-    move_pipe.write(message + '\n')
-    move_pipe.flush()
+import time
+import random
 
 def main():
 
@@ -15,16 +9,17 @@ def main():
 
     while True:
         opponent_move = input()
+        time.sleep(random.randrange(1,10)/100)
         if opponent_move != "":
             board.push_uci(opponent_move)
         legal_moves = [move.uci() for move in list(board.legal_moves)]
         choice = random.choice(legal_moves)
         board.push_uci(choice)
 
-        # example about logging
-        print(f"{choice}\n")
+        # example about logs
+        print(f"I moved {choice}\n")
         # example about posting a move
-        print(f"MOVE: {choice}\n")
+        print(f"MOVE: {choice}\n")                                                                                                              
 
 if __name__ == "__main__":
     main()

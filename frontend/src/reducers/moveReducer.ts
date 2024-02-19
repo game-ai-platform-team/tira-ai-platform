@@ -1,16 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MoveProps } from "../components/Move";
+import MoveStatistics from "../interfaces/MoveStatistics";
 
 const moveSlice = createSlice({
     name: "moves",
-    initialState: new Array<MoveProps>(),
+    initialState: new Array<MoveStatistics>(),
     reducers: {
-        newMove(state, action: PayloadAction<MoveProps>) {
+        createMove(state, action: PayloadAction<MoveStatistics>) {
             state.push(action.payload);
+        },
+        resetMoves() {
+            return new Array<MoveStatistics>();
         },
     },
 });
 
 export default moveSlice.reducer;
 
-export const { newMove } = moveSlice.actions;
+export const { createMove, resetMoves } = moveSlice.actions;

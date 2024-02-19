@@ -1,29 +1,38 @@
-import "./MoveList.css";
+import "../scss/MoveList.scss";
 import Move from "./Move";
-import { MoveProps } from "./Move";
+import store from "../store";
 
-interface MoveListProps {
-    moves: MoveProps[];
-    state: string;
-}
+function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
+    const moves = store.getState().moves;
 
-function MoveList({ moves, state }: MoveListProps) {
     return (
-        <div>
+        <div className="move-list">
+            <a href="#" onClick={handleCopyPGN}>
+                Copy PGN
+            </a>
+            <p>State: {store.getState().game.state}</p>
             <p>Received moves:</p>
-            <ul id="move-list">
-                {moves.map((move, index) => (
-                    <li key={index}>
+            <div
+                id="move-container"
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    textAlign: "left",
+                }}
+            >
+                <ul style={{ minWidth: "200px", minHeight: "400px" }}>
+                    {moves.map((move, index) => (
                         <Move
+                            key={index}
+                            index={index}
                             move={move.move}
-                            time={move.time}
-                            advantage={move.advantage}
                             logs={move.logs}
+                            time={move.time}
+                            evaluation={move.evaluation}
                         />
-                    </li>
-                ))}
-            </ul>
-            <p>State: {state}</p>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }

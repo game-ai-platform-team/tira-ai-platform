@@ -1,8 +1,18 @@
-*.tmp
+#  Python
 __pycache__/
 backend/.pytest_cache/
+
+# Temp files
+*.tmp
 backend/temp/**
 !backend/temp/.gitkeep
+
+# Coverage
 **/*coverage*
 !.coveragerc
+!.github/workflows/coverage.yml
+
 .idea
+move_current
+screenshots
+frontend/cypress/downloads/**

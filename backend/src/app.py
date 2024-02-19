@@ -6,15 +6,19 @@ from services.api import api
 
 app = Flask("game-ai-testing-platform")
 app.config["SECRET_KEY"] = "secret!"
-socketio = SocketIO(app)
-socketio.init_app(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 CORS(app)
 
 
-@socketio.on("postcode", namespace="/gameconnection")
+@socketio.on("startgame", namespace="/gameconnection")
 def io_post_code(data):
-    api.start(data["content"], data["difficulty"], socketio, request.sid)
+    api.start(data["githubUrl"], data["elo"], socketio, request.sid)
+
+
+@app.route("/ping")
+def ping():
+    return "pong"
 
 
 @app.route("/")

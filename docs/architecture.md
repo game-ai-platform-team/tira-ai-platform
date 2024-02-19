@@ -6,19 +6,22 @@
 
 ```mermaid
 graph LR
-    client -- Zip File --> frontend
+    client -- Github Url --> frontend
 
-    frontend -- Zip File --> app
+    frontend -- start socketio message with github Url --> app
 
     game -. Periodic move data \n after validation .-> app
-    app -. Periodic HTTP packet \n containing move data .-> frontend
-    app -- Zip File  --> game
+    app -. Periodic socketio messages  \n containing move data .-> frontend
+    app -- Github Url  --> game
     game <-- move --> player1
     game <-- move --> player2
     game <-- validate move --> validator
     game -- game state --> app
     game -- save file --> game
-    app -- HTTP 200 finishing packet --> frontend
+    app -- Finishing socketio message --> frontend
+
+
+    GitHub -- Clone a github repository --> game
 
     subgraph appContainer
     app
@@ -40,17 +43,17 @@ graph LR
 
 - Periodic data is sent every time a move is validated. This is described by the dotted arrow.
 - The cycle described by the line arrow only occurs once.
-- Game container is separate from app because we're running a foreign script in it.
+- Container architecture will probably change
 - Factory class is responsible for instantiating correct player1, player2, validator
 
-## Initial architecture draft
+## Architecture draft
 
 ```mermaid
 sequenceDiagram
 
-Frontend ->> App: socketio /gameconnection postcode
-
-App ->> Api: start(file)
+Frontend ->> App: socketio /gameconnection startgame
+App ->> Api: start(Github Url)
+GitHub ->> Api: Clone the given repository
 Api ->> SocketIOService: create a new service
 Api ->> GameFactory: Create a chess game
 GameFactory ->> Chess: Create
@@ -104,7 +107,7 @@ GameFactory ..> Judge
 GameFactory ..> Player
 GameFactory ..> SocketIOService
 Judge --> GameState
-Player ..> PlayerLogger
+Player --> PlayerLogger
 
 SocketIOService ..> Move
 
@@ -180,6 +183,7 @@ App --> NavigationBar
 App --> GameView
 
 GameView --> SubmitForm
+GameView --> StatisticsService
 GameView --> MoveList
 GameView --> Board
 GameView --> AdvantageBar
@@ -188,26 +192,36 @@ Board <|-- ChessBoard
 Board --> BoardProps
 
 MoveList --> Move
-Move --> MoveProps
+Move --> MoveStatistics
 
-SubmitForm --> gameReducer: NEW_GAME
+SubmitForm --> gameReducer: newGame
 Board -- store
 MoveList -- store
 AdvantageBar -- store
 
 namespace interfaces {
-    class MoveProps {
+    class MoveStatistics {
     <<interface>>
     move: string
     time: number
-    advantage:
+    evaluation: number
+    logs: string
     }
 
     class BoardProps {
         <<interface>>
+        increaseMove?: MouseEventHandler
+        decreaseMove?: MouseEventHandler
     }
 }
 
+namespace services {
+    class StatisticsService {
+        +getStatistics()
+        +getEvaluations()
+        +uciToPGN()
+    }
+}
 
 namespace UI {
     class App
@@ -231,37 +245,38 @@ store -- moveReducer
 store -- gameReducer
 store -- boardReducer
 
-gameReducer ..> NEW_GAME
-gameReducer ..> END_GAME
-moveReducer ..> NEW_MOVE
-boardReducer ..> NEW_BOARD
-NEW_GAME ..> gameConfig
+gameReducer ..> newGame
+moveReducer ..> newMove
+boardReducer ..> newBoard
+newGame ..> gameConfig
 
 gameReducer --> SocketService
-gameReducer --> StatisticsService
 moveReducer <-- SocketService
 
+boardIndexReducer ..> nextBoard
+boardIndexReducer ..> previousBoard
+
 SocketService ..> gameConfig
+
+resetReducer ..> moveReducer
+resetReducer ..> boardReducer
+resetReducer ..> gameReducer
+resetReducer ..> boardIndexReducer
 
 namespace services {
     class SocketService {
         +startGame(config: gameConfig)
     }
-
-    class StatisticsService {
-        +getStatistics()
-    }
 }
 
 class gameConfig {
-    difficulty: string | number
+    elo: string | number
     depth: number
-    player1File: string
-    player2File: string
+    GithubUrl: string 
 }
 
 class store {
-    moves: MoveProps[]
+    moves: MoveStatistics[]
     boards: BoardProps[]
     boardIndex: number
     in_progress: boolean
@@ -273,37 +288,52 @@ namespace ReducersAndActionCreators {
     class moveReducer {
         <<module>>
         moveReducer(state, action)
-        newMove(move: MoveProps) NEW_MOVE
+        newMove(move: MoveStatistics) newMove
+        resetMoves() resetMoves
     }
 
     class gameReducer {
         <<module>>
         gameReducer(state, action)
-        newGame(gameConfig) NEW_GAME
-        endGame() END_GAME
+        newGame(gameConfig) newGame
+        resetGame() resetGame
     }
 
     class boardReducer {
         <<module>>
         boardReducer(state, action)
-        newBoard(board: BoardProps) NEW_BOARD
+        newBoard(board: BoardProps) newBoard
+        resetBoards() resetBoards
+    }
+
+    class boardIndexReducer {
+        <<module>>
+        nextBoard(state, action)
+        previousBoard(state, action)
+        newBoard(board: BoardProps) newBoard
+        resetBoardIndex() resetBoardIndex
+    }
+    
+    class resetReducer {
     }
 }
 
 namespace Actions {
-    class NEW_MOVE {
-        payload: MoveProps
+    class newMove {
+        payload: MoveStatistics
     }
 
-    class NEW_BOARD {
+    class newBoard {
         payload: BoardProps
     }
 
-    class NEW_GAME {
+    class newGame {
         payload: gameConfig
     }
 
-    class END_GAME
+    class nextBoard
+
+    class previousBoard
 }
 
 ```
