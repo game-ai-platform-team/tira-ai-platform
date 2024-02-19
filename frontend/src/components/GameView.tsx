@@ -8,6 +8,7 @@ import { useAppSelector } from "../hook";
 import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
 import CSVCreater from "./CSVCreater.tsx";
+import { LogBox } from "./LogBox.tsx";
 
 function GameView({ children }: { children: ReactNode }) {
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
@@ -49,6 +50,10 @@ function GameView({ children }: { children: ReactNode }) {
             <div id="statistics" className="card">
                 {stats && <AdvantageChart data={evals.advantages} />}
                 {stats && <TimeChart data={stats.times} />}
+            </div>
+
+            <div>
+                <LogBox />
             </div>
         </div>
     );

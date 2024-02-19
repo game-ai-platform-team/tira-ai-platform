@@ -5,6 +5,7 @@ import { newBoard } from "../reducers/boardReducer";
 import GameConfig from "../interfaces/GameConfig";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { nextBoard } from "../reducers/boardIndexReducer";
+import { setAllLog } from "../reducers/allLogReducer.ts";
 
 const path = `${import.meta.env.BASE_URL}/socket.io`.replace("//", "/");
 
@@ -16,6 +17,11 @@ export function startGame(config: GameConfig) {
         store.dispatch(createMove(move));
         store.dispatch(newBoard(move));
         store.dispatch(nextBoard());
+    });
+
+    socket.on("final", (data: { state: string, allLogs: string }) => {
+        console.log(data.allLogs);
+        store.dispatch(setAllLog(data.allLogs));
     });
     socket.emit("startgame", config);
 }
