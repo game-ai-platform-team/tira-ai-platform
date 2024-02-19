@@ -3,7 +3,7 @@ describe("Chess game", function () {
         cy.visit("/");
     });
 
-    it("stays like it is without file being submitted", function () {
+    it("stays like it is without repository being submitted", function () {
         cy.visit("/");
         cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
@@ -16,17 +16,15 @@ describe("Chess game", function () {
         });
     });
 
-    it("plays a game when a file is submitted", function () {
+    it("plays a game when a repository is submitted", function () {
         cy.visit("/");
         cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
-        cy.get("#file-input").selectFile("./../samples/chess/stupid_ai.py", {
-            force: true,
-        });
+        cy.get("#url-field").type("https://github.com/game-ai-platform-team/stupid-chess-ai.git")
         cy.get("#submit-button").click();
 
-        cy.wait(5000);
+        cy.wait(10000);
         cy.get("@previousBoard").then(function (prev) {
             cy.get(".kokopu-chessboard").then(function (current) {
                 expect(prev.html()).to.not.equal(current.html());
@@ -39,12 +37,11 @@ describe("Chess game", function () {
         cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
-        cy.get("#file-input").selectFile("./../samples/chess/stupid_ai.py", {
-            force: true,
-        });
+        cy.get("#url-field").type("https://github.com/game-ai-platform-team/stupid-chess-ai.git")
+
         cy.get("#submit-button").click();
 
-        cy.wait(5000);
+        cy.wait(10000);
         cy.get(".move").first().click();
         cy.get(".move-details").contains("Time:");
     });
@@ -54,12 +51,11 @@ describe("Chess game", function () {
         cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
-        cy.get("#file-input").selectFile("./../samples/chess/stupid_ai.py", {
-            force: true,
-        });
+        cy.get("#url-field").type("https://github.com/game-ai-platform-team/stupid-chess-ai.git")
+
         cy.get("#submit-button").click();
 
-        cy.wait(5000);
+        cy.wait(10000);
         cy.get("#download-csv").click();
         cy.readFile("cypress/downloads/statistics.csv");
     });
