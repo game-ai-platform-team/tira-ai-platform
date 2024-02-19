@@ -19,3 +19,8 @@ jobs:
       contents: write
 
     uses: ./.github/workflows/ci/ci_backend.yml
+
+  e2e_test:
+    name: End-to-end test
+
+    uses: ./.github/workflows/ci/e2e_test.yml
