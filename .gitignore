@@ -8,3 +8,4 @@ backend/temp/**
 .idea
 move_current
 screenshots
+frontend/cypress/downloads/**
