@@ -19,12 +19,13 @@ function SubmitForm(): JSX.Element {
         setGames(value);
     };
 
+
     const onSubmitGithub = (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (githubUrl && elo && !store.getState().game.isGameRunning) {
             const gameConfig: GameConfig = {
                 elo,
-                githubUrl,
+                githubUrl
             };
             store.dispatch(newGame(gameConfig));
         }
@@ -61,12 +62,8 @@ function SubmitForm(): JSX.Element {
                 <p>Games: {games}</p>
             </div>
             <form id="github-submit-form" onSubmit={onSubmitGithub}>
-                <input
-                    type="url"
-                    value={githubUrl}
-                    onChange={(event) => setGithubUrl(event.target.value)}
-                />
-                <button type="submit"> Submit</button>
+                <input id="url-field" type="url" value={githubUrl} onChange={event => setGithubUrl(event.target.value)} />
+                <button type="submit" id="submit-button"> Submit</button>
             </form>
         </div>
     );
