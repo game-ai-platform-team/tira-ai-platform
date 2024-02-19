@@ -24,7 +24,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
 
     return (
         <div>
-            <h2 id="card-header">Time Chart</h2>
+            <h2 className="card-header">Time Chart</h2>
             <LineChart
                 width={800}
                 height={400}

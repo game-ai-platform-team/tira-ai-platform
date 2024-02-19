@@ -17,7 +17,7 @@ interface AdvantageChartProps {
 const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
     return (
         <div>
-            <h2 id="card-header">Advantage Chart</h2>
+            <h2 className="card-header">Advantage Chart</h2>
             <LineChart
                 width={800}
                 height={400}
