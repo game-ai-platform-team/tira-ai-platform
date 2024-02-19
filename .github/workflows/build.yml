@@ -8,6 +8,10 @@ on:
     branches: [dev]
   workflow_dispatch:
 
+concurrency:
+  group: build
+  cancel-in-progress: true
+
 jobs:
   Build_staging:
     name: Build (staging)
