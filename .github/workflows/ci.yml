@@ -11,9 +11,9 @@ jobs:
     permissions:
       contents: write
 
-    uses: ./.github/workflows/ci_front.yml
+    uses: ./.github/workflows/ci/ci_frontend.yml
   ci_backend:
     permissions:
       contents: write
 
-    uses: ./.github/workflows/ci_back.yml
+    uses: ./.github/workflows/ci/ci_backend.yml
