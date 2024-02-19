@@ -28,13 +28,13 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
                     console.log(data.activeLabel);
                 }}
             >
+                <CartesianGrid stroke="#f5f5f5" />
                 <YAxis ticks={[-1, 0, 1]} />
                 <XAxis />
                 <Tooltip
                     cursor={{ stroke: "red" }}
                     content={<CustomTooltip />}
                 />
-                <CartesianGrid stroke="#f5f5f5" />
                 <Line
                     animationDuration={0}
                     type="linear"
