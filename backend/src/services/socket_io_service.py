@@ -12,6 +12,9 @@ class SocketIOService:
         self.socketio.emit(
             "newmove",
             move.as_json(),
-            namespace="/gameconnection",
-            to=self.sid,
+            namespace = "/gameconnection",
+            to = self.sid,
         )
+
+    def send_final_state(self, param):
+        self.socketio.emit("final", param, namespace = "/gameconnection", to = self.sid)

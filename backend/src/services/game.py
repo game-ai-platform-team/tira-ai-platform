@@ -10,11 +10,11 @@ from services.socket_io_service import SocketIOService
 
 class Game:
     def __init__(
-        self,
-        socketio_service: SocketIOService,
-        player1: Player,
-        player2: Player,
-        judge: Judge,
+            self,
+            socketio_service: SocketIOService,
+            player1: Player,
+            player2: Player,
+            judge: Judge,
     ) -> None:
         self.__socketio_service: SocketIOService = socketio_service
         self.__players: list[Player] = [player1, player2]
@@ -68,15 +68,8 @@ class Game:
             if state != GameState.CONTINUE:
                 break
 
-        result = {
-            "moves": self.__judge.get_all_moves(),
-            "player": previous_player,
-            "game_state": state,
-        }
-
+        self.__sendGameEnd(state)
         self.__cleanup()
-
-        return result
 
     def __cleanup(self) -> None:
         """
@@ -100,6 +93,11 @@ class Game:
             move = Move("", move.state, move.time, move.evaluation, move.logs)
 
         self.__socketio_service.send(move)
+
+    def __sendGameEnd(self, state):
+        if state != GameState.CONTINUE:
+            self.__socketio_service.send_final_state(
+                {"state": str(state), "allLogs": self.__players[0].get_and_reset_all_logs()})
 
     def __print_debug_info(self, move: Move) -> None:
         info = "\n".join(

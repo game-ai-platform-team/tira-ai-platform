@@ -12,15 +12,16 @@ class Player:
         self.__path = path
         self.__timeout = timeout
         self.__process = subprocess.Popen(
-            args=["python3", str(self.__path)],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            args = ["python3", str(self.__path)],
+            stdin = subprocess.PIPE,
+            stdout = subprocess.PIPE,
+            stderr = subprocess.PIPE,
         )
-        self.__logger = PlayerLogger()
+        self.__turn_logger = PlayerLogger()
+        self.__all_logger = PlayerLogger()
 
     def get_and_reset_current_logs(self) -> str:
-        return self.__logger.get_and_clear_logs()
+        return self.__turn_logger.get_and_clear_logs()
 
     def play(self, move) -> str:
         if self.__process.poll() is not None:
@@ -37,16 +38,20 @@ class Player:
 
         while True:
             out = self.__process.stdout.readline().decode("utf-8")
-
+            if out:
+                self.__all_logger.log(out[:-1])
             if not out:
                 break
             elif out.startswith("MOVE: "):
                 return out[5:].strip()
             else:
-                self.__logger.log(out.strip() + "\n")
+                self.__turn_logger.log(out.strip() + "\n")
 
         return ""
 
     def terminate_self(self):
         self.__process.terminate()
         self.__process.wait()
+
+    def get_and_reset_all_logs(self):
+        return self.__all_logger.get_and_clear_logs()
