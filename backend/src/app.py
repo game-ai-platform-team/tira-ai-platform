@@ -11,7 +11,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 CORS(app)
 
 
-@socketio.on( "startgame", namespace="/gameconnection")
+@socketio.on("startgame", namespace="/gameconnection")
 def io_post_code(data):
     api.start(data["githubUrl"], data["elo"], socketio, request.sid)
 
