@@ -10,11 +10,11 @@ from services.socket_io_service import SocketIOService
 
 class Game:
     def __init__(
-            self,
-            socketio_service: SocketIOService,
-            player1: Player,
-            player2: Player,
-            judge: Judge,
+        self,
+        socketio_service: SocketIOService,
+        player1: Player,
+        player2: Player,
+        judge: Judge,
     ) -> None:
         self.__socketio_service: SocketIOService = socketio_service
         self.__players: list[Player] = [player1, player2]
