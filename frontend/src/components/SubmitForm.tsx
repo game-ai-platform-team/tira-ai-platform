@@ -53,7 +53,7 @@ function SubmitForm(): JSX.Element {
 
     return (
         <div id="drag-and-drop-container">
-            <h2 id="card-header">Upload your file</h2>
+            <h2 className="card-header">Upload your file</h2>
 
             <div
                 id="drag-and-drop-area"
