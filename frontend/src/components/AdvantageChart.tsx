@@ -46,6 +46,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
                     cursor={{ stroke: "red" }}
                     content={<CustomTooltip />}
                 />
+                <ReferenceLine x={referenceIndex} stroke="#FF9999"/>
                 <Line
                     animationDuration={0}
                     type="linear"
@@ -69,7 +70,6 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
                         );
                     }}
                 />
-                <ReferenceLine x={referenceIndex} stroke="#FF9999" />
             </LineChart>
         </div>
     );
