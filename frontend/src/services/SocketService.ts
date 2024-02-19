@@ -6,6 +6,8 @@ import GameConfig from "../interfaces/GameConfig";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { nextBoard } from "../reducers/boardIndexReducer";
 import { setAllLog } from "../reducers/allLogReducer.ts";
+import { updateState } from "../reducers/gameReducer.ts";
+import { GameState } from "../types.ts";
 
 const path = `${import.meta.env.BASE_URL}/socket.io`.replace("//", "/");
 
@@ -17,6 +19,7 @@ export function startGame(config: GameConfig) {
         store.dispatch(createMove(move));
         store.dispatch(newBoard(move));
         store.dispatch(nextBoard());
+        store.dispatch(updateState(move.state !== undefined ? move.state : GameState.INVALID));
     });
 
     socket.on("final", (data: { state: string; allLogs: string }) => {
