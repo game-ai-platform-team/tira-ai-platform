@@ -109,7 +109,9 @@ const CSVCreater: React.FC<CSVCreaterProps> = ({ moves }) => {
                         />
                         Black moves
                         <br />
-                        <button id="download-csv" type={"submit"}>Download CSV</button>
+                        <button id="download-csv" type={"submit"}>
+                            Download CSV
+                        </button>
                     </form>
                 </div>
             </div>

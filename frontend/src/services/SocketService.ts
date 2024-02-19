@@ -19,7 +19,7 @@ export function startGame(config: GameConfig) {
         store.dispatch(nextBoard());
     });
 
-    socket.on("final", (data: { state: string, allLogs: string }) => {
+    socket.on("final", (data: { state: string; allLogs: string }) => {
         console.log(data.allLogs);
         store.dispatch(setAllLog(data.allLogs));
     });
