@@ -10,5 +10,3 @@ class TestApi(TestCase):
         if not os.path.exists(TEMP_DIR):
             os.mkdir(TEMP_DIR)
         self.api = Api()
-
-
