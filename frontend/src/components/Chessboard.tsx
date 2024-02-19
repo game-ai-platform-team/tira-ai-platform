@@ -1,10 +1,13 @@
 import { Chessboard as KokopuChessboard } from "kokopu-react";
 import "../scss/Chessboard.scss";
 import { useAppSelector } from "../hook";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import store from "../store";
+import { setBoardIndex } from "../reducers/boardIndexReducer";
 
 const Chessboard = () => {
     const [arrow, setArrow] = useState("G");
+    const [arrowColor, setArrowColor] = useState("G");
     const [currentMove, setCurrentMove] = useState(0);
     const [selectedTheme, setSelectedTheme] = useState("original");
     const [selectedPieceset, setSelectedPieceset] = useState("cburnett");
@@ -12,35 +15,27 @@ const Chessboard = () => {
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
 
+    const handleMoveChange = useCallback((newIndex: number) => {
+        if (newIndex >= 0 && newIndex < moves.length + 1) {
+            store.dispatch(setBoardIndex(newIndex));
+            setCurrentMove(newIndex);
+            if (newIndex > 0) {
+                const newArrow = `${arrowColor}${moves[newIndex - 1].move.slice(0, 4)}`;
+                setArrow(newArrow);
+            } else {
+                setArrow(`${arrowColor}`);
+            }
+        }
+    }, [arrowColor, moves]);
+
     useEffect(() => {
-        if (boardIndex >= 1 && moves.length > 0) {
-            const newArrow = `G${moves[boardIndex - 1].move.slice(0, 4)}`;
-            setArrow(newArrow);
-            setCurrentMove(boardIndex);
-        }
-    }, [boardIndex, moves]);
+        handleMoveChange(boardIndex);
+    }, [boardIndex, handleMoveChange]);
 
-    const handleMoveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newIndex = parseInt(event.target.value);
-        setCurrentMove(newIndex);
-        const newArrow = `G${moves[newIndex - 1].move.slice(0, 4)}`;
-        setArrow(newArrow);
-    };
-
-    const decreaseMove = () => {
-        if (currentMove > 0) {
-            setCurrentMove(currentMove - 1);
-            const newArrow = `G${moves[currentMove - 1].move.slice(0, 4)}`;
-            setArrow(newArrow);
-        }
-    };
-
-    const increaseMove = () => {
-        if (currentMove < moves.length) {
-            setCurrentMove(currentMove + 1);
-            const newArrow = `G${moves[currentMove + 1].move.slice(0, 4)}`;
-            setArrow(newArrow);
-        }
+    const handleArrowColorChange = (
+        event: React.ChangeEvent<HTMLSelectElement>,
+    ) => {
+        setArrowColor(event.target.value);
     };
 
     const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -71,14 +66,22 @@ const Chessboard = () => {
                     min="0"
                     max={moves.length}
                     value={currentMove}
-                    onChange={handleMoveChange}
+                    onChange={(event) =>
+                        handleMoveChange(parseInt(event.target.value))
+                    }
                     id="moveSlider"
                 />
                 <br />
-                <button onClick={decreaseMove} id="previousChessboardButton">
+                <button
+                    onClick={() => handleMoveChange(currentMove - 1)}
+                    id="previousChessboardButton"
+                >
                     {"<"}
                 </button>
-                <button onClick={increaseMove} id="nextChessboardButton">
+                <button
+                    onClick={() => handleMoveChange(currentMove + 1)}
+                    id="nextChessboardButton"
+                >
                     {">"}
                 </button>
                 <br />
@@ -100,6 +103,12 @@ const Chessboard = () => {
                             </option>
                         ),
                     )}
+                </select>
+                <select value={arrowColor} onChange={handleArrowColorChange}>
+                    <option value="R">red</option>
+                    <option value="G">green</option>
+                    <option value="B">blue</option>
+                    <option value="Y">yellow</option>
                 </select>
             </div>
         </div>
