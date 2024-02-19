@@ -10,6 +10,7 @@ backend/temp/**
 # Coverage
 **/*coverage*
 !.coveragerc
+!.github/workflows/coverage.yml
 
 .idea
 move_current
