@@ -14,9 +14,12 @@ const gameSlice = createSlice({
         resetGame() {
             return { isGameRunning: false, state: GameState.INVALID };
         },
+        updateState(state, action: PayloadAction<GameState>) {
+            return { ...state, state: action.payload };
+        },
     },
 });
 
 export default gameSlice.reducer;
 
-export const { newGame, resetGame } = gameSlice.actions;
+export const { newGame, resetGame, updateState } = gameSlice.actions;
