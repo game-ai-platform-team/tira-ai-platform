@@ -20,7 +20,15 @@ jobs:
         uses: ./.github/workflows/setup-poetry
 
       - name: Run unit tests
-        run: poetry run coverage run --branch -m pytest src/tests
+        run: poetry run invoke coverage-xml
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: game-ai-platform-team/tira-ai-platform
+        with:
+          file: ./backend/coverage.xml
 
   Lint:
     runs-on: ubuntu-latest
