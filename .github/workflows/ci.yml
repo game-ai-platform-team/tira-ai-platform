@@ -12,15 +12,15 @@ jobs:
     permissions:
       contents: write
 
-    uses: ./.github/workflows/ci/ci_frontend.yml
+    uses: ./.github/workflows/ci_frontend.yml
   ci_backend:
     name: CI (back-end)
     permissions:
       contents: write
 
-    uses: ./.github/workflows/ci/ci_backend.yml
+    uses: ./.github/workflows/ci_backend.yml
 
   e2e_test:
     name: End-to-end test
 
-    uses: ./.github/workflows/ci/e2e_test.yml
+    uses: ./.github/workflows/e2e_test.yml
