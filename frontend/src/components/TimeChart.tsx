@@ -31,13 +31,13 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
                 data={chartData}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
             >
+                <CartesianGrid stroke="#f5f5f5" />
                 <XAxis dataKey="turn" />
                 <YAxis />
                 <Tooltip
                     cursor={{ stroke: "red" }}
                     content={<CustomTooltip />}
                 />
-                <CartesianGrid stroke="#f5f5f5" />
                 <Line
                     animationDuration={0}
                     connectNulls
