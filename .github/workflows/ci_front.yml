@@ -21,7 +21,16 @@ jobs:
         uses: ./.github/workflows/setup-node
 
       - name: Run unit tests
-        run: npm test
+        run: npm run coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          slug: game-ai-platform-team/tira-ai-platform
+        with:
+          file: ./frontend/coverage/coverage-final.json
+
 
   Format:
     runs-on: ubuntu-latest
