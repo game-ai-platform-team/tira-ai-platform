@@ -19,9 +19,7 @@ class Api:
         repo = self.git_clone(github_url)
 
         socketio_service = SocketIOService(socketio, sid)
-        game = GameFactory.get_github_chess_game(
-            socketio_service, repo, elo = elo
-        )
+        game = GameFactory.get_github_chess_game(socketio_service, repo, elo=elo)
         game.play()
 
         repo.remove()
@@ -33,13 +31,13 @@ class Api:
         Args:
             content (str): Content to save.
         """
-        self.ai_file.parent.mkdir(parents = True, exist_ok = True)
-        self.ai_file.touch(exist_ok = True)
-        with open(self.ai_file, mode = "w", encoding = "utf-8") as file:
+        self.ai_file.parent.mkdir(parents=True, exist_ok=True)
+        self.ai_file.touch(exist_ok=True)
+        with open(self.ai_file, mode="w", encoding="utf-8") as file:
             file.write(content)
 
     def git_clone(self, github_url) -> ClonedRepository:
-        self.temp_dir.mkdir(parents = True, exist_ok = True)
+        self.temp_dir.mkdir(parents=True, exist_ok=True)
         repo_dir_name = "repo" + str(random.randint(1000000, 9999999))
         repo_dir = Path.joinpath(self.temp_dir, repo_dir_name)
         repository = ClonedRepository(repo_dir, github_url)
