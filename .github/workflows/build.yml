@@ -1,4 +1,4 @@
-name: OpenShift 
+name: Build and push to OpenShift 
 
 env: 
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
