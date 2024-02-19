@@ -5,7 +5,7 @@ import boardReducer from "./reducers/boardReducer";
 import boardIndexReducer from "./reducers/boardIndexReducer";
 import allLogReducer from "./reducers/allLogReducer.ts";
 
-const store = configureStore({
+const store =  configureStore({
     reducer: {
         moves: moveReducer,
         game: gameReducer,
