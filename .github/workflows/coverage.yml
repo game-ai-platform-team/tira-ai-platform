@@ -1,0 +1,25 @@
+name: CI (backend)
+on:
+  workflow_run:
+    workflows: ["CI (frontend)", "CI (backend)"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  Unit_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download coverage report artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-coverage"
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          slug: game-ai-platform-team/tira-ai-platform
+        with:
+          files: ./coverage.xml, ./coverage-final.json
