@@ -3,20 +3,34 @@ import subprocess
 import time
 from pathlib import Path
 
+from entities.cloned_repository import ClonedRepository
 from config import DEFAULT_CHESS_TIMEOUT
 from entities.player_logger import PlayerLogger
 
 
 class Player:
-    def __init__(self, path: Path, timeout: float = DEFAULT_CHESS_TIMEOUT) -> None:
-        self.__path = path
+    def __init__(self, repo: ClonedRepository, timeout: float = DEFAULT_CHESS_TIMEOUT) -> None:
+        self.repo = repo
         self.__timeout = timeout
+
+        setup_script_path = Path.joinpath(repo.path, "tiraconfig/setup.sh")
+        runcommand_path = Path.joinpath(repo.path, "tiraconfig/runcommand")
+
+        subprocess.run(["bash", setup_script_path], cwd = repo.path)
+
+        with open(runcommand_path, "r") as runcommand_file:
+            runcommand = runcommand_file.readline()
+
+        print(runcommand)
+        runcommand_array = runcommand.strip().split(" ")
         self.__process = subprocess.Popen(
-            args=["python3", str(self.__path)],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            args = runcommand_array,
+            stdin = subprocess.PIPE,
+            stdout = subprocess.PIPE,
+            stderr = subprocess.PIPE,
+            cwd = repo.path
         )
+
         self.__turn_logger = PlayerLogger()
         self.__all_logger = PlayerLogger()
 
