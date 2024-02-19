@@ -10,9 +10,8 @@ from services.socket_io_service import SocketIOService
 
 
 class GameFactory:
-
     @staticmethod
     def get_github_chess_game(
-            socketio_service: SocketIOService, repo: ClonedRepository, elo = 1350
+        socketio_service: SocketIOService, repo: ClonedRepository, elo=1350
     ):
         return Game(socketio_service, Player(repo), PlayerStockfish(elo), ChessJudge())
