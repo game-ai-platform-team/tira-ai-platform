@@ -6,19 +6,22 @@
 
 ```mermaid
 graph LR
-    client -- Zip File --> frontend
+    client -- Github Url --> frontend
 
-    frontend -- Zip File --> app
+    frontend -- start socketio message with github Url --> app
 
     game -. Periodic move data \n after validation .-> app
-    app -. Periodic HTTP packet \n containing move data .-> frontend
-    app -- Zip File  --> game
+    app -. Periodic socketio messages  \n containing move data .-> frontend
+    app -- Github Url  --> game
     game <-- move --> player1
     game <-- move --> player2
     game <-- validate move --> validator
     game -- game state --> app
     game -- save file --> game
-    app -- HTTP 200 finishing packet --> frontend
+    app -- Finishing socketio message --> frontend
+
+
+    GitHub -- Clone a github repository --> game
 
     subgraph appContainer
     app
@@ -40,17 +43,17 @@ graph LR
 
 - Periodic data is sent every time a move is validated. This is described by the dotted arrow.
 - The cycle described by the line arrow only occurs once.
-- Game container is separate from app because we're running a foreign script in it.
+- Container architecture will probably change
 - Factory class is responsible for instantiating correct player1, player2, validator
 
-## Initial architecture draft
+## Architecture draft
 
 ```mermaid
 sequenceDiagram
 
 Frontend ->> App: socketio /gameconnection startgame
-
-App ->> Api: start(file)
+App ->> Api: start(Github Url)
+GitHub ->> Api: Clone the given repository
 Api ->> SocketIOService: create a new service
 Api ->> GameFactory: Create a chess game
 GameFactory ->> Chess: Create
@@ -269,8 +272,7 @@ namespace services {
 class gameConfig {
     elo: string | number
     depth: number
-    player1File: string
-    player2File: string
+    GithubUrl: string 
 }
 
 class store {

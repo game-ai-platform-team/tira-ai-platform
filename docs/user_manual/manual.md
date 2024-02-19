@@ -23,9 +23,10 @@ the MOVE line, which outputs a move to the game, and should only contain a singu
 
 - [Chess](chess.md)
 
-## Supported file formats
-
-- `*.py`, single Python file without dependencies
+## Submitting code from GitHub
+Your GitHub repository must contain a directory ``tiraconfig``, where there are two files:
+* ``setup.sh``, a shell script, which will be run before running the AI itself. 
+* ``runcommand``, a simple text file which contains the command that will be used to run the program. The working directory will be the root of the git project. 
 
 ## Supported progamming languages
 
