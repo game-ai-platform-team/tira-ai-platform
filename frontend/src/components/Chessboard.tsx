@@ -15,18 +15,21 @@ const Chessboard = () => {
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
 
-    const handleMoveChange = useCallback((newIndex: number) => {
-        if (newIndex >= 0 && newIndex < moves.length + 1) {
-            store.dispatch(setBoardIndex(newIndex));
-            setCurrentMove(newIndex);
-            if (newIndex > 0) {
-                const newArrow = `${arrowColor}${moves[newIndex - 1].move.slice(0, 4)}`;
-                setArrow(newArrow);
-            } else {
-                setArrow(`${arrowColor}`);
+    const handleMoveChange = useCallback(
+        (newIndex: number) => {
+            if (newIndex >= 0 && newIndex < moves.length + 1) {
+                store.dispatch(setBoardIndex(newIndex));
+                setCurrentMove(newIndex);
+                if (newIndex > 0) {
+                    const newArrow = `${arrowColor}${moves[newIndex - 1].move.slice(0, 4)}`;
+                    setArrow(newArrow);
+                } else {
+                    setArrow(`${arrowColor}`);
+                }
             }
-        }
-    }, [arrowColor, moves]);
+        },
+        [arrowColor, moves],
+    );
 
     useEffect(() => {
         handleMoveChange(boardIndex);
