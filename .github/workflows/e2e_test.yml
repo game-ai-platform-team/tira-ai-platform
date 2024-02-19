@@ -2,20 +2,18 @@ name: End-to-end testing
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main]
+  workflow_call:
 
 jobs:
-  build:
+  e2e:
+    name: End-to-end test
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up
+      - name: Set up Poetry
         uses: ./.github/workflows/setup-poetry
       - name: Set up Node
         uses: ./.github/workflows/setup-node
-      - name: Do tests
+      - name: Run e2e tests
         run: bash run_e2e_tests.sh
