@@ -1,4 +1,4 @@
-name: CI (backend)
+name: Coverage report
 on:
   workflow_run:
     workflows: ["CI (frontend)", "CI (backend)"]
