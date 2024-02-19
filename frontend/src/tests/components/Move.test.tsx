@@ -7,8 +7,15 @@ describe("move component", () => {
     let container: HTMLElement;
 
     beforeEach(() => {
+        const statistics = { move: "e1e2", logs: "", evaluation: 0, time: 100 };
         container = render(
-            <Move move={"e1e2"} time={100} advantage={0} logs={""} />,
+            <Move
+                index={1}
+                evaluation={statistics.evaluation}
+                move={statistics.move}
+                logs={statistics.logs}
+                time={statistics.time}
+            />,
         ).container;
     });
 

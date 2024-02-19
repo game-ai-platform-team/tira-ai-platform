@@ -1,30 +1,26 @@
 import { render } from "@testing-library/react";
 import SubmitForm from "../../components/SubmitForm";
-import { vitest } from "vitest";
+import { test, expect } from "vitest";
 
-test("file path field exists", () => {
-    const component = render(
-        <SubmitForm hasGameStarted={false} setHasGameStarted={vitest.fn()} />,
-    );
-    const fileInput = component.container.querySelector("#file-input");
+test("url field exists", () => {
+    const component = render(<SubmitForm />);
+    const fileInput = component.container.querySelector("#url-field");
 
     expect(fileInput).not.toBe(null);
 });
 
 test("submit button exists", () => {
-    const component = render(
-        <SubmitForm hasGameStarted={false} setHasGameStarted={vitest.fn()} />,
-    );
+    const component = render(<SubmitForm />);
     const submitButton = component.container.querySelector("#submit-button");
 
     expect(submitButton).not.toBe(null);
 });
 
-test("difficulty slider exists", () => {
-    const component = render(
-        <SubmitForm hasGameStarted={false} setHasGameStarted={vitest.fn()} />,
-    );
-    const fileInput = component.container.querySelector("#difficulty-config");
+test("elo slider exists", () => {
+    const component = render(<SubmitForm />);
+    const eloSlider = component.container.querySelector(
+        "#elo-slider",
+    ) as HTMLElement;
 
-    expect(fileInput).not.toBe(null);
+    expect(eloSlider).not.toBeNull();
 });

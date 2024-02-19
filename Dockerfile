@@ -1,9 +1,11 @@
 FROM node:latest as node_build
 
+ARG MODE
+
 WORKDIR /frontend
 
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm install --omit=dev
 COPY ./frontend .
 RUN npm run build
 
@@ -25,12 +27,13 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && mkdir -p $HOME/.config/pypoetry \
     && chown -R user:user $HOME \
     && chmod -R 755 $HOME \
-    && chgrp -R 0 /app \ 
+    && chgrp -R 0 /app \
     && chmod -R g=u /app \
-    && chgrp -R 0 /$HOME \ 
-    && chmod -R g=u /$HOME 
+    && chgrp -R 0 /$HOME \
+    && chmod -R g=u /$HOME \
+    && chmod -R g=u /frontend/dist
 
-RUN python3 -m poetry install
+RUN python3 -m poetry install --without dev
 RUN ls -la $HOME/.config/pypoetry
          
 USER 1001

@@ -27,9 +27,9 @@ class TestPlayerStockfish(unittest.TestCase):
 
         self.sf_player.engine.set_position.assert_called_with(self.sf_player.boardstate)
 
-    def test_set_skill_level(self):
-        level = 5
-        self.stockfish_player = PlayerStockfish(level)
+    def test_set_skill_elo(self):
+        elo = 1350
+        self.stockfish_player = PlayerStockfish(elo)
         parameters = self.stockfish_player.engine.get_parameters()
 
-        self.assertEqual(parameters["Skill Level"], level)
+        self.assertEqual(parameters["UCI_Elo"], elo)

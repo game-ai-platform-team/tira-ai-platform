@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./NavigationBar.css";
+import "../scss/NavigationBar.scss";
 
 const NavigationBar = () => {
     const [selectedGame, setSelectedGame] = useState<string>("Chess");
