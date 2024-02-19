@@ -23,7 +23,6 @@ runs:
       with:
         node-version: lts/*
         cache: pnpm
-        cache-dependency-path: "${{ inputs.cwd }}/package-lock.yaml"
 
     - name: Install dependencies
       run: pnpm install
