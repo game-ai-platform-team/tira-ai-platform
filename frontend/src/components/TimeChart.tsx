@@ -8,12 +8,18 @@ import {
     Tooltip,
 } from "recharts";
 import { CustomTooltip } from "./CustomTooltip";
+import { setBoardIndex } from "../reducers/boardIndexReducer";
+import store from "../store";
 
 interface LineChartProps {
     data: number[];
 }
 
 const TimeChart: React.FC<LineChartProps> = ({ data }) => {
+    const handleChartClick = (move: string) => {
+        store.dispatch(setBoardIndex(move));
+    };
+
     const chartData = [
         { turn: 0, w_time: undefined, b_time: undefined },
         ...data.map((value, index) => ({
@@ -30,6 +36,11 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
                 height={400}
                 data={chartData}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                onClick={(data) => {
+                    if (data.activeLabel !== undefined) {
+                        handleChartClick(data.activeLabel);
+                    }
+                }}
             >
                 <CartesianGrid stroke="#f5f5f5" />
                 <XAxis dataKey="turn" />
