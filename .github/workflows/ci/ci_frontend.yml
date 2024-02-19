@@ -10,6 +10,7 @@ defaults:
 
 jobs:
   Unit_test:
+    name: Unit test
     runs-on: ubuntu-latest
 
     steps:
