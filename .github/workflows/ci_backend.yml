@@ -1,6 +1,5 @@
 name: CI (backend)
 on:
-  workflow_dispatch:
   workflow_call:
     secrets:
       CODECOV_TOKEN:
