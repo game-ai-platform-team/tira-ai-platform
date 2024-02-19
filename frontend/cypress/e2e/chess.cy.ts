@@ -48,4 +48,19 @@ describe("Chess game", function () {
         cy.get(".move").first().click();
         cy.get(".move-details").contains("Time:");
     });
+
+    it("downloading csv works", function () {
+        cy.visit("/");
+        cy.wait(100);
+        cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
+
+        cy.get("#file-input").selectFile("./../samples/chess/stupid_ai.py", {
+            force: true,
+        });
+        cy.get("#submit-button").click();
+
+        cy.wait(5000);
+        cy.get("#download-csv").click();
+        cy.readFile("cypress/downloads/statistics.csv")
+    });
 });
