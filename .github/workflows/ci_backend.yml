@@ -2,7 +2,9 @@ name: CI (backend)
 on:
   workflow_dispatch:
   workflow_call:
-
+    secrets:
+      CODECOV_TOKEN:
+        required: true
 defaults:
   run:
     working-directory: ./backend

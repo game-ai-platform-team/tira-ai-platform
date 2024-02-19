@@ -3,6 +3,10 @@ name: CI (frontend)
 on:
   workflow_dispatch:
   workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: true
+
 
 defaults:
   run:
