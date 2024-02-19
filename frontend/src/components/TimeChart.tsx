@@ -54,7 +54,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
                     cursor={{ stroke: "red" }}
                     content={<CustomTooltip />}
                 />
-                <ReferenceLine x={referenceIndex} stroke="#FF9999"/>
+                <ReferenceLine x={referenceIndex} stroke="#FF9999" />
                 <Line
                     animationDuration={0}
                     connectNulls
