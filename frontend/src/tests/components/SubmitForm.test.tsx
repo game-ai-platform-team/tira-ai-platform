@@ -2,9 +2,9 @@ import { render } from "@testing-library/react";
 import SubmitForm from "../../components/SubmitForm";
 import { test, expect } from "vitest";
 
-test("file path field exists", () => {
+test("url field exists", () => {
     const component = render(<SubmitForm />);
-    const fileInput = component.container.querySelector("#file-input");
+    const fileInput = component.container.querySelector("#url-field");
 
     expect(fileInput).not.toBe(null);
 });
