@@ -47,7 +47,9 @@ function GameView({ children }: { children: ReactNode }) {
             </div>
 
             <div id="statistics" className="card">
+                <h3 id="statistics-header">Advantage Chart</h3>
                 {stats && <AdvantageChart data={evals.advantages} />}
+                <h3 id="statistics-header">Time Chart</h3>
                 {stats && <TimeChart data={stats.times} />}
             </div>
         </div>
