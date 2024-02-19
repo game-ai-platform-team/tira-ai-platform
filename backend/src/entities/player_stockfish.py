@@ -17,5 +17,8 @@ class PlayerStockfish:
     def get_and_reset_current_logs(self):
         return ""
 
+    def get_and_reset_all_logs(self):
+        return ""
+
     def terminate_self(self):
         pass
