@@ -54,7 +54,7 @@ jobs:
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
           message: Format code
-          pull: "--rebase"
+          pull: "--rebase --autostash"
 
   Lint:
     runs-on: ubuntu-latest
