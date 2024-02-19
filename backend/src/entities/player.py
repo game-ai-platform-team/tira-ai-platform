@@ -50,7 +50,7 @@ class Player:
         readable, _, _ = select.select([self.__process.stdout], [], [], self.__timeout)
         if not readable:
             self.terminate_self()
-            raise TimeoutError(f"Operation timed out: {self.__path}")
+            raise TimeoutError(f"Operation timed out: {self.repo.path}")
 
         while True:
             out = self.__process.stdout.readline().decode("utf-8")
