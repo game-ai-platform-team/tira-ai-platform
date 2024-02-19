@@ -4,6 +4,7 @@ on:
     workflows: ["CI (frontend)", "CI (backend)"]
     types:
       - completed
+    branches: [dev]
   workflow_dispatch:
 
 jobs:
