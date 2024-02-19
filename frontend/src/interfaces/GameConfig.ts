@@ -1,7 +1,6 @@
 interface GameConfig {
-    file?: string;
     elo: number;
-    githubUrl?: string;
+    githubUrl: string;
 }
 
 export default GameConfig;
