@@ -69,7 +69,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
                         );
                     }}
                 />
-                <ReferenceLine x={referenceIndex} stroke="#FF9999"/>
+                <ReferenceLine x={referenceIndex} stroke="#FF9999" />
             </LineChart>
         </div>
     );

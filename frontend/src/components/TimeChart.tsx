@@ -69,7 +69,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
                     stroke="#706056"
                     fill="black"
                 />
-                <ReferenceLine x={referenceIndex} stroke="#FF9999"/>
+                <ReferenceLine x={referenceIndex} stroke="#FF9999" />
             </LineChart>
         </div>
     );
