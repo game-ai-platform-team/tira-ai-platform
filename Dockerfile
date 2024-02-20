@@ -12,7 +12,7 @@ RUN corepack enable
 WORKDIR /frontend
 
 COPY frontend/package*.json ./
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 COPY ./frontend .
 RUN pnpm run build
 
