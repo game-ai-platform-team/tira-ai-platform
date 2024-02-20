@@ -7,6 +7,9 @@ jobs:
   e2e:
     name: End-to-end test
     runs-on: ubuntu-latest
+    environment: production
+    env:
+      NODE_ENV: ${{ vars.NODE_ENV }}
 
     steps:
       - uses: actions/checkout@v4
