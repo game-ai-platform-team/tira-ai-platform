@@ -23,8 +23,6 @@ ENV HOME=/home/user
 
 RUN pip install poetry
 
-COPY --from=node_build /frontend/dist /frontend/dist
-
 COPY ./backend ./app
 WORKDIR /app
 
@@ -37,12 +35,15 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && chgrp -R 0 /app \
     && chmod -R g=u /app \
     && chgrp -R 0 /$HOME \
-    && chmod -R g=u /$HOME \
-    && chmod -R g=u /frontend/dist
+    && chmod -R g=u /$HOME
 
 RUN python3 -m poetry install --without dev --no-root --no-directory
 RUN ls -la $HOME/.config/pypoetry
 
+COPY --from=node_build /frontend/dist /frontend/dist
+RUN chmod -R g=u /frontend/dist
+
 USER 1001
 EXPOSE 5000:5000
 CMD ["poetry", "run", "invoke", "start"]
+
