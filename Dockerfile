@@ -1,4 +1,4 @@
-FROM node:latest as node_build
+FROM node:lts as node_build
 
 ARG MODE
 
