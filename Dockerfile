@@ -17,6 +17,9 @@ COPY ./frontend .
 RUN pnpm run build
 
 FROM python:3
+
+ENV HOME=/home/user
+
 RUN pip install poetry
 
 COPY --from=node_build /frontend/dist /frontend/dist
@@ -26,7 +29,6 @@ WORKDIR /app
 
 RUN adduser --home /home/user user
 
-ENV HOME=/home/user
 RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && mkdir -p $HOME/.config/pypoetry \
     && chown -R user:user $HOME \
