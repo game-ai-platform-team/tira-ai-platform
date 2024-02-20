@@ -1,10 +1,9 @@
+# Generate front-end files
 FROM node:lts as node_build
 
 ARG MODE
 
 ENV NODE_ENV="production"
-
-# pnpm installation
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
