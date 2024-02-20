@@ -42,7 +42,7 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
 
 RUN python3 -m poetry install --without dev
 RUN ls -la $HOME/.config/pypoetry
-         
+
 USER 1001
 EXPOSE 5000:5000
 CMD ["poetry", "run", "python3", "src/app.py"]
