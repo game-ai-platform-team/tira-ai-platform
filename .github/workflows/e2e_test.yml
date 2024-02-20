@@ -20,6 +20,7 @@ jobs:
       - name: Run Cypress
         uses: cypress-io/github-action@v6
         with:
+          working-directory: ./frontend
           wait-on: "http://localhost:5000"
           start: |
             cd backend && poetry run invoke start
