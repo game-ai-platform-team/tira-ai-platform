@@ -23,8 +23,12 @@ ENV HOME=/home/user
 
 RUN pip install poetry
 
-COPY ./backend ./app
 WORKDIR /app
+
+COPY backend/pyproject.toml backend/poetry.lock ./
+RUN poetry install --without dev --no-root --no-directory
+
+COPY ./backend .
 
 RUN adduser --home /home/user user
 
@@ -36,9 +40,6 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && chmod -R g=u /app \
     && chgrp -R 0 /$HOME \
     && chmod -R g=u /$HOME
-
-RUN python3 -m poetry install --without dev --no-root --no-directory
-RUN ls -la $HOME/.config/pypoetry
 
 COPY --from=node_build /frontend/dist /frontend/dist
 RUN chmod -R g=u /frontend/dist
