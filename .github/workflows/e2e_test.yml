@@ -34,4 +34,4 @@ jobs:
           wait-on: "http://localhost:5000"
           wait-on-timeout: 10
           build: pnpm run build
-          start: 'pnpm run server &'
+          start: "pnpm run server &"
