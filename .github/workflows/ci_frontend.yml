@@ -57,7 +57,7 @@ jobs:
         with:
           author_name: github-actions[bot]
           author_email: github-actions[bot]@users.noreply.github.com
-          message: Format code
+          message: "style: Format code"
           pull: "--rebase --autostash"
 
   Lint:

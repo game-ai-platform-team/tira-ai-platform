@@ -40,7 +40,7 @@ function GameView({ children }: { children: ReactNode }) {
                 <SubmitForm />
             </div>
             {children}
-            <AdvantageBar linePosition={evals.advantages.at(moveIndex)} />
+            <AdvantageBar linePosition={evals.advantages[moveIndex]} />
 
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />

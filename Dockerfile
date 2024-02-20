@@ -1,31 +1,52 @@
-FROM node:latest as node_build
+# Generate front-end files
+FROM node:lts as node_build
 
 ARG MODE
 
+ENV NODE_ENV="production"
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 WORKDIR /frontend
 
-COPY frontend/package*.json ./
-RUN npm install --omit=dev
+COPY frontend/package.json frontend/pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
 COPY ./frontend .
-RUN npm run build
+RUN pnpm run build
 
-FROM ubuntu:latest as backend
+# Install backend dependencies
+FROM python:3 as backend
 
-RUN apt-get update -y && apt-get install -y python3 python3-pip
-RUN python3 -m pip install poetry
-RUN poetry config virtualenvs.create false
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
 
-COPY --from=node_build /frontend/dist /frontend/dist
+RUN pip install poetry
 
-COPY ./backend ./app
 WORKDIR /app
 
-RUN adduser --home /home/user user
+COPY backend/pyproject.toml backend/poetry.lock ./
+RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root --no-directory
+
+# Configure runtime
+FROM python:3-slim as runtime
 
 ENV HOME=/home/user
-RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
-    && mkdir -p $HOME/.config/pypoetry \
-    && chown -R user:user $HOME \
+ENV VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:$PATH"
+
+COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+COPY --from=node_build /frontend/dist /frontend/dist
+
+WORKDIR /app
+
+COPY ./backend .
+RUN adduser --home /home/user user
+
+RUN chown -R user:user $HOME \
     && chmod -R 755 $HOME \
     && chgrp -R 0 /app \
     && chmod -R g=u /app \
@@ -33,9 +54,7 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && chmod -R g=u /$HOME \
     && chmod -R g=u /frontend/dist
 
-RUN python3 -m poetry install --without dev
-RUN ls -la $HOME/.config/pypoetry
-         
 USER 1001
 EXPOSE 5000:5000
-CMD ["poetry", "run", "python3", "src/app.py"]
+CMD ["python3", "src/app.py"]
+
