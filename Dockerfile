@@ -16,11 +16,8 @@ RUN pnpm install
 COPY ./frontend .
 RUN pnpm run build
 
-FROM ubuntu:latest as backend
-
-RUN apt-get update -y && apt-get install -y python3 python3-pip
-RUN python3 -m pip install poetry
-RUN poetry config virtualenvs.create false
+FROM python:3
+RUN pip install poetry
 
 COPY --from=node_build /frontend/dist /frontend/dist
 
