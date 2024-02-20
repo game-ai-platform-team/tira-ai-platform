@@ -35,6 +35,8 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tira-app:dev
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           build-args: |
             MODE=${{ vars.MODE }}
 
