@@ -30,9 +30,7 @@ jobs:
           working-directory: ./frontend
           wait-on: "http://localhost:5000"
           build: pnpm run build
-          start: |
-            pnpm run server
-            pnpm run dev
+          start: pnpm run server
 
       - name: Run e2e tests
         run: bash run_e2e_tests.sh
