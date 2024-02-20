@@ -2,12 +2,19 @@ FROM node:lts as node_build
 
 ARG MODE
 
+ENV NODE_ENV="production"
+
+# pnpm installation
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 WORKDIR /frontend
 
 COPY frontend/package*.json ./
-RUN npm install --omit=dev
+RUN pnpm install
 COPY ./frontend .
-RUN npm run build
+RUN pnpm run build
 
 FROM ubuntu:latest as backend
 
