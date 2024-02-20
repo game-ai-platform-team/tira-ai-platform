@@ -39,7 +39,7 @@ RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
     && chmod -R g=u /$HOME \
     && chmod -R g=u /frontend/dist
 
-RUN python3 -m poetry install --without dev
+RUN python3 -m poetry install --without dev --no-root --no-directory
 RUN ls -la $HOME/.config/pypoetry
 
 USER 1001
