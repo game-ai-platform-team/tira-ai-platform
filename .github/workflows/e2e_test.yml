@@ -30,8 +30,8 @@ jobs:
           working-directory: ./frontend
           wait-on: "http://localhost:5000"
           start: |
-            cd backend && poetry run invoke start
-            cd frontend && pnpm run dev
+            cd ../backend && poetry run invoke start
+            pnpm run dev
 
       - name: Run e2e tests
         run: bash run_e2e_tests.sh
