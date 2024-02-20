@@ -17,5 +17,13 @@ jobs:
       - name: Set up Node
         uses: ./.github/workflows/setup-node
 
+      - name: Run Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          wait-on: "http://localhost:5000"
+          start: |
+            cd backend && poetry run invoke start
+            cd frontend && pnpm run dev
+
       - name: Run e2e tests
         run: bash run_e2e_tests.sh
