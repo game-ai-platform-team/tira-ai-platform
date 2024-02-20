@@ -29,6 +29,7 @@ jobs:
         with:
           working-directory: ./frontend
           wait-on: "http://localhost:5000"
+          wait-on-timeout: 3
           build: pnpm run build
           start: pnpm run server
 
