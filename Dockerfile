@@ -32,9 +32,7 @@ COPY ./backend .
 
 RUN adduser --home /home/user user
 
-RUN mkdir -p $HOME/.cache/pypoetry/virtualenvs/ \
-    && mkdir -p $HOME/.config/pypoetry \
-    && chown -R user:user $HOME \
+RUN chown -R user:user $HOME \
     && chmod -R 755 $HOME \
     && chgrp -R 0 /app \
     && chmod -R g=u /app \
