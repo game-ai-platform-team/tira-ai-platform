@@ -10,9 +10,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Poetry
         uses: ./.github/workflows/setup-poetry
+
       - name: Set up Node
         uses: ./.github/workflows/setup-node
+
       - name: Run e2e tests
         run: bash run_e2e_tests.sh
