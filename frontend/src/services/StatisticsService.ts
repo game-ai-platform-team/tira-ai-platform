@@ -175,6 +175,7 @@ function getMoveClass(change: number, mult: number): string {
 function getAccuracy(advantages: number[]): number[] {
     const whiteAccuracyAll: number[] = [];
     const blackAccuracyAll: number[] = [];
+    const distanceFromMeanFactor: number = 0.5;
 
     for (let i = 0; i < advantages.length; i++) {
         const advantage = advantages[i];
@@ -201,8 +202,8 @@ function getAccuracy(advantages: number[]): number[] {
         }
     }
 
-    const whiteAccuracy = Math.round(calculateAverage(whiteAccuracyAll));
-    const blackAccuracy = Math.round(calculateAverage(blackAccuracyAll));
+    const whiteAccuracy = Math.round(calculateWeightedAverage(whiteAccuracyAll, distanceFromMeanFactor));
+    const blackAccuracy = Math.round(calculateWeightedAverage(blackAccuracyAll, distanceFromMeanFactor));
 
     return [whiteAccuracy, blackAccuracy];
 }
@@ -226,16 +227,46 @@ function centipawnFromAdvantage(advantage: number): number {
     return -Math.log(2 / (advantage + 1) - 1) / 0.004;
 }
 
-function calculateAverage(numbers: number[]): number {
+function calculateWeightedAverage(numbers: number[], distanceFromMeanFactor: number): number {
     if (numbers.length === 0) {
         return 0;
     }
 
+    const mean = calculateMean(numbers);
+    const standardDeviation = calculateStandardDeviation(numbers);
+
+    const weightedSum = numbers.reduce(
+        (accumulator, currentValue) => {
+            const weight = Math.exp(distanceFromMeanFactor * Math.abs(currentValue - mean) / standardDeviation);
+            return accumulator + currentValue * weight;
+        },
+        0,
+    );
+
+    const weightsSum = numbers.reduce(
+        (accumulator, currentValue) => {
+            const weight = Math.exp(distanceFromMeanFactor * Math.abs(currentValue - mean) / standardDeviation);
+            return accumulator + weight;
+        },
+        0,
+    );
+
+    return weightedSum / weightsSum;
+}
+
+function calculateMean(numbers: number[]): number {
     const sum = numbers.reduce(
         (accumulator, currentValue) => accumulator + currentValue,
         0,
     );
     return sum / numbers.length;
+}
+
+function calculateStandardDeviation(numbers: number[]): number {
+    const mean = calculateMean(numbers);
+    const squaredDifferences = numbers.map(value => Math.pow(value - mean, 2));
+    const variance = squaredDifferences.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / numbers.length;
+    return Math.sqrt(variance);
 }
 
 export default {
