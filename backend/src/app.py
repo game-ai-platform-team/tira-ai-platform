@@ -17,16 +17,19 @@ def io_post_code(data):
 
 
 @app.route("/ping")
+@app.route("/ai-platform/ping")
 def ping():
     return "pong"
 
 
 @app.route("/")
+@app.route("/ai-platform")
 def index():
     return send_file("./../frontend/dist/index.html")
 
 
 @app.route("/<path:path>")
+@app.route("/ai-platform/<path:path>")
 def default(path):
     return send_from_directory("./../frontend/dist", path)
 
