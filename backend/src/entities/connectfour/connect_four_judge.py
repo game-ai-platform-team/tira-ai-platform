@@ -51,7 +51,7 @@ class ConnectFourJudge(Judge):
             if self.__board[move][row] != 0:
                 self.__board[move][row] = 0
                 self.__turns -= 1
-                print("lol" , self.__board, self.__turns)
+                print("lol", self.__board, self.__turns)
                 return
 
     def get_debug_info(self) -> str:
@@ -76,7 +76,7 @@ class ConnectFourJudge(Judge):
         return True
 
     def __check_illegal_move(self, move: int) -> bool:
-        if self.__board[move][len(self.__board[0])-1] != 0:
+        if self.__board[move][len(self.__board[0]) - 1] != 0:
             return False
 
         return True
