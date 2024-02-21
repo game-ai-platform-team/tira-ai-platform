@@ -108,6 +108,7 @@ const Chessboard = () => {
                     )}
                 </select>
                 <select value={arrowColor} onChange={handleArrowColorChange}>
+                    <option value="">no arrow</option>
                     <option value="R">red</option>
                     <option value="G">green</option>
                     <option value="B">blue</option>
