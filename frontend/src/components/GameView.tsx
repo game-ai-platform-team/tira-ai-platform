@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
@@ -15,7 +15,7 @@ interface GameViewProps {
     children: ReactNode;
 }
 
-function GameView({ selectedGame, children }: GameViewProps) {
+function GameView({ children }: GameViewProps) {
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
     const moves = useAppSelector((state) => state.moves);
 
