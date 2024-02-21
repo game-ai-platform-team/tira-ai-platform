@@ -1,22 +1,24 @@
 import unittest
-
 from unittest.mock import Mock
+
 from entities.cloned_repository import ClonedRepository
-from services.socket_io_service import SocketIOService
 from services.game_factory import GameFactory
+from services.socket_io_service import SocketIOService
 
 
 class TestGameFactory(unittest.TestCase):
     def setUp(self) -> None:
         class TestGameFactory(GameFactory):
-            def __init__(self, socketio: SocketIOService, repo: ClonedRepository, elo=1350):
+            def __init__(
+                self, socketio: SocketIOService, repo: ClonedRepository, elo=1350
+            ):
                 self.socketio_service = socketio
                 self.repo = repo
                 self.elo = elo
                 self.chess = Mock()
                 self.cfour = Mock()
                 self.games = {"chess": self.chess, "connect_four": self.cfour}
-        
+
         self.socketio = Mock()
         self.repo = Mock()
         self.factory = TestGameFactory(self.socketio, self.repo, 500)
