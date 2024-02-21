@@ -15,7 +15,13 @@
     padding: 20px;
 }
 
+.card:empty {
+    display: none
+}
+
 .card-header {
     text-align: center;
     font-size: 1.8em;
 }
+
+
