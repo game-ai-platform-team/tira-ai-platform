@@ -2,6 +2,7 @@ import { useAppSelector } from "../hook";
 import { useState, useEffect, useCallback } from "react";
 import store from "../store";
 import { setBoardIndex } from "../reducers/boardIndexReducer";
+import "../scss/Gameboard.scss";
 
 const CFourboard = () => {
     const moves = useAppSelector((state) => state.moves);
@@ -21,7 +22,7 @@ const CFourboard = () => {
     }, [boardIndex, handleMoveChange]);
 
     return (
-        <div id="cfourboard" className="card">
+        <div id="gameboard" className="card">
             <h2 className="card-header">Connect Four</h2>
             <div style={{ textAlign: "center", marginTop: "20px" }}>
                 <span>Current Turn: {currentMove}</span>
@@ -39,13 +40,13 @@ const CFourboard = () => {
                 <br />
                 <button
                     onClick={() => handleMoveChange(currentMove - 1)}
-                    id="previousChessboardButton"
+                    id="previousMoveButton"
                 >
                     {"<"}
                 </button>
                 <button
                     onClick={() => handleMoveChange(currentMove + 1)}
-                    id="nextChessboardButton"
+                    id="nextMoveButton"
                 >
                     {">"}
                 </button>
