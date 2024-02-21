@@ -1,7 +1,7 @@
-from http.client import CONTINUE
 import unittest
-from entities.judges.connect_four_judge import ConnectFourJudge
+from http.client import CONTINUE
 
+from entities.judges.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
 
@@ -10,7 +10,7 @@ class TestConnectFourJudge(unittest.TestCase):
         self.judge = ConnectFourJudge()
         self.board_one_column_full = [[1, 2, 1, 2, 1, 2]]
         self.board_one_column_full.extend([[0] * 6 for i in range(6)])
-        
+
         self.board_one_column_one_move = [[0, 0, 0, 0, 0, 1]]
         self.board_one_column_one_move.extend([[0] * 6 for i in range(6)])
 
