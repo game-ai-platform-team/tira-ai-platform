@@ -3,13 +3,11 @@ from game_state import GameState
 
 
 class ConnectFourJudge(Judge):
-    def __init__(
-        self, rows=6, columns=7, moves: list[int] | None = None
-    ) -> None:
+    def __init__(self, rows=6, columns=7, moves: list[int] | None = None) -> None:
         self.__board: list[list[int]] = self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
         self.__turns = 1
-        self.max_turns = len(self.__board)*len(self.__board[0])
+        self.max_turns = len(self.__board) * len(self.__board[0])
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
@@ -28,12 +26,12 @@ class ConnectFourJudge(Judge):
         self.add_move(int(move))
 
         if self.__is_win():
-           state = GameState.WIN
-    
+            state = GameState.WIN
+
         if self.__is_draw():
             print("DRAW")
             state = GameState.DRAW
-        
+
         ## If Game.py was a superclass, we wouldn't need to add and remove a move here
         self.remove_move(int(move))
 
@@ -47,7 +45,7 @@ class ConnectFourJudge(Judge):
                 break
 
     def remove_move(self, move: int) -> None:
-        for row in range(len(self.__board[move])-1, -1, -1):
+        for row in range(len(self.__board[move]) - 1, -1, -1):
             if row != 0:
                 self.__board[move][row] = 0
                 self.__turns -= 1
@@ -92,8 +90,6 @@ class ConnectFourJudge(Judge):
         return False
 
     def set_board(self, board, turns) -> None:
-        '''Only for tests with given boards.
-        '''
+        """Only for tests with given boards."""
         self.__board = board
         self.__turns = turns
-
