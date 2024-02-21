@@ -38,6 +38,7 @@ class ConnectFourJudge(Judge):
         return state
 
     def add_move(self, move: int) -> None:
+        print(self.__board[move])
         for row in self.__board[move]:
             if row == 0:
                 self.__board[move][row] = (self.__turns + 1) % 2 + 1
@@ -45,11 +46,13 @@ class ConnectFourJudge(Judge):
                 break
 
     def remove_move(self, move: int) -> None:
+        print(self.__board[move])
         for row in range(len(self.__board[move]) - 1, -1, -1):
-            if row != 0:
+            if self.__board[move][row] != 0:
                 self.__board[move][row] = 0
                 self.__turns -= 1
-                break
+                print("lol" , self.__board, self.__turns)
+                return
 
     def get_debug_info(self) -> str:
         pass
@@ -73,7 +76,7 @@ class ConnectFourJudge(Judge):
         return True
 
     def __check_illegal_move(self, move: int) -> bool:
-        if self.__board[move][5] != 0:
+        if self.__board[move][len(self.__board[0])-1] != 0:
             return False
 
         return True
@@ -82,6 +85,7 @@ class ConnectFourJudge(Judge):
         return self.__board
 
     def __is_draw(self) -> bool:
+        print(self.__turns)
         if self.__turns >= self.max_turns:
             return True
         return False
@@ -93,3 +97,5 @@ class ConnectFourJudge(Judge):
         """Only for tests with given boards."""
         self.__board = board
         self.__turns = turns
+        print(self.__board)
+        print(self.__turns)
