@@ -20,6 +20,18 @@ class ConnectFourJudge(Judge):
 
         return state
 
+    def add_move(self, move: int) -> None:
+        pass
+
+    def get_debug_info(self) -> str:
+        pass
+
+    def get_all_moves(self) -> list[str]:
+        pass
+
+    def analyze(self) -> float:
+        pass
+
     def __check_valid_move(self, move: str) -> bool:
         move_int = -1
         try:
