@@ -1,22 +1,26 @@
+import React, { ReactNode } from "react";
 import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
 import statisticsService from "../services/StatisticsService";
 import AdvantageBar from "./AdvantageBar";
-import { ReactNode } from "react";
 import { useAppSelector } from "../hook";
 import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
 import CSVCreater from "./CSVCreater.tsx";
 import { LogBox } from "./LogBox.tsx";
 
-function GameView({ children }: { children: ReactNode }) {
+interface GameViewProps {
+    selectedGame: string;
+    children: ReactNode;
+}
+
+function GameView({ selectedGame, children }: GameViewProps) {
     const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
     const evals = statisticsService.getEvaluations(moves, true);
-
     const handleCopyPGN = () => {
         const text = statisticsService.uciToPGN(moves);
         const pgn = document.createElement("textarea");
