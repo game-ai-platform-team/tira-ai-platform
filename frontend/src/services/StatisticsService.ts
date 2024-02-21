@@ -4,12 +4,19 @@ import _ from "lodash";
 
 const STARTING_ADVANTAGE: number = 0.066;
 
-interface Statistics {
+export interface Statistics {
     longest: MoveStatistics;
     shortest: MoveStatistics;
     average: number;
     times: number[];
     logs: string;
+}
+
+export interface Evaluations {
+    advantages: number[];
+    moveClasses: string[];
+    accuracyWhite: number;
+    accuracyBlack: number;
 }
 
 function getStatistics(
@@ -45,12 +52,7 @@ function getEvaluations(
     moves: MoveStatistics[],
     startingAdvantage: boolean,
     color?: 0 | 1,
-): {
-    advantages: number[];
-    moveClasses: string[];
-    accuracyWhite: number;
-    accuracyBlack: number;
-} {
+): Evaluations {
     moves = color != undefined ? filterByColor(moves, color) : moves;
 
     const advantages = getAdvantages(moves);

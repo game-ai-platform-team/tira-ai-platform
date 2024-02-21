@@ -9,6 +9,7 @@ import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
 import CSVCreater from "./CSVCreater.tsx";
 import { LogBox } from "./LogBox.tsx";
+import PlayerStats from "./PlayerStats.tsx";
 
 interface GameViewProps {
     selectedGame: string;
@@ -21,6 +22,10 @@ function GameView({ children }: GameViewProps) {
 
     const stats = statisticsService.getStatistics(moves);
     const evals = statisticsService.getEvaluations(moves, true);
+
+    const wStats = statisticsService.getStatistics(moves, 0);
+    const bStats = statisticsService.getStatistics(moves, 1);
+
     const handleCopyPGN = () => {
         const text = statisticsService.uciToPGN(moves);
         const pgn = document.createElement("textarea");
@@ -54,6 +59,16 @@ function GameView({ children }: GameViewProps) {
             <div id="statistics" className="card">
                 {stats && <AdvantageChart data={evals.advantages} />}
                 {stats && <TimeChart data={stats.times} />}
+            </div>
+
+            <div id="move-info" className="card">
+                {wStats && bStats && (
+                    <PlayerStats
+                        whiteStats={wStats}
+                        blackStats={bStats}
+                        evals={evals}
+                    />
+                )}
             </div>
 
             <div>
