@@ -1,14 +1,15 @@
-import { useState } from "react";
+import React from "react";
 import "../scss/NavigationBar.scss";
 
-const NavigationBar = () => {
-    const [selectedGame, setSelectedGame] = useState<string>("Chess");
+interface NavigationBarProps {
+    selectedGame: string;
+    handleGameChange: (game: string) => void;
+}
 
-    const handleGameChange = (game: string) => {
-        setSelectedGame(game);
-        // Placeholder - add what happens when the game is changed
-    };
-
+const NavigationBar: React.FC<NavigationBarProps> = ({
+    selectedGame,
+    handleGameChange,
+}) => {
     return (
         <div id="navigation-bar">
             <div className="dropdown">
