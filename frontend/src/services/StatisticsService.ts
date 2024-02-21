@@ -145,8 +145,8 @@ function isAdvantageIncreasing(
 }
 
 function calculateMultiplier(thisAdvantage: number): number {
-    return Math.abs(thisAdvantage) > 0.8
-        ? 0.1
+    return Math.abs(thisAdvantage) > 0.9
+        ? 0.25
         : Math.abs(thisAdvantage) > 0.5
           ? 0.5
           : 1;
@@ -165,7 +165,7 @@ function getMoveClass(change: number, mult: number): string {
         return "GOOD";
     } else if (change <= 0.1 * mult) {
         return "INACCURACY";
-    } else if (change <= 0.2 * mult) {
+    } else if (change <= 0.3 * mult) {
         return "MISTAKE";
     } else {
         return "BLUNDER";
