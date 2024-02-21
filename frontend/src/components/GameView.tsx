@@ -56,20 +56,25 @@ function GameView({ children }: GameViewProps) {
                 <MoveList handleCopyPGN={handleCopyPGN} />
                 <CSVCreater moves={moves} />
             </div>
-            <div id="statistics" className="card">
-                {stats && <AdvantageChart data={evals.advantages} />}
-                {stats && <TimeChart data={stats.times} />}
-            </div>
-            <div id="player-stats" className="card">
-                {wStats && bStats && (
+
+            {stats && (
+                <div id="statistics" className="card">
+                    <AdvantageChart data={evals.advantages} />
+                    <TimeChart data={stats.times} />
+                </div>
+            )}
+
+            {wStats && bStats && (
+                <div id="player-stats" className="card">
                     <PlayerStats
                         whiteStats={wStats}
                         blackStats={bStats}
                         evals={evals}
                     />
-                )}
-            </div>
-            <div className="card">
+                </div>
+            )}
+
+            <div>
                 <LogBox />
             </div>
         </div>
