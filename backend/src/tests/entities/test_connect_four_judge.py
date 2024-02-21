@@ -8,6 +8,8 @@ from game_state import GameState
 class TestConnectFourJudge(unittest.TestCase):
     def setUp(self) -> None:
         self.judge = ConnectFourJudge()
+        self.board_one_column_full = [[1, 2, 1, 2, 1, 2]]
+        self.board_one_column_full.extend([[0] * 6 for i in range(6)])
 
     def test_move_not_convertable_to_int_is_invalid(self):
         self.assertEqual(self.judge.validate("aaa"), GameState.INVALID)
@@ -26,3 +28,12 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.validate("3"), GameState.CONTINUE)
         self.assertEqual(self.judge.validate("6"), GameState.CONTINUE)
         self.assertEqual(self.judge.validate("0"), GameState.CONTINUE)
+
+    def test_move_returns_illegal_if_column_is_full(self):
+        judge = ConnectFourJudge(self.board_one_column_full)
+        self.assertEqual(judge.validate("0"), GameState.ILLEGAL)
+
+    def test_move_returns_continue_if_column_is_not_full(self):
+        judge = ConnectFourJudge(self.board_one_column_full)
+        self.assertEqual(judge.validate("1"), GameState.CONTINUE)
+        self.assertEqual(judge.validate("6"), GameState.CONTINUE)

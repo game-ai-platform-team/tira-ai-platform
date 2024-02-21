@@ -1,4 +1,5 @@
 from entities.judge import Judge
+from game_state import GameState
 
 
 class ConnectFourJudge(Judge):
@@ -14,6 +15,9 @@ class ConnectFourJudge(Judge):
         if not self.__check_valid_move(move):
             return GameState.INVALID
 
+        if not self.__check_illegal_move(int(move)):
+            return GameState.ILLEGAL
+
         return state
 
     def __check_valid_move(self, move: str) -> bool:
@@ -24,6 +28,12 @@ class ConnectFourJudge(Judge):
             return False
 
         if not (0 <= move_int <= len(self.__board)):
+            return False
+
+        return True
+
+    def __check_illegal_move(self, move: int) -> bool:
+        if self.__board[move][0] != 0:
             return False
 
         return True
