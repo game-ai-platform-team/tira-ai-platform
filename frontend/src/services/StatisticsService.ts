@@ -176,7 +176,11 @@ function getAccuracy(advantages: number[]): number[] {
 
     for (let i = 1; i < advantages.length; i++) {
         const advantage = advantages[i];
-        const prevAdvantage = getPreviousAdvantage(i, advantages, STARTING_ADVANTAGE)
+        const prevAdvantage = getPreviousAdvantage(
+            i,
+            advantages,
+            STARTING_ADVANTAGE,
+        );
 
         if (i % 2 === 0) {
             const accuracy = calculateAccuracy(
