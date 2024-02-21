@@ -61,7 +61,7 @@ function GameView({ children }: GameViewProps) {
                 {stats && <TimeChart data={stats.times} />}
             </div>
 
-            <div id="move-info" className="card">
+            <div id="player-stats" className="card">
                 {wStats && bStats && (
                     <PlayerStats
                         whiteStats={wStats}
