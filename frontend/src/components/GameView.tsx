@@ -3,7 +3,7 @@ import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
 import statisticsService from "../services/StatisticsService";
-import AdvantageBar from "./AdvantageBar";
+// import AdvantageBar from "./AdvantageBar";
 import { useAppSelector } from "../hook";
 import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
@@ -17,7 +17,7 @@ interface GameViewProps {
 }
 
 function GameView({ children }: GameViewProps) {
-    const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
+    // const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
@@ -49,18 +49,17 @@ function GameView({ children }: GameViewProps) {
                 <SubmitForm />
             </div>
             {children}
-            <AdvantageBar linePosition={evals.advantages[moveIndex]} />
-
+            {
+                // <AdvantageBar linePosition={evals.advantages[moveIndex]} />
+            }
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
                 <CSVCreater moves={moves} />
             </div>
-
             <div id="statistics" className="card">
                 {stats && <AdvantageChart data={evals.advantages} />}
                 {stats && <TimeChart data={stats.times} />}
             </div>
-
             <div id="player-stats" className="card">
                 {wStats && bStats && (
                     <PlayerStats
@@ -70,8 +69,7 @@ function GameView({ children }: GameViewProps) {
                     />
                 )}
             </div>
-
-            <div>
+            <div className="card">
                 <LogBox />
             </div>
         </div>
