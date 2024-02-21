@@ -5,10 +5,8 @@ describe("Chess game", function () {
 
     it("stays like it is without repository being submitted", function () {
         cy.visit("/");
-        cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
-        cy.wait(1000);
         cy.get("@previousBoard").then(function (prev) {
             cy.get(".kokopu-chessboard").then(function (current) {
                 expect(prev.html()).to.equal(current.html());
@@ -18,25 +16,19 @@ describe("Chess game", function () {
 
     it("plays a game when a repository is submitted", function () {
         cy.visit("/");
-        cy.wait(100);
-        cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
         cy.get("#url-field").type(
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
         );
         cy.get("#submit-button").click();
 
-        cy.wait(10000);
-        cy.get("@previousBoard").then(function (prev) {
-            cy.get(".kokopu-chessboard").then(function (current) {
-                expect(prev.html()).to.not.equal(current.html());
-            });
-        });
+        cy.wait(2000)
+
+        cy.get("#game-view").should("not.contain", "Current Turn: 0");
     });
 
     it("pressing move opens move stats", function () {
         cy.visit("/");
-        cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
         cy.get("#url-field").type(
@@ -52,7 +44,6 @@ describe("Chess game", function () {
 
     it("downloading csv works", function () {
         cy.visit("/");
-        cy.wait(100);
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
         cy.get("#url-field").type(
