@@ -10,8 +10,21 @@ from services.socket_io_service import SocketIOService
 
 
 class GameFactory:
-    @staticmethod
-    def get_github_chess_game(
-        socketio_service: SocketIOService, repo: ClonedRepository, elo=1350
-    ):
-        return Game(socketio_service, Player(repo), PlayerStockfish(elo), ChessJudge())
+    def __init__(self, socketio: SocketIOService, repo: ClonedRepository, elo=1350):
+        self.socketio_service = socketio
+        self.repo = repo
+        self.elo = elo
+        self.games = {
+            "chess": Game(
+                self.socketio_service,
+                Player(self.repo),
+                PlayerStockfish(elo),
+                ChessJudge(),
+            ),
+            #"connectfour": Game()
+        }
+
+    def get_game(self, active_game):
+        if active_game in self.games:
+            return self.games[active_game]
+        return None

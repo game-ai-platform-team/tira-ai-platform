@@ -14,11 +14,12 @@ class Api:
     def __init__(self):
         self.temp_dir = TEMP_DIR
 
-    def start(self, github_url: str, elo: int, socketio: SocketIO, sid: str):
+    def start(self, github_url: str, elo: int, socketio: SocketIO, sid: str, active_game: str):
         repo = self.git_clone(github_url)
-
         socketio_service = SocketIOService(socketio, sid)
-        game = GameFactory.get_github_chess_game(socketio_service, repo, elo=elo)
+
+        self.game_factory = GameFactory(socketio_service, repo, elo)
+        game = self.game_factory.get_game(active_game)
         game.play()
 
         repo.remove()
