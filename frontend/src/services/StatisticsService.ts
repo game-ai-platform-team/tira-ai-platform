@@ -208,11 +208,17 @@ function getAccuracy(advantages: number[]): number[] {
 }
 
 function calculateAccuracy(winBefore: number, winAfter: number): number {
-    return Math.min(Math.max(103 * Math.exp(-0.04354 * (winBefore - winAfter)) - 2, 0), 100);
+    return Math.min(
+        Math.max(103 * Math.exp(-0.04354 * (winBefore - winAfter)) - 2, 0),
+        100,
+    );
 }
 
 function calculateWinChance(cp: number): number {
-    return Math.min(Math.max(50 + 50 * (2 / (1 + Math.exp(-0.004 * cp)) - 1), 0), 100);
+    return Math.min(
+        Math.max(50 + 50 * (2 / (1 + Math.exp(-0.004 * cp)) - 1), 0),
+        100,
+    );
 }
 
 function centipawnFromAdvantage(advantage: number): number {
