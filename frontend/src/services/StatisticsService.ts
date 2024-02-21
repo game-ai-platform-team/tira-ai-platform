@@ -16,16 +16,16 @@ function getStatistics(
     moves: MoveStatistics[],
     color?: 0 | 1,
 ): Statistics | null {
-    moves = color != undefined ? filterByColor(moves, color) : moves;
+    const filteredMoves = color != undefined ? filterByColor(moves, color) : moves;
 
-    if (moves.length === 0) {
+    if (filteredMoves.length === 0) {
         return null;
     }
 
-    const longestMove = _(moves).maxBy("time") as MoveStatistics;
-    const shortestMove = _(moves).minBy("time") as MoveStatistics;
-    const average = _(moves).meanBy("time");
-    const times = _(moves).map("time").value();
+    const longestMove = _(filteredMoves).maxBy("time") as MoveStatistics;
+    const shortestMove = _(filteredMoves).minBy("time") as MoveStatistics;
+    const average = _(filteredMoves).meanBy("time");
+    const times = _(filteredMoves).map("time").value();
 
     return {
         longest: longestMove,
@@ -94,12 +94,7 @@ function uciToPGN(
 }
 
 function getAdvantages(moves: MoveStatistics[]): number[] {
-    const advantages: number[] = [];
-    for (let i = 0; i < moves.length; i++) {
-        const advantage = moves[i].evaluation;
-        advantages.push(advantage);
-    }
-    return advantages;
+    return moves.map(move => move.evaluation);
 }
 
 function getMoveClasses(advantages: number[]): string[] {
@@ -175,8 +170,8 @@ function getMoveClass(change: number, mult: number): string {
 }
 
 function getAccuracy(advantages: number[]): number[] {
-    const whiteAccuracy: number[] = [];
-    const blackAccuracy: number[] = [];
+    const whiteAccuracyAll: number[] = [];
+    const blackAccuracyAll: number[] = [];
 
     let prevAdvantage: number = advantages[0];
 
@@ -189,20 +184,23 @@ function getAccuracy(advantages: number[]): number[] {
                 calculateWinChance(centipawnFromAdvantage(advantage)),
             );
 
-            whiteAccuracy.push(accuracy);
+            whiteAccuracyAll.push(accuracy);
         } else {
             const accuracy = calculateAccuracy(
                 calculateWinChance(-centipawnFromAdvantage(prevAdvantage)),
                 calculateWinChance(-centipawnFromAdvantage(advantage)),
             );
 
-            blackAccuracy.push(accuracy);
+            blackAccuracyAll.push(accuracy);
         }
 
         prevAdvantage = advantage;
     }
 
-    return [calculateAverage(whiteAccuracy), calculateAverage(blackAccuracy)];
+    const whiteAccuracy = calculateAverage(whiteAccuracyAll);
+    const blackAccuracy = calculateAverage(blackAccuracyAll);
+
+    return [whiteAccuracy, blackAccuracy];
 }
 
 function calculateAccuracy(winBefore: number, winAfter: number): number {
@@ -214,6 +212,7 @@ function calculateWinChance(cp: number): number {
 }
 
 function centipawnFromAdvantage(advantage: number): number {
+    if (advantage === 0) return 0;
     return -Math.log(2 / (advantage + 1) - 1) / 0.004;
 }
 
