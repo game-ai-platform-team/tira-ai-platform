@@ -65,24 +65,6 @@ describe("GameView", () => {
         expect(chessboard).not.toBeEmptyDOMElement();
     });
 
-    test("AdvantageBar gets rendered", async () => {
-        store.dispatch(
-            createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
-        );
-        const ui = (
-            <Provider store={store}>
-                <GameView>
-                    <Chessboard />
-                </GameView>
-            </Provider>
-        );
-        const component = render(ui);
-        const advantagebar =
-            component.container.querySelector(".advantage-bar");
-
-        expect(advantagebar).not.toBeEmptyDOMElement();
-    });
-
     test("statistics get rendered", async () => {
         store.dispatch(
             createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),

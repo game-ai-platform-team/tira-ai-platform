@@ -3,7 +3,6 @@ import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
 import statisticsService from "../services/StatisticsService";
-// import AdvantageBar from "./AdvantageBar";
 import { useAppSelector } from "../hook";
 import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
@@ -17,7 +16,6 @@ interface GameViewProps {
 }
 
 function GameView({ children }: GameViewProps) {
-    // const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
@@ -49,9 +47,6 @@ function GameView({ children }: GameViewProps) {
                 <SubmitForm />
             </div>
             {children}
-            {
-                // <AdvantageBar linePosition={evals.advantages[moveIndex]} />
-            }
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
                 <CSVCreater moves={moves} />
