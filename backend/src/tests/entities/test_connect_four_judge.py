@@ -16,13 +16,13 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.validate("1.01"), GameState.INVALID)
         self.assertEqual(self.judge.validate("1.0"), GameState.INVALID)
 
-    def test_move_outside_board_returns_false(self):
+    def test_move_outside_board_return_invalid_state(self):
         self.assertEqual(self.judge.validate("-1"), GameState.INVALID)
         self.assertEqual(self.judge.validate("70"), GameState.INVALID)
         self.assertEqual(self.judge.validate("1000"), GameState.INVALID)
         self.assertEqual(self.judge.validate("-10000"), GameState.INVALID)
 
-    def test_valid_move_returns_true(self):
+    def test_valid_move_returns_continue(self):
         self.assertEqual(self.judge.validate("3"), GameState.CONTINUE)
         self.assertEqual(self.judge.validate("6"), GameState.CONTINUE)
         self.assertEqual(self.judge.validate("0"), GameState.CONTINUE)
