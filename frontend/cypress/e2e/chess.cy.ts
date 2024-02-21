@@ -22,7 +22,7 @@ describe("Chess game", function () {
         );
         cy.get("#submit-button").click();
 
-        cy.wait(2000)
+        cy.wait(2000);
 
         cy.get("#game-view").should("not.contain", "Current Turn: 0");
     });
