@@ -60,7 +60,7 @@ describe("GameView", () => {
             </Provider>
         );
         const component = render(ui);
-        const chessboard = component.container.querySelector("#chessboard");
+        const chessboard = component.container.querySelector("#gameboard");
 
         expect(chessboard).not.toBeEmptyDOMElement();
     });
