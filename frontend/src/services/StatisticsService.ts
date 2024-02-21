@@ -202,8 +202,12 @@ function getAccuracy(advantages: number[]): number[] {
         }
     }
 
-    const whiteAccuracy = Math.round(calculateWeightedAverage(whiteAccuracyAll, distanceFromMeanFactor));
-    const blackAccuracy = Math.round(calculateWeightedAverage(blackAccuracyAll, distanceFromMeanFactor));
+    const whiteAccuracy = Math.round(
+        calculateWeightedAverage(whiteAccuracyAll, distanceFromMeanFactor),
+    );
+    const blackAccuracy = Math.round(
+        calculateWeightedAverage(blackAccuracyAll, distanceFromMeanFactor),
+    );
 
     return [whiteAccuracy, blackAccuracy];
 }
@@ -227,7 +231,10 @@ function centipawnFromAdvantage(advantage: number): number {
     return -Math.log(2 / (advantage + 1) - 1) / 0.004;
 }
 
-function calculateWeightedAverage(numbers: number[], distanceFromMeanFactor: number): number {
+function calculateWeightedAverage(
+    numbers: number[],
+    distanceFromMeanFactor: number,
+): number {
     if (numbers.length === 0) {
         return 0;
     }
@@ -235,21 +242,21 @@ function calculateWeightedAverage(numbers: number[], distanceFromMeanFactor: num
     const mean = calculateMean(numbers);
     const standardDeviation = calculateStandardDeviation(numbers);
 
-    const weightedSum = numbers.reduce(
-        (accumulator, currentValue) => {
-            const weight = Math.exp(distanceFromMeanFactor * Math.abs(currentValue - mean) / standardDeviation);
-            return accumulator + currentValue * weight;
-        },
-        0,
-    );
+    const weightedSum = numbers.reduce((accumulator, currentValue) => {
+        const weight = Math.exp(
+            (distanceFromMeanFactor * Math.abs(currentValue - mean)) /
+                standardDeviation,
+        );
+        return accumulator + currentValue * weight;
+    }, 0);
 
-    const weightsSum = numbers.reduce(
-        (accumulator, currentValue) => {
-            const weight = Math.exp(distanceFromMeanFactor * Math.abs(currentValue - mean) / standardDeviation);
-            return accumulator + weight;
-        },
-        0,
-    );
+    const weightsSum = numbers.reduce((accumulator, currentValue) => {
+        const weight = Math.exp(
+            (distanceFromMeanFactor * Math.abs(currentValue - mean)) /
+                standardDeviation,
+        );
+        return accumulator + weight;
+    }, 0);
 
     return weightedSum / weightsSum;
 }
@@ -264,8 +271,14 @@ function calculateMean(numbers: number[]): number {
 
 function calculateStandardDeviation(numbers: number[]): number {
     const mean = calculateMean(numbers);
-    const squaredDifferences = numbers.map(value => Math.pow(value - mean, 2));
-    const variance = squaredDifferences.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / numbers.length;
+    const squaredDifferences = numbers.map((value) =>
+        Math.pow(value - mean, 2),
+    );
+    const variance =
+        squaredDifferences.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0,
+        ) / numbers.length;
     return Math.sqrt(variance);
 }
 
