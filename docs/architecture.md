@@ -133,6 +133,7 @@ class Judge {
     add_move(move: str)
     get_all_moves() list[str]
     get_debug_info() str
+    analyze() float
 }
 
 class Player {
