@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_socketio import SocketIO
 
 from services.api import api
+from flask import Blueprint
 
 app = Flask("game-ai-testing-platform")
 app.config["SECRET_KEY"] = "secret!"
