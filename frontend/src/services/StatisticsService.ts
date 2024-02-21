@@ -174,10 +174,9 @@ function getAccuracy(advantages: number[]): number[] {
     const whiteAccuracyAll: number[] = [];
     const blackAccuracyAll: number[] = [];
 
-    let prevAdvantage: number = advantages[0];
-
     for (let i = 1; i < advantages.length; i++) {
         const advantage = advantages[i];
+        const prevAdvantage = getPreviousAdvantage(i, advantages, STARTING_ADVANTAGE)
 
         if (i % 2 === 0) {
             const accuracy = calculateAccuracy(
@@ -194,12 +193,10 @@ function getAccuracy(advantages: number[]): number[] {
 
             blackAccuracyAll.push(accuracy);
         }
-
-        prevAdvantage = advantage;
     }
 
-    const whiteAccuracy = calculateAverage(whiteAccuracyAll);
-    const blackAccuracy = calculateAverage(blackAccuracyAll);
+    const whiteAccuracy = Math.round(calculateAverage(whiteAccuracyAll));
+    const blackAccuracy = Math.round(calculateAverage(blackAccuracyAll));
 
     return [whiteAccuracy, blackAccuracy];
 }
