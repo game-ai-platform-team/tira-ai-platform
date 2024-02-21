@@ -8,6 +8,7 @@ class ConnectFourJudge(Judge):
     ) -> None:
         self.__board: list[list[int]] = board or [[0] * 6 for i in range(7)]
         self.__moves: list[int] = moves or []
+        self.__turns = 0
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
@@ -21,7 +22,11 @@ class ConnectFourJudge(Judge):
         return state
 
     def add_move(self, move: int) -> None:
-        pass
+        for row in self.__board[move]:
+            if row == 0:
+                self.__board[move][row] = self.__turns % 2 + 1
+                self.__turns += 1
+                break
 
     def get_debug_info(self) -> str:
         pass
@@ -45,7 +50,10 @@ class ConnectFourJudge(Judge):
         return True
 
     def __check_illegal_move(self, move: int) -> bool:
-        if self.__board[move][0] != 0:
+        if self.__board[move][5] != 0:
             return False
 
         return True
+
+    def get_board(self) -> list[list[int]]:
+        return self.__board
