@@ -1,7 +1,7 @@
 import unittest
 from http.client import CONTINUE
 
-from entities.judges.connect_four_judge import ConnectFourJudge
+from entities.connectfour.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
 
