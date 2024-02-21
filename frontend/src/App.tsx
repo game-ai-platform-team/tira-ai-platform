@@ -1,4 +1,3 @@
-// app.tsx
 import { useState } from "react";
 import Chessboard from "./components/Chessboard";
 import CFourboard from "./components/CFourboard";

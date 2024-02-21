@@ -29,7 +29,6 @@ describe("Chess game", function () {
 
     it("pressing move opens move stats", function () {
         cy.visit("/");
-        cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
         cy.get("#url-field").type(
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
@@ -37,14 +36,13 @@ describe("Chess game", function () {
 
         cy.get("#submit-button").click();
 
-        cy.wait(10000);
+        cy.wait(2000);
         cy.get(".move").first().click();
         cy.get(".move-details").contains("Time:");
     });
 
     it("downloading csv works", function () {
         cy.visit("/");
-        cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
         cy.get("#url-field").type(
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
@@ -52,7 +50,7 @@ describe("Chess game", function () {
 
         cy.get("#submit-button").click();
 
-        cy.wait(10000);
+        cy.wait(2000);
         cy.get("#download-csv").click();
         cy.readFile("cypress/downloads/statistics.csv");
     });
