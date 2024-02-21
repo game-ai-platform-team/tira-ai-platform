@@ -21,7 +21,7 @@ class GameFactory:
                 PlayerStockfish(elo),
                 ChessJudge(),
             ),
-            #"connectfour": Game()
+            # "connectfour": Game()
         }
 
     def get_game(self, active_game):
