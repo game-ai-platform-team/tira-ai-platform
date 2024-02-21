@@ -16,7 +16,8 @@ function getStatistics(
     moves: MoveStatistics[],
     color?: 0 | 1,
 ): Statistics | null {
-    const filteredMoves = color != undefined ? filterByColor(moves, color) : moves;
+    const filteredMoves =
+        color != undefined ? filterByColor(moves, color) : moves;
 
     if (filteredMoves.length === 0) {
         return null;
@@ -94,7 +95,7 @@ function uciToPGN(
 }
 
 function getAdvantages(moves: MoveStatistics[]): number[] {
-    return moves.map(move => move.evaluation);
+    return moves.map((move) => move.evaluation);
 }
 
 function getMoveClasses(advantages: number[]): string[] {
