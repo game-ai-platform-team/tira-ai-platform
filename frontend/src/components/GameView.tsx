@@ -69,7 +69,7 @@ function GameView({ children }: GameViewProps) {
                 </div>
             )}
 
-            <div>
+            <div className="card">
                 <LogBox />
             </div>
         </div>
