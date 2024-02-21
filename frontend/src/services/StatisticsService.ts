@@ -176,7 +176,7 @@ function getAccuracy(advantages: number[]): number[] {
     const whiteAccuracyAll: number[] = [];
     const blackAccuracyAll: number[] = [];
 
-    for (let i = 1; i < advantages.length; i++) {
+    for (let i = 0; i < advantages.length; i++) {
         const advantage = advantages[i];
         const prevAdvantage = getPreviousAdvantage(
             i,
@@ -208,11 +208,11 @@ function getAccuracy(advantages: number[]): number[] {
 }
 
 function calculateAccuracy(winBefore: number, winAfter: number): number {
-    return 103 * Math.exp(-0.04354 * (winBefore - winAfter)) - 3;
+    return Math.min(Math.max(103 * Math.exp(-0.04354 * (winBefore - winAfter)) - 2, 0), 100);
 }
 
 function calculateWinChance(cp: number): number {
-    return 50 + 50 * (2 / (1 + Math.exp(-0.004 * cp)) - 1);
+    return Math.min(Math.max(50 + 50 * (2 / (1 + Math.exp(-0.004 * cp)) - 1), 0), 100);
 }
 
 function centipawnFromAdvantage(advantage: number): number {
