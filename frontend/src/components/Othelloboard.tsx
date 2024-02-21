@@ -1,6 +1,6 @@
 const Othelloboard = () => {
     return (
-        <div id="othelloboard" className="card">
+        <div id="gameboard" className="card">
             <h2 className="card-header">Othello</h2>
         </div>
     );
