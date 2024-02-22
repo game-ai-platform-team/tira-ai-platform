@@ -70,7 +70,7 @@ class ConnectFourJudge(Judge):
         except ValueError:
             return False
 
-        if not (0 <= move_int <= len(self.__board)):
+        if not 0 <= move_int <= len(self.__board):
             return False
 
         return True
