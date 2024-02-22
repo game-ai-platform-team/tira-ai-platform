@@ -98,6 +98,7 @@ classDiagram
 App --> Api
 Api ..> Game
 Api --> GameFactory
+Api ..> SocketService
 Game --> Player
 Game --> Judge
 Game --> Move
@@ -160,7 +161,7 @@ class Move {
 }
 
 class Api {
-    start(file: str) dict
+    start(socket_service: SocketService, github_url: str, elo: int, active_game: str,) dict
 }
 
 class App {
