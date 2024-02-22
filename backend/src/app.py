@@ -16,7 +16,7 @@ CORS(app)
 def io_post_code(data):
     socket_service = SocketService(socketio, request.sid)
 
-    api.start(data["githubUrl"], data["elo"], socket_service, active_game="chess")
+    api.start(socket_service, data["githubUrl"], data["elo"], active_game="chess")
 
 
 @app.route("/ping")

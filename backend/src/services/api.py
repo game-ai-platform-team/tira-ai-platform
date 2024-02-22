@@ -14,9 +14,9 @@ class Api:
 
     def start(
         self,
+        socket_service: SocketService,
         github_url: str,
         elo: int,
-        socket_service: SocketService,
         active_game: str,
     ):
         repo = self.git_clone(github_url)
