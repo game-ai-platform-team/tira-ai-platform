@@ -1,9 +1,9 @@
 from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO
-from services.socket_service import SocketService
 
 from services.api import api
+from services.socket_service import SocketService
 
 app = Flask("game-ai-testing-platform")
 app.config["SECRET_KEY"] = "secret!"
