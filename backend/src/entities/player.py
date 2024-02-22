@@ -14,8 +14,8 @@ class Player:
         self.repo = repo
         self.__timeout = timeout
 
-        setup_script_path = Path.joinpath(repo.path, "tiraconfig/setup.sh")
-        runcommand_path = Path.joinpath(repo.path, "tiraconfig/runcommand")
+        setup_script_path = repo.path / "tiraconfig/setup.sh"
+        runcommand_path = repo.path / "tiraconfig/runcommand"
 
         subprocess.run(["bash", setup_script_path], cwd=repo.path)
 
@@ -39,7 +39,7 @@ class Player:
         return self.__turn_logger.get_and_clear_logs()
 
     def play(self, move) -> str:
-        if self.__process.poll() is not None:
+        if self.__process.poll():
             raise ProcessLookupError("Process has terminated unexpectedly.")
 
         input_string = move + "\n"
