@@ -41,7 +41,7 @@ jobs:
         uses: ./.github/workflows/setup-poetry
 
       - name: Run pylint
-        run: poetry run pylint src --fail-under=8
+        run: poetry run invoke lint
 
   Format:
     runs-on: ubuntu-latest
