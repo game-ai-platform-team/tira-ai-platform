@@ -52,15 +52,17 @@ class Player:
             raise TimeoutError(f"Operation timed out: {self.repo.path}")
 
         while True:
-            out = self.__process.stdout.readline().decode("utf-8")
-            if out:
-                self.__all_logger.log(out[:-1])
-            if not out:
+            if not self.__process.stdout:
                 break
-            elif out.startswith("MOVE: "):
-                return out[5:].strip()
-            else:
-                self.__turn_logger.log(out.strip() + "\n")
+
+            output = self.__process.stdout.readline().decode("utf-8")
+
+            self.__all_logger.log(output[:-1])
+
+            if output.startswith("MOVE: "):
+                return output.replace("MOVE: ", "").strip()
+
+            self.__turn_logger.log(output.strip() + "\n")
 
         return ""
 
