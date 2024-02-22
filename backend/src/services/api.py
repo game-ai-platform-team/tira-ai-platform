@@ -2,8 +2,6 @@ import random
 import subprocess
 from pathlib import Path
 
-from flask_socketio import SocketIO
-
 from config import TEMP_DIR
 from entities.cloned_repository import ClonedRepository
 from services.game_factory import game_factory
