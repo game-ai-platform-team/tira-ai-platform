@@ -45,6 +45,8 @@ class ConnectFourJudge(Judge):
                 self.__turns += 1
                 break
 
+        self.__moves.append(move)
+
     def remove_move(self, move: int) -> None:
         print(self.__board[move])
         for row in range(len(self.__board[move]) - 1, -1, -1):
