@@ -1,6 +1,3 @@
-from pathlib import Path
-
-from config import DEFAULT_CHESS_AI_PATH
 from entities.chess_judge import ChessJudge
 from entities.cloned_repository import ClonedRepository
 from entities.player import Player
