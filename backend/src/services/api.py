@@ -6,7 +6,7 @@ from flask_socketio import SocketIO
 
 from config import TEMP_DIR
 from entities.cloned_repository import ClonedRepository
-from services.game_factory import GameFactory
+from services.game_factory import game_factory
 from services.socket_io_service import SocketIOService
 
 
@@ -20,8 +20,7 @@ class Api:
         repo = self.git_clone(github_url)
         socketio_service = SocketIOService(socketio, sid)
 
-        self.game_factory = GameFactory(socketio_service, repo, elo)
-        game = self.game_factory.get_game(active_game)
+        game = game_factory.get_game(socketio_service, active_game, repo, elo)
         game.play()
 
         repo.remove()

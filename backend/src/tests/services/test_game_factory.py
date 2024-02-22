@@ -1,39 +1,36 @@
 import unittest
 from unittest.mock import Mock
 
-from entities.cloned_repository import ClonedRepository
 from services.game_factory import GameFactory
-from services.socket_io_service import SocketIOService
 
 
 class TestGameFactory(unittest.TestCase):
     def setUp(self) -> None:
-        class TestGameFactory(GameFactory):
-            def __init__(
-                self, socketio: SocketIOService, repo: ClonedRepository, elo=1350
-            ):
-                self.socketio_service = socketio
-                self.repo = repo
-                self.elo = elo
-                self.chess = Mock()
-                self.cfour = Mock()
-                self.games = {"chess": self.chess, "connect_four": self.cfour}
+        self.chess_constructor_mock = Mock()
+        self.cfour_constructor_mock = Mock()
+
+        games = {
+            "chess": self.chess_constructor_mock,
+            "connect_four": self.cfour_constructor_mock,
+        }
+
+        self.game_factory = GameFactory(games)
 
         self.socketio = Mock()
         self.repo = Mock()
-        self.factory = TestGameFactory(self.socketio, self.repo, 500)
 
     def test_get_game_returns_correct_game(self):
-        game = self.factory.get_game("chess")
+        self.game_factory.get_game(self.socketio, "chess", self.repo, 1234)
+        self.game_factory.get_game(self.socketio, "connect_four", self.repo, 5678)
 
-        self.assertEqual(game, self.factory.chess)
+        self.chess_constructor_mock.assert_called_once_with(
+            self.socketio, self.repo, 1234
+        )
 
-    def test_get_game_returns_correct_game_2(self):
-        game = self.factory.get_game("connect_four")
+        self.cfour_constructor_mock.assert_called_once_with(
+            self.socketio, self.repo, 5678
+        )
 
-        self.assertEqual(game, self.factory.cfour)
-
-    def test_get_game_returns_none_if_game_not_in_games(self):
-        game = self.factory.get_game("chess_game")
-
-        self.assertEqual(game, None)
+    def test_get_game_raises_error_if_game_not_exist(self):
+        with self.assertRaises(KeyError):
+            self.game_factory.get_game(self.socketio, "non-existent game", self.repo)
