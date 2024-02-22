@@ -1,6 +1,5 @@
 import select
 import subprocess
-import time
 from pathlib import Path
 
 from config import DEFAULT_CHESS_TIMEOUT
