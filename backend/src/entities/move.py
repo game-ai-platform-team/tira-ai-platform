@@ -5,7 +5,7 @@ from game_state import GameState
 
 class Move:
     def __init__(
-        self, move: str, state: GameState, time: int, evaluation: int, logs: str
+        self, move: str, state: GameState, time: int, evaluation: int, logs: str = ""
     ) -> None:
         self.move: str = move
         self.state: GameState = state
