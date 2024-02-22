@@ -62,7 +62,7 @@ class Game:
             if state != GameState.CONTINUE:
                 break
 
-        self.__sendGameEnd(state)
+        self.__send_game_end(state)
         self.__cleanup()
 
     def __cleanup(self) -> None:
@@ -88,7 +88,7 @@ class Game:
 
         self.__socketio_service.send(move)
 
-    def __sendGameEnd(self, state):
+    def __send_game_end(self, state) -> None:
         if state != GameState.CONTINUE:
             self.__socketio_service.send_final_state(
                 {
