@@ -112,8 +112,7 @@ Player --> PlayerLogger
 SocketIOService ..> Move
 
 class GameFactory {
-    get_chess_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
-    get_othello_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
+    get_game(socketio_service: SocketIOService, game: str, repo: ClonedRepository, elo: int) Game
 }
 
 class Game {
