@@ -1,5 +1,4 @@
 import time
-from typing import Any
 
 from entities.judge import Judge
 from entities.move import Move
