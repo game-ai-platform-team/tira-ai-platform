@@ -5,7 +5,7 @@ from pathlib import Path
 from config import TEMP_DIR
 from entities.cloned_repository import ClonedRepository
 from services.game_factory import game_factory
-from services.socket_io_service import SocketIOService
+from services.socket_service import SocketService
 
 
 class Api:
@@ -16,7 +16,7 @@ class Api:
         self,
         github_url: str,
         elo: int,
-        socket_service: SocketIOService,
+        socket_service: SocketService,
         active_game: str,
     ):
         repo = self.git_clone(github_url)

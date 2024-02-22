@@ -1,7 +1,7 @@
 from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO
-from services.socket_io_service import SocketIOService
+from services.socket_service import SocketService
 
 from services.api import api
 
@@ -14,7 +14,7 @@ CORS(app)
 
 @socketio.on("startgame", namespace="/gameconnection")
 def io_post_code(data):
-    socket_service = SocketIOService(socketio, request.sid)
+    socket_service = SocketService(socketio, request.sid)
 
     api.start(data["githubUrl"], data["elo"], socket_service, active_game="chess")
 
