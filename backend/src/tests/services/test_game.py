@@ -16,7 +16,7 @@ class TestGame(TestCase):
             self.io_mock, self.player1_mock, self.player2_mock, self.judge_mock
         )
 
-    def test_send_state_calls_socketio_service(self):
+    def test_send_state_calls_socket_service(self):
         move = Move("e2e4", GameState.CONTINUE, 3, 1, "")
 
         self.game._Game__send_state(move)
@@ -105,7 +105,7 @@ class TestGame(TestCase):
         self.player1_mock.play.assert_has_calls([call(1), call(2)])
         self.player2_mock.play.assert_has_calls([call("a"), call("b")])
 
-    def test_play_socketio_called_with_correct_moves(self):
+    def test_play_socket_service_called_with_correct_moves(self):
         self.player1_mock.play.side_effect = ["a", "b", "c"]
         self.player2_mock.play.side_effect = [1, 2]
         self.judge_mock.validate.return_value = GameState.CONTINUE
@@ -120,7 +120,7 @@ class TestGame(TestCase):
             ["a", 1, "b", 2, "c"],
         )
 
-    def test_play_socketio_called_with_correct_states(self):
+    def test_play_socket_service_called_with_correct_states(self):
         states = [GameState.CONTINUE] * 4
         states.append(GameState.ILLEGAL)
 

@@ -4,18 +4,18 @@ from entities.judge import Judge
 from entities.move import Move
 from entities.player import Player
 from game_state import GameState
-from services.socket_io_service import SocketIOService
+from services.socket_service import SocketService
 
 
 class Game:
     def __init__(
         self,
-        socketio_service: SocketIOService,
+        socket_service: SocketService,
         player1: Player,
         player2: Player,
         judge: Judge,
     ) -> None:
-        self.__socketio_service: SocketIOService = socketio_service
+        self.__socket_service: SocketService = socket_service
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
@@ -85,11 +85,11 @@ class Game:
         if move.state in (GameState.ILLEGAL, GameState.INVALID):
             move = Move("", move.state, move.time, move.evaluation, move.logs)
 
-        self.__socketio_service.send(move)
+        self.__socket_service.send(move)
 
     def __send_game_end(self, state) -> None:
         if state != GameState.CONTINUE:
-            self.__socketio_service.send_final_state(
+            self.__socket_service.send_final_state(
                 {
                     "state": str(state),
                     "allLogs": self.__players[0].get_and_reset_all_logs(),

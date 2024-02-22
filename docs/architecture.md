@@ -54,7 +54,7 @@ sequenceDiagram
 Frontend ->> App: socketio /gameconnection startgame
 App ->> Api: start(Github Url)
 GitHub ->> Api: Clone the given repository
-Api ->> SocketIOService: create a new service
+Api ->> SocketService: create a new service
 Api ->> GameFactory: Create a chess game
 GameFactory ->> Chess: Create
 
@@ -65,8 +65,8 @@ player1 -->> Chess: move1
 
 Chess ->> judge: validate(move1)
 judge -->> Chess: True
-Chess ->> SocketIOService: send game state
-SocketIOService ->> Frontend: socketio /gameconnection newmove
+Chess ->> SocketService: send game state
+SocketService ->> Frontend: socketio /gameconnection newmove
 
 Chess ->> player2: play(move1)
 player2 -->> Chess: move2
@@ -75,8 +75,8 @@ Chess ->> judge: validate(move2)
 judge -->> Chess: False
 
 Note over Chess: The game ends, either invalid move or player2 lost
-Chess ->> SocketIOService: send game state
-SocketIOService ->> Frontend: socketio /gameconnection newmove
+Chess ->> SocketService: send game state
+SocketService ->> Frontend: socketio /gameconnection newmove
 
 
 box Container
@@ -101,29 +101,29 @@ Api --> GameFactory
 Game --> Player
 Game --> Judge
 Game --> Move
-Game --> SocketIOService
+Game --> SocketService
 GameFactory --> Game
 GameFactory ..> Judge
 GameFactory ..> Player
-GameFactory ..> SocketIOService
+GameFactory ..> SocketService
 Judge --> GameState
 Player --> PlayerLogger
 
-SocketIOService ..> Move
+SocketService ..> Move
 
 class GameFactory {
-    get_game(socketio_service: SocketIOService, game: str, repo: ClonedRepository, elo: int) Game
+    get_game(socket_service: SocketService, game: str, repo: ClonedRepository, elo: int) Game
 }
 
 class Game {
     -players: list[Player]
     -judge: Judge
-    -socketio_service: SocketIOService
+    -socket_service: SocketService
 
     play(turns: int, delay: float, debug: bool) dict
 }
 
-class SocketIOService {
+class SocketService {
     +send(move: Move)
 }
 
