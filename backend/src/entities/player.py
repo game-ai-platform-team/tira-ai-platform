@@ -1,6 +1,5 @@
 import select
 import subprocess
-from pathlib import Path
 
 from config import DEFAULT_CHESS_TIMEOUT
 from entities.cloned_repository import ClonedRepository
@@ -17,7 +16,7 @@ class Player:
         setup_script_path = repo.path / "tiraconfig/setup.sh"
         runcommand_path = repo.path / "tiraconfig/runcommand"
 
-        subprocess.run(["bash", setup_script_path], cwd=repo.path)
+        subprocess.run(["bash", setup_script_path], cwd=repo.path, check=True)
 
         with open(runcommand_path, "r", encoding="utf-8") as runcommand_file:
             runcommand = runcommand_file.readline()

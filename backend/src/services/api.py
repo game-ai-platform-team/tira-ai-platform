@@ -30,7 +30,7 @@ class Api:
         repo_dir_name = "repo" + str(random.randint(1000000, 9999999))
         repo_dir = Path.joinpath(self.temp_dir, repo_dir_name)
         repository = ClonedRepository(repo_dir, github_url)
-        subprocess.run(["git", "clone", github_url, repo_dir])
+        subprocess.run(["git", "clone", github_url, repo_dir], check=True)
         return repository
 
 
