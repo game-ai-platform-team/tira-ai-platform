@@ -19,7 +19,7 @@ class Player:
 
         subprocess.run(["bash", setup_script_path], cwd=repo.path)
 
-        with open(runcommand_path, "r") as runcommand_file:
+        with open(runcommand_path, "r", encoding="utf-8") as runcommand_file:
             runcommand = runcommand_file.readline()
 
         print(runcommand)
