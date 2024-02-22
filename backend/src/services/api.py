@@ -15,12 +15,15 @@ class Api:
         self.temp_dir = TEMP_DIR
 
     def start(
-        self, github_url: str, elo: int, socketio: SocketIO, sid: str, active_game: str
+        self,
+        github_url: str,
+        elo: int,
+        socket_service: SocketIOService,
+        active_game: str,
     ):
         repo = self.git_clone(github_url)
-        socketio_service = SocketIOService(socketio, sid)
 
-        game = game_factory.get_game(socketio_service, active_game, repo, elo)
+        game = game_factory.get_game(socket_service, active_game, repo, elo)
         game.play()
 
         repo.remove()
