@@ -123,96 +123,95 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
         </div>
     );
 
-return (
-    <div className="stats-container">
-        <div className="stats-column">
-            <h2 className="card-header">White Stats</h2>
-            <div>
-                <p>Accuracy: {evals.accuracyWhite} %</p>
-                <p onClick={() => handleMoveClick(wLongIndex)}>
-                    Longest Move: {wLongIndex}. {wLong} @{" "}
-                    {whiteStats.longest.time} ms
-                </p>
-                <p onClick={() => handleMoveClick(wShortIndex)}>
-                    Shortest Move: {wShortIndex}. {wShort} @{" "}
-                    {whiteStats.shortest.time} ms
-                </p>
-                <p>Average: {Math.round(whiteStats.average)} ms</p>
-                {renderMoveCategory(
-                    "Blunders",
-                    whiteShowBlunders,
-                    setWhiteShowBlunders,
-                    whiteBlunders,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "Mistakes",
-                    whiteShowMistakes,
-                    setWhiteShowMistakes,
-                    whiteMistakes,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "Inaccuracies",
-                    whiteShowInaccuracies,
-                    setWhiteShowInaccuracies,
-                    whiteInaccuracies,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "All Moves",
-                    whiteShowMoves,
-                    setWhiteShowMoves,
-                    whiteMoves,
-                    false,
-                )}
+    return (
+        <div className="stats-container">
+            <div className="stats-column">
+                <h2 className="card-header">White Stats</h2>
+                <div>
+                    <p>Accuracy: {evals.accuracyWhite} %</p>
+                    <p onClick={() => handleMoveClick(wLongIndex)}>
+                        Longest Move: {wLongIndex}. {wLong} @{" "}
+                        {whiteStats.longest.time} ms
+                    </p>
+                    <p onClick={() => handleMoveClick(wShortIndex)}>
+                        Shortest Move: {wShortIndex}. {wShort} @{" "}
+                        {whiteStats.shortest.time} ms
+                    </p>
+                    <p>Average: {Math.round(whiteStats.average)} ms</p>
+                    {renderMoveCategory(
+                        "Blunders",
+                        whiteShowBlunders,
+                        setWhiteShowBlunders,
+                        whiteBlunders,
+                        true,
+                    )}
+                    {renderMoveCategory(
+                        "Mistakes",
+                        whiteShowMistakes,
+                        setWhiteShowMistakes,
+                        whiteMistakes,
+                        true,
+                    )}
+                    {renderMoveCategory(
+                        "Inaccuracies",
+                        whiteShowInaccuracies,
+                        setWhiteShowInaccuracies,
+                        whiteInaccuracies,
+                        true,
+                    )}
+                    {renderMoveCategory(
+                        "All Moves",
+                        whiteShowMoves,
+                        setWhiteShowMoves,
+                        whiteMoves,
+                        false,
+                    )}
+                </div>
+            </div>
+            <div className="stats-column">
+                <h2 className="card-header">Black Stats</h2>
+                <div>
+                    <p>Accuracy: {evals.accuracyBlack} %</p>
+                    <p onClick={() => handleMoveClick(bLongIndex)}>
+                        Longest Move: {bLongIndex}. {bLong} @{" "}
+                        {blackStats.longest.time} ms
+                    </p>
+                    <p onClick={() => handleMoveClick(bShortIndex)}>
+                        Shortest Move: {bShortIndex}. {bShort} @{" "}
+                        {blackStats.shortest.time} ms
+                    </p>
+                    <p>Average: {Math.round(blackStats.average)} ms</p>
+                    {renderMoveCategory(
+                        "Blunders",
+                        blackShowBlunders,
+                        setBlackShowBlunders,
+                        blackBlunders,
+                        true,
+                    )}
+                    {renderMoveCategory(
+                        "Mistakes",
+                        blackShowMistakes,
+                        setBlackShowMistakes,
+                        blackMistakes,
+                        true,
+                    )}
+                    {renderMoveCategory(
+                        "Inaccuracies",
+                        blackShowInaccuracies,
+                        setBlackShowInaccuracies,
+                        blackInaccuracies,
+                        true,
+                    )}
+                    {renderMoveCategory(
+                        "All Moves",
+                        blackShowMoves,
+                        setBlackShowMoves,
+                        blackMoves,
+                        false,
+                    )}
+                </div>
             </div>
         </div>
-        <div className="stats-column">
-            <h2 className="card-header">Black Stats</h2>
-            <div>
-                <p>Accuracy: {evals.accuracyBlack} %</p>
-                <p onClick={() => handleMoveClick(bLongIndex)}>
-                    Longest Move: {bLongIndex}. {bLong} @{" "}
-                    {blackStats.longest.time} ms
-                </p>
-                <p onClick={() => handleMoveClick(bShortIndex)}>
-                    Shortest Move: {bShortIndex}. {bShort} @{" "}
-                    {blackStats.shortest.time} ms
-                </p>
-                <p>Average: {Math.round(blackStats.average)} ms</p>
-                {renderMoveCategory(
-                    "Blunders",
-                    blackShowBlunders,
-                    setBlackShowBlunders,
-                    blackBlunders,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "Mistakes",
-                    blackShowMistakes,
-                    setBlackShowMistakes,
-                    blackMistakes,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "Inaccuracies",
-                    blackShowInaccuracies,
-                    setBlackShowInaccuracies,
-                    blackInaccuracies,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "All Moves",
-                    blackShowMoves,
-                    setBlackShowMoves,
-                    blackMoves,
-                    false,
-                )}
-            </div>
-        </div>
-    </div>
-);
-
+    );
 };
 export default PlayerStats;
