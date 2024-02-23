@@ -89,7 +89,7 @@ class TestChessJudge(unittest.TestCase):
             "b8a8",
             "f1g1",
             "a8b8",
-            "g1f1"
+            "g1f1",
         ]
 
         for move in moves:
