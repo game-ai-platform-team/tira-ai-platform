@@ -8,7 +8,7 @@ from entities.player_logger import PlayerLogger
 
 class Player:
     def __init__(
-            self, repo: ClonedRepository, timeout: float = DEFAULT_CHESS_TIMEOUT
+        self, repo: ClonedRepository, timeout: float = DEFAULT_CHESS_TIMEOUT
     ) -> None:
         self.repo = repo
         self.__timeout = timeout
@@ -17,9 +17,9 @@ class Player:
         setup_script_path = repo.path / "tiraconfig/setup.sh"
         runcommand_path = repo.path / "tiraconfig/runcommand"
 
-        subprocess.run(["bash", setup_script_path], cwd = repo.path, check = True)
+        subprocess.run(["bash", setup_script_path], cwd=repo.path, check=True)
 
-        with open(runcommand_path, "r", encoding = "utf-8") as runcommand_file:
+        with open(runcommand_path, "r", encoding="utf-8") as runcommand_file:
             self.runcommand = runcommand_file.readline()
 
         self.__turn_logger = PlayerLogger()
@@ -60,11 +60,11 @@ class Player:
         print(self.runcommand)
         runcommand_array = self.runcommand.strip().split(" ")
         self.__process = subprocess.Popen(
-            args = runcommand_array,
-            stdin = subprocess.PIPE,
-            stdout = subprocess.PIPE,
-            stderr = subprocess.PIPE,
-            cwd = self.repo.path,
+            args=runcommand_array,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=self.repo.path,
         )
 
     def __exit__(self, exc_type, exc_val, exc_tb):

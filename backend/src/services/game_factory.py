@@ -17,11 +17,11 @@ class GameFactory:
         }
 
     def get_game(
-            self,
-            socket_service: SocketService,
-            game: str,
-            player: Player,
-            elo: int = 1350,
+        self,
+        socket_service: SocketService,
+        game: str,
+        player: Player,
+        elo: int = 1350,
     ) -> Game:
         """
         Returns a game with given parameters applied.
@@ -41,8 +41,7 @@ class GameFactory:
         return self.__games[game](socket_service, elo, player)
 
     @staticmethod
-    def __get_chess_game(
-            socket_service: SocketService, elo: int, player) -> Game:
+    def __get_chess_game(socket_service: SocketService, elo: int, player) -> Game:
         return Game(
             socket_service,
             player,
