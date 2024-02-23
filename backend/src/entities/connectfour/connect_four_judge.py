@@ -3,7 +3,7 @@ from game_state import GameState
 
 
 class ConnectFourJudge(Judge):
-    def __init__(self, rows = 6, columns = 7, moves: list[int] | None = None) -> None:
+    def __init__(self, rows=6, columns=7, moves: list[int] | None = None) -> None:
         self.__board: list[list[int]] = self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
         self.max_turns = len(self.__board) * len(self.__board[0])
@@ -30,7 +30,6 @@ class ConnectFourJudge(Judge):
                 self.__board[intmove][row] = (len(self.__moves)) % 2 + 1
                 self.__moves.append(intmove)
                 break
-
 
     def is_game_over(self) -> GameState:
         if self.__is_win():
@@ -85,11 +84,11 @@ class ConnectFourJudge(Judge):
         for i in range(rows):
             for j in range(cols - 3):
                 if (
-                        self.__board[i][j] != 0
-                        and self.__board[i][j]
-                        == self.__board[i][j + 1]
-                        == self.__board[i][j + 2]
-                        == self.__board[i][j + 3]
+                    self.__board[i][j] != 0
+                    and self.__board[i][j]
+                    == self.__board[i][j + 1]
+                    == self.__board[i][j + 2]
+                    == self.__board[i][j + 3]
                 ):
                     return True
 
@@ -97,11 +96,11 @@ class ConnectFourJudge(Judge):
         for i in range(rows - 3):
             for j in range(cols):
                 if (
-                        self.__board[i][j] != 0
-                        and self.__board[i][j]
-                        == self.__board[i + 1][j]
-                        == self.__board[i + 2][j]
-                        == self.__board[i + 3][j]
+                    self.__board[i][j] != 0
+                    and self.__board[i][j]
+                    == self.__board[i + 1][j]
+                    == self.__board[i + 2][j]
+                    == self.__board[i + 3][j]
                 ):
                     return True
 
@@ -109,11 +108,11 @@ class ConnectFourJudge(Judge):
         for i in range(rows - 3):
             for j in range(cols - 3):
                 if (
-                        self.__board[i][j] != 0
-                        and self.__board[i][j]
-                        == self.__board[i + 1][j + 1]
-                        == self.__board[i + 2][j + 2]
-                        == self.__board[i + 3][j + 3]
+                    self.__board[i][j] != 0
+                    and self.__board[i][j]
+                    == self.__board[i + 1][j + 1]
+                    == self.__board[i + 2][j + 2]
+                    == self.__board[i + 3][j + 3]
                 ):
                     return True
 
@@ -121,11 +120,11 @@ class ConnectFourJudge(Judge):
         for i in range(3, rows):
             for j in range(cols - 3):
                 if (
-                        self.__board[i][j] != 0
-                        and self.__board[i][j]
-                        == self.__board[i - 1][j + 1]
-                        == self.__board[i - 2][j + 2]
-                        == self.__board[i - 3][j + 3]
+                    self.__board[i][j] != 0
+                    and self.__board[i][j]
+                    == self.__board[i - 1][j + 1]
+                    == self.__board[i - 2][j + 2]
+                    == self.__board[i - 3][j + 3]
                 ):
                     return True
 

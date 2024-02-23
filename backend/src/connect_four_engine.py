@@ -5,7 +5,7 @@ from services.games.connect_four import ConnectFour
 
 
 class ConnectFourEngine:
-    def __init__(self, rows = 6, columns = 7):
+    def __init__(self, rows=6, columns=7):
         self.rows = rows
         self.columns = columns
         self.game = ConnectFour(rows, columns)
