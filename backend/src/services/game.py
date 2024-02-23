@@ -1,7 +1,7 @@
 import time
 
 from entities.judge import Judge
-from entities.move import Move
+from entities.move import Move, MoveMetadata
 from entities.player import Player
 from game_state import GameState
 from services.socket_service import SocketService
@@ -9,11 +9,11 @@ from services.socket_service import SocketService
 
 class Game:
     def __init__(
-        self,
-        socket_service: SocketService,
-        player1: Player,
-        player2: Player,
-        judge: Judge,
+            self,
+            socket_service: SocketService,
+            player1: Player,
+            player2: Player,
+            judge: Judge,
     ) -> None:
         self.__socket_service: SocketService = socket_service
         self.__players: list[Player] = [player1, player2]
@@ -38,7 +38,7 @@ class Game:
             try:
                 move, elapsed_time = self.__play_one_move(player, previous_move)
             except TimeoutError:
-                self.__send_state(Move("", GameState.TIMEOUT, 0, 0))
+                self.__send_state(Move("", GameState.TIMEOUT, MoveMetadata(0, 0, "")))
 
             state = self.__judge.validate(move)
             self.__judge.add_move(move)
@@ -49,7 +49,7 @@ class Game:
 
             logs = player.get_and_reset_current_logs()
 
-            move_object = Move(move, state, elapsed_time, evaluation, logs)
+            move_object = Move(move, state, MoveMetadata(elapsed_time, evaluation, logs))
 
             self.__send_state(move_object)
 
@@ -83,7 +83,7 @@ class Game:
 
     def __send_state(self, move: Move) -> None:
         if move.state in (GameState.ILLEGAL, GameState.INVALID):
-            move = Move("", move.state, move.time, move.evaluation, move.logs)
+            move = Move("", move.state, MoveMetadata(move.time, move.evaluation, move.logs))
 
         self.__socket_service.send(move)
 

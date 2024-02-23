@@ -3,15 +3,20 @@ import json
 from game_state import GameState
 
 
-class Move:
-    def __init__(
-        self, move: str, state: GameState, time: int, evaluation: int, logs: str = ""
-    ) -> None:
-        self.move: str = move
-        self.state: GameState = state
+class MoveMetadata:
+    def __init__(self, time: int, evaluation: int, logs: str):
         self.time: int = time
         self.evaluation: int = evaluation
         self.logs: str = logs
+
+
+class Move:
+    def __init__(self, move: str, state: GameState, metadata: MoveMetadata) -> None:
+        self.move: str = move
+        self.state: GameState = state
+        self.time: int = metadata.time
+        self.evaluation: int = metadata.evaluation
+        self.logs: str = metadata.logs
 
     def __str__(self) -> str:
         result = {
