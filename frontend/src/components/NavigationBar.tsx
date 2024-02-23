@@ -38,7 +38,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                         </span>{" "}
                         Othello
                     </button>
-                    <button onClick={() => handleGameChange("Connect4")}>
+                    <button onClick={() => handleGameChange("connect_four")}>
                         <span role="img" aria-label="GameIcon">
                             🔴
                         </span>{" "}
@@ -65,7 +65,7 @@ const getGameIcon = (game: string): string => {
             return "🌀";
         case "Othello":
             return "⚪";
-        case "Connect4":
+        case "connect_four":
             return "🔴";
         default:
             return "";

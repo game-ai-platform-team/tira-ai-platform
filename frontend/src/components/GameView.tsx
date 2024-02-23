@@ -15,7 +15,7 @@ interface GameViewProps {
     children: ReactNode;
 }
 
-function GameView({ children }: GameViewProps) {
+function GameView({ children, selectedGame }: GameViewProps) {
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
@@ -44,7 +44,7 @@ function GameView({ children }: GameViewProps) {
     return (
         <div id="game-view">
             <div className="card">
-                <SubmitForm />
+                <SubmitForm selectedGame={selectedGame} />
             </div>
             {children}
             <div className="card">

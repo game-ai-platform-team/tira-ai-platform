@@ -19,15 +19,11 @@ class Api:
             self.error: str = "Unknown error"
             self.repository: None | ClonedRepository = None
 
-    def start(
-        self,
-        socket_service: SocketService,
-        github_url: str,
-        elo: int,
-        active_game: str,
-    ):
-        possible_clone = self.git_clone(github_url)
+    def start(self, socket_service: SocketService, github_url: str, elo: int, active_game: str):
+        if active_game not in ["chess", "connect_four"]:
+            return
 
+        possible_clone = self.git_clone(github_url)
         if possible_clone.success:
             repo = possible_clone.repository
 
@@ -41,11 +37,11 @@ class Api:
             socket_service.send_error(possible_clone.error)
 
     def git_clone(self, github_url) -> GitCloneResult:
-        self.temp_dir.mkdir(parents=True, exist_ok=True)
+        self.temp_dir.mkdir(parents = True, exist_ok = True)
         repo_dir_name = "repo" + str(random.randint(1000000, 9999999))
         repo_dir = Path.joinpath(self.temp_dir, repo_dir_name)
         repository = ClonedRepository(repo_dir, github_url)
-        process = subprocess.run(["git", "clone", github_url, repo_dir], check=False)
+        process = subprocess.run(["git", "clone", github_url, repo_dir], check = False)
 
         result = self.GitCloneResult()
 

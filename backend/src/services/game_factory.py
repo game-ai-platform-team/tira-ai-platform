@@ -15,7 +15,7 @@ class GameFactory:
             str, Callable[[SocketService, int, Player], Game]
         ] = games or {
             "chess": GameFactory.__get_chess_game,
-            "connectfour": GameFactory.__get_connect_four_game,
+            "connect_four": GameFactory.__get_connect_four_game,
         }
 
     def get_game(
@@ -58,7 +58,7 @@ class GameFactory:
         return Game(
             socket_service,
             player,
-            PlayerConnectFour(),
+            PlayerConnectFour(elo),
             ConnectFourJudge(),
         )
 
