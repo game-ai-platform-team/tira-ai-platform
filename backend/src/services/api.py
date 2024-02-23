@@ -12,27 +12,48 @@ class Api:
     def __init__(self):
         self.temp_dir = TEMP_DIR
 
+    class GitCloneResult:
+        def __init__(self):
+            self.success: bool = False
+            self.error: str = "Unknown error"
+            self.repository: None | ClonedRepository = None
+
     def start(
-        self,
-        socket_service: SocketService,
-        github_url: str,
-        elo: int,
-        active_game: str,
+            self,
+            socket_service: SocketService,
+            github_url: str,
+            elo: int,
+            active_game: str,
     ):
-        repo = self.git_clone(github_url)
+        possible_clone = self.git_clone(github_url)
 
-        game = game_factory.get_game(socket_service, active_game, repo, elo)
-        game.play()
+        print(possible_clone)
+        if possible_clone.success:
+            repo = possible_clone.repository
 
-        repo.remove()
+            game = game_factory.get_game(socket_service, active_game, repo, elo)
+            game.play()
 
-    def git_clone(self, github_url) -> ClonedRepository:
-        self.temp_dir.mkdir(parents=True, exist_ok=True)
+            repo.remove()
+        else:
+            socket_service.send_error(possible_clone.error)
+
+    def git_clone(self, github_url) -> GitCloneResult:
+        self.temp_dir.mkdir(parents = True, exist_ok = True)
         repo_dir_name = "repo" + str(random.randint(1000000, 9999999))
         repo_dir = Path.joinpath(self.temp_dir, repo_dir_name)
         repository = ClonedRepository(repo_dir, github_url)
-        subprocess.run(["git", "clone", github_url, repo_dir], check=True)
-        return repository
+        process = subprocess.run(["git", "clone", github_url, repo_dir])
+
+        result = self.GitCloneResult()
+
+        if process.returncode != 0:
+            result.error = "Error cloning the repository " + github_url
+        else:
+            result.success = True
+            result.repository = repository
+
+        return result
 
 
 api = Api()
