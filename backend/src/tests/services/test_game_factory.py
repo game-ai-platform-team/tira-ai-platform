@@ -17,20 +17,20 @@ class TestGameFactory(unittest.TestCase):
         self.game_factory = GameFactory(games)
 
         self.socket = Mock()
-        self.repo = Mock()
+        self.playerMock = Mock()
 
     def test_get_game_returns_correct_game(self):
-        self.game_factory.get_game(self.socket, "chess", self.repo, 1234)
-        self.game_factory.get_game(self.socket, "connect_four", self.repo, 5678)
+        self.game_factory.get_game(self.socket, "chess", self.playerMock, 1234)
+        self.game_factory.get_game(self.socket, "connect_four", self.playerMock, 5678)
 
         self.chess_constructor_mock.assert_called_once_with(
-            self.socket, self.repo, 1234
+            self.socket, 1234, self.playerMock
         )
 
         self.cfour_constructor_mock.assert_called_once_with(
-            self.socket, self.repo, 5678
+            self.socket, 5678, self.playerMock
         )
 
     def test_get_game_raises_error_if_game_not_exist(self):
         with self.assertRaises(KeyError):
-            self.game_factory.get_game(self.socket, "non-existent game", self.repo)
+            self.game_factory.get_game(self.socket, "non-existent game", self.playerMock)
