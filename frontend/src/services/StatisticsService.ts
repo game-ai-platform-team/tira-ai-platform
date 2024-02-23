@@ -209,7 +209,10 @@ function getAccuracy(advantages: number[]): number[] {
         calculateWeightedAverage(blackAccuracyAll, distanceFromMeanFactor),
     );
 
-    return [whiteAccuracy, blackAccuracy];
+    return [
+        isNaN(whiteAccuracy) ? 100 : whiteAccuracy,
+        isNaN(blackAccuracy) ? 100 : blackAccuracy,
+    ];
 }
 
 function calculateAccuracy(winBefore: number, winAfter: number): number {
