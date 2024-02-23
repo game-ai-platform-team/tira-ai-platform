@@ -175,7 +175,7 @@ function getMoveClass(change: number, mult: number): string {
 function getAccuracy(advantages: number[]): number[] {
     const whiteAccuracyAll: number[] = [];
     const blackAccuracyAll: number[] = [];
-    const distanceFromMeanFactor: number = 0.5;
+    const distanceFromMeanFactor: number = 0.66;
 
     for (let i = 0; i < advantages.length; i++) {
         const advantage = advantages[i];
