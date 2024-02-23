@@ -62,7 +62,8 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                         onClick={() => handleMoveClick(moveIndex + 1)}
                         className={isActive ? "active-move" : ""}
                     >
-                        {moveIndex + 1}: {move.move} | {moveClass}
+                        {moveIndex + 1}: {move.move} | {moveClass} | {move.time}{" "}
+                        ms
                     </p>
                 );
             }
@@ -122,49 +123,9 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
         </div>
     );
 
-    return (
-        <div>
-            <h2 className="card-header">Black Stats</h2>
-            <div>
-                <p>Accuracy: {evals.accuracyBlack} %</p>
-                <p onClick={() => handleMoveClick(bLongIndex)}>
-                    Longest Move: {bLongIndex}. {bLong} @{" "}
-                    {blackStats.longest.time} ms
-                </p>
-                <p onClick={() => handleMoveClick(bShortIndex)}>
-                    Shortest Move: {bShortIndex}. {bShort} @{" "}
-                    {blackStats.shortest.time} ms
-                </p>
-                <p>Average: {Math.round(blackStats.average)} ms</p>
-                {renderMoveCategory(
-                    "Blunders",
-                    blackShowBlunders,
-                    setBlackShowBlunders,
-                    blackBlunders,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "Mistakes",
-                    blackShowMistakes,
-                    setBlackShowMistakes,
-                    blackMistakes,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "Inaccuracies",
-                    blackShowInaccuracies,
-                    setBlackShowInaccuracies,
-                    blackInaccuracies,
-                    true,
-                )}
-                {renderMoveCategory(
-                    "All Moves",
-                    blackShowMoves,
-                    setBlackShowMoves,
-                    blackMoves,
-                    false,
-                )}
-            </div>
+return (
+    <div className="stats-container">
+        <div className="stats-column">
             <h2 className="card-header">White Stats</h2>
             <div>
                 <p>Accuracy: {evals.accuracyWhite} %</p>
@@ -207,6 +168,51 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                 )}
             </div>
         </div>
-    );
+        <div className="stats-column">
+            <h2 className="card-header">Black Stats</h2>
+            <div>
+                <p>Accuracy: {evals.accuracyBlack} %</p>
+                <p onClick={() => handleMoveClick(bLongIndex)}>
+                    Longest Move: {bLongIndex}. {bLong} @{" "}
+                    {blackStats.longest.time} ms
+                </p>
+                <p onClick={() => handleMoveClick(bShortIndex)}>
+                    Shortest Move: {bShortIndex}. {bShort} @{" "}
+                    {blackStats.shortest.time} ms
+                </p>
+                <p>Average: {Math.round(blackStats.average)} ms</p>
+                {renderMoveCategory(
+                    "Blunders",
+                    blackShowBlunders,
+                    setBlackShowBlunders,
+                    blackBlunders,
+                    true,
+                )}
+                {renderMoveCategory(
+                    "Mistakes",
+                    blackShowMistakes,
+                    setBlackShowMistakes,
+                    blackMistakes,
+                    true,
+                )}
+                {renderMoveCategory(
+                    "Inaccuracies",
+                    blackShowInaccuracies,
+                    setBlackShowInaccuracies,
+                    blackInaccuracies,
+                    true,
+                )}
+                {renderMoveCategory(
+                    "All Moves",
+                    blackShowMoves,
+                    setBlackShowMoves,
+                    blackMoves,
+                    false,
+                )}
+            </div>
+        </div>
+    </div>
+);
+
 };
 export default PlayerStats;
