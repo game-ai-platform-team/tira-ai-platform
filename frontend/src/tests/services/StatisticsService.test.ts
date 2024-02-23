@@ -487,10 +487,10 @@ describe("StatisticsService", () => {
                 { move: "a7a5", time: 100, logs: "", evaluation: 0.06 }, //Excellent
                 { move: "a7a5", time: 100, logs: "", evaluation: 0 }, //Great
                 { move: "g1f3", time: 300, logs: "", evaluation: 0 }, //Best
-                { move: "a2a4", time: 200, logs: "", evaluation: 0.025 }, //Good
-                { move: "a2a4", time: 200, logs: "", evaluation: -0.05 }, //Inaccuracy
+                { move: "a2a4", time: 200, logs: "", evaluation: 0.1 }, //Good
+                { move: "a2a4", time: 200, logs: "", evaluation: -0.06 }, //Inaccuracy
                 { move: "a7a5", time: 100, logs: "", evaluation: 0 }, //Good
-                { move: "g1f3", time: 300, logs: "", evaluation: -0.2 }, //Mistake
+                { move: "g1f3", time: 300, logs: "", evaluation: -0.3 }, //Mistake
                 { move: "g1f3", time: 300, logs: "", evaluation: 0.5 }, //Blunder
             ];
 
