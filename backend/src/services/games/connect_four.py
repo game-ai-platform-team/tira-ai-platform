@@ -70,7 +70,7 @@ class ConnectFour:
                     return True
 
         return False
-    
+
     def get_board(self):
         return self.board
 
@@ -100,6 +100,7 @@ class ConnectFour:
 
     def is_board_full(self):
         return np.all(self.board != 0)
+
 
 if __name__ == "__main__":
     game = ConnectFour()

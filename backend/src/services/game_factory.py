@@ -1,9 +1,9 @@
 from typing import Callable
-from entities.connectfour.connect_four_judge import ConnectFourJudge
-from entities.player_connectfour import PlayerConnectFour
 
 from entities.chess_judge import ChessJudge
+from entities.connectfour.connect_four_judge import ConnectFourJudge
 from entities.player import Player
+from entities.player_connectfour import PlayerConnectFour
 from entities.player_stockfish import PlayerStockfish
 from services.game import Game
 from services.socket_service import SocketService
@@ -15,7 +15,7 @@ class GameFactory:
             str, Callable[[SocketService, int, Player], Game]
         ] = games or {
             "chess": GameFactory.__get_chess_game,
-            "connectfour": GameFactory.__get_connect_four_game
+            "connectfour": GameFactory.__get_connect_four_game,
         }
 
     def get_game(
@@ -52,12 +52,15 @@ class GameFactory:
         )
 
     @staticmethod
-    def __get_connect_four_game(socket_service: SocketService, elo: int, player) -> Game:
+    def __get_connect_four_game(
+        socket_service: SocketService, elo: int, player
+    ) -> Game:
         return Game(
             socket_service,
             player,
             PlayerConnectFour(),
             ConnectFourJudge(),
         )
+
 
 game_factory = GameFactory()
