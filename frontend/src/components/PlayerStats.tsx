@@ -73,6 +73,12 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
         return moveList.filter(Boolean) as JSX.Element[];
     };
 
+    const whiteMoves = renderMoveList(true);
+    const blackMoves = renderMoveList(false);
+
+    const [whiteShowMoves, setWhiteShowMoves] = useState(false);
+    const [blackShowMoves, setBlackShowMoves] = useState(false);
+
     const whiteBlunders = renderMoveList(true, "BLUNDER");
     const whiteMistakes = renderMoveList(true, "MISTAKE");
     const whiteInaccuracies = renderMoveList(true, "INACCURACY");
@@ -94,13 +100,14 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
         showState: boolean,
         setShowState: React.Dispatch<React.SetStateAction<boolean>>,
         list: JSX.Element[],
+        showCount: boolean,
     ) => (
         <div>
             <h3
                 className="move-category"
                 onClick={() => setShowState(!showState)}
             >
-                {list.length} {title}
+                {showCount && list.length} {title}
                 <img
                     className="dropdown-arrow"
                     src={
@@ -134,18 +141,28 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                     blackShowBlunders,
                     setBlackShowBlunders,
                     blackBlunders,
+                    true,
                 )}
                 {renderMoveCategory(
                     "Mistakes",
                     blackShowMistakes,
                     setBlackShowMistakes,
                     blackMistakes,
+                    true,
                 )}
                 {renderMoveCategory(
                     "Inaccuracies",
                     blackShowInaccuracies,
                     setBlackShowInaccuracies,
                     blackInaccuracies,
+                    true,
+                )}
+                {renderMoveCategory(
+                    "All Moves",
+                    blackShowMoves,
+                    setBlackShowMoves,
+                    blackMoves,
+                    false,
                 )}
             </div>
             <h2 className="card-header">White Stats</h2>
@@ -165,18 +182,28 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                     whiteShowBlunders,
                     setWhiteShowBlunders,
                     whiteBlunders,
+                    true,
                 )}
                 {renderMoveCategory(
                     "Mistakes",
                     whiteShowMistakes,
                     setWhiteShowMistakes,
                     whiteMistakes,
+                    true,
                 )}
                 {renderMoveCategory(
                     "Inaccuracies",
                     whiteShowInaccuracies,
                     setWhiteShowInaccuracies,
                     whiteInaccuracies,
+                    true,
+                )}
+                {renderMoveCategory(
+                    "All Moves",
+                    whiteShowMoves,
+                    setWhiteShowMoves,
+                    whiteMoves,
+                    false,
                 )}
             </div>
         </div>
