@@ -59,12 +59,13 @@ function GameView({ children }: GameViewProps) {
                 </div>
             )}
 
-            {wStats && bStats && (
+            {wStats && bStats && stats && (
                 <div id="player-stats" className="card">
                     <PlayerStats
                         whiteStats={wStats}
                         blackStats={bStats}
                         evals={evals}
+                        moves={moves}
                     />
                 </div>
             )}
