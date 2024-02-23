@@ -89,6 +89,32 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
     const [blackShowMistakes, setBlackShowMistakes] = useState(false);
     const [blackShowInaccuracies, setBlackShowInaccuracies] = useState(false);
 
+    const renderMoveCategory = (
+        title: string,
+        showState: boolean,
+        setShowState: React.Dispatch<React.SetStateAction<boolean>>,
+        list: JSX.Element[],
+    ) => (
+        <div>
+            <h3
+                className="move-category"
+                onClick={() => setShowState(!showState)}
+            >
+                {list.length} {title}
+                <img
+                    className="dropdown-arrow"
+                    src={
+                        showState
+                            ? "dropdown_mark_open.svg"
+                            : "dropdown_mark.svg"
+                    }
+                    alt=""
+                />
+            </h3>
+            {showState && <div>{list}</div>}
+        </div>
+    );
+
     return (
         <div>
             <h2 className="card-header">Black Stats</h2>
@@ -103,42 +129,24 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                     {blackStats.shortest.time} ms
                 </p>
                 <p>Average: {Math.round(blackStats.average)} ms</p>
-                <h3
-                    className="move-category"
-                    onClick={() => setBlackShowBlunders(!blackShowBlunders)}
-                >
-                    {blackBlunders.length} Blunders
-                    <img
-                        className="dropdown-arrow"
-                        src={blackShowBlunders ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
-                        alt=""
-                    />
-                </h3>
-                {blackShowBlunders && <div>{blackBlunders}</div>}
-                <h3
-                    className="move-category"
-                    onClick={() => setBlackShowMistakes(!blackShowMistakes)}
-                >
-                    {blackMistakes.length} Mistakes
-                    <img
-                        className="dropdown-arrow"
-                        src={blackShowMistakes ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
-                        alt=""
-                    />
-                </h3>
-                {blackShowMistakes && <div>{blackMistakes}</div>}
-                <h3
-                    className="move-category"
-                    onClick={() => setBlackShowInaccuracies(!blackShowInaccuracies)}
-                >
-                    {blackInaccuracies.length} Inaccuracies
-                    <img
-                        className="dropdown-arrow"
-                        src={blackShowInaccuracies ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
-                        alt=""
-                    />
-                </h3>
-                {blackShowInaccuracies && <div>{blackInaccuracies}</div>}
+                {renderMoveCategory(
+                    "Blunders",
+                    blackShowBlunders,
+                    setBlackShowBlunders,
+                    blackBlunders,
+                )}
+                {renderMoveCategory(
+                    "Mistakes",
+                    blackShowMistakes,
+                    setBlackShowMistakes,
+                    blackMistakes,
+                )}
+                {renderMoveCategory(
+                    "Inaccuracies",
+                    blackShowInaccuracies,
+                    setBlackShowInaccuracies,
+                    blackInaccuracies,
+                )}
             </div>
             <h2 className="card-header">White Stats</h2>
             <div>
@@ -152,42 +160,24 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                     {whiteStats.shortest.time} ms
                 </p>
                 <p>Average: {Math.round(whiteStats.average)} ms</p>
-                <h3
-                    className="move-category"
-                    onClick={() => setWhiteShowBlunders(!whiteShowBlunders)}
-                >
-                    {whiteBlunders.length} Blunders
-                    <img
-                        className="dropdown-arrow"
-                        src={whiteShowBlunders ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
-                        alt=""
-                    />
-                </h3>
-                {whiteShowBlunders && <div>{whiteBlunders}</div>}
-                <h3
-                    className="move-category"
-                    onClick={() => setWhiteShowMistakes(!whiteShowMistakes)}
-                >
-                    {whiteMistakes.length} Mistakes
-                    <img
-                        className="dropdown-arrow"
-                        src={whiteShowMistakes ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
-                        alt=""
-                    />
-                </h3>
-                {whiteShowMistakes && <div>{whiteMistakes}</div>}
-                <h3
-                    className="move-category"
-                    onClick={() => setWhiteShowInaccuracies(!whiteShowInaccuracies)}
-                >
-                    {whiteInaccuracies.length} Inaccuracies
-                    <img
-                        className="dropdown-arrow"
-                        src={whiteShowInaccuracies ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
-                        alt=""
-                    />
-                </h3>
-                {whiteShowInaccuracies && <div>{whiteInaccuracies}</div>}
+                {renderMoveCategory(
+                    "Blunders",
+                    whiteShowBlunders,
+                    setWhiteShowBlunders,
+                    whiteBlunders,
+                )}
+                {renderMoveCategory(
+                    "Mistakes",
+                    whiteShowMistakes,
+                    setWhiteShowMistakes,
+                    whiteMistakes,
+                )}
+                {renderMoveCategory(
+                    "Inaccuracies",
+                    whiteShowInaccuracies,
+                    setWhiteShowInaccuracies,
+                    whiteInaccuracies,
+                )}
             </div>
         </div>
     );
