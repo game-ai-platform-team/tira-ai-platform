@@ -77,8 +77,8 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
     const whiteMoves = renderMoveList(true);
     const blackMoves = renderMoveList(false);
 
-    const [whiteShowMoves, setWhiteShowMoves] = useState(false);
-    const [blackShowMoves, setBlackShowMoves] = useState(false);
+    const [whiteShowMoves, setWhiteShowMoves] = useState(true);
+    const [blackShowMoves, setBlackShowMoves] = useState(true);
 
     const whiteBlunders = renderMoveList(true, "BLUNDER");
     const whiteMistakes = renderMoveList(true, "MISTAKE");
