@@ -107,7 +107,7 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                 className="move-category"
                 onClick={() => setShowState(!showState)}
             >
-                {showCount && list.length} {title}
+                {showCount ? list.length : ""} {title}
                 <img
                     className="dropdown-arrow"
                     src={
