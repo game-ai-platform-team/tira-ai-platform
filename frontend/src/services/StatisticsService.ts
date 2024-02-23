@@ -159,13 +159,13 @@ function isGreatMove(index: number, increasing: boolean): boolean {
 function getMoveClass(change: number, mult: number): string {
     if (change <= 0) {
         return "BEST";
-    } else if (change <= 0.02 * mult) {
-        return "EXCELLENT";
     } else if (change <= 0.05 * mult) {
-        return "GOOD";
+        return "EXCELLENT";
     } else if (change <= 0.1 * mult) {
+        return "GOOD";
+    } else if (change <= 0.2 * mult) {
         return "INACCURACY";
-    } else if (change <= 0.3 * mult) {
+    } else if (change <= 0.4 * mult) {
         return "MISTAKE";
     } else {
         return "BLUNDER";
