@@ -1,26 +1,46 @@
 import { render } from "@testing-library/react";
 import SubmitForm from "../../components/SubmitForm";
-import { test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-test("url field exists", () => {
-    const component = render(<SubmitForm />);
-    const fileInput = component.container.querySelector("#url-field");
 
-    expect(fileInput).not.toBe(null);
-});
+describe("Submit form", () => {
 
-test("submit button exists", () => {
-    const component = render(<SubmitForm />);
-    const submitButton = component.container.querySelector("#submit-button");
+    describe("URL field", () => {
 
-    expect(submitButton).not.toBe(null);
-});
+        test("exists", () => {
+            const component = render(<SubmitForm />);
+            const input = component.container.querySelector("#url-field");
 
-test("elo slider exists", () => {
-    const component = render(<SubmitForm />);
-    const eloSlider = component.container.querySelector(
-        "#elo-slider",
-    ) as HTMLElement;
+            expect(input).not.toBe(null);
+        });
 
-    expect(eloSlider).not.toBeNull();
+        test("is URL field", () => {
+            const component = render(<SubmitForm />);
+            const input = component.container.querySelector("#url-field") as HTMLInputElement;
+
+            expect(input.type).to.equal("url");
+        });
+    });
+
+    describe("Submit button", () => {
+
+        test("exists", () => {
+            const component = render(<SubmitForm />);
+            const submitButton = component.container.querySelector("#submit-button");
+
+            expect(submitButton).not.toBe(null);
+        });
+    });
+
+    describe("elo slider", () => {
+
+        test("exists", () => {
+            const component = render(<SubmitForm />);
+            const eloSlider = component.container.querySelector(
+                "#elo-slider"
+            ) as HTMLElement;
+
+            expect(eloSlider).not.toBeNull();
+        });
+    });
 });
