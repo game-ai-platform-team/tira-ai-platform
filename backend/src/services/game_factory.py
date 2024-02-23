@@ -1,4 +1,6 @@
 from typing import Callable
+from entities.connectfour.connect_four_judge import ConnectFourJudge
+from entities.player_connectfour import PlayerConnectFour
 
 from entities.chess_judge import ChessJudge
 from entities.player import Player
@@ -13,7 +15,7 @@ class GameFactory:
             str, Callable[[SocketService, int, Player], Game]
         ] = games or {
             "chess": GameFactory.__get_chess_game,
-            # "connectfour": Game()
+            "connectfour": GameFactory.__get_connect_four_game
         }
 
     def get_game(
@@ -49,5 +51,13 @@ class GameFactory:
             ChessJudge(),
         )
 
+    @staticmethod
+    def __get_connect_four_game(socket_service: SocketService, elo: int, player) -> Game:
+        return Game(
+            socket_service,
+            player,
+            PlayerConnectFour(),
+            ConnectFourJudge(),
+        )
 
 game_factory = GameFactory()
