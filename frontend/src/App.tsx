@@ -24,7 +24,7 @@ function App() {
             <main>
                 <GameView selectedGame={selectedGame}>
                     {selectedGame === "Chess" && <Chessboard />}
-                    {selectedGame === "Connect4" && <CFourboard />}
+                    {selectedGame === "connect_four" && <CFourboard />}
                     {selectedGame === "Gomoku" && <Gomokuboard />}
                     {selectedGame === "Othello" && <Othelloboard />}
                 </GameView>

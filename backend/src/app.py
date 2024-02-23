@@ -7,16 +7,16 @@ from services.socket_service import SocketService
 
 app = Flask("game-ai-testing-platform")
 app.config["SECRET_KEY"] = "secret!"
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins = "*")
 
 CORS(app)
 
 
-@socketio.on("startgame", namespace="/gameconnection")
+@socketio.on("startgame", namespace = "/gameconnection")
 def io_post_code(data):
     socket_service = SocketService(socketio, request.sid)
 
-    api.start(socket_service, data["githubUrl"], data["elo"], active_game="chess")
+    api.start(socket_service, data["githubUrl"], data["elo"], active_game = data["game"])
 
 
 @app.route("/ping")
@@ -38,4 +38,4 @@ def default(path):
 
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
+    socketio.run(app, host = "0.0.0.0", port = 5000, allow_unsafe_werkzeug = True)

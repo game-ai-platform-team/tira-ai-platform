@@ -4,7 +4,7 @@ import store from "../store";
 import { newGame } from "../reducers/gameReducer";
 import GameConfig from "../interfaces/GameConfig";
 
-function SubmitForm(): JSX.Element {
+function SubmitForm(props: { selectedGame: string }): JSX.Element {
     const [elo, setElo] = useState<number>(1350);
     const [games, setGames] = useState<number>(1);
 
@@ -25,6 +25,7 @@ function SubmitForm(): JSX.Element {
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
+                game: props.selectedGame
             };
             store.dispatch(newGame(gameConfig));
         }

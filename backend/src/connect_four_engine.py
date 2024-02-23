@@ -5,7 +5,7 @@ from services.games.connect_four import ConnectFour
 
 
 class ConnectFourEngine:
-    def __init__(self, rows=6, columns=7):
+    def __init__(self, rows = 6, columns = 7):
         self.rows = rows
         self.columns = columns
         self.game = ConnectFour(rows, columns)
@@ -19,15 +19,15 @@ class ConnectFourEngine:
         for column in valid_moves:
             board = self.get_game_state()
             for row in range(len(board[0])):
-                if self.board[column][row] == 0:
+                if board[row][column] == 0:
                     if self.game.check_win(row, column):
-                        return column
+                        return str(column)
                     break
 
         return str(random.choice(valid_moves))
 
     def get_game_state(self) -> list[list[int]]:
-        return self.game.get_board
+        return self.game.get_board()
 
 
 if __name__ == "__main__":
