@@ -24,14 +24,14 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
     const wLong = whiteStats.longest.move;
     const wShort = whiteStats.shortest.move;
 
-    const bLongIndex = findMoveIndex(moves, bLong)
-    const bShortIndex = findMoveIndex(moves, bShort)
-    const wLongIndex = findMoveIndex(moves, wLong)
-    const wShortIndex = findMoveIndex(moves, wShort)
+    const bLongIndex = findMoveIndex(moves, bLong);
+    const bShortIndex = findMoveIndex(moves, bShort);
+    const wLongIndex = findMoveIndex(moves, wLong);
+    const wShortIndex = findMoveIndex(moves, wShort);
 
     const handleMoveClick = (index: number) => {
-        dispatch(setBoardIndex(index))
-    }
+        dispatch(setBoardIndex(index));
+    };
 
     return (
         <div>
