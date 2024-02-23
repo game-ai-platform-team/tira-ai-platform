@@ -8,28 +8,19 @@ from entities.player_logger import PlayerLogger
 
 class Player:
     def __init__(
-        self, repo: ClonedRepository, timeout: float = DEFAULT_CHESS_TIMEOUT
+            self, repo: ClonedRepository, timeout: float = DEFAULT_CHESS_TIMEOUT
     ) -> None:
         self.repo = repo
         self.__timeout = timeout
+        self.__process = None
 
         setup_script_path = repo.path / "tiraconfig/setup.sh"
         runcommand_path = repo.path / "tiraconfig/runcommand"
 
-        subprocess.run(["bash", setup_script_path], cwd=repo.path, check=True)
+        subprocess.run(["bash", setup_script_path], cwd = repo.path, check = True)
 
-        with open(runcommand_path, "r", encoding="utf-8") as runcommand_file:
-            runcommand = runcommand_file.readline()
-
-        print(runcommand)
-        runcommand_array = runcommand.strip().split(" ")
-        self.__process = subprocess.Popen(
-            args=runcommand_array,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            cwd=repo.path,
-        )
+        with open(runcommand_path, "r", encoding = "utf-8") as runcommand_file:
+            self.runcommand = runcommand_file.readline()
 
         self.__turn_logger = PlayerLogger()
         self.__all_logger = PlayerLogger()
@@ -65,9 +56,25 @@ class Player:
 
         return ""
 
+    def __enter__(self):
+        print(self.runcommand)
+        runcommand_array = self.runcommand.strip().split(" ")
+        self.__process = subprocess.Popen(
+            args = runcommand_array,
+            stdin = subprocess.PIPE,
+            stdout = subprocess.PIPE,
+            stderr = subprocess.PIPE,
+            cwd = self.repo.path,
+        )
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.terminate_self()
+
     def terminate_self(self):
-        self.__process.terminate()
-        self.__process.wait()
+        if self.__process is not None:
+            self.__process.terminate()
+            self.__process.wait()
+        self.__process = None
 
     def get_and_reset_all_logs(self):
         return self.__all_logger.get_and_clear_logs()
