@@ -25,18 +25,19 @@ class ChessJudge(Judge):
         if move_object not in self.__board.legal_moves:
             return GameState.ILLEGAL
 
-        newboard = self.__board.copy()
-        newboard.push(move_object)
-
-        if newboard.is_checkmate():
-            state = GameState.WIN
-        elif self.__is_draw(newboard):
-            state = GameState.DRAW
-
         return state
 
     def add_move(self, move):
         self.__board.push_uci(move)
+
+    def is_game_over(self):
+        state = GameState.CONTINUE
+        if self.__board.is_checkmate():
+            state = GameState.WIN
+        elif self.__is_draw(self.__board):
+            state = GameState.DRAW
+
+        return state
 
     def get_debug_info(self):
         return str(self.__board)
