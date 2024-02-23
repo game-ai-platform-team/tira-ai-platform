@@ -9,7 +9,8 @@ class TestConnectFourJudge(unittest.TestCase):
     def setUp(self) -> None:
         self.judge = ConnectFourJudge()
 
-        self.board_empty_board = [[0] * 6 for i in range(7)]
+        self.board_empty_six_by_seven_board = [[0] * 6 for i in range(7)]
+        self.board_empty_four_by_four_board = [[0] * 4 for i in range(4)]
 
         self.board_one_column_full = [[1, 2, 1, 2, 1, 2]]
         self.board_one_column_full.extend([[0] * 6 for i in range(6)])
@@ -52,13 +53,55 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(judge.validate("0"), GameState.CONTINUE)
 
     def test_getboard_gets_board(self):
-        self.assertEqual(self.judge.get_board(), self.board_empty_board)
+        self.assertEqual(self.judge.get_board(), self.board_empty_six_by_seven_board)
 
     def test_add_move_adds_move(self):
         self.judge.add_move(0)
+        self.assertNotEqual(self.judge.get_board()[0][0], 0)
+
+    def test_add_move_adds_correct_move(self):
+        self.judge.add_move(0)
         self.assertEqual(self.judge.get_board()[0][0], 1)
+        self.judge.add_move(3)
+        self.assertEqual(self.judge.get_board()[3][0], 2)
+
+    
+    def test_get_board_returns_correct_board_after_five_moves(self):
+        judge = ConnectFourJudge(rows=4, columns=4)
+        judge.add_move(0)
+        judge.add_move(0)
+        judge.add_move(1)
+        judge.add_move(3)
+        judge.add_move(0)
+        self.assertEqual(judge.get_board(), 
+                         [[1, 2, 1, 0], 
+                          [1, 0, 0, 0], 
+                          [0, 0, 0, 0], 
+                          [2, 0, 0, 0]])
+        
+    def test_play_a_full_game_that_results_in_a_draw(self):
+        judge = ConnectFourJudge(rows=4, columns =4)
+        judge.add_move(0)
+        judge.add_move(1)
+        judge.add_move(0)
+        judge.add_move(1)
+        judge.add_move(1)
+        judge.add_move(0)
+        judge.add_move(1)
+        judge.add_move(0)
+        judge.add_move(2)
+        judge.add_move(3)
+        judge.add_move(2)
+        judge.add_move(3)
+        judge.add_move(3)
+        judge.add_move(2)
+        judge.add_move(3)
+        judge.add_move(2)
+        self.assertEqual(judge.is_game_over(), GameState.DRAW)
 
     def test_draw_happens(self):
         judge = ConnectFourJudge(rows=4, columns=4)
-        judge.set_board(self.board_full, 15)
-        self.assertEqual(judge.validate("2"), GameState.DRAW)
+        judge.set_board(self.board_full, [1]* 16)
+        self.assertEqual(judge.is_game_over(), GameState.DRAW)
+
+

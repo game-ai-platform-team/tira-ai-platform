@@ -42,6 +42,8 @@ class Game:
 
             state = self.__judge.validate(move)
             self.__judge.add_move(move)
+            if state == GameState.CONTINUE:
+                state = self.__judge.is_game_over()
             evaluation = self.__judge.analyze()
 
             if i == turns - 1 and state == GameState.CONTINUE:

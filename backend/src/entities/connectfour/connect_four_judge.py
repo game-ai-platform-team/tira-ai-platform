@@ -1,12 +1,10 @@
 from entities.judge import Judge
 from game_state import GameState
 
-
 class ConnectFourJudge(Judge):
     def __init__(self, rows=6, columns=7, moves: list[int] | None = None) -> None:
         self.__board: list[list[int]] = self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
-        self.__turns = 1
         self.max_turns = len(self.__board) * len(self.__board[0])
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
@@ -22,39 +20,25 @@ class ConnectFourJudge(Judge):
         if not self.__check_illegal_move(int(move)):
             return GameState.ILLEGAL
 
-        ## This is stupid
-        self.add_move(int(move))
-
-        if self.__is_win():
-            state = GameState.WIN
-
-        if self.__is_draw():
-            print("DRAW")
-            state = GameState.DRAW
-
-        ## If Game.py was a superclass, we wouldn't need to add and remove a move here
-        self.remove_move(int(move))
-
         return state
 
     def add_move(self, move: int) -> None:
-        print(self.__board[move])
-        for row in self.__board[move]:
-            if row == 0:
-                self.__board[move][row] = (self.__turns + 1) % 2 + 1
-                self.__turns += 1
+        for row in  range(len(self.__board[move])):
+            if self.__board[move][row] == 0:
+                self.__board[move][row] = (len(self.__moves))% 2 + 1
+                self.__moves.append(move)
                 break
 
-        self.__moves.append(move)
-
-    def remove_move(self, move: int) -> None:
         print(self.__board[move])
-        for row in range(len(self.__board[move]) - 1, -1, -1):
-            if self.__board[move][row] != 0:
-                self.__board[move][row] = 0
-                self.__turns -= 1
-                print("lol", self.__board, self.__turns)
-                return
+
+    def is_game_over(self) -> GameState:
+        if self.__is_win():
+            return GameState.WIN
+
+        if self.__is_draw():
+            return GameState.DRAW
+
+        return GameState.CONTINUE
 
     def get_debug_info(self) -> str:
         pass
@@ -87,17 +71,47 @@ class ConnectFourJudge(Judge):
         return self.__board
 
     def __is_draw(self) -> bool:
-        print(self.__turns)
-        if self.__turns >= self.max_turns:
+        print(self.__moves)
+        if len(self.__moves) >= self.max_turns:
             return True
         return False
 
     def __is_win(self) -> bool:
+        rows = len(self.__board)
+        cols = len(self.__board[0])
+
+
+        # ROWS
+        for i in range(rows):
+            for j in range(cols - 3):
+                if self.__board[i][j] != 0 and self.__board[i][j] == self.__board[i][j + 1] == self.__board[i][j + 2] == self.__board[i][j + 3]:
+                    return True
+
+        # COLUMNS
+        for i in range(rows - 3):
+            for j in range(cols):
+                if self.__board[i][j] != 0 and self.__board[i][j] == self.__board[i + 1][j] == self.__board[i + 2][j] == self.__board[i + 3][j]:
+                    return True
+
+        # DIAGONALS (UPWARDS)
+        for i in range(rows - 3):
+            for j in range(cols - 3):
+                if self.__board[i][j] != 0 and \
+                        self.__board[i][j] == self.__board[i + 1][j + 1] == self.__board[i + 2][j + 2] == self.__board[i + 3][j + 3]:
+                    return True
+
+        # DIAGONAL (DOWNWARDS)
+        for i in range(3, rows):
+            for j in range(cols - 3):
+                if self.__board[i][j] != 0 and \
+                        self.__board[i][j] == self.__board[i - 1][j + 1] == self.__board[i - 2][j + 2] == self.__board[i - 3][j + 3]:
+                    return True
+
+        # NO WIN.
         return False
 
-    def set_board(self, board, turns) -> None:
+
+    def set_board(self, board, moves) -> None:
         """Only for tests with given boards."""
         self.__board = board
-        self.__turns = turns
-        print(self.__board)
-        print(self.__turns)
+        self.__moves = moves
