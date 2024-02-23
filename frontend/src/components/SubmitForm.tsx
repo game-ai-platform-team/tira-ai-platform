@@ -25,7 +25,7 @@ function SubmitForm(props: { selectedGame: string }): JSX.Element {
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
-                game: props.selectedGame
+                game: props.selectedGame,
             };
             store.dispatch(newGame(gameConfig));
         }
