@@ -100,14 +100,14 @@ const CSVCreater: React.FC<CSVCreaterProps> = ({ moves }) => {
                             checked={includeWhite}
                             onChange={() => setIncludeWhite(!includeWhite)}
                         />
-                        White moves
+                        Player 1 moves
                         <br />
                         <input
                             type="checkbox"
                             checked={includeBlack}
                             onChange={() => setIncludeBlack(!includeBlack)}
                         />
-                        Black moves
+                        Player 2 moves
                         <br />
                         <button id="download-csv" type={"submit"}>
                             Download CSV
