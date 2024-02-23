@@ -100,3 +100,51 @@ class TestConnectFourJudge(unittest.TestCase):
         judge = ConnectFourJudge(rows=4, columns=4)
         judge.set_board(self.board_full, [1] * 16)
         self.assertEqual(judge.is_game_over(), GameState.DRAW)
+
+    def test_horizontal_win_is_recognized(self):
+        self.judge.set_board([[1,2,0,0,0,0],
+                                [1,2,0,0,0,0],
+                                [1,2,0,0,0,0],
+                                [1,0,0,0,0,0],
+                                [0,0,0,0,0,0],
+                                [0,0,0,0,0,0],
+                                [0,0,0,0,0,0]], [1]*7)
+        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+        
+    def test_vertical_win_is_recognized(self):
+        self.judge.set_board([[2,0,0,0,0,0],
+                                [2,2,0,0,0,0],
+                                [1,1,1,1,0,0],
+                                [0,0,0,0,0,0],
+                                [0,0,0,0,0,0],
+                                [0,0,0,0,0,0],
+                                [0,0,0,0,0,0]], [1]*7)
+        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+
+    def test_upwards_diagonal_win_is_recognized(self):
+        self.judge.set_board([[2,0,0,0,0,0],
+                                [1,0,0,0,0,0],
+                                [2,1,0,0,0,0],
+                                [1,2,1,0,0,0],
+                                [2,1,2,1,0,0],
+                                [0,0,0,0,0,0],
+                                [0,0,0,0,0,0]], [1]*11)
+        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+
+    def test_downwards_diagonal_win_is_recognized(self):
+        self.judge.set_board([[0,0,0,0,0,0],
+                                [2,0,0,0,0,0],
+                                [2,1,2,1,0,0],
+                                [1,2,1,0,0,0],
+                                [2,1,0,0,0,0],
+                                [1,0,0,0,0,0],
+                                [0,0,0,0,0,0]], [1]*11)
+        self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+
+    def test_move_list_is_empty_at_start(self):
+        self.assertEqual(self.judge.get_all_moves(), [])
+    
+    def test_add_move_updates_moves(self):
+        self.judge.add_move(0)
+
+        self.assertEqual(self.judge.get_all_moves(), [0])

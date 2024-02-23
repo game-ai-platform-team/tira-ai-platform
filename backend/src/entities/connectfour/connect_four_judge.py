@@ -47,8 +47,8 @@ class ConnectFourJudge(Judge):
     def analyze(self) -> float:
         pass
 
-    def get_all_moves(self) -> list[str]:
-        pass
+    def get_all_moves(self) -> list[int]:
+        return self.__moves
 
     def __check_valid_move(self, move: str) -> bool:
         move_int = -1
