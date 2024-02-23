@@ -1,23 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Statistics, Evaluations } from "../services/StatisticsService";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { useDispatch } from "react-redux";
 import { setBoardIndex } from "../reducers/boardIndexReducer";
+import { useAppSelector } from "../hook";
+import "../scss/PlayerStats.scss";
 
-interface PlayerInfoProps {
+interface MoveInfoProps {
     whiteStats: Statistics;
     blackStats: Statistics;
     evals: Evaluations;
     moves: MoveStatistics[];
 }
 
-const PlayerStats: React.FC<PlayerInfoProps> = ({
+const PlayerStats: React.FC<MoveInfoProps> = ({
     whiteStats,
     blackStats,
     evals,
     moves,
 }) => {
     const dispatch = useDispatch();
+    const moveClasses = evals.moveClasses;
+
+    const activeMoveIndex = useAppSelector((state) => state.boardIndex);
 
     const bLong = blackStats.longest.move;
     const bShort = blackStats.shortest.move;
@@ -37,6 +42,53 @@ const PlayerStats: React.FC<PlayerInfoProps> = ({
         dispatch(setBoardIndex(index));
     };
 
+    const renderMoveList = (
+        isWhite: boolean,
+        moveClassFilter?: string,
+    ): JSX.Element[] => {
+        const filteredMoves = moves.filter((_, i) =>
+            isWhite ? i % 2 === 0 : i % 2 !== 0,
+        );
+
+        const moveList = filteredMoves.map((move, index) => {
+            const moveIndex = isWhite ? index * 2 : index * 2 + 1;
+            const moveClass = moveClasses[moveIndex];
+            const isActive = moveIndex === activeMoveIndex - 1;
+
+            if (!moveClassFilter || moveClass === moveClassFilter) {
+                return (
+                    <p
+                        key={index}
+                        onClick={() => handleMoveClick(moveIndex + 1)}
+                        className={isActive ? "active-move" : ""}
+                    >
+                        {moveIndex + 1}: {move.move} | {moveClass}
+                    </p>
+                );
+            }
+
+            return null;
+        });
+
+        return moveList.filter(Boolean) as JSX.Element[];
+    };
+
+    const whiteBlunders = renderMoveList(true, "BLUNDER");
+    const whiteMistakes = renderMoveList(true, "MISTAKE");
+    const whiteInaccuracies = renderMoveList(true, "INACCURACY");
+
+    const blackBlunders = renderMoveList(false, "BLUNDER");
+    const blackMistakes = renderMoveList(false, "MISTAKE");
+    const blackInaccuracies = renderMoveList(false, "INACCURACY");
+
+    const [whiteShowBlunders, setWhiteShowBlunders] = useState(false);
+    const [whiteShowMistakes, setWhiteShowMistakes] = useState(false);
+    const [whiteShowInaccuracies, setWhiteShowInaccuracies] = useState(false);
+
+    const [blackShowBlunders, setBlackShowBlunders] = useState(false);
+    const [blackShowMistakes, setBlackShowMistakes] = useState(false);
+    const [blackShowInaccuracies, setBlackShowInaccuracies] = useState(false);
+
     return (
         <div>
             <h2 className="card-header">Black Stats</h2>
@@ -51,6 +103,42 @@ const PlayerStats: React.FC<PlayerInfoProps> = ({
                     {blackStats.shortest.time} ms
                 </p>
                 <p>Average: {Math.round(blackStats.average)} ms</p>
+                <h3
+                    className="move-category"
+                    onClick={() => setBlackShowBlunders(!blackShowBlunders)}
+                >
+                    {blackBlunders.length} Blunders
+                    <img
+                        className="dropdown-arrow"
+                        src={blackShowBlunders ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
+                        alt=""
+                    />
+                </h3>
+                {blackShowBlunders && <div>{blackBlunders}</div>}
+                <h3
+                    className="move-category"
+                    onClick={() => setBlackShowMistakes(!blackShowMistakes)}
+                >
+                    {blackMistakes.length} Mistakes
+                    <img
+                        className="dropdown-arrow"
+                        src={blackShowMistakes ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
+                        alt=""
+                    />
+                </h3>
+                {blackShowMistakes && <div>{blackMistakes}</div>}
+                <h3
+                    className="move-category"
+                    onClick={() => setBlackShowInaccuracies(!blackShowInaccuracies)}
+                >
+                    {blackInaccuracies.length} Inaccuracies
+                    <img
+                        className="dropdown-arrow"
+                        src={blackShowInaccuracies ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
+                        alt=""
+                    />
+                </h3>
+                {blackShowInaccuracies && <div>{blackInaccuracies}</div>}
             </div>
             <h2 className="card-header">White Stats</h2>
             <div>
@@ -64,9 +152,44 @@ const PlayerStats: React.FC<PlayerInfoProps> = ({
                     {whiteStats.shortest.time} ms
                 </p>
                 <p>Average: {Math.round(whiteStats.average)} ms</p>
+                <h3
+                    className="move-category"
+                    onClick={() => setWhiteShowBlunders(!whiteShowBlunders)}
+                >
+                    {whiteBlunders.length} Blunders
+                    <img
+                        className="dropdown-arrow"
+                        src={whiteShowBlunders ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
+                        alt=""
+                    />
+                </h3>
+                {whiteShowBlunders && <div>{whiteBlunders}</div>}
+                <h3
+                    className="move-category"
+                    onClick={() => setWhiteShowMistakes(!whiteShowMistakes)}
+                >
+                    {whiteMistakes.length} Mistakes
+                    <img
+                        className="dropdown-arrow"
+                        src={whiteShowMistakes ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
+                        alt=""
+                    />
+                </h3>
+                {whiteShowMistakes && <div>{whiteMistakes}</div>}
+                <h3
+                    className="move-category"
+                    onClick={() => setWhiteShowInaccuracies(!whiteShowInaccuracies)}
+                >
+                    {whiteInaccuracies.length} Inaccuracies
+                    <img
+                        className="dropdown-arrow"
+                        src={whiteShowInaccuracies ? "dropdown_mark_open.svg" : "dropdown_mark.svg"}
+                        alt=""
+                    />
+                </h3>
+                {whiteShowInaccuracies && <div>{whiteInaccuracies}</div>}
             </div>
         </div>
     );
 };
-
 export default PlayerStats;
