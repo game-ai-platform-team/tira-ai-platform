@@ -33,4 +33,6 @@ class TestGameFactory(unittest.TestCase):
 
     def test_get_game_raises_error_if_game_not_exist(self):
         with self.assertRaises(KeyError):
-            self.game_factory.get_game(self.socket, "non-existent game", self.playerMock)
+            self.game_factory.get_game(
+                self.socket, "non-existent game", self.playerMock
+            )
