@@ -29,7 +29,7 @@ class Player:
         return self.__turn_logger.get_and_clear_logs()
 
     def play(self, move) -> str:
-        if self.__process.poll():
+        if self.__process is None or self.__process.poll():
             raise ProcessLookupError("Process has terminated unexpectedly.")
 
         input_string = move + "\n"
