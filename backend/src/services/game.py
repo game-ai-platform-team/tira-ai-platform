@@ -9,11 +9,11 @@ from services.socket_service import SocketService
 
 class Game:
     def __init__(
-            self,
-            socket_service: SocketService,
-            player1: Player,
-            player2: Player,
-            judge: Judge,
+        self,
+        socket_service: SocketService,
+        player1: Player,
+        player2: Player,
+        judge: Judge,
     ) -> None:
         self.__socket_service: SocketService = socket_service
         self.__players: list[Player] = [player1, player2]
@@ -49,7 +49,9 @@ class Game:
 
             logs = player.get_and_reset_current_logs()
 
-            move_object = Move(move, state, MoveMetadata(elapsed_time, evaluation, logs))
+            move_object = Move(
+                move, state, MoveMetadata(elapsed_time, evaluation, logs)
+            )
 
             self.__send_state(move_object)
 
@@ -83,7 +85,9 @@ class Game:
 
     def __send_state(self, move: Move) -> None:
         if move.state in (GameState.ILLEGAL, GameState.INVALID):
-            move = Move("", move.state, MoveMetadata(move.time, move.evaluation, move.logs))
+            move = Move(
+                "", move.state, MoveMetadata(move.time, move.evaluation, move.logs)
+            )
 
         self.__socket_service.send(move)
 
