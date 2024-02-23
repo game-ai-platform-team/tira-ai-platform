@@ -24,18 +24,14 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
     const wLong = whiteStats.longest.move;
     const wShort = whiteStats.shortest.move;
 
-    const findMoveIndex = (move: string): number => {
-        return moves.findIndex((item) => item.move === move) + 1;
-    };
-
-    const bLongIndex = findMoveIndex(bLong);
-    const bShortIndex = findMoveIndex(bShort);
-    const wLongIndex = findMoveIndex(wLong);
-    const wShortIndex = findMoveIndex(wShort);
+    const bLongIndex = findMoveIndex(moves, bLong)
+    const bShortIndex = findMoveIndex(moves, bShort)
+    const wLongIndex = findMoveIndex(moves, wLong)
+    const wShortIndex = findMoveIndex(moves, wShort)
 
     const handleMoveClick = (index: number) => {
-        dispatch(setBoardIndex(index));
-    };
+        dispatch(setBoardIndex(index))
+    }
 
     return (
         <div>
@@ -47,7 +43,7 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                     {blackStats.longest.time} ms
                 </p>
                 <p onClick={() => handleMoveClick(bShortIndex)}>
-                    Shortest Move: {bShortIndex}. {bShort} @{" "}
+                    Shortest Move: {findMoveIndex(moves, bShort)}. {bShort} @{" "}
                     {blackStats.shortest.time} ms
                 </p>
                 <p>Average: {Math.round(blackStats.average)} ms</p>
@@ -68,5 +64,9 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
         </div>
     );
 };
+
+function findMoveIndex(moves: MoveStatistics[], move: string): number {
+    return moves.findIndex((item) => item.move === move) + 1;
+}
 
 export default PlayerStats;
