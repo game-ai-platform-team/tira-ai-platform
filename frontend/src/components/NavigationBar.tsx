@@ -1,5 +1,7 @@
 import React from "react";
 import "../scss/NavigationBar.scss";
+import loginService from "../services/LoginService";
+
 
 interface NavigationBarProps {
     selectedGame: string;
@@ -52,6 +54,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                 </span>{" "}
                 Feedback
             </button>
+            <button onClick={() => {loginService.login()}}>login</button>
         </div>
     );
 };
