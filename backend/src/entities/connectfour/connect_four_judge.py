@@ -3,8 +3,14 @@ from game_state import GameState
 
 
 class ConnectFourJudge(Judge):
-    def __init__(self, rows=6, columns=7, moves: list[int] | None = None) -> None:
-        self.__board: list[list[int]] = self.initialize_board(rows, columns)
+    def __init__(
+        self,
+        rows=6,
+        columns=7,
+        moves: list[int] | None = None,
+        board: list[list[int]] | None = None,
+    ) -> None:
+        self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
         self.max_turns = len(self.__board) * len(self.__board[0])
 
