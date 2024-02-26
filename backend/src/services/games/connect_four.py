@@ -16,10 +16,12 @@ class ConnectFour:
                 self.player = 3 - self.player  # Switch player
 
     def check_win(self, row, column) -> bool:
-        if (self.check_horizontal_win(row)
-        or self.check_vertical_win(column)
-        or self.check_positively_sloped_diagonals()
-        or self.check_negatively_sloped_diagonals()):
+        if (
+            self.check_horizontal_win(row)
+            or self.check_vertical_win(column)
+            or self.check_positively_sloped_diagonals()
+            or self.check_negatively_sloped_diagonals()
+        ):
             return True
 
         return False
