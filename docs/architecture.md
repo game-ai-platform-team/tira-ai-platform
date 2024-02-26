@@ -96,6 +96,7 @@ end
 classDiagram
 
 App --> Api
+App --> IAMService
 Api ..> Game
 Api --> GameFactory
 Api ..> SocketService
@@ -167,6 +168,12 @@ class Api {
 class App {
     route1()
     route2()
+}
+
+class IAMService {
+    authorize() bool
+    get_role() str
+    check_access(role: str, action: str)
 }
 ```
 
