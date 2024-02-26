@@ -24,6 +24,8 @@ const CFourboard = () => {
     return (
         <div id="gameboard" className="card">
             <h2 className="card-header">Connect Four</h2>
+            <img src="connect_four_board.svg" />
+
             <div style={{ textAlign: "center", marginTop: "20px" }}>
                 <span>Current Turn: {currentMove}</span>
                 <br />
