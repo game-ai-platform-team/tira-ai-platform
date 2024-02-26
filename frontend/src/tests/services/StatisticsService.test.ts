@@ -529,5 +529,62 @@ describe("StatisticsService", () => {
             expect(whiteEvaluations.moveClasses.length).toEqual(3);
             expect(blackEvaluations.moveClasses.length).toEqual(2);
         });
+
+        test("Accuracy when white wins is high for white and low for black", () => {
+            const moves = [
+                { move: "", time: 1, logs: "", evaluation: 0 },
+                { move: "", time: 1, logs: "", evaluation: 0.5 },
+                { move: "", time: 1, logs: "", evaluation: 0.5 },
+                { move: "", time: 1, logs: "", evaluation: 0.999 },
+                { move: "", time: 1, logs: "", evaluation: 1 },
+            ];
+
+            const evals = statisticsService.getEvaluations(moves, false);
+
+            expect(evals.accuracyWhite).toBeGreaterThanOrEqual(90)
+            expect(evals.accuracyBlack).toBeLessThanOrEqual(40)
+        });
+
+        test("Accuracy when black wins is high for black and low for white", () => {
+            const moves = [
+                { move: "", time: 1, logs: "", evaluation: -0.5 },
+                { move: "", time: 1, logs: "", evaluation: -0.5 },
+                { move: "", time: 1, logs: "", evaluation: -0.999 },
+                { move: "", time: 1, logs: "", evaluation: -1 },
+            ];
+
+            const evals = statisticsService.getEvaluations(moves, false);
+
+            expect(evals.accuracyBlack).toBeGreaterThanOrEqual(90)
+            expect(evals.accuracyWhite).toBeLessThanOrEqual(40)
+        })
+
+        test("Greatest accuracy is 100", () => {
+            const moves = [
+                { move: "", time: 1, logs: "", evaluation: 99 },
+                { move: "", time: 1, logs: "", evaluation: 99 },
+                { move: "", time: 1, logs: "", evaluation: 99 },
+                { move: "", time: 1, logs: "", evaluation: 99 },
+            ];
+
+            const evals = statisticsService.getEvaluations(moves, false)
+
+            expect(evals.accuracyBlack).toBeLessThanOrEqual(100)
+            expect(evals.accuracyWhite).toBeLessThanOrEqual(100)
+        })
+
+        test("Lowest accuracy is 0", () => {
+            const moves = [
+                { move: "", time: 1, logs: "", evaluation: -99 },
+                { move: "", time: 1, logs: "", evaluation: -99 },
+                { move: "", time: 1, logs: "", evaluation: -99 },
+                { move: "", time: 1, logs: "", evaluation: -99 },
+            ];
+
+            const evals = statisticsService.getEvaluations(moves, false)
+
+            expect(evals.accuracyBlack).toBeGreaterThanOrEqual(0)
+            expect(evals.accuracyWhite).toBeGreaterThanOrEqual(0)
+        })
     });
 });
