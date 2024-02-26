@@ -175,7 +175,7 @@ function getMoveClass(change: number, mult: number): string {
 function getAccuracy(advantages: number[]): number[] {
     const whiteAccuracyAll: number[] = [];
     const blackAccuracyAll: number[] = [];
-    const distanceFromMeanFactor: number = 0.66;
+    const distanceFromMeanFactor: number = 1;
 
     for (let i = 0; i < advantages.length; i++) {
         const advantage = advantages[i];
@@ -202,11 +202,23 @@ function getAccuracy(advantages: number[]): number[] {
         }
     }
 
+    const whiteAccuracyHarmonic = calculateHarmonicMean(whiteAccuracyAll);
+    const blackAccuracyharmonic = calculateHarmonicMean(blackAccuracyAll);
+
+    const whiteAccuracyWeighted = calculateWeightedAverage(
+        whiteAccuracyAll,
+        distanceFromMeanFactor,
+    );
+    const blackAccuracyWeighted = calculateWeightedAverage(
+        blackAccuracyAll,
+        distanceFromMeanFactor,
+    );
+
     const whiteAccuracy = Math.round(
-        calculateWeightedAverage(whiteAccuracyAll, distanceFromMeanFactor),
+        (whiteAccuracyHarmonic + whiteAccuracyWeighted) / 2,
     );
     const blackAccuracy = Math.round(
-        calculateWeightedAverage(blackAccuracyAll, distanceFromMeanFactor),
+        (blackAccuracyharmonic + blackAccuracyWeighted) / 2,
     );
 
     return [
@@ -283,6 +295,17 @@ function calculateStandardDeviation(numbers: number[]): number {
             0,
         ) / numbers.length;
     return Math.sqrt(variance);
+}
+
+function calculateHarmonicMean(numbers: number[]): number {
+    if (numbers.length === 0) {
+        return 0;
+    }
+
+    const sumReciprocals = numbers.reduce((sum, num) => sum + 1 / num, 0);
+    const harmonicMean = numbers.length / sumReciprocals;
+
+    return harmonicMean;
 }
 
 export default {
