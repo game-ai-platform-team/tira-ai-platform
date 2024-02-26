@@ -541,8 +541,8 @@ describe("StatisticsService", () => {
 
             const evals = statisticsService.getEvaluations(moves, false);
 
-            expect(evals.accuracyWhite).toBeGreaterThanOrEqual(90)
-            expect(evals.accuracyBlack).toBeLessThanOrEqual(40)
+            expect(evals.accuracyWhite).toBeGreaterThanOrEqual(90);
+            expect(evals.accuracyBlack).toBeLessThanOrEqual(40);
         });
 
         test("Accuracy when black wins is high for black and low for white", () => {
@@ -555,9 +555,9 @@ describe("StatisticsService", () => {
 
             const evals = statisticsService.getEvaluations(moves, false);
 
-            expect(evals.accuracyBlack).toBeGreaterThanOrEqual(90)
-            expect(evals.accuracyWhite).toBeLessThanOrEqual(40)
-        })
+            expect(evals.accuracyBlack).toBeGreaterThanOrEqual(90);
+            expect(evals.accuracyWhite).toBeLessThanOrEqual(40);
+        });
 
         test("Greatest accuracy is 100", () => {
             const moves = [
@@ -567,11 +567,11 @@ describe("StatisticsService", () => {
                 { move: "", time: 1, logs: "", evaluation: 99 },
             ];
 
-            const evals = statisticsService.getEvaluations(moves, false)
+            const evals = statisticsService.getEvaluations(moves, false);
 
-            expect(evals.accuracyBlack).toBeLessThanOrEqual(100)
-            expect(evals.accuracyWhite).toBeLessThanOrEqual(100)
-        })
+            expect(evals.accuracyBlack).toBeLessThanOrEqual(100);
+            expect(evals.accuracyWhite).toBeLessThanOrEqual(100);
+        });
 
         test("Lowest accuracy is 0", () => {
             const moves = [
@@ -581,10 +581,10 @@ describe("StatisticsService", () => {
                 { move: "", time: 1, logs: "", evaluation: -99 },
             ];
 
-            const evals = statisticsService.getEvaluations(moves, false)
+            const evals = statisticsService.getEvaluations(moves, false);
 
-            expect(evals.accuracyBlack).toBeGreaterThanOrEqual(0)
-            expect(evals.accuracyWhite).toBeGreaterThanOrEqual(0)
-        })
+            expect(evals.accuracyBlack).toBeGreaterThanOrEqual(0);
+            expect(evals.accuracyWhite).toBeGreaterThanOrEqual(0);
+        });
     });
 });
