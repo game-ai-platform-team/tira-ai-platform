@@ -301,9 +301,7 @@ function calculateHarmonicMean(numbers: number[]): number {
     }
 
     const sumReciprocals = numbers.reduce((sum, num) => sum + 1 / num, 0);
-    const harmonicMean = numbers.length / sumReciprocals;
-
-    return harmonicMean;
+    return numbers.length / sumReciprocals;
 }
 
 export default {
