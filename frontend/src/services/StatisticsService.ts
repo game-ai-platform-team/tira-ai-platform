@@ -158,9 +158,7 @@ function isGreatMove(index: number, increasing: boolean): boolean {
 }
 
 function getMoveClass(change: number, mult: number): string {
-    if (change <= 0) {
-        return "BEST";
-    } else if (change <= 0.05 * mult) {
+    if (change <= 0.05 * mult) {
         return "EXCELLENT";
     } else if (change <= 0.1 * mult) {
         return "GOOD";
