@@ -23,10 +23,10 @@ function App() {
             </header>
             <main>
                 <GameView selectedGame={selectedGame}>
-                    {selectedGame === "Chess" && <Chessboard />}
+                    {selectedGame === "chess" && <Chessboard />}
                     {selectedGame === "connect_four" && <CFourboard />}
-                    {selectedGame === "Gomoku" && <Gomokuboard />}
-                    {selectedGame === "Othello" && <Othelloboard />}
+                    {selectedGame === "gomoku" && <Gomokuboard />}
+                    {selectedGame === "othello" && <Othelloboard />}
                 </GameView>
             </main>
         </div>

@@ -21,19 +21,19 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                     {selectedGame}
                 </button>
                 <div className="dropdown-content">
-                    <button onClick={() => handleGameChange("Chess")}>
+                    <button onClick={() => handleGameChange("chess")}>
                         <span role="img" aria-label="GameIcon">
                             ♟️
                         </span>{" "}
                         Chess
                     </button>
-                    <button onClick={() => handleGameChange("Gomoku")}>
+                    <button onClick={() => handleGameChange("gomoku")}>
                         <span role="img" aria-label="GameIcon">
                             🌀
                         </span>{" "}
                         Gomoku
                     </button>
-                    <button onClick={() => handleGameChange("Othello")}>
+                    <button onClick={() => handleGameChange("othello")}>
                         <span role="img" aria-label="GameIcon">
                             ⚪
                         </span>{" "}
