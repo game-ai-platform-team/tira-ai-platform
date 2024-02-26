@@ -1,5 +1,3 @@
-from collections import deque
-
 from entities.judge import Judge
 from game_state import GameState
 
@@ -30,6 +28,8 @@ class ConnectFourJudge(Judge):
         for row in range(len(self.__board[column]) - 1, -1, -1):
             if self.__board[column][row] != 0:
                 return (column, row)
+
+        return None
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
@@ -161,6 +161,7 @@ class ConnectFourJudge(Judge):
             combo += 1
             if combo >= 4:
                 return True
+        return False
 
     def diagonal_downwards_win(self, col, row) -> bool:
         columns = len(self.__board) - 1
@@ -187,3 +188,5 @@ class ConnectFourJudge(Judge):
             combo += 1
             if combo >= 4:
                 return True
+
+        return False
