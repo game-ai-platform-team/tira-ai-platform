@@ -1,5 +1,4 @@
 from collections import deque
-
 from entities.judge import Judge
 from game_state import GameState
 
@@ -20,18 +19,20 @@ class ConnectFourJudge(Judge):
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
         return board
-
+    
     def calculate_latest_move(self) -> tuple:
         if len(self.__moves) == 0:
             return None
-
+        
         column = self.__moves[-1]
 
-        for row in range(len(self.__board[column]) - 1, -1, -1):
+        for row in range(len(self.__board[column] ) -1, -1, -1):
             if self.__board[column][row] != 0:
                 return (column, row)
 
     def validate(self, move: str) -> GameState:
+
+
         state = GameState.CONTINUE
 
         if not self.__check_valid_move(move):
@@ -97,37 +98,34 @@ class ConnectFourJudge(Judge):
             return True
         return False
 
+
     def __is_win(self) -> bool:
         col = self.__latest_move[0]
         row = self.__latest_move[1]
         print(self.__latest_move)
 
-        if (
-            self.vertical_win(col, row)
-            or self.horizontal_win(col, row)
-            or self.diagonal_upwards_win(col, row)
-            or self.diagonal_downwards_win(col, row)
-        ):
+        if(self.vertical_win(col, row)
+           or self.horizontal_win(col, row)
+           or self.diagonal_upwards_win(col, row)
+           or self.diagonal_downwards_win(col, row)):
             return True
 
         return False
 
     def vertical_win(self, col, row) -> bool:
         if row >= 3:
-            return (
-                self.__board[col][row]
-                == self.__board[col][row - 1]
-                == self.__board[col][row - 2]
-                == self.__board[col][row - 3]
-            )
+            return (    self.__board[col][row] 
+                    ==  self.__board[col][row-1]
+                    ==  self.__board[col][row-2]
+                    ==  self.__board[col][row-3])
         return False
 
     def horizontal_win(self, col, row) -> bool:
         combo = 0
         combo_color = self.__board[col][row]
-        for column in range(len(self.__board) - 1):
+        for column in range(len(self.__board)-1):
             if self.__board[column][row] == combo_color:
-                combo += 1
+                combo+=1
                 if combo == 4:
                     return True
             else:
@@ -145,18 +143,18 @@ class ConnectFourJudge(Judge):
         space_below = min(3, col, row)
         print(f"sa =  {space_above} sb = {space_below}")
 
-        if space_above + space_below < 3:
+        if space_above+space_below < 3:
             return False
 
         for i in range(1, space_above + 1):
-            if self.__board[col + i][row + i] != combo_color:
+            if self.__board[col+i][row+i] != combo_color:
                 break
             combo += 1
             if combo >= 4:
                 return True
 
         for i in range(1, space_below + 1):
-            if self.__board[col - i][row - i] != combo_color:
+            if self.__board[col-i][row-i] != combo_color:
                 break
             combo += 1
             if combo >= 4:
@@ -169,20 +167,20 @@ class ConnectFourJudge(Judge):
         combo_color = self.__board[col][row]
 
         space_above = min(3, col, rows - row)
-        space_below = min(3, columns - col, row)
+        space_below = min(3, columns - col, row) 
 
-        if space_above + space_below < 3:
+        if space_above+space_below < 3:
             return False
 
         for i in range(1, space_above + 1):
-            if self.__board[col - i][row + i] != combo_color:
+            if self.__board[col-i][row+i] != combo_color:
                 break
             combo += 1
             if combo >= 4:
                 return True
 
         for i in range(1, space_below + 1):
-            if self.__board[col + i][row - i] != combo_color:
+            if self.__board[col+i][row-i] != combo_color:
                 break
             combo += 1
             if combo >= 4:
