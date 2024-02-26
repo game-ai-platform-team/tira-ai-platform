@@ -17,15 +17,11 @@ jobs:
       - name: Set up Poetry
         uses: ./.github/workflows/setup-poetry
 
-      - name: Set up Node
-        uses: ./.github/workflows/setup-node
-
-      - uses: actions/cache@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
         with:
-          path: |
-            ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-      - run: pnpm install cypress
+          version: latest
+          run_install: false
 
       - name: Run Cypress
         uses: cypress-io/github-action@v6
