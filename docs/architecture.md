@@ -183,6 +183,9 @@ store -- App: Provider
 App --> NavigationBar
 App --> GameView
 
+NavigationBar --> LoginView
+LoginView --> LoginService
+
 GameView --> SubmitForm
 GameView --> StatisticsService
 GameView --> MoveList
@@ -222,6 +225,11 @@ namespace services {
         +getEvaluations()
         +uciToPGN()
     }
+
+    class LoginService {
+        + login()
+        + logout()
+    }
 }
 
 namespace UI {
@@ -234,6 +242,7 @@ namespace UI {
     class ChessBoard
     class Move
     class MoveList
+    class LoginView
 }
 ```
 
