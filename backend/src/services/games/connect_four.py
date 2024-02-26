@@ -9,22 +9,11 @@ class ConnectFour:
         self.player = 1
         self.game_over = False
 
-    def drop_piece(self, column):
-        if not self.game_over:
-            if (
-                self.board[self.rows - 1][column] == 0
-            ):  # Check if the bottom row of the column is empty
-                for r in range(self.rows):
-                    if self.board[r][column] == 0:
-                        self.board[r][column] = self.player
-                        if self.check_win(r, column):
-                            self.game_over = True
-                        self.player = 3 - self.player  # Switch player
-                        return True
-            else:
-                return False
-        else:
-            return False
+    def drop_piece(self, column) -> None:
+        for r in range(self.rows):
+            if self.board[r][column] == 0:
+                self.board[r][column] = self.player
+                self.player = 3 - self.player  # Switch player
 
     def check_win(self, row, column) -> bool:
         # Check horizontal
@@ -108,7 +97,7 @@ if __name__ == "__main__":
     while not game.game_over:
         try:
             col = int(input("Player {} - Choose a column: ".format(game.player)))
-            if not (0 <= col < game.columns):
+            if not 0 <= col < game.columns:
                 raise ValueError
             if game.is_valid_location(col):
                 game.drop_piece(col)
