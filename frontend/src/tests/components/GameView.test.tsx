@@ -81,4 +81,25 @@ describe("GameView", () => {
 
         expect(statistics).not.toBeEmptyDOMElement();
     });
+
+    test("player stats get rendered", async () => {
+        store.dispatch(
+            createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+        );
+        store.dispatch(
+            createMove({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+        );
+
+        const ui = (
+            <Provider store={store}>
+                <GameView>
+                    <Chessboard />
+                </GameView>
+            </Provider>
+        );
+        const component = render(ui);
+        const playerStats = component.container.querySelector("#player-stats");
+
+        expect(playerStats).not.toBeEmptyDOMElement();
+    });
 });
