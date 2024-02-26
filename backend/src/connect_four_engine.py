@@ -13,6 +13,7 @@ class ConnectFourEngine:
         self.game.drop_piece(int(move))
 
     def get_best_move(self) -> str:
+        ##Functionality not final
         valid_moves = self.game.get_valid_locations()
 
         for column in valid_moves:
