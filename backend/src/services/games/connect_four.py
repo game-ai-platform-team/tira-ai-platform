@@ -63,20 +63,6 @@ class ConnectFour:
     def get_board(self):
         return self.board
 
-    def print_board(self):
-        for row in reversed(range(self.rows)):
-            print("|", end="")
-            for col in range(self.columns):
-                if self.board[row][col] == 0:
-                    print(" ", end="|")
-                elif self.board[row][col] == 1:
-                    print("X", end="|")
-                else:
-                    print("O", end="|")
-            print()
-        print("-" * (self.columns * 2 + 1))
-        print(" " + " ".join(str(i) for i in range(self.columns)))
-
     def is_valid_location(self, column):
         return self.board[self.rows - 1][column] == 0
 
@@ -89,26 +75,3 @@ class ConnectFour:
 
     def is_board_full(self):
         return np.all(self.board != 0)
-
-
-if __name__ == "__main__":
-    game = ConnectFour()
-    game.print_board()
-    while not game.game_over:
-        try:
-            col = int(input("Player {} - Choose a column: ".format(game.player)))
-            if not 0 <= col < game.columns:
-                raise ValueError
-            if game.is_valid_location(col):
-                game.drop_piece(col)
-                game.print_board()
-                if game.check_win(game.rows - 1, col):
-                    print("Player {} wins!".format(game.player))
-                    break
-                if game.is_board_full():
-                    print("It's a draw!")
-                    break
-            else:
-                print("Invalid move. Try again.")
-        except ValueError:
-            print("Invalid input. Please enter a valid column number.")
