@@ -486,7 +486,7 @@ describe("StatisticsService", () => {
             const moves = [
                 { move: "a7a5", time: 100, logs: "", evaluation: 0.06 }, //Excellent
                 { move: "a7a5", time: 100, logs: "", evaluation: 0 }, //Great
-                { move: "g1f3", time: 300, logs: "", evaluation: 0 }, //Best
+                { move: "g1f3", time: 300, logs: "", evaluation: 0 }, //Excellent
                 { move: "a2a4", time: 200, logs: "", evaluation: 0.1 }, //Good
                 { move: "a2a4", time: 200, logs: "", evaluation: -0.06 }, //Inaccuracy
                 { move: "a7a5", time: 100, logs: "", evaluation: 0 }, //Good
@@ -498,7 +498,7 @@ describe("StatisticsService", () => {
             expect(evaluations.moveClasses).toEqual([
                 "EXCELLENT",
                 "GREAT",
-                "BEST",
+                "EXCELLENT",
                 "GOOD",
                 "INACCURACY",
                 "GOOD",
