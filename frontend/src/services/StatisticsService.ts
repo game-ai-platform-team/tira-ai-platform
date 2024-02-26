@@ -57,7 +57,7 @@ function getEvaluations(
 
     const advantages = getAdvantages(moves);
     const moveClasses = getMoveClasses(advantages);
-    const [accuracyWhite, accuracyBlack] = getAccuracy(advantages);
+    const [accuracyWhite, accuracyBlack] = getGameAccuracy(advantages);
 
     if (startingAdvantage) {
         advantages.splice(0, 0, STARTING_ADVANTAGE);
@@ -165,14 +165,14 @@ function getMoveClass(change: number, mult: number): string {
         return "GOOD";
     } else if (change <= 0.2 * mult) {
         return "INACCURACY";
-    } else if (change <= 0.4 * mult) {
+    } else if (change <= 0.3 * mult) {
         return "MISTAKE";
     } else {
         return "BLUNDER";
     }
 }
 
-function getAccuracy(advantages: number[]): number[] {
+function getGameAccuracy(advantages: number[]): number[] {
     const whiteAccuracyAll: number[] = [];
     const blackAccuracyAll: number[] = [];
     const distanceFromMeanFactor: number = 1;
@@ -186,14 +186,14 @@ function getAccuracy(advantages: number[]): number[] {
         );
 
         if (i % 2 === 0) {
-            const accuracy = calculateAccuracy(
+            const accuracy = calculateMoveAccuracy(
                 calculateWinChance(centipawnFromAdvantage(prevAdvantage)),
                 calculateWinChance(centipawnFromAdvantage(advantage)),
             );
 
             whiteAccuracyAll.push(accuracy);
         } else {
-            const accuracy = calculateAccuracy(
+            const accuracy = calculateMoveAccuracy(
                 calculateWinChance(-centipawnFromAdvantage(prevAdvantage)),
                 calculateWinChance(-centipawnFromAdvantage(advantage)),
             );
@@ -227,7 +227,7 @@ function getAccuracy(advantages: number[]): number[] {
     ];
 }
 
-function calculateAccuracy(winBefore: number, winAfter: number): number {
+function calculateMoveAccuracy(winBefore: number, winAfter: number): number {
     return Math.min(
         Math.max(103 * Math.exp(-0.04354 * (winBefore - winAfter)) - 2, 0),
         100,
@@ -235,10 +235,7 @@ function calculateAccuracy(winBefore: number, winAfter: number): number {
 }
 
 function calculateWinChance(cp: number): number {
-    return Math.min(
-        Math.max(50 + 50 * (2 / (1 + Math.exp(-0.004 * cp)) - 1), 0),
-        100,
-    );
+    return 50 + 50 * (2 / (1 + Math.exp(-0.004 * cp)) - 1);
 }
 
 function centipawnFromAdvantage(advantage: number): number {
