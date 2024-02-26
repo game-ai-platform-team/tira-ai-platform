@@ -7,7 +7,7 @@ import GameView from "./components/GameView";
 import NavigationBar from "./components/NavigationBar";
 
 function App() {
-    const [selectedGame, setSelectedGame] = useState<string>("Chess");
+    const [selectedGame, setSelectedGame] = useState<string>("chess");
 
     const handleGameChange = (game: string) => {
         setSelectedGame(game);
