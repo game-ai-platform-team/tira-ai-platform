@@ -1,6 +1,5 @@
 import random
 
-from entities.move import Move
 from services.games.connect_four import ConnectFour
 
 
