@@ -116,12 +116,12 @@ function getMoveClasses(advantages: number[]): string[] {
             thisAdvantage,
             prevAdvantage,
         );
-        const mult: number = calculateMultiplier(thisAdvantage);
+        //const mult: number = calculateMultiplier(thisAdvantage);
 
         if (isGreatMove(i, increasing)) {
             moveClasses.push("GREAT");
         } else {
-            moveClasses.push(getMoveClass(change, mult));
+            moveClasses.push(getMoveClass(change, 1));
         }
     }
 
@@ -143,7 +143,7 @@ function isAdvantageIncreasing(
 ): boolean {
     return thisAdvantage > prevAdvantage;
 }
-
+/*
 function calculateMultiplier(thisAdvantage: number): number {
     return Math.abs(thisAdvantage) > 0.9
         ? 0.25
@@ -151,6 +151,7 @@ function calculateMultiplier(thisAdvantage: number): number {
           ? 0.5
           : 1;
 }
+*/
 
 function isGreatMove(index: number, increasing: boolean): boolean {
     return (index % 2 === 0 && increasing) || (index % 2 !== 0 && !increasing);
