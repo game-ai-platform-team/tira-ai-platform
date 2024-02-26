@@ -4,6 +4,7 @@ from connect_four_engine import ConnectFourEngine
 class PlayerConnectFour:
     def __init__(self, elo) -> None:
         self.engine = ConnectFourEngine()
+        self.elo = elo
 
     def play(self, move):
         self.engine.make_move(move)
