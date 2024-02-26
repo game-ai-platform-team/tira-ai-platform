@@ -16,7 +16,15 @@ class ConnectFour:
                 self.player = 3 - self.player  # Switch player
 
     def check_win(self, row, column) -> bool:
-        # Check horizontal
+        if (self.check_horizontal_win(row)
+        or self.check_vertical_win(column)
+        or self.check_positively_sloped_diagonals()
+        or self.check_negatively_sloped_diagonals()):
+            return True
+
+        return False
+
+    def check_horizontal_win(self, row) -> bool:
         for c in range(self.columns - 3):
             if (
                 self.board[row][c] == self.player
@@ -26,7 +34,9 @@ class ConnectFour:
             ):
                 return True
 
-        # Check vertical
+        return False
+
+    def check_vertical_win(self, column) -> bool:
         for r in range(self.rows - 3):
             if (
                 self.board[r][column] == self.player
@@ -36,7 +46,9 @@ class ConnectFour:
             ):
                 return True
 
-        # Check positively sloped diagonals
+        return False
+
+    def check_positively_sloped_diagonals(self) -> bool:
         for r in range(self.rows - 3):
             for c in range(self.columns - 3):
                 if (
@@ -47,7 +59,9 @@ class ConnectFour:
                 ):
                     return True
 
-        # Check negatively sloped diagonals
+        return False
+
+    def check_negatively_sloped_diagonals(self) -> bool:
         for r in range(3, self.rows):
             for c in range(self.columns - 3):
                 if (
@@ -63,7 +77,7 @@ class ConnectFour:
     def get_board(self):
         return self.board
 
-    def is_valid_location(self, column):
+    def is_valid_location(self, column) -> bool:
         return self.board[self.rows - 1][column] == 0
 
     def get_valid_locations(self) -> list[int]:
@@ -73,5 +87,5 @@ class ConnectFour:
                 valid_locations.append(col)
         return valid_locations
 
-    def is_board_full(self):
+    def is_board_full(self) -> bool:
         return np.all(self.board != 0)
