@@ -19,6 +19,8 @@ class ConnectFourJudge(Judge):
         return board
 
     def validate(self, move: str) -> GameState:
+
+
         state = GameState.CONTINUE
 
         if not self.__check_valid_move(move):
@@ -26,6 +28,10 @@ class ConnectFourJudge(Judge):
 
         if not self.__check_illegal_move(int(move)):
             return GameState.ILLEGAL
+
+        print(self.__board)
+        print("move = " + move)
+        print("state: " + state.name)
 
         return state
 
@@ -68,7 +74,7 @@ class ConnectFourJudge(Judge):
         return True
 
     def __check_illegal_move(self, move: int) -> bool:
-        if self.__board[move][len(self.__board[0]) - 1] != 0:
+        if self.__board[move][-1] != 0:
             return False
 
         return True
@@ -136,8 +142,3 @@ class ConnectFourJudge(Judge):
 
         # NO WIN.
         return False
-
-    def set_board(self, board, moves) -> None:
-        """Only for tests with given boards."""
-        self.__board = board
-        self.__moves = moves
