@@ -116,12 +116,11 @@ function getMoveClasses(advantages: number[]): string[] {
             thisAdvantage,
             prevAdvantage,
         );
-        //const mult: number = calculateMultiplier(thisAdvantage);
 
         if (isGreatMove(i, increasing)) {
             moveClasses.push("GREAT");
         } else {
-            moveClasses.push(getMoveClass(change, 1));
+            moveClasses.push(getMoveClass(change));
         }
     }
 
@@ -143,28 +142,19 @@ function isAdvantageIncreasing(
 ): boolean {
     return thisAdvantage > prevAdvantage;
 }
-/*
-function calculateMultiplier(thisAdvantage: number): number {
-    return Math.abs(thisAdvantage) > 0.9
-        ? 0.25
-        : Math.abs(thisAdvantage) > 0.5
-          ? 0.5
-          : 1;
-}
-*/
 
 function isGreatMove(index: number, increasing: boolean): boolean {
     return (index % 2 === 0 && increasing) || (index % 2 !== 0 && !increasing);
 }
 
-function getMoveClass(change: number, mult: number): string {
-    if (change <= 0.05 * mult) {
+function getMoveClass(change: number): string {
+    if (change <= 0.05) {
         return "EXCELLENT";
-    } else if (change <= 0.1 * mult) {
+    } else if (change <= 0.1) {
         return "GOOD";
-    } else if (change <= 0.2 * mult) {
+    } else if (change <= 0.2) {
         return "INACCURACY";
-    } else if (change <= 0.3 * mult) {
+    } else if (change <= 0.3) {
         return "MISTAKE";
     } else {
         return "BLUNDER";
