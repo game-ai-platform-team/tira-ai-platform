@@ -31,7 +31,7 @@ class TestGame(TestCase):
             [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0],
             [2, 2, 2, 0, 0, 0, 0],
-            [1, 1, 1, 1, 0, 0, 0]
+            [1, 1, 1, 1, 0, 0, 0],
         ]
         self.assertTrue(self.game.check_horizontal_win(5))
 
@@ -42,7 +42,7 @@ class TestGame(TestCase):
             [1, 0, 0, 0, 0, 0, 0],
             [1, 2, 0, 0, 0, 0, 0],
             [1, 2, 0, 0, 0, 0, 0],
-            [1, 2, 0, 0, 0, 0, 0]
+            [1, 2, 0, 0, 0, 0, 0],
         ]
         self.assertTrue(self.game.check_vertical_win(0))
 
@@ -53,7 +53,7 @@ class TestGame(TestCase):
             [0, 1, 0, 0, 0, 0, 0],
             [0, 2, 1, 0, 0, 0, 0],
             [0, 1, 2, 1, 0, 0, 0],
-            [0, 2, 2, 2, 1, 0, 0]
+            [0, 2, 2, 2, 1, 0, 0],
         ]
         self.assertTrue(self.game.check_positively_sloped_diagonals())
 
@@ -64,7 +64,7 @@ class TestGame(TestCase):
             [0, 0, 0, 1, 0, 0, 0],
             [0, 0, 1, 2, 0, 0, 0],
             [0, 1, 2, 1, 0, 0, 0],
-            [1, 2, 2, 2, 0, 0, 0]
+            [1, 2, 2, 2, 0, 0, 0],
         ]
         for i in [0, 1, 1, 2, 2, 3, 3, 4]:
             self.game.drop_piece(i)
@@ -102,6 +102,6 @@ class TestGame(TestCase):
             [1, 2, 1, 2, 1, 2, 1],
             [2, 1, 2, 1, 2, 1, 2],
             [1, 2, 1, 2, 1, 2, 1],
-            [2, 1, 2, 1, 2, 1, 2]
+            [2, 1, 2, 1, 2, 1, 2],
         ]
         self.assertTrue(self.game.is_board_full())
