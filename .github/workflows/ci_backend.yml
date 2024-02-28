@@ -4,6 +4,10 @@ on:
     secrets:
       CODECOV_TOKEN:
         required: true
+      OIDC_CLIENT_ID:
+        required: true
+      OIDC_CLIENT_SECRET:
+        required: true
 defaults:
   run:
     working-directory: ./backend
@@ -20,8 +24,11 @@ jobs:
         uses: ./.github/workflows/setup-poetry
 
       - name: Run unit tests
+        env:
+          OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
+          OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
         run: poetry run invoke coverage-xml
-      
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
         env:

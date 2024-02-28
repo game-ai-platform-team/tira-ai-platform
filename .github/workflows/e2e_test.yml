@@ -2,13 +2,21 @@ name: End-to-end testing
 
 on:
   workflow_call:
+    secrets:
+      OIDC_CLIENT_ID:
+        required: true
+      OIDC_CLIENT_SECRET:
+        required: true
 
 jobs:
   e2e:
     name: End-to-end test
     runs-on: ubuntu-latest
+    environment: staging
     env:
-      NODE_ENV: ${{ vars.NODE_ENV }}
+      NODE_ENV: development
+      OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
+      OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
 
     steps:
       - uses: actions/checkout@v4
