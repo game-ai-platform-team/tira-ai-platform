@@ -43,7 +43,7 @@ class ConnectFourEngine:
 
     def max_value(self, alpha: int, beta: int, depth: int) -> str:
         if self.pruning_judge.is_game_over() or depth == 0:
-            return self.pruning_judge.evaluate_board() * - 1 * depth
+            return self.pruning_judge.evaluate_board() * -1 * depth
         value = -1000
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
