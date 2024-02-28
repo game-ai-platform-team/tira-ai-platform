@@ -1,6 +1,5 @@
 from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
-from flask_oidc import OpenIDConnect
 from flask_socketio import SocketIO
 
 from services.api import api
@@ -10,20 +9,16 @@ app = Flask("game-ai-testing-platform")
 app.config.update(
     {
         "SECRET_KEY": "secret!",
-        "OIDC_CLIENT_SECRETS": "client_secrets.json",
-        "OIDC_REDIRECT_URI": "https://localhost:5000",
     }
 )
 socketio = SocketIO(app, cors_allowed_origins="*")
-oidc = OpenIDConnect(app)
 
 CORS(app)
 
 
 @app.route("/login")
-@oidc.require_login
 def login():
-    return "Welcome %s" % oidc.user_getfield("email")
+    return "Hello world!"
 
 
 @socketio.on("startgame", namespace="/gameconnection")
