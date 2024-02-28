@@ -14,6 +14,7 @@ class ConnectFourEngine:
 
     def make_move(self, move: str) -> None:
         self.judge.add_move(move)
+        self.pruning_judge.add_move(move)
 
     def get_best_move(self) -> str:
         if len(self.judge.get_all_moves()) <= 2:
@@ -69,11 +70,12 @@ if __name__ == "__main__":
     engine2 = ConnectFourEngine()
 
     engine1.make_move("3")
-    previous_move = 3
     while True:
         move = engine1.get_best_move()
         engine1.make_move(move)
-        previous_move = move
-        print(engine1.judge.get_board())
-        # if engine1.judge.__is_win or engine1.judge.__is_draw:
-        #   break
+        print(f"board {engine1.judge.get_board()}")
+        print(engine1.judge.get_all_moves())
+        if engine1.judge.is_game_over() != GameState.CONTINUE:
+            print("game ended")
+            break
+        # rn fills middle column only for some reason
