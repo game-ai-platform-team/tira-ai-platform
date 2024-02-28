@@ -1,6 +1,6 @@
 import numpy as np
 
-from backend.src.entities.judge import Judge
+from entities.judge import Judge
 from game_state import GameState
 
 
