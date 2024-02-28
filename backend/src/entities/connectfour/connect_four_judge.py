@@ -55,7 +55,7 @@ class ConnectFourJudge(Judge):
     def remove_latest(self):
         move = self.calculate_latest_move()
         self.__moves.pop()
-        self.__board[move[0]][move[1]] = 0    
+        self.__board[move[0]][move[1]] = 0
 
     def is_game_over(self) -> GameState:
         print(self.__moves)

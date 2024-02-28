@@ -35,28 +35,28 @@ class ConnectFourEngine:
 
     def max_value(self, alpha: int, beta: int, depth: int) -> tuple:
         if self.pruning_judge.is_game_over() or depth == 0:
-            return self.pruning_judge.evaluate_board() * - 1
+            return self.pruning_judge.evaluate_board() * -1
         value = -10
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
             self.pruning_judge.add_move(str(column))
-            value = max(value, self.min_value(alpha, beta, depth-1))
+            value = max(value, self.min_value(alpha, beta, depth - 1))
             alpha = max(alpha, value)
             if alpha >= beta:
                 break
         self.pruning_judge.remove_latest()
         return value
 
-    def min_value(self, alpha: int, beta: int , depth: int) -> tuple:
-        if self.pruning_judge.is_game_over() or depth-1:
+    def min_value(self, alpha: int, beta: int, depth: int) -> tuple:
+        if self.pruning_judge.is_game_over() or depth - 1:
             return self.pruning_judge.evaluate_board()
         value = 10
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
             self.pruning_judge.add_move(str(column))
-            value = min(value, self.max_value(alpha, beta, depth-1))
+            value = min(value, self.max_value(alpha, beta, depth - 1))
             beta = min(beta, value)
             if alpha >= beta:
                 break
@@ -75,5 +75,5 @@ if __name__ == "__main__":
         engine1.make_move(move)
         previous_move = move
         print(engine1.judge.get_board())
-        #if engine1.judge.__is_win or engine1.judge.__is_draw:
-         #   break
+        # if engine1.judge.__is_win or engine1.judge.__is_draw:
+        #   break
