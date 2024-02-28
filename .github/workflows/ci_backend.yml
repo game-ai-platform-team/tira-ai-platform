@@ -16,6 +16,9 @@ jobs:
   Unit_test:
     name: Unit test
     runs-on: ubuntu-latest
+    env:
+      OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
+      OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
 
     steps:
       - uses: actions/checkout@v4
@@ -24,9 +27,6 @@ jobs:
         uses: ./.github/workflows/setup-poetry
 
       - name: Run unit tests
-        env:
-          OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
-          OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
         run: poetry run invoke coverage-xml
 
       - name: Upload coverage reports to Codecov
