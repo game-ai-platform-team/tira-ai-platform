@@ -18,19 +18,19 @@ jobs:
 
   ci_backend:
     name: CI (back-end)
-    permissions:
-      contents: write
-
-    uses: ./.github/workflows/ci_backend.yml
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
       OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
+    permissions:
+      contents: write
+
+    uses: ./.github/workflows/ci_backend.yml
 
   e2e_test:
     name: End-to-end test
-
-    uses: ./.github/workflows/e2e_test.yml
     secrets:
       OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
       OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
+
+    uses: ./.github/workflows/e2e_test.yml
