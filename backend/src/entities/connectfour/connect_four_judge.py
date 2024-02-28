@@ -14,6 +14,7 @@ class ConnectFourJudge(Judge):
         self.__moves: list[int] = moves or []
         self.max_turns = len(self.__board) * len(self.__board[0])
         self.__latest_move = self.calculate_latest_move()
+        self.__state = GameState.CONTINUE
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
@@ -51,13 +52,20 @@ class ConnectFourJudge(Judge):
                 self.__latest_move = (int_move, row)
                 break
 
+    def remove_latest(self):
+        move = self.calculate_latest_move()
+        self.__moves.pop()
+        self.__board[move[0]][move[1]] = 0    
+
     def is_game_over(self) -> GameState:
         print(self.__moves)
         if self.__is_win():
-            return GameState.WIN
+            self.__state = GameState.WIN
+            return self.__state
 
         if self.__is_draw():
-            return GameState.DRAW
+            self.__state = GameState.DRAW
+            return self.__state
 
         return GameState.CONTINUE
 
@@ -190,3 +198,13 @@ class ConnectFourJudge(Judge):
                 return True
 
         return False
+
+    def count_all_threes(self):
+        return 0.5
+
+    def evaluate_board(self):
+        if self.__state == GameState.WIN:
+            return 1
+        if self.__state == GameState.DRAW:
+            return 0
+        return self.count_all_threes()
