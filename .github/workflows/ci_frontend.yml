@@ -6,7 +6,6 @@ on:
       CODECOV_TOKEN:
         required: true
 
-
 defaults:
   run:
     working-directory: ./frontend
@@ -32,7 +31,6 @@ jobs:
           slug: game-ai-platform-team/tira-ai-platform
         with:
           files: ./frontend/coverage/coverage-final.json
-
 
   Format:
     runs-on: ubuntu-latest
