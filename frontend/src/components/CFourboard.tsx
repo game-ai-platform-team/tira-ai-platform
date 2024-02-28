@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import store from "../store";
 import { setBoardIndex } from "../reducers/boardIndexReducer";
 import "../scss/Gameboard.scss";
+import CFourUI from "./CFourUI";
 
 const CFourboard = () => {
     const moves = useAppSelector((state) => state.moves);
@@ -24,7 +25,9 @@ const CFourboard = () => {
     return (
         <div id="gameboard" className="card">
             <h2 className="card-header">Connect Four</h2>
-            <img src="connect_four_board.svg" />
+            <div>
+                <CFourUI row={6} column={7} />
+            </div>
 
             <div style={{ textAlign: "center", marginTop: "20px" }}>
                 <span>Current Turn: {currentMove}</span>
