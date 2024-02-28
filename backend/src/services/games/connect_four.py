@@ -1,7 +1,7 @@
 import numpy as np
-from game_state import GameState
 
 from backend.src.entities.judge import Judge
+from game_state import GameState
 
 
 class ConnectFour:
@@ -23,7 +23,7 @@ class ConnectFour:
         if self.pruning_judge.is_game_over() == GameState.Win:
             return True
         return False
-    
+
     def check_draw(self, column, row) -> bool:
         if self.pruning_judge.is_game_over() == GameState.Draw:
             return True
@@ -44,7 +44,7 @@ class ConnectFour:
 
     def is_board_full(self) -> bool:
         return np.all(self.board != 0)
-    
+
     def prune() -> int:
         best_move = 3
 
