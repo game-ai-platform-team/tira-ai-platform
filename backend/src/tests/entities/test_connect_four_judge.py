@@ -208,7 +208,13 @@ class TestConnectFourJudge(unittest.TestCase):
 
     def test_calculate_latest_move(self):
         self.judge.add_move("3")
+        latest_move = self.judge.calculate_latest_move()
+        self.assertEqual(latest_move, (3, 0))
 
+    def test_remove_latest(self):
+        self.judge.add_move("3")
+        self.judge.add_move("2")
+        self.judge.remove_latest()
         latest_move = self.judge.calculate_latest_move()
         self.assertEqual(latest_move, (3, 0))
 

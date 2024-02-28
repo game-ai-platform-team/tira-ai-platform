@@ -1,79 +1,32 @@
 import numpy as np
+from game_state import GameState
+
+from backend.src.entities.judge import Judge
 
 
 class ConnectFour:
-    def __init__(self, rows=6, columns=7):
-        self.rows = rows
+    def __init__(self, columns=7, rows=6):
         self.columns = columns
-        self.board = np.zeros((rows, columns), dtype=int)
+        self.rows = rows
+        self.board = np.zeros((columns, rows), dtype=int)
         self.player = 1
         self.game_over = False
+        self.pruning_judge = Judge(self.columns, self.rows)
 
     def drop_piece(self, column) -> None:
         for r in range(self.rows):
-            if self.board[r][column] == 0:
-                self.board[r][column] = self.player
+            if self.board[column][r] == 0:
+                self.board[column][r] = self.player
                 self.player = 3 - self.player  # Switch player
 
-    def check_win(self, row, column) -> bool:
-        if (
-            self.check_horizontal_win(row)
-            or self.check_vertical_win(column)
-            or self.check_positively_sloped_diagonals()
-            or self.check_negatively_sloped_diagonals()
-        ):
+    def check_win(self, column, row) -> bool:
+        if self.pruning_judge.is_game_over() == GameState.Win:
             return True
-
         return False
-
-    def check_horizontal_win(self, row) -> bool:
-        for c in range(self.columns - 3):
-            if (
-                self.board[row][c] == self.player
-                and self.board[row][c + 1] == self.player
-                and self.board[row][c + 2] == self.player
-                and self.board[row][c + 3] == self.player
-            ):
-                return True
-
-        return False
-
-    def check_vertical_win(self, column) -> bool:
-        for r in range(self.rows - 3):
-            if (
-                self.board[r][column] == self.player
-                and self.board[r + 1][column] == self.player
-                and self.board[r + 2][column] == self.player
-                and self.board[r + 3][column] == self.player
-            ):
-                return True
-
-        return False
-
-    def check_positively_sloped_diagonals(self) -> bool:
-        for r in range(self.rows - 3):
-            for c in range(self.columns - 3):
-                if (
-                    self.board[r][c] == self.player
-                    and self.board[r + 1][c + 1] == self.player
-                    and self.board[r + 2][c + 2] == self.player
-                    and self.board[r + 3][c + 3] == self.player
-                ):
-                    return True
-
-        return False
-
-    def check_negatively_sloped_diagonals(self) -> bool:
-        for r in range(3, self.rows):
-            for c in range(self.columns - 3):
-                if (
-                    self.board[r][c] == self.player
-                    and self.board[r - 1][c + 1] == self.player
-                    and self.board[r - 2][c + 2] == self.player
-                    and self.board[r - 3][c + 3] == self.player
-                ):
-                    return True
-
+    
+    def check_draw(self, column, row) -> bool:
+        if self.pruning_judge.is_game_over() == GameState.Draw:
+            return True
         return False
 
     def get_board(self):
@@ -91,3 +44,8 @@ class ConnectFour:
 
     def is_board_full(self) -> bool:
         return np.all(self.board != 0)
+    
+    def prune() -> int:
+        best_move = 3
+
+        return best_move
