@@ -34,7 +34,7 @@ def login():
 
 
 @socketio.on("startgame", namespace="/gameconnection")
-def io_post_code(data):
+def io_startgame(data):
     socket_service = SocketService(socketio, request.sid)
 
     api.start(socket_service, data["githubUrl"], data["elo"], active_game=data["game"])
