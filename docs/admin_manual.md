@@ -10,15 +10,14 @@ sudo bash buildrun.sh
 
 ## OpenID configuration
 
-The OIDC part is implemented with flask-OIDC which requires `client_secrets.json` file:
+The OpenID Connect Client is implemented with Authlib which requires
 
-```json
-// Staging
-{
-    "web": {
-        "client_id": "<ENTITY_ID_FROM_SP_REGISTER>",
-        "client_secret": "<CLIENT_SECRET_FROM_SP_REGISTER>",
-        "issuer": "https://login-test.it.helsinki.fi"
-    }
-}
+- `OIDC_CLIENT_ID`
+- `OIDC_CLIENT_SECRET`
+
+These can be defined as environment variables or in `.env.secret` file:
+
+```ini
+OIDC_CLIENT_ID=<CLIENT_ID_FROM_SP_REGISTER>
+OIDC_CLIENT_SECRET=<CLIENT_SECRET_FROM_SP_REGISTER>
 ```
