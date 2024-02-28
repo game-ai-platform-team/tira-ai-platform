@@ -33,6 +33,7 @@ class ConnectFourJudge(Judge):
         return None
 
     def validate(self, move: str) -> GameState:
+        self.__state = GameState.CONTINUE
         state = GameState.CONTINUE
 
         if not self.__check_valid_move(move):
@@ -200,11 +201,36 @@ class ConnectFourJudge(Judge):
         return False
 
     def count_all_threes(self):
-        return 0.5
+        piece = self.calculate_latest_move()
+        return self.count_vertical(piece)+self.count_horizontal(piece)
+
+    def count_vertical(self, piece):
+        total = 0
+        for column in range(len(self.__board)):
+            for row in range(len(self.__board[0])-2):
+                if (
+                    piece
+                == self.__board[column][row]
+                == self.__board[column][row+1]
+                == self.__board[column][row+2]):
+                    total += 1
+        return total
+
+    def count_horizontal(self, piece):
+        total = 0
+        for row in range(len(self.__board[0])):
+            for column in range(len(self.__board)-2):
+                if (
+                    piece
+                ==  self.__board[column][row]
+                == self.__board[column+1][row]
+                == self.__board[column+2][row]):
+                    total += 1
+        return total
 
     def evaluate_board(self):
-        if self.__state == GameState.WIN:
-            return 1
+        if self.__is_win():
+            return 1000
         if self.__state == GameState.DRAW:
             return 0
         return self.count_all_threes()
