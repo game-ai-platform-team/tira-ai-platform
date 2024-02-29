@@ -13,7 +13,7 @@ class TestPlayer(unittest.TestCase):
         mock_repo = MagicMock()
         mock_repo.all_mocks_dir = self.myFile.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo1")
-        
+
         player = Player(mock_repo)
         with player:
             move = "MOVE: e2e4"
