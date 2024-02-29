@@ -217,7 +217,6 @@ class ConnectFourJudge(Judge):
                     total += 1
         return total
 
-
     def count_horizontal(self, piece):
         total = 0
         for row in range(len(self.__board[0])):

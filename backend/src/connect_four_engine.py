@@ -87,14 +87,14 @@ if __name__ == "__main__":
     ## DOESN'T COUNT VALUE CORRECTLY
 
 
-   # engine1.make_move("3")
+# engine1.make_move("3")
 
-   # while True:
-   #     move = engine1.get_best_move()
-   #     engine1.make_move(move)
-   #     print(f"board {engine1.judge.get_board()}")
-   #     print(f"board {engine1.pruning_judge.get_board()}")
-   #     print(engine1.judge.get_all_moves())
-   #     if engine1.judge.is_game_over() != GameState.CONTINUE:
-   #         print("game ended")
-   #         break
+# while True:
+#     move = engine1.get_best_move()
+#     engine1.make_move(move)
+#     print(f"board {engine1.judge.get_board()}")
+#     print(f"board {engine1.pruning_judge.get_board()}")
+#     print(engine1.judge.get_all_moves())
+#     if engine1.judge.is_game_over() != GameState.CONTINUE:
+#         print("game ended")
+#         break
