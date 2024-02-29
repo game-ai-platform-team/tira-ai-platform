@@ -150,9 +150,7 @@ class ConnectFourJudge(Judge):
         combo_color = self.__board[col][row]
 
         space_above = min(3, columns - col, rows - row)
-        print(f"cols: {columns - col} rows: {rows - row}")
         space_below = min(3, col, row)
-        print(f"sa =  {space_above} sb = {space_below}")
 
         if space_above + space_below < 3:
             return False
@@ -232,7 +230,7 @@ class ConnectFourJudge(Judge):
 
     def evaluate_board(self):
         if self.__is_win():
-            return 1000
+            return 100
         if self.__state == GameState.DRAW:
             return 0
         return self.count_all_threes()
