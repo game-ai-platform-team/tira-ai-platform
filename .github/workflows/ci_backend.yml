@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up
+      - name: Set up Poetry
         uses: ./.github/workflows/setup-poetry
 
       - name: Run unit tests
@@ -45,7 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up
+      - name: Set up Poetry
         uses: ./.github/workflows/setup-poetry
 
       - name: Run pylint
@@ -60,7 +60,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up
+      - name: Set up Poetry
         uses: ./.github/workflows/setup-poetry
 
       - name: Format code
