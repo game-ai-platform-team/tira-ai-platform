@@ -1,12 +1,12 @@
 import random
-import subprocess
+import shutil
 from pathlib import Path
 
 from config import TEMP_DIR
-from entities.cloned_repository import ClonedRepository
 from entities.player import Player
 from services.game_factory import game_factory
 from services.socket_service import SocketService
+from git import Repo, GitCommandError
 
 
 class Api:
@@ -17,7 +17,10 @@ class Api:
         def __init__(self):
             self.success: bool = False
             self.error: str = "Unknown error"
-            self.repository: None | ClonedRepository = None
+            self.repository: None | Repo = None
+
+        def remove(self):
+            shutil.rmtree(self.repository.working_dir)
 
     def start(
         self, socket_service: SocketService, github_url: str, elo: int, active_game: str
@@ -25,34 +28,33 @@ class Api:
         if active_game not in ["chess", "connect_four"]:
             return
 
-        possible_clone = self.git_clone(github_url)
-        if possible_clone.success:
-            repo = possible_clone.repository
+        clone = self.git_clone(github_url)
 
-            player = Player(repo)
-            with player:
-                game = game_factory.get_game(socket_service, active_game, player, elo)
-                game.play()
+        if not clone.success:
+            socket_service.send_error(clone.error)
+            return
 
-            repo.remove()
-        else:
-            socket_service.send_error(possible_clone.error)
+        repo = clone.repository
 
-    def git_clone(self, github_url) -> GitCloneResult:
+        player =  Player(repo)
+
+        with player:
+            game = game_factory.get_game(socket_service, active_game, player, elo)
+            game.play()
+
+        clone.remove()
+
+    def git_clone(self, github_url):
         self.temp_dir.mkdir(parents=True, exist_ok=True)
         repo_dir_name = "repo" + str(random.randint(1000000, 9999999))
         repo_dir = Path.joinpath(self.temp_dir, repo_dir_name)
-        repository = ClonedRepository(repo_dir, github_url)
-        process = subprocess.run(["git", "clone", github_url, repo_dir], check=False)
-
         result = self.GitCloneResult()
-
-        if process.returncode != 0:
-            result.error = "Error cloning the repository " + github_url
-        else:
+        try:
+            repo = Repo.clone_from(github_url, repo_dir)
             result.success = True
-            result.repository = repository
-
+            result.repository = repo
+        except GitCommandError as e:
+            result.error = f"Error cloning repository from {github_url}: {e}"
         return result
 
 
