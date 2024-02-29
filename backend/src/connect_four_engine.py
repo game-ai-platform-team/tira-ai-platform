@@ -77,25 +77,24 @@ if __name__ == "__main__":
     engine2 = ConnectFourEngine()
 
     while True:
-        move = int(input("move: "))
-        engine1.make_move(move)
+        test_move = input("move: ")
+        engine1.make_move(test_move)
         print(f"board {engine1.judge.get_board()}")
-        move = engine1.get_best_move()
-        engine1.make_move(move)
+        test_move = engine1.get_best_move()
+        engine1.make_move(test_move)
         print(f"board {engine1.judge.get_board()}")
 
     ## DOESN'T COUNT VALUE CORRECTLY
 
-    """
-    engine1.make_move("3")
-    
-    while True:
-        move = engine1.get_best_move()
-        engine1.make_move(move)
-        print(f"board {engine1.judge.get_board()}")
-        print(f"board {engine1.pruning_judge.get_board()}")
-        print(engine1.judge.get_all_moves())
-        if engine1.judge.is_game_over() != GameState.CONTINUE:
-            print("game ended")
-            break
-    """
+
+   # engine1.make_move("3")
+
+   # while True:
+   #     move = engine1.get_best_move()
+   #     engine1.make_move(move)
+   #     print(f"board {engine1.judge.get_board()}")
+   #     print(f"board {engine1.pruning_judge.get_board()}")
+   #     print(engine1.judge.get_all_moves())
+   #     if engine1.judge.is_game_over() != GameState.CONTINUE:
+   #         print("game ended")
+   #         break
