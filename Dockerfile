@@ -32,13 +32,17 @@ COPY backend/pyproject.toml backend/poetry.lock ./
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root --no-directory
 
 # Configure runtime
-#FROM python:3-slim as runtime
+FROM python:3-slim as runtime
 
 ENV HOME=/home/user
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
 
-#COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+RUN apt update
+RUN apt install git -y
+RUN pip install poetry
+
+COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 COPY --from=node_build /frontend/dist /frontend/dist
 
 WORKDIR /app
