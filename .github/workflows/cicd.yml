@@ -35,7 +35,7 @@ jobs:
     uses: ./.github/workflows/e2e_test.yml
 
   build_staging:
-    name: Build and push to Docker Hub
+    name: Build and deploy (staging)
     needs: [ci_backend, ci_frontend, e2e_test]
     if: github.event == 'push' && github.ref_name == 'dev'
 
@@ -48,7 +48,7 @@ jobs:
       MODE: staging
 
   build_production:
-    name: Build and push to Docker Hub
+    name: Build and deploy (production)
     needs: [ci_backend, ci_frontend, e2e_test]
     if: github.event == 'push' && github.ref_name == 'main'
 
