@@ -14,12 +14,12 @@ def test(ctx):
 
 @task
 def coverage_html(ctx):
-    ctx.run("coverage run --branch -m pytest src -n auto && coverage html", pty=True)
+    ctx.run("pytest --cov src --cov-report html -n auto", pty=True)
 
 
 @task
 def coverage_xml(ctx):
-    ctx.run("coverage run --branch -m pytest src -n auto && coverage xml", pty=True)
+    ctx.run("pytest --cov src --cov-report xml -n auto", pty=True)
 
 
 @task
