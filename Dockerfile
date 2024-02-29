@@ -56,5 +56,5 @@ RUN chown -R user:user $HOME \
 
 USER 1001
 EXPOSE 5000:5000
-CMD ["python3", "src/app.py"]
+CMD ["poetry", "run", "invoke", "start"]
 
