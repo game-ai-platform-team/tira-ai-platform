@@ -206,8 +206,8 @@ class ConnectFourJudge(Judge):
 
     def count_vertical(self, piece):
         total = 0
-        for column in range(len(self.__board)):
-            for row in range(len(self.__board[0]) - 2):
+        for column, column_values in enumerate(self.__board):
+            for row, _ in enumerate(column_values[:-2]):
                 if (
                     piece
                     == self.__board[column][row]
@@ -216,6 +216,7 @@ class ConnectFourJudge(Judge):
                 ):
                     total += 1
         return total
+
 
     def count_horizontal(self, piece):
         total = 0

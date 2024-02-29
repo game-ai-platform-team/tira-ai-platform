@@ -7,11 +7,11 @@ from entities.player import Player
 
 class TestPlayer(unittest.TestCase):
     def setUp(self):
-        self.myFile = Path(__file__)
+        self.my_file = Path(__file__)
 
     def test_play_returns_move(self):
         mock_repo = MagicMock()
-        mock_repo.all_mocks_dir = self.myFile.parent.parent.joinpath("mockrepos")
+        mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo1")
 
         player = Player(mock_repo)
@@ -23,7 +23,7 @@ class TestPlayer(unittest.TestCase):
 
     def test_terminate_self_terminates_process(self):
         mock_repo = MagicMock()
-        mock_repo.all_mocks_dir = self.myFile.parent.parent.joinpath("mockrepos")
+        mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo1")
 
         player = Player(mock_repo)
@@ -31,7 +31,7 @@ class TestPlayer(unittest.TestCase):
 
     def test_raise_error_when_timeout(self):
         mock_repo = MagicMock()
-        mock_repo.all_mocks_dir = self.myFile.parent.parent.joinpath("mockrepos")
+        mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo2")
 
         player = Player(mock_repo, 1)
@@ -40,7 +40,7 @@ class TestPlayer(unittest.TestCase):
 
     def test_dont_raise_error_when_no_timeout(self):
         mock_repo = MagicMock()
-        mock_repo.all_mocks_dir = self.myFile.parent.parent.joinpath("mockrepos")
+        mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo3")
 
         player = Player(mock_repo, 4)
@@ -51,7 +51,7 @@ class TestPlayer(unittest.TestCase):
 
     def test_process_is_terminated_after_timeout(self):
         mock_repo = MagicMock()
-        mock_repo.all_mocks_dir = self.myFile.parent.parent.joinpath("mockrepos")
+        mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo3")
 
         player = Player(mock_repo, 1)
