@@ -24,7 +24,7 @@ runs:
       if: steps.cached-poetry.outputs.cache-hit != 'true'
       uses: snok/install-poetry@v1
       with:
-        version: ${{ input.poetry-version }}
+        version: ${{ inputs.poetry-version }}
 
     - name: Set up Python 3.11
       uses: actions/setup-python@v5
