@@ -1,11 +1,27 @@
 name: Build
 
 on:
-  workflow_run:
-    workflows: [CI]
-    types:
-      - completed
-    branches: [dev]
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      MODE:
+        description: Vite MODE
+        type: string
+        required: true
+      tag:
+        description: Tag for Docker image
+        type: string
+        required: false
+        default: latest
+
+    secrets:
+      DOCKER_HUB_USERNAME:
+        required: true
+      DOCKER_HUB_ACCESS_TOKEN:
+        required: true
+
   workflow_dispatch:
 
 concurrency:
@@ -13,12 +29,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Build_staging:
-    name: "Build (staging)"
+  Build:
+    name: Build
     runs-on: ubuntu-latest
-    environment: staging
-
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment: ${{ inputs.environment }}
 
     steps:
       - name: Set up QEMU
@@ -41,4 +55,4 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            MODE=${{ vars.MODE }}
+            MODE=${{ inputs.MODE }}
