@@ -1,6 +1,7 @@
 import select
 import subprocess
 from pathlib import Path
+
 from git import Repo
 
 from config import DEFAULT_CHESS_TIMEOUT
