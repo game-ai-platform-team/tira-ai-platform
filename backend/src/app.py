@@ -3,7 +3,7 @@ from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
-from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET
+from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, ROOTDIR
 from services.api import api
 from services.socket_service import SocketService
 
@@ -54,13 +54,13 @@ def ping():
 @app.route("/")
 @app.route("/ai-platform")
 def index():
-    return send_file("./../frontend/dist/index.html")
+    return send_file(ROOTDIR.parent / "frontend" / "dist" / "index.html")
 
 
 @app.route("/<path:path>")
 @app.route("/ai-platform/<path:path>")
 def default(path):
-    return send_from_directory("./../frontend/dist", path)
+    return send_from_directory(ROOTDIR.parent / "frontend" / "dist", path)
 
 
 if __name__ == "__main__":
