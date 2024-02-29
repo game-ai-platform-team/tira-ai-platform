@@ -11,25 +11,8 @@ runs:
   steps:
     - uses: actions/checkout@v4
 
-    - name: Load cached Poetry installation
-      id: cached-poetry
-      uses: actions/cache@v4
+    - name: Set up Poetry and Python
+      uses: packetcoders/action-setup-cache-python-poetry@v1.1.0
       with:
-        path: ~/.local
-        key: poetry-0
-
-    - name: Install Poetry
-      if: steps.cached-poetry.outputs.cache-hit != 'true'
-      uses: snok/install-poetry@v1
-
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
-        cache: poetry
-        cache-dependency-path: "${{ inputs.cwd }}/poetry.lock"
-
-    - name: Install dependencies
-      run: poetry install
-      working-directory: ${{ inputs.cwd }}
-      shell: bash
+        python-version: 3.12
+        poetry-version: 1.8.1
