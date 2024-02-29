@@ -13,7 +13,12 @@ app.config.update(
         "SECRET_KEY": "secret!",
     }
 )
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(
+    app,
+    cors_allowed_origins="*",
+    async_mode="threading",
+    transports=["websocket"],
+)
 oauth = OAuth(app)
 CORS(app)
 

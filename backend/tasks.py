@@ -28,6 +28,13 @@ def lint(ctx):
 
 
 @task
+def dev(
+    ctx,
+):
+    ctx.run("poetry run python3 src/app.py")
+
+
+@task
 def start(
     ctx,
 ):
