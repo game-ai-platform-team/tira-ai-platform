@@ -6,15 +6,6 @@ on:
       environment:
         type: string
         required: true
-      MODE:
-        description: Vite MODE
-        type: string
-        required: true
-      tag:
-        description: Tag for Docker image
-        type: string
-        required: false
-        default: latest
 
     secrets:
       DOCKER_HUB_USERNAME:
@@ -47,12 +38,12 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build and push
+      - name: Build and deploy
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tira-app:dev
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/tira-app:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            MODE=${{ inputs.MODE }}
+            MODE=${{ vars.MODE }}

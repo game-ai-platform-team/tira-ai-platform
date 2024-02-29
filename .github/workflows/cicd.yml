@@ -34,29 +34,14 @@ jobs:
 
     uses: ./.github/workflows/e2e_test.yml
 
-  build_staging:
-    name: Build and deploy (staging)
+  build:
+    name: Build and deploy
     needs: [ci_backend, ci_frontend, e2e_test]
-    if: github.event == 'push' && github.ref_name == 'dev'
+    if: github.event == 'push'
 
     uses: ./.github/workflows/build.yml
-    secrets:
-      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     with:
       environment: staging
-      MODE: staging
-
-  build_production:
-    name: Build and deploy (production)
-    needs: [ci_backend, ci_frontend, e2e_test]
-    if: github.event == 'push' && github.ref_name == 'main'
-
-    uses: ./.github/workflows/build.yml
     secrets:
       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-    with:
-      environment: production
-      MODE: production
-      tag: production
