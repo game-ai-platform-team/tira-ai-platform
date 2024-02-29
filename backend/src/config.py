@@ -20,5 +20,5 @@ DEFAULT_CHESS_TIMEOUT = float(getenv("CHESS_TIMEOUT") or 5)
 OIDC_CLIENT_ID = getenv("OIDC_CLIENT_ID")
 OIDC_CLIENT_SECRET = getenv("OIDC_CLIENT_SECRET")
 
-if not (OIDC_CLIENT_ID and OIDC_CLIENT_SECRET):
-    raise KeyError("OIDC client id or secret missing")
+# if not (OIDC_CLIENT_ID and OIDC_CLIENT_SECRET):
+    # raise KeyError("OIDC client id or secret missing")
