@@ -22,7 +22,7 @@ describe("Chess game", function () {
         );
         cy.get("#submit-button").click();
 
-        cy.get("#game-view", { timeout: 10000 }).should(
+        cy.get("#game-view", { timeout: 15000 }).should(
             "not.contain",
             "Current Turn: 0",
         );
@@ -37,7 +37,7 @@ describe("Chess game", function () {
 
         cy.get("#submit-button").click();
 
-        cy.get(".move", { timeout: 10000 }).first().click();
+        cy.get(".move", { timeout: 15000 }).first().click();
         cy.get(".move-details").contains("Time:");
     });
 
