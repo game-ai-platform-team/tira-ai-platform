@@ -25,22 +25,6 @@ class ConnectFourEngine:
 
         return str(best_move[0])
 
-    def vanha_get_best(self):
-        value = 0
-        best_value = -10000
-        print(f"sorted list: {self.sorted_list}")
-        for column in self.sorted_list:
-            if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
-                continue
-            print(f"column {column}")
-            value = self.min_value(-1000, 1000, self.depth)
-            print(f"value: {value}")
-            if value > best_value:
-                best_move = column
-                best_value = value
-        print(f"best move: {best_move}")
-        return best_move
-
     def generate_sorted_list(self) -> list:
         num_list = list(range(self.columns - 1, -1, -1))
         mid_index = len(num_list) // 2
@@ -101,11 +85,11 @@ if __name__ == "__main__":
         engine1.make_move(test_move)
         print(f"board {engine1.judge.get_board()}")
         print(f"board {engine1.pruning_judge.get_board()}")
-        move = engine1.get_best_move()
-        print(f"this move{move}")
-        if move:
-            print(f"{move}")
-            engine1.make_move(move)
+        test_move = engine1.get_best_move()
+        print(f"this move{test_move}")
+        if test_move:
+            print(f"{test_move}")
+            engine1.make_move(test_move)
         print(f"board {engine1.judge.get_board()}")
 
     ## DOESN'T COUNT VALUE CORRECTLY
