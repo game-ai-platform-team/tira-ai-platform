@@ -37,7 +37,7 @@ jobs:
   build:
     name: Build and deploy
     needs: [ci_backend, ci_frontend, e2e_test]
-    if: github.event == 'push'
+    if: github.event_name == 'push'
 
     uses: ./.github/workflows/build.yml
     with:
