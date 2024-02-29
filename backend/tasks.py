@@ -31,4 +31,4 @@ def lint(ctx):
 def start(
     ctx,
 ):
-    ctx.run("poetry run python3 src/app.py")
+    ctx.run("poetry run uwsgi --ini wsgi.ini")
