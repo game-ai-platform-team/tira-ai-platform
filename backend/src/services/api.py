@@ -2,11 +2,12 @@ import random
 import shutil
 from pathlib import Path
 
+from git import GitCommandError, Repo
+
 from config import TEMP_DIR
 from entities.player import Player
 from services.game_factory import game_factory
 from services.socket_service import SocketService
-from git import Repo, GitCommandError
 
 
 class Api:
@@ -36,7 +37,7 @@ class Api:
 
         repo = clone.repository
 
-        player =  Player(repo)
+        player = Player(repo)
 
         with player:
             game = game_factory.get_game(socket_service, active_game, player, elo)
