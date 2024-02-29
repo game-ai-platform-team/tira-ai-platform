@@ -18,6 +18,6 @@ The OpenID Connect Client is implemented with Authlib which requires
 These can be defined as environment variables or in `.env.secret` file:
 
 ```ini
-OIDC_CLIENT_ID=<CLIENT_ID_FROM_SP_REGISTER>
+OIDC_CLIENT_ID=<ENTITY_ID_FROM_SP_REGISTER>
 OIDC_CLIENT_SECRET=<CLIENT_SECRET_FROM_SP_REGISTER>
 ```
