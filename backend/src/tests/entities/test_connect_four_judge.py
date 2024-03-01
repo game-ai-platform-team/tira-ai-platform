@@ -259,11 +259,12 @@ class TestConnectFourJudge(unittest.TestCase):
                 [2, 1, 0, 0, 0, 0],
                 [1, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0],
+                True
             ],
         )
-        self.assertEqual(judge.evaluate_horizontal(0, 0, 0), 0)
-        self.assertEqual(
-            judge.evaluate_horizontal(0, 3, 0),
-            judge.evaluate_horizontal(1, 3, 0),
-            judge.evaluate_horizontal(2, 3, 0),
-        )
+        judge.evaluate_horizontal(0, 0, 0)
+        self.assertEqual(judge.horizontal_windows[0][0], 0)
+        judge.evaluate_horizontal(0, 3, 0)
+        self.assertEqual(judge.horizontal_windows[0][3], 0)
+        
+        

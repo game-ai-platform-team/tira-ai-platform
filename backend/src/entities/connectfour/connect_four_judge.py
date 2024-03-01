@@ -9,6 +9,7 @@ class ConnectFourJudge(Judge):
         columns=7,
         moves: list[int] | None = None,
         board: list[list[int]] | None = None,
+        pruning=False 
     ) -> None:
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
@@ -27,7 +28,6 @@ class ConnectFourJudge(Judge):
         self.diagonal_upwards_windws: list[list[int]] = [
             ([0] * (rows)) for i in range(columns - 3)
         ]
-        self.evaluation = 0
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
@@ -68,20 +68,23 @@ class ConnectFourJudge(Judge):
         return state
 
     def add_move(self, move: str) -> None:
+        print("ADDING MOVE")
         int_move = int(move)
         for row in range(len(self.__board[int_move])):
             if self.__board[int_move][row] == 0:
                 self.__board[int_move][row] = (len(self.__moves)) % 2 + 1
                 self.__moves.append(int_move)
                 self.__latest_move = (int_move, row)
-                break
+                self.evaluate_relevant_windows(int_move, row)
 
     def remove_latest(self):
+        print("REMOVING MOVE)")
         move = self.calculate_latest_move()
         self.__moves.pop()
 
         if move:
             self.__board[move[0]][move[1]] = 0
+            self.evaluate_relevant_windows(move[0], move[1])
 
     def is_game_over(self) -> GameState:
         print(self.__moves)
@@ -225,49 +228,51 @@ class ConnectFourJudge(Judge):
 
         return False
 
-    def evaluate_windows(self):
-        piece = self.calculate_latest_move()
-        if piece:
-            col = piece[0]
-            row = piece[1]
-            space_horizontal = min(3, row)
-            space_vertical = min(3, col)
-            space_diagonal_downwards = min(3, col, len(self.__board[0]) - row)
-            space_diagonal_upwards = min(3, col, row)
-            self.evaluate_horizontal(col, row, space_horizontal)
-            self.evaluate_vertical(col, row, space_vertical)
-            self.evaluate_diagonal_downwards(col, row, space_diagonal_downwards)
-            self.evaluate_diagonal_upwards(col, row, space_diagonal_upwards)
+    ## Returns True if there is a win
+    def evaluate_relevant_windows(self, col, row) -> bool:
+        space_diagonal_downwards = min(3, col, len(self.__board[0]) - row)
+        space_diagonal_upwards = min(3, col, row)
+        self.evaluate_horizontal(col, row)
+        self.evaluate_vertical(col, row)
+        ##self.evaluate_diagonal_downwards(col, row, space_diagonal_downwards)
+        ##self.evaluate_diagonal_upwards(col, row, space_diagonal_upwards)
 
-    def evaluate_horizontal(self, col, row, space):
+    def evaluate_horizontal(self, col, row):
+        print("evaluating horizontal" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
-        for i in range(space):
+        for i in range(4):
+            print("   " + str(i) +"/" + str(row))
+            if col - i > 3: continue
             for x in range(4):
-                list[x] = self.__board[col - i + x][row]
-            self.horizontal_windows[col][row] = self.evaluate_window(list)
+                list[x] = self.__board[i + x][row]
+            self.horizontal_windows[i][row] = self.evaluate_single_window(list)
 
-    def evaluate_vertical(self, col, row, space):
+    def evaluate_vertical(self, col, row):
+        print("evaluating vertical" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
-        for i in range(space):
+        for i in range(0, row-2):
+            print("   " + str(col) +"/" + str(row -3 - i))
             for x in range(4):
-                list[x] = self.__board[col][row - i + x]
-            self.horizontal_windows[col][row] = self.evaluate_window(list)
+                list[x] = self.__board[col][row - 3 - i + x]
+            self.vertical_windows[col][row - 3 - i] = self.evaluate_single_window(list)
 
     def evaluate_diagonal_downwards(self, col, row, space):
+        print("evaluating ddown" + str(col) + "/" + str(row) + "/" + str(space))
         list = [0, 0, 0, 0]
         for i in range(space):
             for x in range(4):
                 list[x] = self.__board[col - i + x][row + i - x]
-            self.horizontal_windows[col][row] = self.evaluate_window(list)
+            self.horizontal_windows[col - i][row + i] = self.evaluate_single_window(list)
 
     def evaluate_diagonal_upwards(self, col, row, space):
+        print("evaluating dup" + str(col) + "/" + str(row) + "/" + str(space))
         list = [0, 0, 0, 0]
         for i in range(space):
             for x in range(4):
                 list[x] = self.__board[col - i + x][row - i + x]
-            self.horizontal_windows[col][row] = self.evaluate_window(list)
+            self.horizontal_windows[col - i][row - i] = self.evaluate_single_window(list)
 
-    def evaluate_window(self, window: list[int]) -> int:
+    def evaluate_single_window(self, window: list[int]) -> int:
         my_pieces = 0
         opponent_pieces = 0
         my_piece = 1
