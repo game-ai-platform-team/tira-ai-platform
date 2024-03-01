@@ -4,7 +4,7 @@ import gevent.monkey
 gevent.monkey.patch_all()
 # pylint: disable=wrong-import-position
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, request, send_file, send_from_directory, redirect, url_for
+from flask import Flask, redirect, request, send_file, send_from_directory, url_for
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
@@ -20,26 +20,25 @@ app.config.update(
 )
 socketio = SocketIO(
     app,
-    cors_allowed_origins = "*",
+    cors_allowed_origins="*",
 )
 oauth = OAuth(app)
 CORS(app)
 
 oauth.register(
     "helsinki",
-    client_id = OIDC_CLIENT_ID,
-    client_secret = OIDC_CLIENT_SECRET,
-    server_metadata_url = "https://login-test.it.helsinki.fi/.well-known/openid-configuration",
-    client_kwargs = {
+    client_id=OIDC_CLIENT_ID,
+    client_secret=OIDC_CLIENT_SECRET,
+    server_metadata_url="https://login-test.it.helsinki.fi/.well-known/openid-configuration",
+    client_kwargs={
         "scope": "openid email profile",
     },
-
 )
 
 
 @app.route("/login")
 def login():
-    redirect_uri = url_for("authorize", _external = True)
+    redirect_uri = url_for("authorize", _external=True)
     return oauth.helsinki.authorize_redirect(redirect_uri)
 
 
@@ -50,11 +49,11 @@ def authorize():
     return redirect("/")
 
 
-@socketio.on("startgame", namespace = "/gameconnection")
+@socketio.on("startgame", namespace="/gameconnection")
 def io_startgame(data):
     socket_service = SocketService(socketio, request.sid)
 
-    api.start(socket_service, data["githubUrl"], data["elo"], active_game = data["game"])
+    api.start(socket_service, data["githubUrl"], data["elo"], active_game=data["game"])
 
 
 @app.route("/ping")
@@ -75,9 +74,9 @@ def default(path):
 if __name__ == "__main__":
     socketio.run(
         app,
-        host = "0.0.0.0",
-        port = 5000,
+        host="0.0.0.0",
+        port=5000,
         # debug = True,
-        certfile = "dev.cert",
-        keyfile = "dev.key"
+        certfile="dev.cert",
+        keyfile="dev.key",
     )
