@@ -1,16 +1,18 @@
+import time
+
 from entities.connectfour.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
 
 class ConnectFourEngine:
-    def __init__(self, rows=6, columns=7):
+    def __init__(self, rows: int = 6, columns: int = 7, difficulty: int = 5000) -> None:
         self.rows = rows
         self.columns = columns
 
         self.judge = ConnectFourJudge(self.rows, self.columns)
         self.pruning_judge = ConnectFourJudge(self.rows, self.columns)
-        self.depth = 4
         self.sorted_list = self.generate_sorted_list()
+        self.difficulty = difficulty
 
     def make_move(self, move: str) -> None:
         self.judge.add_move(move)
@@ -18,12 +20,37 @@ class ConnectFourEngine:
 
     def get_best_move(self) -> str:
         if len(self.judge.get_all_moves()) <= 2:
-            return int(self.columns / 2)
+            return str(self.columns // 2)
 
-        best_move = self.max_value(-1000, 1000, self.depth)
+        best_move = self.max_value(-1000, 1000, 5)
         print(best_move)
 
         return str(best_move[0])
+
+    def wip_get_best_move(self) -> str | None:
+        if len(self.judge.get_all_moves()) <= 2:
+            return str(self.columns // 2)
+
+        best_move = self.iterative_deepening()
+        if best_move:
+            return str(best_move[0])
+
+        return None
+
+    def iterative_deepening(self) -> tuple | None:
+        depth = 1
+        best_move = None
+        start = time.perf_counter()
+        while True:
+            if int((time.perf_counter() - start) * 1000) >= self.difficulty:
+                break
+            new_move = self.max_value(-1000, 1000, depth)
+            if new_move:
+                best_move = new_move
+            else:
+                break
+            depth += 1
+        return best_move
 
     def generate_sorted_list(self) -> list:
         num_list = list(range(self.columns - 1, -1, -1))
@@ -79,6 +106,8 @@ class ConnectFourEngine:
 if __name__ == "__main__":
     engine1 = ConnectFourEngine()
     engine2 = ConnectFourEngine()
+
+    engine1.pruning_judge.print_windows()
 
     while True:
         test_move = input("move: ")
