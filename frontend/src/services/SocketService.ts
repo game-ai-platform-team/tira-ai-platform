@@ -31,4 +31,8 @@ export function startGame(config: GameConfig) {
         store.dispatch(setAllLog(data.allLogs));
     });
     socket.emit("startgame", config);
+
+    socket.on("error", (data: string) => {
+        console.log(data)
+    })
 }
