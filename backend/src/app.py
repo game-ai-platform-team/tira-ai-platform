@@ -2,7 +2,7 @@
 import gevent.monkey
 
 gevent.monkey.patch_all()
-
+#pylint: disable=wrong-import-position
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
