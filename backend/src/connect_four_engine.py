@@ -106,7 +106,7 @@ if __name__ == "__main__":
     engine1.pruning_judge.print_windows()
 
     while True:
-        while(True):
+        while True:
             test_move = input("move: ")
             if engine1.judge.validate(test_move):
                 break
