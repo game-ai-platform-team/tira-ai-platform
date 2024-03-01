@@ -228,23 +228,23 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(latest_move, (3, 3))
 
     def test_evaluate_window_with_player1_moves_only(self):
-        self.assertEqual(self.judge.evaluate_window([0,1,0,0]), 2)
-        self.assertEqual(self.judge.evaluate_window([0,1,0,1]), 4)
+        self.assertEqual(self.judge.evaluate_window([0, 1, 0, 0]), 2)
+        self.assertEqual(self.judge.evaluate_window([0, 1, 0, 1]), 4)
 
     def test_evaluate_window_with_player2_moves_only(self):
-        self.assertEqual(self.judge.evaluate_window([0,2,0,0]), -2)
-        self.assertEqual(self.judge.evaluate_window([0,2,0,2]), -4)
+        self.assertEqual(self.judge.evaluate_window([0, 2, 0, 0]), -2)
+        self.assertEqual(self.judge.evaluate_window([0, 2, 0, 2]), -4)
 
     def test_evaluate_window_with_both_players_moves(self):
-        self.assertEqual(self.judge.evaluate_window([0,2,0,1]), 0)
-        self.assertEqual(self.judge.evaluate_window([2,2,2,1]), 0)
+        self.assertEqual(self.judge.evaluate_window([0, 2, 0, 1]), 0)
+        self.assertEqual(self.judge.evaluate_window([2, 2, 2, 1]), 0)
 
     def test_evaluate_window_with_nothing_in_it(self):
-        self.assertEqual(self.judge.evaluate_window([0,0,0,0]), 0)
+        self.assertEqual(self.judge.evaluate_window([0, 0, 0, 0]), 0)
 
     def test_evaluate_window_with_win(self):
-        self.assertEqual(self.judge.evaluate_window([1,1,1,1]), 16)
-        self.assertEqual(self.judge.evaluate_window([2,2,2,2]), -16)
+        self.assertEqual(self.judge.evaluate_window([1, 1, 1, 1]), 16)
+        self.assertEqual(self.judge.evaluate_window([2, 2, 2, 2]), -16)
 
     def test_evaluate_horizontal(self):
         judge = ConnectFourJudge(
@@ -262,7 +262,8 @@ class TestConnectFourJudge(unittest.TestCase):
             ],
         )
         self.assertEqual(judge.evaluate_horizontal(0, 0, 0), 0)
-        self.assertEqual(judge.evaluate_horizontal(0, 3, 0),
-                         judge.evaluate_horizontal(1, 3, 0), 
-                         judge.evaluate_horizontal(2, 3, 0))
-        
+        self.assertEqual(
+            judge.evaluate_horizontal(0, 3, 0),
+            judge.evaluate_horizontal(1, 3, 0),
+            judge.evaluate_horizontal(2, 3, 0),
+        )
