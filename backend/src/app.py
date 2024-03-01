@@ -3,7 +3,7 @@ from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
-from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_REDIRECT_PATH
+from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_REDIRECT_PATH, ROOTDIR
 from services.api import api
 from services.socket_service import SocketService
 
