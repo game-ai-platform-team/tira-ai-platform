@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 ROOTDIR = Path(__file__).parent.parent
 
 try:
-    load_dotenv(dotenv_path = ROOTDIR / ".env")
-    load_dotenv(dotenv_path = ROOTDIR / ".env.secret")
+    load_dotenv(dotenv_path=ROOTDIR / ".env")
+    load_dotenv(dotenv_path=ROOTDIR / ".env.secret")
 except FileNotFoundError:
     pass
 
