@@ -1,3 +1,7 @@
+# Monkey import and patch must be before other imports!!!
+import gevent.monkey
+gevent.monkey.patch_all()
+
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
