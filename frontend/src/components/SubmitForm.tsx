@@ -90,7 +90,7 @@ function SubmitForm(props: { selectedGame: string }): JSX.Element {
                     Submit
                 </button>
             </form>
-            <button type="reset" id="submit-button" onClick={onResetGame}>
+            <button id="submit-button" onClick={onResetGame}>
                 {" "}
                 Reset
             </button>
