@@ -10,7 +10,7 @@ class ConnectFourEngine:
         self.columns = columns
 
         self.judge = ConnectFourJudge(self.rows, self.columns)
-        self.pruning_judge = ConnectFourJudge(self.rows, self.columns)
+        self.pruning_judge = ConnectFourJudge(self.rows, self.columns, pruning=True)
         self.sorted_list = self.generate_sorted_list()
         self.difficulty = difficulty
 
@@ -59,14 +59,11 @@ class ConnectFourEngine:
         return num_list
 
     def max_value(self, alpha: int, beta: int, depth: int) -> tuple:
-        print("we got here")
         best_move = None
         if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
-            print("we also got here")
             return None, self.pruning_judge.evaluate_board() * -1 * (depth + 1)
         best_value = -1000
         for column in self.sorted_list:
-            print("maximizing player loop")
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
             self.pruning_judge.add_move(str(column))
@@ -87,7 +84,6 @@ class ConnectFourEngine:
             return None, self.pruning_judge.evaluate_board() * (depth + 1)
         best_value = 1000
         for column in self.sorted_list:
-            print("minimizing player loop")
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
             self.pruning_judge.add_move(str(column))
@@ -110,14 +106,14 @@ if __name__ == "__main__":
     engine1.pruning_judge.print_windows()
 
     while True:
-        test_move = input("move: ")
+        while(True):
+            test_move = input("move: ")
+            if engine1.judge.validate(test_move):
+                break
         engine1.make_move(test_move)
-        print(f"board {engine1.judge.get_board()}")
-        print(f"board {engine1.pruning_judge.get_board()}")
         test_move = engine1.get_best_move()
         print(f"this move{test_move}")
         if test_move:
-            print(f"{test_move}")
             engine1.make_move(test_move)
         print(f"board {engine1.judge.get_board()}")
 
