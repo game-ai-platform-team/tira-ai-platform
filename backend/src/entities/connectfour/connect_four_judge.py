@@ -15,16 +15,24 @@ class ConnectFourJudge(Judge):
         self.max_turns = len(self.__board) * len(self.__board[0])
         self.__latest_move = self.calculate_latest_move()
         self.__state = GameState.CONTINUE
-        self.horizontal_windows: list[list[int]] = [([0] * rows) for i in range(columns-3)]
-        self.vertical_windows: list[list[int]] = [([0] * (rows - 3)) for i in range(columns)]
-        self.diagonal_downwards_windows: list[list[int]] = [([0] * (rows - 3)) for i in range(columns - 3)]
-        self.diagonal_upwards_windws: list[list[int]] = [([0] * (rows)) for i in range(columns - 3)]
+        self.horizontal_windows: list[list[int]] = [
+            ([0] * rows) for i in range(columns - 3)
+        ]
+        self.vertical_windows: list[list[int]] = [
+            ([0] * (rows - 3)) for i in range(columns)
+        ]
+        self.diagonal_downwards_windows: list[list[int]] = [
+            ([0] * (rows - 3)) for i in range(columns - 3)
+        ]
+        self.diagonal_upwards_windws: list[list[int]] = [
+            ([0] * (rows)) for i in range(columns - 3)
+        ]
         self.evaluation = 0
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
         return board
-    
+
     ## testing only method
     def print_windows(self):
         print(self.horizontal_windows)
@@ -230,36 +238,36 @@ class ConnectFourJudge(Judge):
             self.evaluate_vertical(col, row, space_vertical)
             self.evaluate_diagonal_downwards(col, row, space_diagonal_downwards)
             self.evaluate_diagonal_upwards(col, row, space_diagonal_upwards)
-        
+
     def evaluate_horizontal(self, col, row, space):
-        list = [0,0,0,0] 
+        list = [0, 0, 0, 0]
         for i in range(space):
             for x in range(4):
-                list[x] = self.__board[col - i  + x][row]
+                list[x] = self.__board[col - i + x][row]
             self.horizontal_windows[col][row] = self.evaluate_window(list)
 
     def evaluate_vertical(self, col, row, space):
-        list = [0,0,0,0] 
+        list = [0, 0, 0, 0]
         for i in range(space):
             for x in range(4):
                 list[x] = self.__board[col][row - i + x]
             self.horizontal_windows[col][row] = self.evaluate_window(list)
 
     def evaluate_diagonal_downwards(self, col, row, space):
-        list = [0,0,0,0] 
+        list = [0, 0, 0, 0]
         for i in range(space):
             for x in range(4):
                 list[x] = self.__board[col - i + x][row + i - x]
             self.horizontal_windows[col][row] = self.evaluate_window(list)
 
     def evaluate_diagonal_upwards(self, col, row, space):
-        list = [0,0,0,0] 
+        list = [0, 0, 0, 0]
         for i in range(space):
             for x in range(4):
                 list[x] = self.__board[col - i + x][row - i + x]
-            self.horizontal_windows[col][row] = self.evaluate_window(list)  
-    
-    def evaluate_window(self, window : list[int]) -> int:
+            self.horizontal_windows[col][row] = self.evaluate_window(list)
+
+    def evaluate_window(self, window: list[int]) -> int:
         my_pieces = 0
         opponent_pieces = 0
         my_piece = 1
@@ -270,12 +278,12 @@ class ConnectFourJudge(Judge):
             if i == my_piece:
                 my_pieces += 1
 
-        if(my_pieces > 0 and opponent_pieces > 0):
+        if my_pieces > 0 and opponent_pieces > 0:
             return 0
-        if(my_pieces > 0):
-            return 2 ** my_pieces
-        if(opponent_pieces > 0):
-            return -1 * 2 ** opponent_pieces
+        if my_pieces > 0:
+            return 2**my_pieces
+        if opponent_pieces > 0:
+            return -1 * 2**opponent_pieces
         return 0
 
     def count_all_threes(self):
@@ -314,4 +322,3 @@ class ConnectFourJudge(Judge):
         if self.__state == GameState.DRAW:
             return 0
         return self.count_all_threes()
-
