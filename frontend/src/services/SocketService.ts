@@ -33,6 +33,6 @@ export function startGame(config: GameConfig) {
     socket.emit("startgame", config);
 
     socket.on("error", (data: string) => {
-        console.log(data)
-    })
+        console.log(data);
+    });
 }
