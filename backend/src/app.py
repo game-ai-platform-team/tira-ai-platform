@@ -3,7 +3,7 @@ from flask import Flask, request, send_file, send_from_directory
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
-from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, ROOTDIR
+from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_REDIRECT_PATH
 from services.api import api
 from services.socket_service import SocketService
 
@@ -33,7 +33,7 @@ oauth.register(
 
 @app.route("/login")
 def login():
-    return oauth.helsinki.authorize_redirect("https://localhost:5000")
+    return oauth.helsinki.authorize_redirect(OIDC_REDIRECT_PATH)
 
 
 @socketio.on("startgame", namespace="/gameconnection")
