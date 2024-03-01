@@ -230,12 +230,16 @@ class ConnectFourJudge(Judge):
 
     ## Returns True if there is a win
     def evaluate_relevant_windows(self, col, row) -> bool:
-        space_diagonal_downwards = min(3, col, len(self.__board[0]) - row)
-        space_diagonal_upwards = min(3, col, row)
+        ddown_space_above = min(3, col, len(self.__board[0]) - row)
+        ddown_space_below = min(3, len(self.__board) - col, row)
+
+        dup_space_above = min(3, len(self.__board) - col, len(self.__board[0]) - row)
+        dup_space_below = min(3, col, row)
+
         self.evaluate_horizontal(col, row)
         self.evaluate_vertical(col, row)
-        ##self.evaluate_diagonal_downwards(col, row, space_diagonal_downwards)
-        ##self.evaluate_diagonal_upwards(col, row, space_diagonal_upwards)
+        ##self.evaluate_diagonal_downwards(col, row, ddown_space_above, ddown_space_below)
+        ##self.evaluate_diagonal_upwards(col, row, dup_space_above, dup_space_below)
 
     def evaluate_horizontal(self, col, row):
         print("evaluating horizontal" + str(col) + "/" + str(row))
@@ -256,21 +260,22 @@ class ConnectFourJudge(Judge):
                 list[x] = self.__board[col][row - 3 - i + x]
             self.vertical_windows[col][row - 3 - i] = self.evaluate_single_window(list)
 
-    def evaluate_diagonal_downwards(self, col, row, space):
-        print("evaluating ddown" + str(col) + "/" + str(row) + "/" + str(space))
+    def evaluate_diagonal_downwards(self, col, row, space_above, space_below):
+        print("evaluating ddown" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
-        for i in range(space):
+        for i in range(space_above + space_below -2):
+            print("   " + str(col - space_above + i) +"/" + str(row + space_above - i))
             for x in range(4):
-                list[x] = self.__board[col - i + x][row + i - x]
-            self.horizontal_windows[col - i][row + i] = self.evaluate_single_window(list)
+                list[x] = self.__board[col - space_above + i + x][row + space_above - i - x]
+            self.horizontal_windows[col - space_above + i][row + space_above - i] = self.evaluate_single_window(list)
 
-    def evaluate_diagonal_upwards(self, col, row, space):
-        print("evaluating dup" + str(col) + "/" + str(row) + "/" + str(space))
+    def evaluate_diagonal_upwards(self, col, row, space_above, space_below):
+        print("evaluating dup" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
-        for i in range(space):
+        for i in range(space_above + space_below -2):
             for x in range(4):
-                list[x] = self.__board[col - i + x][row - i + x]
-            self.horizontal_windows[col - i][row - i] = self.evaluate_single_window(list)
+                list[x] = self.__board[col - space_below + i + x][row - space_below + i + x]
+            self.horizontal_windows[col - space_below + i][row - space_below + i] = self.evaluate_single_window(list)
 
     def evaluate_single_window(self, window: list[int]) -> int:
         my_pieces = 0
