@@ -52,9 +52,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                 </span>{" "}
                 Feedback
             </button>
-            <button 
-                onClick= { () => location.href='/login'} > login 
-            </button>
+            <button onClick={() => (location.href = "/login")}> login</button>
         </div>
     );
 };
