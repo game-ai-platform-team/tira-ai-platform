@@ -1,5 +1,6 @@
 # Monkey import and patch must be before other imports!!!
 import gevent.monkey
+
 gevent.monkey.patch_all()
 
 from authlib.integrations.flask_client import OAuth
