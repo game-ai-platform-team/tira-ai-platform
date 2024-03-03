@@ -270,7 +270,7 @@ class TestConnectFourJudge(unittest.TestCase):
     def test_evaluate_empty_board(self):
         self.assertEqual(self.judge.evaluate_board(), 0)
 
-    #def test_evaluate_board_after_few_moves(self):
+    # def test_evaluate_board_after_few_moves(self):
     #    self.judge.add_move(3)
     #    self.assertEqual(self.judge.evaluate_board(), 2)
     #    for i in [3,3,3,1,1,2,1]:
