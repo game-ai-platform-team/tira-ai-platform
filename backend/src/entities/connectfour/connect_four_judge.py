@@ -68,23 +68,21 @@ class ConnectFourJudge(Judge):
         return state
 
     def add_move(self, move: str) -> None:
-        print("ADDING MOVE")
         int_move = int(move)
         for row in range(len(self.__board[int_move])):
             if self.__board[int_move][row] == 0:
                 self.__board[int_move][row] = (len(self.__moves)) % 2 + 1
                 self.__moves.append(int_move)
                 self.__latest_move = (int_move, row)
-                self.evaluate_relevant_windows(int_move, row)
+                ## self.evaluate_relevant_windows(int_move, row)
 
     def remove_latest(self):
-        print("REMOVING MOVE)")
         move = self.calculate_latest_move()
         self.__moves.pop()
 
         if move:
             self.__board[move[0]][move[1]] = 0
-            self.evaluate_relevant_windows(move[0], move[1])
+            ## self.evaluate_relevant_windows(move[0], move[1])
 
     def is_game_over(self) -> GameState:
         print(self.__moves)
