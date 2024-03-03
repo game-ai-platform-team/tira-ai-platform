@@ -103,8 +103,6 @@ if __name__ == "__main__":
     engine1 = ConnectFourEngine()
     engine2 = ConnectFourEngine()
 
-    engine1.pruning_judge.print_windows()
-
     while True:
         while True:
             test_move = input("move: ")
@@ -115,7 +113,9 @@ if __name__ == "__main__":
         print(f"this move{test_move}")
         if test_move:
             engine1.make_move(test_move)
-        print(f"board {engine1.judge.get_board()}")
+        board = engine1.judge.get_board()
+        for i in board:
+            print(i)
 
     ## DOESN'T COUNT VALUE CORRECTLY
 

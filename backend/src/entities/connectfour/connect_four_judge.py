@@ -25,7 +25,7 @@ class ConnectFourJudge(Judge):
         self.diagonal_downwards_windows: list[list[int]] = [
             ([0] * (rows - 3)) for i in range(columns - 3)
         ]
-        self.diagonal_upwards_windws: list[list[int]] = [
+        self.diagonal_upwards_windows: list[list[int]] = [
             ([0] * (rows)) for i in range(columns - 3)
         ]
 
@@ -38,7 +38,7 @@ class ConnectFourJudge(Judge):
         print(self.horizontal_windows)
         print(self.vertical_windows)
         print(self.diagonal_downwards_windows)
-        print(self.diagonal_upwards_windws)
+        print(self.diagonal_upwards_windows)
 
     def print_vertical_windows(self):
         print(self.vertical_windows)
@@ -74,8 +74,8 @@ class ConnectFourJudge(Judge):
                 self.__board[int_move][row] = (len(self.__moves)) % 2 + 1
                 self.__moves.append(int_move)
                 self.__latest_move = (int_move, row)
+                self.evaluate_relevant_windows(int_move, row)
                 return
-                ## self.evaluate_relevant_windows(int_move, row)
 
     def remove_latest(self):
         move = self.calculate_latest_move()
@@ -83,7 +83,7 @@ class ConnectFourJudge(Judge):
 
         if move:
             self.__board[move[0]][move[1]] = 0
-            ## self.evaluate_relevant_windows(move[0], move[1])
+            self.evaluate_relevant_windows(move[0], move[1])
 
     def is_game_over(self) -> GameState:
         print(self.__moves)
@@ -266,10 +266,8 @@ class ConnectFourJudge(Judge):
         for i in range((-1 * low_cap), top_cap):
             print("   " + str(col + i) + "/" + str(row - i))
             for x in range(4):
-                list[x] = self.__board[col + i + x][row - i + x]
-            self.horizontal_windows[col + 1][row - i] = self.evaluate_single_window(
-                list
-            )
+                list[x] = self.__board[col + i + x][row -i + x]
+            self.diagonal_downwards_windows[col+1][row-i] = self.evaluate_single_window(list)
 
     def evaluate_diagonal_upwards(self, col, row, low_cap, top_cap):
         print("evaluating dup" + str(col) + "/" + str(row))
@@ -281,10 +279,8 @@ class ConnectFourJudge(Judge):
         for i in range((-1 * low_cap), top_cap):
             print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
-                list[x] = self.__board[col + i][row + 1]
-            self.horizontal_windows[col + i][row + i] = self.evaluate_single_window(
-                list
-            )
+                list[x] = self.__board[col+i][row+1]
+            self.diagonal_upwards_windows[col+i][row+i] = self.evaluate_single_window(list)
 
     def evaluate_single_window(self, window: list[int]) -> int:
         my_pieces = 0
@@ -335,9 +331,25 @@ class ConnectFourJudge(Judge):
                     total += 1
         return total
 
+    def evaluate_entire_board(self) -> int:
+        evaluation = 0
+        for i in self.horizontal_windows:
+            for j in i:
+                evaluation += j
+        for i in self.vertical_windows:
+            for j in i:
+                evaluation += j
+        for i in self.diagonal_upwards_windows:
+            for j in i:
+                evaluation += j
+        for i in self.diagonal_downwards_windows:
+            for j in i:
+                evaluation += j
+        return evaluation
+        
     def evaluate_board(self):
         if self.__is_win():
             return 100
         if self.__state == GameState.DRAW:
             return 0
-        return self.count_all_threes()
+        return self.evaluate_entire_board()
