@@ -266,8 +266,10 @@ class ConnectFourJudge(Judge):
         for i in range((-1 * low_cap), top_cap):
             print("   " + str(col + i) + "/" + str(row - i))
             for x in range(4):
-                list[x] = self.__board[col + i + x][row -i + x]
-            self.diagonal_downwards_windows[col+1][row-i] = self.evaluate_single_window(list)
+                list[x] = self.__board[col + i + x][row - i + x]
+            self.diagonal_downwards_windows[col + 1][
+                row - i
+            ] = self.evaluate_single_window(list)
 
     def evaluate_diagonal_upwards(self, col, row, low_cap, top_cap):
         print("evaluating dup" + str(col) + "/" + str(row))
@@ -279,8 +281,10 @@ class ConnectFourJudge(Judge):
         for i in range((-1 * low_cap), top_cap):
             print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
-                list[x] = self.__board[col+i][row+1]
-            self.diagonal_upwards_windows[col+i][row+i] = self.evaluate_single_window(list)
+                list[x] = self.__board[col + i][row + 1]
+            self.diagonal_upwards_windows[col + i][
+                row + i
+            ] = self.evaluate_single_window(list)
 
     def evaluate_single_window(self, window: list[int]) -> int:
         my_pieces = 0
@@ -346,7 +350,7 @@ class ConnectFourJudge(Judge):
             for j in i:
                 evaluation += j
         return evaluation
-        
+
     def evaluate_board(self):
         if self.__is_win():
             return 100
