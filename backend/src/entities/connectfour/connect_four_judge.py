@@ -134,7 +134,6 @@ class ConnectFourJudge(Judge):
         return False
 
     def __is_win(self) -> bool:
-
         latest = self.__latest_move
         if latest:
             col = latest[0]
