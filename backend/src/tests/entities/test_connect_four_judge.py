@@ -266,3 +266,13 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(judge.horizontal_windows[0][0], 0)
         judge.evaluate_horizontal(0, 3)
         self.assertEqual(judge.horizontal_windows[0][3], 2)
+
+    def test_evaluate_empty_board(self):
+        self.assertEqual(self.judge.evaluate_board(), 0)
+
+    #def test_evaluate_board_after_few_moves(self):
+    #    self.judge.add_move(3)
+    #    self.assertEqual(self.judge.evaluate_board(), 2)
+    #    for i in [3,3,3,1,1,2,1]:
+    #        self.judge.add_move(i)
+    #    self.assertEqual(self.judge.evaluate_board(), 6)
