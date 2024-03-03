@@ -229,7 +229,6 @@ class ConnectFourJudge(Judge):
 
     ## Returns True if there is a win
     def evaluate_relevant_windows(self, col, row) -> bool:
-
         self.evaluate_horizontal(col, row)
         self.evaluate_vertical(col, row)
         ##self.evaluate_diagonal_downwards(col, row, ddown_low_cap, ddown_top_cap)
@@ -238,8 +237,8 @@ class ConnectFourJudge(Judge):
     def evaluate_horizontal(self, col, row):
         print("evaluating horizontal" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
-        low_cap = max(col-3, 0)
-        top_cap = min(col+1, 4)
+        low_cap = max(col - 3, 0)
+        top_cap = min(col + 1, 4)
         for i in range(low_cap, top_cap):
             print("   " + str(i) + "/" + str(row))
             for x in range(4):
@@ -249,7 +248,7 @@ class ConnectFourJudge(Judge):
     def evaluate_vertical(self, col, row):
         print("evaluating vertical" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
-        low_cap = max(0, row-3)
+        low_cap = max(0, row - 3)
         top_cap = row - 2
         for i in range(low_cap, top_cap):
             print("   " + str(col) + "/" + str(row - 3 - i))
@@ -267,21 +266,25 @@ class ConnectFourJudge(Judge):
         for i in range((-1 * low_cap), top_cap):
             print("   " + str(col + i) + "/" + str(row - i))
             for x in range(4):
-                list[x] = self.__board[col + i + x][row -i + x]
-            self.horizontal_windows[col+1][row-i] = self.evaluate_single_window(list)
+                list[x] = self.__board[col + i + x][row - i + x]
+            self.horizontal_windows[col + 1][row - i] = self.evaluate_single_window(
+                list
+            )
 
     def evaluate_diagonal_upwards(self, col, row, low_cap, top_cap):
         print("evaluating dup" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
 
         low_cap = min(3, col, row)
-        top_cap = min(3, 6-col, 5-row)
+        top_cap = min(3, 6 - col, 5 - row)
 
         for i in range((-1 * low_cap), top_cap):
             print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
-                list[x] = self.__board[col+i][row+1]
-            self.horizontal_windows[col+i][row+i] = self.evaluate_single_window(list)
+                list[x] = self.__board[col + i][row + 1]
+            self.horizontal_windows[col + i][row + i] = self.evaluate_single_window(
+                list
+            )
 
     def evaluate_single_window(self, window: list[int]) -> int:
         my_pieces = 0

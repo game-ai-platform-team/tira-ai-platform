@@ -204,7 +204,7 @@ class TestConnectFourJudge(unittest.TestCase):
     def test_add_move_updates_moves(self):
         self.judge.add_move(0)
 
-        self.assertEqual(self.judge.get_all_moves(), ['0'])
+        self.assertEqual(self.judge.get_all_moves(), ["0"])
 
     def test_calculate_latest_move(self):
         self.judge.add_move("3")
