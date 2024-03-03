@@ -33,16 +33,6 @@ class ConnectFourJudge(Judge):
         board = [([0] * rows) for i in range(columns)]
         return board
 
-    ## testing only method
-    def print_windows(self):
-        print(self.horizontal_windows)
-        print(self.vertical_windows)
-        print(self.ddown_windows)
-        print(self.dup_windows)
-
-    def print_vertical_windows(self):
-        print(self.vertical_windows)
-
     def calculate_latest_move(self) -> tuple | None:
         if len(self.__moves) == 0:
             return None
@@ -86,7 +76,6 @@ class ConnectFourJudge(Judge):
             self.evaluate_relevant_windows(move[0], move[1])
 
     def is_game_over(self) -> GameState:
-        print(self.__moves)
         if self.__is_win():
             self.__state = GameState.WIN
             return self.__state
@@ -128,17 +117,16 @@ class ConnectFourJudge(Judge):
         return self.__board
 
     def __is_draw(self) -> bool:
-        print(self.__moves)
         if len(self.__moves) >= self.max_turns:
             return True
         return False
 
     def __is_win(self) -> bool:
+
         latest = self.__latest_move
         if latest:
             col = latest[0]
             row = latest[1]
-            print(latest)
 
             if (
                 self.vertical_win(col, row)
@@ -235,50 +223,48 @@ class ConnectFourJudge(Judge):
         self.evaluate_dup(col, row)
 
     def evaluate_horizontal(self, col, row):
-        print("evaluating horizontal" + str(col) + "/" + str(row))
+        ##print("evaluating horizontal" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
         low_cap = max(col - 3, 0)
         top_cap = min(col + 1, 4)
         for i in range(low_cap, top_cap):
-            print("   " + str(i) + "/" + str(row))
+            #print("   " + str(i) + "/" + str(row))
             for x in range(4):
                 list[x] = self.__board[i + x][row]
             self.horizontal_windows[i][row] = self.evaluate_single_window(list)
 
     def evaluate_vertical(self, col, row):
-        print("evaluating vertical" + str(col) + "/" + str(row))
+        ##print("evaluating vertical" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
         low_cap = max(0, row - 3)
         top_cap = row - 2
         for i in range(low_cap, top_cap):
-            print("   " + str(col) + "/" + str(row - 3 - i))
+            #print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 list[x] = self.__board[col][i + x]
             self.vertical_windows[col][row - 3 - i] = self.evaluate_single_window(list)
 
     def evaluate_ddown(self, col, row):
+        ##print("evaluating ddown" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
-
         low_cap = -1 * min(3, col, 5 - row)
         top_space = min(3, 6 - col, row)
         top_cap = low_cap + top_space - 2
-
-        print("evaluating ddown" + str(col) + "/" + str(row))
         for i in range(low_cap, top_cap):
+            #print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 list[x] = self.__board[col + i + x][row - i - x]
             self.ddown_windows[col + i][row - i] = self.evaluate_single_window(list)
 
     def evaluate_dup(self, col, row):
-        print("evaluating dup" + str(col) + "/" + str(row))
+        ##print("evaluating dup" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
-
         low_cap = -1 * min(3, col, row)
         top_space = min(6 - col, 5 - row)
         top_cap = low_cap + top_space - 2
 
         for i in range(low_cap, top_cap):
-            print("   " + str(col + i) + "/" + str(row + i))
+            #print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
                 list[x] = self.__board[col + i][row + 1]
             self.dup_windows[col + i][row + i] = self.evaluate_single_window(list)
