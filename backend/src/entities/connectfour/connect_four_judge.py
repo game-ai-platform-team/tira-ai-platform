@@ -122,7 +122,6 @@ class ConnectFourJudge(Judge):
         return False
 
     def __is_win(self) -> bool:
-
         latest = self.__latest_move
         if latest:
             col = latest[0]
@@ -228,7 +227,7 @@ class ConnectFourJudge(Judge):
         low_cap = max(col - 3, 0)
         top_cap = min(col + 1, 4)
         for i in range(low_cap, top_cap):
-            #print("   " + str(i) + "/" + str(row))
+            # print("   " + str(i) + "/" + str(row))
             for x in range(4):
                 list[x] = self.__board[i + x][row]
             self.horizontal_windows[i][row] = self.evaluate_single_window(list)
@@ -239,7 +238,7 @@ class ConnectFourJudge(Judge):
         low_cap = max(0, row - 3)
         top_cap = row - 2
         for i in range(low_cap, top_cap):
-            #print("   " + str(col) + "/" + str(row - 3 - i))
+            # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 list[x] = self.__board[col][i + x]
             self.vertical_windows[col][row - 3 - i] = self.evaluate_single_window(list)
@@ -251,7 +250,7 @@ class ConnectFourJudge(Judge):
         top_space = min(3, 6 - col, row)
         top_cap = low_cap + top_space - 2
         for i in range(low_cap, top_cap):
-            #print("   " + str(col) + "/" + str(row - 3 - i))
+            # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 list[x] = self.__board[col + i + x][row - i - x]
             self.ddown_windows[col + i][row - i] = self.evaluate_single_window(list)
@@ -264,7 +263,7 @@ class ConnectFourJudge(Judge):
         top_cap = low_cap + top_space - 2
 
         for i in range(low_cap, top_cap):
-            #print("   " + str(col + i) + "/" + str(row + i))
+            # print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
                 list[x] = self.__board[col + i][row + 1]
             self.dup_windows[col + i][row + i] = self.evaluate_single_window(list)

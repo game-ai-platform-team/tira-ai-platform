@@ -257,13 +257,13 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.evaluate_single_window([2, 0, 0, 1]), 0)
 
     def test_evaluate_horizontal(self):
-                #[0, 0, 0, 0, 0, 0],
-                #[2, 0, 0, 0, 0, 0],
-                #[2, 1, 2, 1, 0, 0],
-                #[1, 2, 1, 0, 0, 0],
-                #[2, 1, 0, 0, 0, 0],
-                #[1, 0, 0, 0, 0, 0],
-                #[0, 0, 0, 0, 0, 0]
+        # [0, 0, 0, 0, 0, 0],
+        # [2, 0, 0, 0, 0, 0],
+        # [2, 1, 2, 1, 0, 0],
+        # [1, 2, 1, 0, 0, 0],
+        # [2, 1, 0, 0, 0, 0],
+        # [1, 0, 0, 0, 0, 0],
+        # [0, 0, 0, 0, 0, 0]
         for i in [5, 4, 4, 2, 2, 2, 2, 1, 3, 3, 3]:
             self.judge.add_move(i)
         self.judge.evaluate_horizontal(0, 0)
@@ -275,5 +275,5 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.evaluate_board(), 0)
 
     def test_evaluate_board_after_one_move(self):
-       self.judge.add_move(3)
-       self.assertEqual(self.judge.evaluate_board(), 8)
+        self.judge.add_move(3)
+        self.assertEqual(self.judge.evaluate_board(), 8)
