@@ -103,6 +103,8 @@ if __name__ == "__main__":
     engine1 = ConnectFourEngine()
     engine2 = ConnectFourEngine()
 
+    engine1.pruning_judge.print_windows()
+
     while True:
         while True:
             test_move = input("move: ")

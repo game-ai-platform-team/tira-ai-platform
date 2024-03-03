@@ -243,8 +243,8 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.evaluate_single_window([0, 0, 0, 0]), 0)
 
     def test_evaluate_window_with_win(self):
-        self.assertEqual(self.judge.evaluate_single_window([1, 1, 1, 1]), 16)
-        self.assertEqual(self.judge.evaluate_single_window([2, 2, 2, 2]), -16)
+        self.assertEqual(self.judge.evaluate_single_window([1, 1, 1, 1]), 1000)
+        self.assertEqual(self.judge.evaluate_single_window([2, 2, 2, 2]), -1000)
 
     def test_evaluate_horizontal(self):
         judge = ConnectFourJudge(
