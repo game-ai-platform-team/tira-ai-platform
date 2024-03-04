@@ -88,7 +88,7 @@ class TestConnectFourJudge(unittest.TestCase):
     def test_play_a_full_game_that_results_in_a_draw(self):
         judge = ConnectFourJudge()
 
-        for i in range(6):
+        for _ in range(6):
             judge.add_move(0)
             judge.add_move(1)
             judge.add_move(2)
