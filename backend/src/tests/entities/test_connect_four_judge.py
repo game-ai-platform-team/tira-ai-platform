@@ -95,9 +95,7 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(judge.is_game_over(), GameState.DRAW)
 
     def test_draw_happens(self):
-        judge = ConnectFourJudge(
-            moves=[1, 2] * 8, board=self.board_full
-        )
+        judge = ConnectFourJudge(moves=[1, 2] * 8, board=self.board_full)
         self.assertEqual(judge.is_game_over(), GameState.DRAW)
 
     def test_horizontal_win_is_recognized(self):
