@@ -13,6 +13,7 @@ class ConnectFourJudge(Judge):
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
         self.__latest_move = self.calculate_latest_move()
+        ## 4 tables for storing the evaluation of 4 space windows starting from each space
         self.horizontal_windows: list[list[int]] = [
             ([0] * rows) for i in range(columns - 3)
         ]
@@ -52,7 +53,8 @@ class ConnectFourJudge(Judge):
             return GameState.ILLEGAL
 
         return state
-
+    
+    ##Adds a move to the judge and re-evaluates relevant windows to it 
     def add_move(self, move: str) -> None:
         int_move = int(move)
         for row in range(len(self.__board[int_move])):
@@ -62,7 +64,8 @@ class ConnectFourJudge(Judge):
                 self.__latest_move = (int_move, row)
                 self.evaluate_relevant_windows(int_move, row)
                 return
-
+            
+    ##Removes a move to the judge and re-evaluates relevant windows to it 
     def remove_latest(self):
         move = self.calculate_latest_move()
         self.__moves.pop()
@@ -115,6 +118,7 @@ class ConnectFourJudge(Judge):
             return True
         return False
 
+    ##Checks a win has been found in any window
     def __is_win(self) -> bool:
         for i in self.horizontal_windows:
             for j in i:
@@ -134,7 +138,7 @@ class ConnectFourJudge(Judge):
                     return True
         return False
 
-    ## Should this return True if there is a win?
+    ## Recognize 4 space windows that the given coordinates are in and re-evaluates them
     def evaluate_relevant_windows(self, col, row):
         self.__evaluate_horizontal(col, row)
         self.__evaluate_vertical(col, row)
@@ -142,49 +146,41 @@ class ConnectFourJudge(Judge):
         self.__evaluate_dup(col, row)
 
     def __evaluate_horizontal(self, col, row):
-        ##print("evaluating horizontal" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
         low_cap = max(col - 3, 0)
         top_cap = min(col + 1, 4)
         for i in range(low_cap, top_cap):
-            # print("   " + str(i) + "/" + str(row))
             for x in range(4):
                 window[x] = self.__board[i + x][row]
             self.horizontal_windows[i][row] = self.evaluate_single_window(window)
 
     def __evaluate_vertical(self, col, row):
-        ##print("evaluating vertical" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
         low_cap = max(0, row - 3)
         top_cap = min(row + 1, 3)
         for i in range(low_cap, top_cap):
-            # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 window[x] = self.__board[col][i + x]
             self.vertical_windows[col][i] = self.evaluate_single_window(window)
 
     def __evaluate_ddown(self, col, row):
-        # print("evaluating ddown" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
         low_space = min(3, col, 5 - row)
         low_cap = -1 * low_space
         top_space = min(3, 6 - col, row)
         top_cap = low_cap + low_space + top_space - 2
         for i in range(low_cap, top_cap):
-            # print("   " + str(col + i) + "/" + str(row - i))
             for x in range(4):
                 window[x] = self.__board[col + i + x][row - i - x]
             self.ddown_windows[col + i][row - i] = self.evaluate_single_window(window)
 
     def __evaluate_dup(self, col, row):
-        # print("evaluating dup" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
         low_space = min(3, col, row)
         low_cap = -1 * low_space
         top_space = min(6 - col, 5 - row)
         top_cap = low_cap + low_space + top_space - 2
         for i in range(low_cap, top_cap):
-            # print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
                 window[x] = self.__board[col + i + x][row + i + x]
             self.dup_windows[col + i][row + i] = self.evaluate_single_window(window)
@@ -205,7 +201,8 @@ class ConnectFourJudge(Judge):
         if opponent_pieces > 0:
             return -1 * 2**opponent_pieces
         return 0
-
+    
+    ##Calculates the sum of the evaluations of all 4-space windows on the board and returns it
     def evaluate_entire_board(self) -> int:
         evaluation = 0
         for i in self.horizontal_windows:
