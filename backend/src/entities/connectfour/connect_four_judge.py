@@ -269,15 +269,10 @@ class ConnectFourJudge(Judge):
             self.dup_windows[col + i][row + i] = self.evaluate_single_window(list)
 
     def evaluate_single_window(self, window: list[int]) -> int:
-        my_pieces = 0
-        opponent_pieces = 0
         my_piece = 1
         opponent_piece = 2
-        for i in window:
-            if i == opponent_piece:
-                opponent_pieces += 1
-            if i == my_piece:
-                my_pieces += 1
+        my_pieces = window.count(my_piece)
+        opponent_pieces = window.count(opponent_piece)
         if my_pieces == 4:
             return 1000
         if opponent_pieces == 4:
