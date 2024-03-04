@@ -1,5 +1,4 @@
 import unittest
-from http.client import CONTINUE
 
 from entities.connectfour.connect_four_judge import ConnectFourJudge
 from game_state import GameState
@@ -64,18 +63,35 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.get_board()[3][0], 2)
 
     def test_get_board_returns_correct_board_after_five_moves(self):
-        judge = ConnectFourJudge(rows=4, columns=4)
+        judge = ConnectFourJudge()
         for i in [0, 0, 1, 3, 0]:
             judge.add_move(i)
 
         self.assertEqual(
-            judge.get_board(), [[1, 2, 1, 0], [1, 0, 0, 0], [0, 0, 0, 0], [2, 0, 0, 0]]
+            judge.get_board(),
+            [
+                [1, 2, 1, 0, 0, 0],
+                [1, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0],
+                [2, 0, 0, 0, 0, 0],
+                [0] * 6,
+                [0] * 6,
+                [0] * 6,
+            ],
         )
 
     def test_play_a_full_game_that_results_in_a_draw(self):
-        judge = ConnectFourJudge(rows=4, columns=4)
-        for i in [0, 1, 0, 1, 1, 0, 1, 0, 2, 3, 2, 3, 3, 2, 3, 2]:
-            judge.add_move(i)
+        judge = ConnectFourJudge()
+
+        for i in range(6):
+            judge.add_move(0)
+            judge.add_move(1)
+            judge.add_move(2)
+            judge.add_move(4)
+            judge.add_move(3)
+            judge.add_move(5)
+            judge.add_move(6)
+
         self.assertEqual(judge.is_game_over(), GameState.DRAW)
 
     def test_draw_happens(self):
