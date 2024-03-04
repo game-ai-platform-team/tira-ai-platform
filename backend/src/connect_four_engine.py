@@ -5,12 +5,19 @@ from game_state import GameState
 
 
 class ConnectFourEngine:
-    def __init__(self, rows: int = 6, columns: int = 7, difficulty: int = 1000) -> None:
+    def __init__(
+        self,
+        rows: int = 6,
+        columns: int = 7,
+        difficulty: int = 1000,
+        judge: ConnectFourJudge | None = None,
+        pruning_judge: ConnectFourJudge | None = None,
+    ) -> None:
         self.rows = rows
         self.columns = columns
 
-        self.judge = ConnectFourJudge(self.rows, self.columns)
-        self.pruning_judge = ConnectFourJudge(self.rows, self.columns)
+        self.judge: ConnectFourJudge = judge or ConnectFourJudge(self.rows, self.columns)
+        self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge(self.rows, self.columns, pruning=True)
         self.sorted_list = self.generate_sorted_list()
         self.difficulty = difficulty
 
