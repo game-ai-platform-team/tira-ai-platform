@@ -5,17 +5,14 @@ from game_state import GameState
 class ConnectFourJudge(Judge):
     def __init__(
         self,
-        rows=6,
-        columns=7,
         moves: list[int] | None = None,
         board: list[list[int]] | None = None,
-        pruning=False,
     ) -> None:
+        rows = 6
+        columns = 7
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
-        self.max_turns = len(self.__board) * len(self.__board[0])
         self.__latest_move = self.calculate_latest_move()
-        self.__state = GameState.CONTINUE
         self.horizontal_windows: list[list[int]] = [
             ([0] * rows) for i in range(columns - 3)
         ]
@@ -46,7 +43,6 @@ class ConnectFourJudge(Judge):
         return None
 
     def validate(self, move: str) -> GameState:
-        self.__state = GameState.CONTINUE
         state = GameState.CONTINUE
 
         if not self.__check_valid_move(move):
@@ -77,12 +73,10 @@ class ConnectFourJudge(Judge):
 
     def is_game_over(self) -> GameState:
         if self.__is_win():
-            self.__state = GameState.WIN
-            return self.__state
+            return GameState.WIN
 
         if self.__is_draw():
-            self.__state = GameState.DRAW
-            return self.__state
+            return GameState.DRAW
 
         return GameState.CONTINUE
 
@@ -117,7 +111,7 @@ class ConnectFourJudge(Judge):
         return self.__board
 
     def __is_draw(self) -> bool:
-        if len(self.__moves) >= self.max_turns:
+        if len(self.__moves) >= 6 * 7:
             return True
         return False
 
@@ -216,12 +210,12 @@ class ConnectFourJudge(Judge):
 
     ## Should this return True if there is a win?
     def evaluate_relevant_windows(self, col, row):
-        self.evaluate_horizontal(col, row)
-        self.evaluate_vertical(col, row)
-        self.evaluate_ddown(col, row)
-        self.evaluate_dup(col, row)
+        self.__evaluate_horizontal(col, row)
+        self.__evaluate_vertical(col, row)
+        self.__evaluate_ddown(col, row)
+        self.__evaluate_dup(col, row)
 
-    def evaluate_horizontal(self, col, row):
+    def __evaluate_horizontal(self, col, row):
         ##print("evaluating horizontal" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
         low_cap = max(col - 3, 0)
@@ -230,9 +224,9 @@ class ConnectFourJudge(Judge):
             # print("   " + str(i) + "/" + str(row))
             for x in range(4):
                 window[x] = self.__board[i + x][row]
-            self.horizontal_windows[i][row] = self.evaluate_single_window(window)
+            self.horizontal_windows[i][row] = self.__evaluate_single_window(window)
 
-    def evaluate_vertical(self, col, row):
+    def __evaluate_vertical(self, col, row):
         ##print("evaluating vertical" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
         low_cap = max(0, row - 3)
@@ -241,9 +235,9 @@ class ConnectFourJudge(Judge):
             # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 window[x] = self.__board[col][i + x]
-            self.vertical_windows[col][i] = self.evaluate_single_window(window)
+            self.vertical_windows[col][i] = self.__evaluate_single_window(window)
 
-    def evaluate_ddown(self, col, row):
+    def __evaluate_ddown(self, col, row):
         ##print("evaluating ddown" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
         low_cap = -1 * min(3, col, 5 - row)
@@ -253,9 +247,9 @@ class ConnectFourJudge(Judge):
             # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 window[x] = self.__board[col + i + x][row - i - x]
-            self.ddown_windows[col + i][row - i] = self.evaluate_single_window(window)
+            self.ddown_windows[col + i][row - i] = self.__evaluate_single_window(window)
 
-    def evaluate_dup(self, col, row):
+    def __evaluate_dup(self, col, row):
         ##print("evaluating dup" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
         low_cap = -1 * min(3, col, row)
@@ -266,9 +260,9 @@ class ConnectFourJudge(Judge):
             # print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
                 window[x] = self.__board[col + i][row + 1]
-            self.dup_windows[col + i][row + i] = self.evaluate_single_window(window)
+            self.dup_windows[col + i][row + i] = self.__evaluate_single_window(window)
 
-    def evaluate_single_window(self, window: list[int]) -> int:
+    def __evaluate_single_window(self, window: list[int]) -> int:
         my_piece = 1
         opponent_piece = 2
         my_pieces = window.count(my_piece)
@@ -334,6 +328,6 @@ class ConnectFourJudge(Judge):
     def evaluate_board(self):
         if self.__is_win():
             return 100
-        if self.__state == GameState.DRAW:
+        if self.__is_draw():
             return 0
         return self.evaluate_entire_board()
