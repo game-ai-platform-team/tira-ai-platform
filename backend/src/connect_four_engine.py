@@ -35,7 +35,8 @@ class ConnectFourEngine:
             return str(self.columns // 2)
 
         best_move = self.iterative_deepening()
-        if best_move is None:
+
+        if not best_move:
             return None
 
         return str(best_move)
