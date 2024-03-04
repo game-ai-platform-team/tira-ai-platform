@@ -53,8 +53,8 @@ class ConnectFourJudge(Judge):
             return GameState.ILLEGAL
 
         return state
-    
-    ##Adds a move to the judge and re-evaluates relevant windows to it 
+
+    ##Adds a move to the judge and re-evaluates relevant windows to it
     def add_move(self, move: str) -> None:
         int_move = int(move)
         for row in range(len(self.__board[int_move])):
@@ -64,8 +64,8 @@ class ConnectFourJudge(Judge):
                 self.__latest_move = (int_move, row)
                 self.evaluate_relevant_windows(int_move, row)
                 return
-            
-    ##Removes a move to the judge and re-evaluates relevant windows to it 
+
+    ##Removes a move to the judge and re-evaluates relevant windows to it
     def remove_latest(self):
         move = self.calculate_latest_move()
         self.__moves.pop()
@@ -201,7 +201,7 @@ class ConnectFourJudge(Judge):
         if opponent_pieces > 0:
             return -1 * 2**opponent_pieces
         return 0
-    
+
     ##Calculates the sum of the evaluations of all 4-space windows on the board and returns it
     def evaluate_entire_board(self) -> int:
         evaluation = 0
