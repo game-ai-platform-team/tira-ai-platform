@@ -299,3 +299,15 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.vertical_windows[0][1], 0)
         self.assertEqual(self.judge.vertical_windows[0][2], 0)
         self.assertEqual(self.judge.vertical_windows[2][0], 0)
+
+    def test_evaluate_dup_with_one_players_moves(self):
+        for i in [3, 3, 3, 2, 2, 0, 1]:
+            self.judge.add_move(i)
+        print(self.judge.get_board())
+        print(self.judge.dup_windows)
+        self.assertEqual(self.judge.dup_windows[0][0], -2)
+        self.assertEqual(self.judge.dup_windows[2][2], 0)
+        self.assertEqual(self.judge.dup_windows[1][0], 8)
+        self.assertEqual(self.judge.dup_windows[2][0], -4)
+        self.assertEqual(self.judge.dup_windows[2][1], 4)
+        self.assertEqual(self.judge.dup_windows[3][2], 2)
