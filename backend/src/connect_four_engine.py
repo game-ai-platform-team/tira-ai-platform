@@ -114,3 +114,19 @@ class ConnectFourEngine:
             self.pruning_judge.remove_latest()
 
         return best_move, best_value
+    
+if __name__ == "__main__":
+    engine1 = ConnectFourEngine()
+
+    while True:
+        while True:
+            test_move = input("move: ")
+            if engine1.judge.validate(test_move):
+                break
+        engine1.make_move(test_move)
+        test_move = engine1.get_best_move()
+        if test_move:
+            engine1.make_move(test_move)
+        board = engine1.judge.get_board()
+        for i in board:
+            print(i)

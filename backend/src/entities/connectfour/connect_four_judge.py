@@ -238,33 +238,34 @@ class ConnectFourJudge(Judge):
             self.vertical_windows[col][i] = self.evaluate_single_window(window)
 
     def __evaluate_ddown(self, col, row):
-        ##print("evaluating ddown" + str(col) + "/" + str(row))
+        print("evaluating ddown" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
-        low_cap = -1 * min(3, col, 5 - row)
+        low_space = min(3, col, 5 - row)
+        low_cap = -1 * low_space
         top_space = min(3, 6 - col, row)
-        top_cap = low_cap + top_space - 2
+        top_cap = low_cap + low_space + top_space - 2
         for i in range(low_cap, top_cap):
-            # print("   " + str(col) + "/" + str(row - 3 - i))
+            print("   " + str(col + i) + "/" + str(row - i))
             for x in range(4):
                 window[x] = self.__board[col + i + x][row - i - x]
             self.ddown_windows[col + i][row - i] = self.evaluate_single_window(window)
 
     def __evaluate_dup(self, col, row):
-        ##print("evaluating dup" + str(col) + "/" + str(row))
+        #print("evaluating dup" + str(col) + "/" + str(row))
         window = [0, 0, 0, 0]
-        low_cap = -1 * min(3, col, row)
+        low_space = min(3, col, row)
+        low_cap = -1 * low_space
         top_space = min(6 - col, 5 - row)
-        top_cap = low_cap + top_space - 2
-
+        top_cap = low_cap + low_space + top_space - 2
         for i in range(low_cap, top_cap):
-            # print("   " + str(col + i) + "/" + str(row + i))
+            #print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
                 window[x] = self.__board[col + i][row + 1]
             self.dup_windows[col + i][row + i] = self.evaluate_single_window(window)
 
     def evaluate_single_window(self, window: list[int]) -> int:
-        my_piece = 1
-        opponent_piece = 2
+        my_piece = 2
+        opponent_piece = 1
         my_pieces = window.count(my_piece)
         opponent_pieces = window.count(opponent_piece)
         if my_pieces == 4:
