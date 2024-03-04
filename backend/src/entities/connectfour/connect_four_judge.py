@@ -236,12 +236,12 @@ class ConnectFourJudge(Judge):
         ##print("evaluating vertical" + str(col) + "/" + str(row))
         list = [0, 0, 0, 0]
         low_cap = max(0, row - 3)
-        top_cap = row - 2
+        top_cap = min(row + 1, 3)
         for i in range(low_cap, top_cap):
             # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 list[x] = self.__board[col][i + x]
-            self.vertical_windows[col][row - 3 - i] = self.evaluate_single_window(list)
+            self.vertical_windows[col][i] = self.evaluate_single_window(list)
 
     def evaluate_ddown(self, col, row):
         ##print("evaluating ddown" + str(col) + "/" + str(row))
