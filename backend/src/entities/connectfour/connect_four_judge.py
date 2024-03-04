@@ -279,36 +279,6 @@ class ConnectFourJudge(Judge):
             return -1 * 2**opponent_pieces
         return 0
 
-    def count_all_threes(self):
-        piece = self.calculate_latest_move()
-        return self.count_vertical(piece) + self.count_horizontal(piece)
-
-    def count_vertical(self, piece):
-        total = 0
-        for column, column_values in enumerate(self.__board):
-            for row, _ in enumerate(column_values[:-2]):
-                if (
-                    piece
-                    == self.__board[column][row]
-                    == self.__board[column][row + 1]
-                    == self.__board[column][row + 2]
-                ):
-                    total += 1
-        return total
-
-    def count_horizontal(self, piece):
-        total = 0
-        for row in range(len(self.__board[0])):
-            for column in range(len(self.__board) - 2):
-                if (
-                    piece
-                    == self.__board[column][row]
-                    == self.__board[column + 1][row]
-                    == self.__board[column + 2][row]
-                ):
-                    total += 1
-        return total
-
     def evaluate_entire_board(self) -> int:
         evaluation = 0
         for i in self.horizontal_windows:
