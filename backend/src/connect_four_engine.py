@@ -17,12 +17,8 @@ class ConnectFourEngine:
         self.rows = rows
         self.columns = columns
 
-        self.judge: ConnectFourJudge = judge or ConnectFourJudge(
-            self.rows, self.columns
-        )
-        self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge(
-            self.rows, self.columns, pruning=True
-        )
+        self.judge: ConnectFourJudge = judge or ConnectFourJudge()
+        self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
         self.sorted_list = sorted_list or [3, 4, 2, 5, 1, 6, 0]
         self.difficulty = difficulty
 
