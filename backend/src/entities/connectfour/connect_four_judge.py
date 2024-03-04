@@ -223,41 +223,41 @@ class ConnectFourJudge(Judge):
 
     def evaluate_horizontal(self, col, row):
         ##print("evaluating horizontal" + str(col) + "/" + str(row))
-        list = [0, 0, 0, 0]
+        window = [0, 0, 0, 0]
         low_cap = max(col - 3, 0)
         top_cap = min(col + 1, 4)
         for i in range(low_cap, top_cap):
             # print("   " + str(i) + "/" + str(row))
             for x in range(4):
-                list[x] = self.__board[i + x][row]
-            self.horizontal_windows[i][row] = self.evaluate_single_window(list)
+                window[x] = self.__board[i + x][row]
+            self.horizontal_windows[i][row] = self.evaluate_single_window(window)
 
     def evaluate_vertical(self, col, row):
         ##print("evaluating vertical" + str(col) + "/" + str(row))
-        list = [0, 0, 0, 0]
+        window = [0, 0, 0, 0]
         low_cap = max(0, row - 3)
         top_cap = min(row + 1, 3)
         for i in range(low_cap, top_cap):
             # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
-                list[x] = self.__board[col][i + x]
-            self.vertical_windows[col][i] = self.evaluate_single_window(list)
+                window[x] = self.__board[col][i + x]
+            self.vertical_windows[col][i] = self.evaluate_single_window(window)
 
     def evaluate_ddown(self, col, row):
         ##print("evaluating ddown" + str(col) + "/" + str(row))
-        list = [0, 0, 0, 0]
+        window = [0, 0, 0, 0]
         low_cap = -1 * min(3, col, 5 - row)
         top_space = min(3, 6 - col, row)
         top_cap = low_cap + top_space - 2
         for i in range(low_cap, top_cap):
             # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
-                list[x] = self.__board[col + i + x][row - i - x]
-            self.ddown_windows[col + i][row - i] = self.evaluate_single_window(list)
+                window[x] = self.__board[col + i + x][row - i - x]
+            self.ddown_windows[col + i][row - i] = self.evaluate_single_window(window)
 
     def evaluate_dup(self, col, row):
         ##print("evaluating dup" + str(col) + "/" + str(row))
-        list = [0, 0, 0, 0]
+        window = [0, 0, 0, 0]
         low_cap = -1 * min(3, col, row)
         top_space = min(6 - col, 5 - row)
         top_cap = low_cap + top_space - 2
@@ -265,8 +265,8 @@ class ConnectFourJudge(Judge):
         for i in range(low_cap, top_cap):
             # print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
-                list[x] = self.__board[col + i][row + 1]
-            self.dup_windows[col + i][row + i] = self.evaluate_single_window(list)
+                window[x] = self.__board[col + i][row + 1]
+            self.dup_windows[col + i][row + i] = self.evaluate_single_window(window)
 
     def evaluate_single_window(self, window: list[int]) -> int:
         my_piece = 1
