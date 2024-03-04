@@ -131,3 +131,7 @@ if __name__ == "__main__":
         board = engine1.judge.get_board()
         for i in board:
             print(i)
+        print(engine1.judge.horizontal_windows)
+        print(engine1.judge.vertical_windows)
+        print(engine1.judge.dup_windows)
+        print(engine1.judge.ddown_windows)
