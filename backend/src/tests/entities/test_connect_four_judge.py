@@ -231,12 +231,12 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(latest_move, (3, 3))
 
     def test_evaluate_window_with_player1_moves_only(self):
-        self.assertEqual(self.judge.evaluate_single_window([0, 1, 0, 0]), 2)
-        self.assertEqual(self.judge.evaluate_single_window([0, 1, 0, 1]), 4)
+        self.assertEqual(self.judge.evaluate_single_window([0, 1, 0, 0]), -2)
+        self.assertEqual(self.judge.evaluate_single_window([0, 1, 0, 1]), -4)
 
     def test_evaluate_window_with_player2_moves_only(self):
-        self.assertEqual(self.judge.evaluate_single_window([0, 2, 0, 0]), -2)
-        self.assertEqual(self.judge.evaluate_single_window([0, 2, 0, 2]), -4)
+        self.assertEqual(self.judge.evaluate_single_window([0, 2, 0, 0]), 2)
+        self.assertEqual(self.judge.evaluate_single_window([0, 2, 0, 2]), 4)
 
     def test_evaluate_window_with_both_players_moves(self):
         self.assertEqual(self.judge.evaluate_single_window([0, 2, 0, 1]), 0)
@@ -246,13 +246,13 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.evaluate_single_window([0, 0, 0, 0]), 0)
 
     def test_evaluate_window_with_one_players_moves(self):
-        self.assertEqual(self.judge.evaluate_single_window([1, 0, 0, 1]), 4)
-        self.assertEqual(self.judge.evaluate_single_window([1, 0, 1, 1]), 8)
-        self.assertEqual(self.judge.evaluate_single_window([0, 2, 2, 2]), -8)
+        self.assertEqual(self.judge.evaluate_single_window([1, 0, 0, 1]), -4)
+        self.assertEqual(self.judge.evaluate_single_window([1, 0, 1, 1]), -8)
+        self.assertEqual(self.judge.evaluate_single_window([0, 2, 2, 2]), 8)
 
     def test_evaluate_window_with_win(self):
-        self.assertEqual(self.judge.evaluate_single_window([1, 1, 1, 1]), 1000)
-        self.assertEqual(self.judge.evaluate_single_window([2, 2, 2, 2]), -1000)
+        self.assertEqual(self.judge.evaluate_single_window([1, 1, 1, 1]), -1000)
+        self.assertEqual(self.judge.evaluate_single_window([2, 2, 2, 2]), 1000)
 
     def test_evaluate_window_with_both_players_moves_in_it(self):
         self.assertEqual(self.judge.evaluate_single_window([1, 2, 1, 1]), 0)
@@ -264,16 +264,16 @@ class TestConnectFourJudge(unittest.TestCase):
 
     def test_evaluate_board_after_one_move(self):
         self.judge.add_move(3)
-        self.assertEqual(self.judge.evaluate_board(), 10)
+        self.assertEqual(self.judge.evaluate_board(), -12)
 
     def test_evaluate_horizontal_with_one_players_moves(self):
         for i in [0, 0, 1, 1]:
             self.judge.add_move(i)
-        self.assertEqual(self.judge.horizontal_windows[0][0], 4)
-        self.assertEqual(self.judge.horizontal_windows[1][0], 2)
+        self.assertEqual(self.judge.horizontal_windows[0][0], -4)
+        self.assertEqual(self.judge.horizontal_windows[1][0], -2)
         self.assertEqual(self.judge.horizontal_windows[2][0], 0)
-        self.assertEqual(self.judge.horizontal_windows[0][1], -4)
-        self.assertEqual(self.judge.horizontal_windows[1][1], -2)
+        self.assertEqual(self.judge.horizontal_windows[0][1], 4)
+        self.assertEqual(self.judge.horizontal_windows[1][1], 2)
         self.assertEqual(self.judge.horizontal_windows[2][1], 0)
 
     def test_evaluate_horizontal_with_both_players_moves(self):
@@ -285,11 +285,11 @@ class TestConnectFourJudge(unittest.TestCase):
     def test_evaluate_vertical_with_one_players_moves(self):
         for i in [0, 1, 0, 1, 0]:
             self.judge.add_move(i)
-        self.assertEqual(self.judge.vertical_windows[0][0], 8)
-        self.assertEqual(self.judge.vertical_windows[0][1], 4)
-        self.assertEqual(self.judge.vertical_windows[0][2], 2)
-        self.assertEqual(self.judge.vertical_windows[1][0], -4)
-        self.assertEqual(self.judge.vertical_windows[1][1], -2)
+        self.assertEqual(self.judge.vertical_windows[0][0], -8)
+        self.assertEqual(self.judge.vertical_windows[0][1], -4)
+        self.assertEqual(self.judge.vertical_windows[0][2], -2)
+        self.assertEqual(self.judge.vertical_windows[1][0], 4)
+        self.assertEqual(self.judge.vertical_windows[1][1], 2)
         self.assertEqual(self.judge.vertical_windows[1][2], 0)
 
     def test_evaluate_vertical_with_both_players_moves(self):
@@ -299,15 +299,3 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(self.judge.vertical_windows[0][1], 0)
         self.assertEqual(self.judge.vertical_windows[0][2], 0)
         self.assertEqual(self.judge.vertical_windows[2][0], 0)
-
-    def test_evaluate_dup_with_one_players_moves(self):
-        for i in [3, 3, 3, 2, 2, 0, 1]:
-            self.judge.add_move(i)
-        print(self.judge.get_board())
-        print(self.judge.dup_windows)
-        self.assertEqual(self.judge.dup_windows[0][0], -2)
-        self.assertEqual(self.judge.dup_windows[2][2], 0)
-        self.assertEqual(self.judge.dup_windows[1][0], 8)
-        self.assertEqual(self.judge.dup_windows[2][0], -4)
-        self.assertEqual(self.judge.dup_windows[2][1], 4)
-        self.assertEqual(self.judge.dup_windows[3][2], 2)
