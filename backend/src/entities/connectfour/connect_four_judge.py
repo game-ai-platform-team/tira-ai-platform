@@ -224,7 +224,7 @@ class ConnectFourJudge(Judge):
             # print("   " + str(i) + "/" + str(row))
             for x in range(4):
                 window[x] = self.__board[i + x][row]
-            self.horizontal_windows[i][row] = self.__evaluate_single_window(window)
+            self.horizontal_windows[i][row] = self.evaluate_single_window(window)
 
     def __evaluate_vertical(self, col, row):
         ##print("evaluating vertical" + str(col) + "/" + str(row))
@@ -235,7 +235,7 @@ class ConnectFourJudge(Judge):
             # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 window[x] = self.__board[col][i + x]
-            self.vertical_windows[col][i] = self.__evaluate_single_window(window)
+            self.vertical_windows[col][i] = self.evaluate_single_window(window)
 
     def __evaluate_ddown(self, col, row):
         ##print("evaluating ddown" + str(col) + "/" + str(row))
@@ -247,7 +247,7 @@ class ConnectFourJudge(Judge):
             # print("   " + str(col) + "/" + str(row - 3 - i))
             for x in range(4):
                 window[x] = self.__board[col + i + x][row - i - x]
-            self.ddown_windows[col + i][row - i] = self.__evaluate_single_window(window)
+            self.ddown_windows[col + i][row - i] = self.evaluate_single_window(window)
 
     def __evaluate_dup(self, col, row):
         ##print("evaluating dup" + str(col) + "/" + str(row))
@@ -260,9 +260,9 @@ class ConnectFourJudge(Judge):
             # print("   " + str(col + i) + "/" + str(row + i))
             for x in range(4):
                 window[x] = self.__board[col + i][row + 1]
-            self.dup_windows[col + i][row + i] = self.__evaluate_single_window(window)
+            self.dup_windows[col + i][row + i] = self.evaluate_single_window(window)
 
-    def __evaluate_single_window(self, window: list[int]) -> int:
+    def evaluate_single_window(self, window: list[int]) -> int:
         my_piece = 1
         opponent_piece = 2
         my_pieces = window.count(my_piece)

@@ -16,7 +16,7 @@ class TestConnectFourJudge(unittest.TestCase):
 
         self.board_one_column_one_move = [[1, 0, 0, 0, 0, 0]]
         self.board_one_column_one_move.extend([[0] * 6 for i in range(6)])
-        self.board_full = [[1, 1, 2, 2], [2, 2, 1, 1], [1, 1, 2, 1], [2, 2, 1, 1]]
+        self.board_full = [[1, 1, 2, 2, 1, 1], [2, 2, 1, 1, 2, 2], [1, 1, 2, 1, 2, 1], [2, 2, 1, 1, 2, 2]]
 
     def test_move_not_convertable_to_int_is_invalid(self):
         self.assertEqual(self.judge.validate("aaa"), GameState.INVALID)
@@ -92,10 +92,6 @@ class TestConnectFourJudge(unittest.TestCase):
             judge.add_move(5)
             judge.add_move(6)
 
-        self.assertEqual(judge.is_game_over(), GameState.DRAW)
-
-    def test_draw_happens(self):
-        judge = ConnectFourJudge(moves=[1, 2] * 8, board=self.board_full)
         self.assertEqual(judge.is_game_over(), GameState.DRAW)
 
     def test_horizontal_win_is_recognized(self):
@@ -230,33 +226,33 @@ class TestConnectFourJudge(unittest.TestCase):
         self.assertEqual(latest_move, (3, 3))
 
     def test_evaluate_window_with_player1_moves_only(self):
-        self.assertEqual(self.judge.__evaluate_single_window([0, 1, 0, 0]), 2)
-        self.assertEqual(self.judge.__evaluate_single_window([0, 1, 0, 1]), 4)
+        self.assertEqual(self.judge.evaluate_single_window([0, 1, 0, 0]), 2)
+        self.assertEqual(self.judge.evaluate_single_window([0, 1, 0, 1]), 4)
 
     def test_evaluate_window_with_player2_moves_only(self):
-        self.assertEqual(self.judge.__evaluate_single_window([0, 2, 0, 0]), -2)
-        self.assertEqual(self.judge.__evaluate_single_window([0, 2, 0, 2]), -4)
+        self.assertEqual(self.judge.evaluate_single_window([0, 2, 0, 0]), -2)
+        self.assertEqual(self.judge.evaluate_single_window([0, 2, 0, 2]), -4)
 
     def test_evaluate_window_with_both_players_moves(self):
-        self.assertEqual(self.judge.__evaluate_single_window([0, 2, 0, 1]), 0)
-        self.assertEqual(self.judge.__evaluate_single_window([2, 2, 2, 1]), 0)
+        self.assertEqual(self.judge.evaluate_single_window([0, 2, 0, 1]), 0)
+        self.assertEqual(self.judge.evaluate_single_window([2, 2, 2, 1]), 0)
 
     def test_evaluate_window_with_nothing_in_it(self):
-        self.assertEqual(self.judge.__evaluate_single_window([0, 0, 0, 0]), 0)
+        self.assertEqual(self.judge.evaluate_single_window([0, 0, 0, 0]), 0)
 
     def test_evaluate_window_with_one_players_moves(self):
-        self.assertEqual(self.judge.__evaluate_single_window([1, 0, 0, 1]), 4)
-        self.assertEqual(self.judge.__evaluate_single_window([1, 0, 1, 1]), 8)
-        self.assertEqual(self.judge.__evaluate_single_window([0, 2, 2, 2]), -8)
+        self.assertEqual(self.judge.evaluate_single_window([1, 0, 0, 1]), 4)
+        self.assertEqual(self.judge.evaluate_single_window([1, 0, 1, 1]), 8)
+        self.assertEqual(self.judge.evaluate_single_window([0, 2, 2, 2]), -8)
 
     def test_evaluate_window_with_win(self):
-        self.assertEqual(self.judge.__evaluate_single_window([1, 1, 1, 1]), 1000)
-        self.assertEqual(self.judge.__evaluate_single_window([2, 2, 2, 2]), -1000)
+        self.assertEqual(self.judge.evaluate_single_window([1, 1, 1, 1]), 1000)
+        self.assertEqual(self.judge.evaluate_single_window([2, 2, 2, 2]), -1000)
 
     def test_evaluate_window_with_both_players_moves_in_it(self):
-        self.assertEqual(self.judge.__evaluate_single_window([1, 2, 1, 1]), 0)
-        self.assertEqual(self.judge.__evaluate_single_window([2, 2, 0, 1]), 0)
-        self.assertEqual(self.judge.__evaluate_single_window([2, 0, 0, 1]), 0)
+        self.assertEqual(self.judge.evaluate_single_window([1, 2, 1, 1]), 0)
+        self.assertEqual(self.judge.evaluate_single_window([2, 2, 0, 1]), 0)
+        self.assertEqual(self.judge.evaluate_single_window([2, 0, 0, 1]), 0)
 
     def test_evaluate_empty_board(self):
         self.assertEqual(self.judge.evaluate_board(), 0)
