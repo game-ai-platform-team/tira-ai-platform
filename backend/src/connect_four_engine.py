@@ -57,42 +57,57 @@ class ConnectFourEngine:
 
     def max_value(self, alpha: int, beta: int, depth: int) -> tuple:
         best_move = None
+
         if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
             return None, self.pruning_judge.evaluate_board() * -1 * (depth + 1)
         best_value = float("-inf")
+
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
             self.pruning_judge.add_move(str(column))
             new_value = self.min_value(alpha, beta, depth - 1)[1]
+
             if new_value > best_value:
                 best_move = column
                 best_value = new_value
             alpha = max(alpha, new_value)
+
             if alpha >= beta:
                 self.pruning_judge.remove_latest()
                 break
+
             self.pruning_judge.remove_latest()
+
         return best_move, best_value
 
     def min_value(self, alpha: int, beta: int, depth: int) -> tuple:
         best_move = None
+
         if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
             return None, self.pruning_judge.evaluate_board() * (depth + 1)
+
         best_value = float("inf")
+
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
+
             self.pruning_judge.add_move(str(column))
             new_value = self.max_value(alpha, beta, depth - 1)[1]
+
             if new_value < best_value:
                 best_move = column
                 best_value = new_value
+
             beta = min(beta, new_value)
+
             if alpha >= beta:
                 self.pruning_judge.remove_latest()
                 break
+
             self.pruning_judge.remove_latest()
+
         return best_move, best_value
 
 
