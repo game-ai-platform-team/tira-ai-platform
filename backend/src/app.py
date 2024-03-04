@@ -1,14 +1,15 @@
 # Monkey import and patch must be before other imports!!!
+
 import gevent.monkey
 
 gevent.monkey.patch_all()
 # pylint: disable=wrong-import-position
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, redirect, request, send_file, send_from_directory, url_for
+from flask import Flask, redirect, request, send_file, send_from_directory, url_for, session
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
-from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_REDIRECT_PATH, ROOTDIR
+from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, ROOTDIR
 from services.api import api
 from services.socket_service import SocketService
 
@@ -46,19 +47,36 @@ def login():
 def authorize():
     token = oauth.helsinki.authorize_access_token()
     print(token)
+    session["id_token"] = token["id_token"]
+    session["nonce"] = token["userinfo"]["nonce"]
+
     return redirect("/")
 
 
-@socketio.on("startgame", namespace="/gameconnection")
+@app.route("/me")
+def me():
+    id_token_obj = {"id_token": session["id_token"]}
+    nonce = session["nonce"]
+    id_token = oauth.helsinki.parse_id_token(id_token_obj, nonce = nonce)
+    return id_token
+
+
+@socketio.on("startgame", namespace = "/gameconnection")
 def io_startgame(data):
     socket_service = SocketService(socketio, request.sid)
 
-    api.start(socket_service, data["githubUrl"], data["elo"], active_game=data["game"])
+    api.start(socket_service, data["githubUrl"], data["elo"], active_game = data["game"])
 
 
 @app.route("/ping")
 def ping():
     return "pong"
+
+
+@app.route("/check-login")
+def check_login():
+    user = session.get("user")
+    return user
 
 
 @app.route("/")
