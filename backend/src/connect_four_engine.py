@@ -68,11 +68,13 @@ class ConnectFourEngine:
 
         if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
             return None, self.pruning_judge.evaluate_board() * -1 * (depth + 1)
+
         best_value = float("-inf")
 
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
+
             self.pruning_judge.add_move(str(column))
             new_value = self.min_value(alpha, beta, depth - 1)[1]
 
