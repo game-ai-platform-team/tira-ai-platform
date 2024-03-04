@@ -114,7 +114,8 @@ class ConnectFourEngine:
             self.pruning_judge.remove_latest()
 
         return best_move, best_value
-    
+
+
 if __name__ == "__main__":
     engine1 = ConnectFourEngine()
 
