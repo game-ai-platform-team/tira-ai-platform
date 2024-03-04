@@ -65,11 +65,12 @@ class ConnectFourEngine:
 
     def max_value(self, alpha: int, beta: int, depth: int) -> tuple:
         best_move = None
+        best_value = float("-inf")
 
         if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
-            return None, self.pruning_judge.evaluate_board() * -1 * (depth + 1)
+            best_value = self.pruning_judge.evaluate_board() * -1 * (depth + 1)
 
-        best_value = float("-inf")
+            return best_move, best_value
 
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
@@ -93,11 +94,12 @@ class ConnectFourEngine:
 
     def min_value(self, alpha: int, beta: int, depth: int) -> tuple:
         best_move = None
+        best_value = float("inf")
 
         if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
-            return None, self.pruning_judge.evaluate_board() * (depth + 1)
+            best_value = self.pruning_judge.evaluate_board() * (depth + 1)
 
-        best_value = float("inf")
+            return best_move, best_value
 
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
