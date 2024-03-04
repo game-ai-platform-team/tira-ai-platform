@@ -116,7 +116,6 @@ class ConnectFourJudge(Judge):
         return False
 
     def __is_win(self) -> bool:
-
         for i in self.horizontal_windows:
             for j in i:
                 if j == 1000 or j == -1000:
