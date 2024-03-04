@@ -12,13 +12,18 @@ class ConnectFourEngine:
         difficulty: int = 1000,
         judge: ConnectFourJudge | None = None,
         pruning_judge: ConnectFourJudge | None = None,
+        sorted_list: list[int] | None = None,
     ) -> None:
         self.rows = rows
         self.columns = columns
 
-        self.judge: ConnectFourJudge = judge or ConnectFourJudge(self.rows, self.columns)
-        self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge(self.rows, self.columns, pruning=True)
-        self.sorted_list = self.generate_sorted_list()
+        self.judge: ConnectFourJudge = judge or ConnectFourJudge(
+            self.rows, self.columns
+        )
+        self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge(
+            self.rows, self.columns, pruning=True
+        )
+        self.sorted_list = sorted_list or [3, 4, 2, 5, 1, 6, 0]
         self.difficulty = difficulty
 
     def make_move(self, move: str) -> None:
@@ -49,12 +54,6 @@ class ConnectFourEngine:
                 continue
             depth += 1
         return best_move
-
-    def generate_sorted_list(self) -> list:
-        num_list = list(range(self.columns - 1, -1, -1))
-        mid_index = len(num_list) // 2
-        num_list.sort(key=lambda x: abs(x - mid_index))
-        return num_list
 
     def max_value(self, alpha: int, beta: int, depth: int) -> tuple:
         best_move = None
