@@ -45,15 +45,22 @@ class ConnectFourEngine:
         depth = 1
         best_move = None
         start = time.perf_counter()
+
         while True:
-            if int((time.perf_counter() - start) * 1000) >= self.difficulty:
+            time_used = int((time.perf_counter() - start) * 1000)
+
+            if time_used >= self.difficulty:
                 break
+
             new_move = self.max_value(-1000, 1000, depth)[0]
-            if new_move:
-                best_move = new_move
-            else:
+
+            if not new_move:
                 continue
+
+            best_move = new_move
+
             depth += 1
+
         return best_move
 
     def max_value(self, alpha: int, beta: int, depth: int) -> tuple:
