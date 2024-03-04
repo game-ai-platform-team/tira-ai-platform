@@ -10,7 +10,7 @@ class ConnectFourEngine:
         self.columns = columns
 
         self.judge = ConnectFourJudge(self.rows, self.columns)
-        self.pruning_judge = ConnectFourJudge(self.rows, self.columns, pruning=True)
+        self.pruning_judge = ConnectFourJudge(self.rows, self.columns)
         self.sorted_list = self.generate_sorted_list()
         self.difficulty = difficulty
 
@@ -23,7 +23,7 @@ class ConnectFourEngine:
             return str(self.columns // 2)
 
         best_move = self.iterative_deepening()
-        if best_move == None:
+        if best_move is None:
             return None
 
         return str(best_move)
