@@ -5,7 +5,15 @@ import gevent.monkey
 gevent.monkey.patch_all()
 # pylint: disable=wrong-import-position
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, redirect, request, send_file, send_from_directory, url_for, session
+from flask import (
+    Flask,
+    redirect,
+    request,
+    send_file,
+    send_from_directory,
+    session,
+    url_for,
+)
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
@@ -57,15 +65,15 @@ def authorize():
 def me():
     id_token_obj = {"id_token": session["id_token"]}
     nonce = session["nonce"]
-    id_token = oauth.helsinki.parse_id_token(id_token_obj, nonce = nonce)
+    id_token = oauth.helsinki.parse_id_token(id_token_obj, nonce=nonce)
     return id_token
 
 
-@socketio.on("startgame", namespace = "/gameconnection")
+@socketio.on("startgame", namespace="/gameconnection")
 def io_startgame(data):
     socket_service = SocketService(socketio, request.sid)
 
-    api.start(socket_service, data["githubUrl"], data["elo"], active_game = data["game"])
+    api.start(socket_service, data["githubUrl"], data["elo"], active_game=data["game"])
 
 
 @app.route("/ping")
