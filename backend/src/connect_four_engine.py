@@ -5,7 +5,7 @@ from game_state import GameState
 
 
 class ConnectFourEngine:
-    def __init__(self, rows: int = 6, columns: int = 7, difficulty: int = 5000) -> None:
+    def __init__(self, rows: int = 6, columns: int = 7, difficulty: int = 1000) -> None:
         self.rows = rows
         self.columns = columns
 
@@ -18,24 +18,15 @@ class ConnectFourEngine:
         self.judge.add_move(move)
         self.pruning_judge.add_move(move)
 
-    def get_best_move(self) -> str:
-        if len(self.judge.get_all_moves()) <= 2:
-            return str(self.columns // 2)
-
-        best_move = self.max_value(-1000, 1000, 5)
-        print(best_move)
-
-        return str(best_move[0])
-
-    def wip_get_best_move(self) -> str | None:
+    def get_best_move(self) -> str | None:
         if len(self.judge.get_all_moves()) <= 2:
             return str(self.columns // 2)
 
         best_move = self.iterative_deepening()
-        if best_move:
-            return str(best_move[0])
+        if best_move == None:
+            return None
 
-        return None
+        return str(best_move)
 
     def iterative_deepening(self) -> tuple | None:
         depth = 1
@@ -44,11 +35,11 @@ class ConnectFourEngine:
         while True:
             if int((time.perf_counter() - start) * 1000) >= self.difficulty:
                 break
-            new_move = self.max_value(-1000, 1000, depth)
+            new_move = self.max_value(-1000, 1000, depth)[0]
             if new_move:
                 best_move = new_move
             else:
-                break
+                continue
             depth += 1
         return best_move
 
@@ -62,7 +53,7 @@ class ConnectFourEngine:
         best_move = None
         if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
             return None, self.pruning_judge.evaluate_board() * -1 * (depth + 1)
-        best_value = -1000
+        best_value = float("-inf")
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
@@ -82,7 +73,7 @@ class ConnectFourEngine:
         best_move = None
         if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
             return None, self.pruning_judge.evaluate_board() * (depth + 1)
-        best_value = 1000
+        best_value = float("inf")
         for column in self.sorted_list:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
@@ -110,7 +101,6 @@ if __name__ == "__main__":
                 break
         engine1.make_move(test_move)
         test_move = engine1.get_best_move()
-        print(f"this move {test_move}")
         if test_move:
             engine1.make_move(test_move)
         board = engine1.judge.get_board()
