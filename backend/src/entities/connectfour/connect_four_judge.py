@@ -116,6 +116,25 @@ class ConnectFourJudge(Judge):
         return False
 
     def __is_win(self) -> bool:
+
+        for i in self.horizontal_windows:
+            for j in i:
+                if j == 1000 or j == -1000:
+                    return True
+        for i in self.vertical_windows:
+            for j in i:
+                if j == 1000 or j == -1000:
+                    return True
+        for i in self.dup_windows:
+            for j in i:
+                if j == 1000 or j == -1000:
+                    return True
+        for i in self.ddown_windows:
+            for j in i:
+                if j == 1000 or j == -1000:
+                    return True
+        return False
+
         latest = self.__latest_move
         if latest:
             col = latest[0]
