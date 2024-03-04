@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import ANY, Mock, call
+from unittest.mock import Mock, call
 
 from connect_four_engine import ConnectFourEngine
 
@@ -9,8 +9,6 @@ class TestGame(TestCase):
         self.judge_mock = Mock()
         self.pruning_judge_mock = Mock()
         self.engine = ConnectFourEngine(
-            rows=6,
-            columns=7,
             judge=self.judge_mock,
             pruning_judge=self.pruning_judge_mock,
         )
