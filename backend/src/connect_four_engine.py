@@ -7,16 +7,13 @@ from game_state import GameState
 class ConnectFourEngine:
     def __init__(
         self,
-        rows: int = 6,
-        columns: int = 7,
         difficulty: int = 1000,
         judge: ConnectFourJudge | None = None,
         pruning_judge: ConnectFourJudge | None = None,
         sorted_list: list[int] | None = None,
     ) -> None:
-        self.rows = rows
-        self.columns = columns
-
+        self.columns = 7
+        self.rows = 6
         self.judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
         self.sorted_list = sorted_list or [3, 4, 2, 5, 1, 6, 0]
