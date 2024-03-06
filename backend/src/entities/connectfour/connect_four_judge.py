@@ -14,7 +14,6 @@ class ConnectFourJudge(Judge):
         columns = 7
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
-        self.__latest_move = self.calculate_latest_move()
         self.heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
@@ -51,7 +50,6 @@ class ConnectFourJudge(Judge):
             if self.__board[int_move][row] == 0:
                 self.__board[int_move][row] = (len(self.__moves)) % 2 + 1
                 self.__moves.append(int_move)
-                self.__latest_move = (int_move, row)
                 self.heuristic.evaluate_relevant_windows(int_move, row, self.__board)
                 return
 

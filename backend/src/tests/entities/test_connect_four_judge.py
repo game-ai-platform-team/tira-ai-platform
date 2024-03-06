@@ -32,27 +32,27 @@ class TestConnectFourJudge(unittest.TestCase):
 
     def test_move_outside_board_return_invalid_state(self):
         self.assertEqual(self.judge.validate("-1"), GameState.INVALID)
+        self.assertEqual(self.judge.validate("7"), GameState.INVALID)
         self.assertEqual(self.judge.validate("70"), GameState.INVALID)
         self.assertEqual(self.judge.validate("1000"), GameState.INVALID)
         self.assertEqual(self.judge.validate("-10000"), GameState.INVALID)
+        self.assertEqual(self.judge.validate(""), GameState.INVALID)
 
     def test_valid_move_returns_continue(self):
-        self.assertEqual(self.judge.validate("3"), GameState.CONTINUE)
-        self.assertEqual(self.judge.validate("6"), GameState.CONTINUE)
-        self.assertEqual(self.judge.validate("0"), GameState.CONTINUE)
+        for i in range(7):
+            self.assertEqual(self.judge.validate(str(i)), GameState.CONTINUE)
 
     def test_move_returns_illegal_if_column_is_full(self):
-        judge = ConnectFourJudge(
-            moves=[1, 2, 1, 2, 1, 2], board=self.board_one_column_full
-        )
-        self.assertEqual(judge.validate("0"), GameState.ILLEGAL)
+        for i in [0,6,0,6,0,6,6,0,6,0,6,0]:
+            self.judge.add_move(i)
+        self.assertEqual(self.judge.validate("0"), GameState.ILLEGAL)
+        self.assertEqual(self.judge.validate("6"), GameState.ILLEGAL)
 
     def test_move_returns_continue_if_column_is_not_full(self):
-        judge = ConnectFourJudge(
-            moves=[1, 2, 1, 2, 1, 2], board=self.board_one_column_full
-        )
-        self.assertEqual(judge.validate("1"), GameState.CONTINUE)
-        self.assertEqual(judge.validate("6"), GameState.CONTINUE)
+        for i in [1,2,2,2,2,2,2,6,6,6,6,6]:
+            self.judge.add_move(i)
+        self.assertEqual(self.judge.validate("1"), GameState.CONTINUE)
+        self.assertEqual(self.judge.validate("6"), GameState.CONTINUE)
 
     def test_getboard_gets_board(self):
         self.assertEqual(self.judge.get_board(), self.board_empty_six_by_seven_board)
