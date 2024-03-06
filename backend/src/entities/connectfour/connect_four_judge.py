@@ -15,6 +15,7 @@ class ConnectFourJudge(Judge):
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
         self.heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
+        self.my_piece: 0
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
@@ -34,7 +35,6 @@ class ConnectFourJudge(Judge):
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
-
         if not self.__check_valid_move(move):
             return GameState.INVALID
 
@@ -45,6 +45,10 @@ class ConnectFourJudge(Judge):
 
     ##Adds a move to the judge and re-evaluates relevant windows to it
     def add_move(self, move: str) -> None:
+
+        if(self.heuristic.my_piece == 0):
+            self.heuristic.set_piece(len(self.__moves) % 2 + 1)
+
         int_move = int(move)
         for row in range(len(self.__board[int_move])):
             if self.__board[int_move][row] == 0:

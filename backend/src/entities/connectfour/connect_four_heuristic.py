@@ -1,13 +1,18 @@
 class ConnectFourHeuristic:
-    def __init__(self, my_piece=2) -> None:
-        self.my_piece = my_piece
-        self.opponent_piece = my_piece % 2 + 1
+    def __init__(self) -> None:
         ## 4 tables for storing the evaluation of 4 space windows starting from each space
         self.horizontal_windows: list[list[int]] = [([0] * 6) for i in range(4)]
         self.vertical_windows: list[list[int]] = [([0] * (3)) for i in range(7)]
         self.ddown_windows: list[list[int]] = [([0] * (6)) for i in range(4)]
         self.dup_windows: list[list[int]] = [([0] * (3)) for i in range(4)]
         self.__board: list[list[int]] = [([0] * (6)) for i in range(7)]
+        self.my_piece = 0
+        self.opponent_piece = 0
+
+    def set_piece(self, piece):
+        if piece == 2 or piece == 1:
+            self.my_piece = piece
+            self.opponent_piece = piece % 2 + 1
 
     ## Recognize 4 space windows that the given coordinates are in and re-evaluates them
     def evaluate_relevant_windows(self, col, row, board):
