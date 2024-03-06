@@ -1,4 +1,5 @@
 import time
+import random
 
 from entities.connectfour.connect_four_judge import ConnectFourJudge
 from game_state import GameState
@@ -18,6 +19,7 @@ class ConnectFourEngine:
         self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
         self.sorted_list = sorted_list or [3, 4, 2, 5, 1, 6, 0]
         self.difficulty = difficulty
+        self.start = 0
 
     def make_move(self, move: str) -> None:
         self.judge.add_move(move)
@@ -29,18 +31,18 @@ class ConnectFourEngine:
 
         best_move = self.iterative_deepening()
 
-        if not best_move:
+        if best_move is None:
             return None
 
         return str(best_move)
 
-    def iterative_deepening(self) -> tuple | None:
+    def iterative_deepening(self):
         depth = 1
         best_move = None
-        start = time.perf_counter()
+        self.start = time.perf_counter()
 
         while True:
-            time_used = int((time.perf_counter() - start) * 1000)
+            time_used = int((time.perf_counter() - self.start) * 1000)
 
             if time_used >= self.difficulty:
                 break
@@ -60,7 +62,12 @@ class ConnectFourEngine:
         best_move = None
         best_value = float("-inf")
 
-        if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
+        time_used = int((time.perf_counter() - self.start) * 1000)
+
+        if (self.pruning_judge.is_game_over() != GameState.CONTINUE
+            or depth == 0
+            or time_used >= self.difficulty
+            ):
             best_value = self.pruning_judge.evaluate_board() * -1 * (depth + 1)
 
             return best_move, best_value
@@ -89,7 +96,12 @@ class ConnectFourEngine:
         best_move = None
         best_value = float("inf")
 
-        if self.pruning_judge.is_game_over() != GameState.CONTINUE or depth == 0:
+        time_used = int((time.perf_counter() - self.start) * 1000)
+
+        if (self.pruning_judge.is_game_over() != GameState.CONTINUE
+            or depth == 0
+            or time_used >= self.difficulty
+            ):
             best_value = self.pruning_judge.evaluate_board() * (depth + 1)
 
             return best_move, best_value
@@ -115,6 +127,9 @@ class ConnectFourEngine:
 
         return best_move, best_value
 
+    def random_valid_move(self) -> str:
+        move = str(random.choice(self.judge.get_valid_locations()))
+        return move
 
 if __name__ == "__main__":
     engine1 = ConnectFourEngine()

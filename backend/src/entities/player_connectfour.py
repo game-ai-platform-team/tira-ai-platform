@@ -9,6 +9,9 @@ class PlayerConnectFour:
     def play(self, move):
         self.engine.make_move(move)
         new_move = self.engine.get_best_move()
+        if new_move is None:
+            new_move = self.engine.random_valid_move()
+            print("random move")
         self.engine.make_move(new_move)
         return new_move
 

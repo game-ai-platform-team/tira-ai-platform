@@ -114,8 +114,14 @@ class ConnectFourJudge(Judge):
         return self.heuristic.is_win()
 
     def evaluate_board(self):
-        if self.__is_win():
-            return 100
         if self.__is_draw():
             return 0
         return self.heuristic.evaluate_entire_board()
+
+    def is_valid_location(self, column):
+        return self.__board[column][-1] == 0
+
+    def get_valid_locations(self) -> list[int]:
+        valid_locations = [col for col in range(7) if self.is_valid_location(col)]
+
+        return valid_locations
