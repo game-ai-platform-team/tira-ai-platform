@@ -1,5 +1,5 @@
-import time
 import random
+import time
 
 from entities.connectfour.connect_four_judge import ConnectFourJudge
 from game_state import GameState
@@ -64,10 +64,11 @@ class ConnectFourEngine:
 
         time_used = int((time.perf_counter() - self.start) * 1000)
 
-        if (self.pruning_judge.is_game_over() != GameState.CONTINUE
+        if (
+            self.pruning_judge.is_game_over() != GameState.CONTINUE
             or depth == 0
             or time_used >= self.difficulty
-            ):
+        ):
             best_value = self.pruning_judge.evaluate_board() * -1 * (depth + 1)
 
             return best_move, best_value
@@ -98,10 +99,11 @@ class ConnectFourEngine:
 
         time_used = int((time.perf_counter() - self.start) * 1000)
 
-        if (self.pruning_judge.is_game_over() != GameState.CONTINUE
+        if (
+            self.pruning_judge.is_game_over() != GameState.CONTINUE
             or depth == 0
             or time_used >= self.difficulty
-            ):
+        ):
             best_value = self.pruning_judge.evaluate_board() * (depth + 1)
 
             return best_move, best_value
@@ -130,6 +132,7 @@ class ConnectFourEngine:
     def random_valid_move(self) -> str:
         move = str(random.choice(self.judge.get_valid_locations()))
         return move
+
 
 if __name__ == "__main__":
     engine1 = ConnectFourEngine()
