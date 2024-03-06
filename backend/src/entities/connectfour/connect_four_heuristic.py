@@ -2,25 +2,15 @@ from entities.judge import Judge
 from game_state import GameState
 
 
-class ConnectFourHeuristic():
-    def __init__(
-        self, my_piece=2
-    ) -> None:
+class ConnectFourHeuristic:
+    def __init__(self, my_piece=2) -> None:
         self.my_piece = my_piece
         self.opponent_piece = my_piece % 2 + 1
         ## 4 tables for storing the evaluation of 4 space windows starting from each space
-        self.horizontal_windows: list[list[int]] = [
-            ([0] * 6) for i in range(4)
-        ]
-        self.vertical_windows: list[list[int]] = [
-            ([0] * (3)) for i in range(7)
-        ]
-        self.ddown_windows: list[list[int]] = [
-            ([0] * (6)) for i in range(4)
-        ]
-        self.dup_windows: list[list[int]] = [
-            ([0] * (3)) for i in range(4)
-        ]
+        self.horizontal_windows: list[list[int]] = [([0] * 6) for i in range(4)]
+        self.vertical_windows: list[list[int]] = [([0] * (3)) for i in range(7)]
+        self.ddown_windows: list[list[int]] = [([0] * (6)) for i in range(4)]
+        self.dup_windows: list[list[int]] = [([0] * (3)) for i in range(4)]
         self.__board: list[list[int]] = [([0] * (6)) for i in range(7)]
 
     ## Recognize 4 space windows that the given coordinates are in and re-evaluates them
@@ -85,20 +75,22 @@ class ConnectFourHeuristic():
         if opponent_pieces > 0:
             return -1 * 2**opponent_pieces
         return 0
-    
+
     ##Checks a win has been found in any window
     def is_win(self) -> bool:
-        return (self.check_win(self.horizontal_windows)
-                or self.check_win(self.vertical_windows)
-                or self.check_win(self.dup_windows)
-                or self.check_win(self.ddown_windows))
+        return (
+            self.check_win(self.horizontal_windows)
+            or self.check_win(self.vertical_windows)
+            or self.check_win(self.dup_windows)
+            or self.check_win(self.ddown_windows)
+        )
 
     def check_win(self, window: list[list[int]]):
         for i in window:
             for j in i:
                 if j in (1000, -1000):
                     return True
-        return False    
+        return False
 
     ##Calculates the sum of the evaluations of all 4-space windows on the board and returns it
     def evaluate_entire_board(self) -> int:
