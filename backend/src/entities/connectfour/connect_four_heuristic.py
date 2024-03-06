@@ -10,7 +10,7 @@ class ConnectFourHeuristic:
         self.opponent_piece = 0
 
     def set_piece(self, piece):
-        if piece == 2 or piece == 1:
+        if piece in (1, 2):
             self.my_piece = piece
             self.opponent_piece = piece % 2 + 1
 
