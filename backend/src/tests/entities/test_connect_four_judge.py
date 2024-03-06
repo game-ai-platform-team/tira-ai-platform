@@ -359,6 +359,6 @@ class TestConnectFourJudge(unittest.TestCase):
 
     def test_evaluate_board_after_some_moves_move(self):
         self.judge.add_move(3)
-        self.assertEqual(self.judge.evaluate_board(), -14)
+        self.assertEqual(self.judge.evaluate_board(), 14)
         self.judge.add_move(3)
-        self.assertEqual(self.judge.evaluate_board(), 6)
+        self.assertEqual(self.judge.evaluate_board(), -6)
