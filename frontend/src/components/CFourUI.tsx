@@ -20,7 +20,7 @@ const CFourUI = ({ row, column, moves }: CFourUIProps) => {
             if (!isNaN(moveValue)) {
                 const valueToAdd = index % 2 === 0 ? 1 : 2;
                 const boardRow = board[moveValue];
-                const colorIndex = boardRow.lastIndexOf(0)
+                const colorIndex = boardRow.lastIndexOf(0);
                 if (colorIndex !== -1) {
                     boardRow[colorIndex] = valueToAdd;
                 }
@@ -50,15 +50,13 @@ const CFourUI = ({ row, column, moves }: CFourUIProps) => {
         );
     };
 
-    const board = createBoardFromMoves()
+    const board = createBoardFromMoves();
 
     const generateCircles = () => {
         const circles = [];
         for (let columnIndex = 0; columnIndex < column; columnIndex++) {
             for (let rowIndex = 0; rowIndex < row; rowIndex++) {
-                circles.push(
-                    getCircle(rowIndex, columnIndex, board),
-                );
+                circles.push(getCircle(rowIndex, columnIndex, board));
             }
         }
         return circles;
