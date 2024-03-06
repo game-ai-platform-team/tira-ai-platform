@@ -47,7 +47,7 @@ class ConnectFourEngine:
 
             new_move = self.max_value(-1000, 1000, depth)[0]
 
-            if not new_move:
+            if new_move is None:
                 continue
 
             best_move = new_move
