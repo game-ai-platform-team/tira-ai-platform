@@ -61,3 +61,13 @@ class TestApi(TestCase):
         self.mock_player(player_mock)
 
         self.assertFalse(os.path.exists(os.path.join(TEMP_DIR, "repo4")))
+
+    @patch("services.api.random.randint", return_value=4)
+    @patch("services.api.Player")
+    @patch("services.api.game_factory.get_game")
+    def test_invalid_game(self, _get_game_mock, player_mock, _randint_mock):
+        github_url = self.valid_repo
+        self.api.start(self.socket_mock, github_url, 1000, "fake game")
+        self.mock_player(player_mock)
+
+        player_mock.return_value.play.assert_not_called()
