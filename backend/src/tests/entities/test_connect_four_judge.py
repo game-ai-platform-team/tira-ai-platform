@@ -43,13 +43,13 @@ class TestConnectFourJudge(unittest.TestCase):
             self.assertEqual(self.judge.validate(str(i)), GameState.CONTINUE)
 
     def test_move_returns_illegal_if_column_is_full(self):
-        for i in [0,6,0,6,0,6,6,0,6,0,6,0]:
+        for i in [0, 6, 0, 6, 0, 6, 6, 0, 6, 0, 6, 0]:
             self.judge.add_move(i)
         self.assertEqual(self.judge.validate("0"), GameState.ILLEGAL)
         self.assertEqual(self.judge.validate("6"), GameState.ILLEGAL)
 
     def test_move_returns_continue_if_column_is_not_full(self):
-        for i in [1,2,2,2,2,2,2,6,6,6,6,6]:
+        for i in [1, 2, 2, 2, 2, 2, 2, 6, 6, 6, 6, 6]:
             self.judge.add_move(i)
         self.assertEqual(self.judge.validate("1"), GameState.CONTINUE)
         self.assertEqual(self.judge.validate("6"), GameState.CONTINUE)

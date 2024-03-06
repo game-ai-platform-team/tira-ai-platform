@@ -1,4 +1,3 @@
-
 class ConnectFourHeuristic:
     def __init__(self, my_piece=2) -> None:
         self.my_piece = my_piece
