@@ -46,7 +46,7 @@ function SubmitForm(props: { selectedGame: string }): JSX.Element {
             store.dispatch(resetBoardIndex());
             store.dispatch(resetBoards());
             store.dispatch(resetMoves());
-            store.dispatch(resetAlLLog())
+            store.dispatch(resetAlLLog());
         }
     };
 
