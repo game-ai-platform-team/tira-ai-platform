@@ -9,7 +9,7 @@ function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
     let winner = "";
 
     if (gameState === GameState.WIN) {
-        const moveCount = moves.length
+        const moveCount = moves.length;
         if (moveCount && moveCount % 2 !== 0) {
             winner = "White";
         } else {
