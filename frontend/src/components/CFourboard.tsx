@@ -26,7 +26,7 @@ const CFourboard = () => {
         <div id="gameboard" className="card">
             <h2 className="card-header">Connect Four</h2>
             <div>
-                <CFourUI row={6} column={7} />
+                <CFourUI row={6} column={7} moves={moves} />
             </div>
 
             <div style={{ textAlign: "center", marginTop: "20px" }}>
