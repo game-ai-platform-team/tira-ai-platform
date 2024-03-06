@@ -8,7 +8,7 @@ class ConnectFourJudge(Judge):
         self,
         moves: list[int] | None = None,
         board: list[list[int]] | None = None,
-        heuristic: ConnectFourHeuristic| None = None
+        heuristic: ConnectFourHeuristic | None = None,
     ) -> None:
         rows = 6
         columns = 7

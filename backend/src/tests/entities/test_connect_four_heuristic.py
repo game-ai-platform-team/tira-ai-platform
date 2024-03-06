@@ -1,7 +1,7 @@
 import unittest
 
-from entities.connectfour.connect_four_judge import ConnectFourJudge
 from entities.connectfour.connect_four_heuristic import ConnectFourHeuristic
+from entities.connectfour.connect_four_judge import ConnectFourJudge
 
 
 class TestConnectFourHeuristic(unittest.TestCase):

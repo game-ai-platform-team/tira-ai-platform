@@ -129,6 +129,8 @@ class TestConnectFourJudge(unittest.TestCase):
             self.judge.add_move(i)
 
         self.assertEqual(self.judge.is_game_over(), GameState.WIN)
+
+
 import unittest
 
 from entities.connectfour.connect_four_judge import ConnectFourJudge
