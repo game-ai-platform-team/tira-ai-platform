@@ -1,6 +1,3 @@
-from entities.judge import Judge
-from game_state import GameState
-
 
 class ConnectFourHeuristic:
     def __init__(self, my_piece=2) -> None:
