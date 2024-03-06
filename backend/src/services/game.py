@@ -41,8 +41,8 @@ class Game:
                 self.__send_state(Move("", GameState.TIMEOUT, MoveMetadata(0, 0, "")))
 
             state = self.__judge.validate(move)
-            self.__judge.add_move(move)
             if state == GameState.CONTINUE:
+                self.__judge.add_move(move)
                 state = self.__judge.is_game_over()
             evaluation = self.__judge.analyze()
 
