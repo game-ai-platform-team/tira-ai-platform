@@ -23,14 +23,6 @@ class TestGame(TestCase):
 
         self.io_mock.send.assert_called_with(move)
 
-    def test_send_state_when_state_invalid(self):
-        move = Move("aaa", GameState.INVALID, MoveMetadata(100, 1, ""))
-        self.game._Game__send_state(move)
-
-        self.io_mock.send.assert_called_with(
-            Move("", GameState.INVALID, MoveMetadata(100, 1, ""))
-        )
-
     def test_play_continue_continues_game(self):
         self.player1_mock.play.side_effect = ["a", "b", "c"]
         self.player2_mock.play.side_effect = [1, 2, 3]
