@@ -7,6 +7,7 @@ import { resetBoardIndex } from "../reducers/boardIndexReducer";
 import { resetBoards } from "../reducers/boardReducer";
 import { resetMoves } from "../reducers/moveReducer";
 import { GameState } from "../types";
+import { resetAlLLog } from "../reducers/allLogReducer";
 
 function SubmitForm(props: { selectedGame: string }): JSX.Element {
     const [elo, setElo] = useState<number>(1350);
@@ -45,6 +46,7 @@ function SubmitForm(props: { selectedGame: string }): JSX.Element {
             store.dispatch(resetBoardIndex());
             store.dispatch(resetBoards());
             store.dispatch(resetMoves());
+            store.dispatch(resetAlLLog())
         }
     };
 
