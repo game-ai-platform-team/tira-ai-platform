@@ -2,7 +2,6 @@ from unittest import TestCase
 from unittest.mock import Mock, call
 
 from connect_four_engine import ConnectFourEngine
-from entities.connectfour.connect_four_judge import ConnectFourJudge
 
 
 class TestGame(TestCase):
