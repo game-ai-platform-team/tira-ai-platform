@@ -9,6 +9,7 @@ class PlayerConnectFour:
     def play(self, move):
         self.engine.make_move(move)
         new_move = self.engine.get_best_move()
+        self.engine.make_move(new_move)
         return new_move
 
     def get_and_reset_current_logs(self):
