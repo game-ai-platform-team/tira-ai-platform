@@ -15,15 +15,7 @@ class ConnectFourJudge(Judge):
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
         self.__latest_move = self.calculate_latest_move()
-<<<<<<< Updated upstream
-        ## 4 tables for storing the evaluation of 4 space windows starting from each space
-        self.horizontal_windows: list[list[int]] = [([0] * rows) for i in range(4)]
-        self.vertical_windows: list[list[int]] = [([0] * (3)) for i in range(7)]
-        self.ddown_windows: list[list[int]] = [([0] * (6)) for i in range(4)]
-        self.dup_windows: list[list[int]] = [([0] * (3)) for i in range(4)]
-=======
         self.heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
->>>>>>> Stashed changes
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
