@@ -1,3 +1,4 @@
+import { useAppSelector } from "../hook";
 import MoveStatistics from "../interfaces/MoveStatistics";
 
 interface CFourUIProps {
@@ -8,6 +9,7 @@ interface CFourUIProps {
 
 const CFourUI = ({ row, column, moves }: CFourUIProps) => {
     const style = { backgroundColor: "#a0522d" };
+    const boardIndex = useAppSelector((state) => state.boardIndex);
 
     const createBoardFromMoves = () => {
         const board: number[][] = [];
@@ -17,6 +19,9 @@ const CFourUI = ({ row, column, moves }: CFourUIProps) => {
 
         if (moves) {
             moves.forEach((move, index) => {
+                if (index >= boardIndex) {
+                    return;
+                }
                 const moveValue = parseInt(move.move);
                 if (!isNaN(moveValue)) {
                     const valueToAdd = index % 2 === 0 ? 1 : 2;
