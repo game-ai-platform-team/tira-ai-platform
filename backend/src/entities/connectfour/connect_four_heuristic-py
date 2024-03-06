@@ -1,0 +1,25 @@
+from entities.judge import Judge
+from game_state import GameState
+
+
+class ConnectFourHeuristic():
+    def __init__(
+        self, my_piece
+    ) -> None:
+        self.my_piece = my_piece
+        ## 4 tables for storing the evaluation of 4 space windows starting from each space
+        self.horizontal_windows: list[list[int]] = [
+            ([0] * 6) for i in range(4)
+        ]
+        self.vertical_windows: list[list[int]] = [
+            ([0] * (3)) for i in range(7)
+        ]
+        self.ddown_windows: list[list[int]] = [
+            ([0] * (6)) for i in range(4)
+        ]
+        self.dup_windows: list[list[int]] = [
+            ([0] * (3)) for i in range(4)
+        ]
+        
+        
+    
