@@ -15,16 +15,16 @@ class ConnectFourJudge(Judge):
         self.__latest_move = self.calculate_latest_move()
         ## 4 tables for storing the evaluation of 4 space windows starting from each space
         self.horizontal_windows: list[list[int]] = [
-            ([0] * rows) for i in range(columns - 3)
+            ([0] * rows) for i in range(4)
         ]
         self.vertical_windows: list[list[int]] = [
-            ([0] * (rows - 3)) for i in range(columns)
+            ([0] * (3)) for i in range(7)
         ]
         self.ddown_windows: list[list[int]] = [
-            ([0] * (rows)) for i in range(columns - 3)
+            ([0] * (6)) for i in range(4)
         ]
         self.dup_windows: list[list[int]] = [
-            ([0] * (rows - 3)) for i in range(columns - 3)
+            ([0] * (3)) for i in range(4)
         ]
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
