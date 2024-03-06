@@ -86,11 +86,6 @@ class Game:
         return (move, elapsed_time)
 
     def __send_state(self, move: Move) -> None:
-        if move.state in (GameState.ILLEGAL, GameState.INVALID):
-            move = Move(
-                "", move.state, MoveMetadata(move.time, move.evaluation, move.logs)
-            )
-
         self.__socket_service.send(move)
 
     def __send_game_end(self, state) -> None:
