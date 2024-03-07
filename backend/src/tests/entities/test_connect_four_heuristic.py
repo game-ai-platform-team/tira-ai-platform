@@ -6,52 +6,43 @@ from entities.connectfour.connect_four_judge import ConnectFourJudge
 
 class TestConnectFourHeuristic(unittest.TestCase):
     def setUp(self) -> None:
-        self.heuristic = ConnectFourHeuristic()
         self.judge = ConnectFourJudge()
 
-    def test_set_piece(self):
-        self.heuristic.set_piece(2)
-        self.assertEqual(self.heuristic.my_color, 2)
-        self.assertEqual(self.heuristic.opponent_color, 1)
-        self.heuristic.set_piece(1)
-        self.assertEqual(self.heuristic.my_color, 1)
-        self.assertEqual(self.heuristic.opponent_color, 2)
-
     def test_evaluate_window_with_player1_moves_only(self):
-        self.heuristic.set_piece(2)
-        self.assertEqual(self.heuristic.evaluate_single_window([0, 1, 0, 0]), -2)
-        self.assertEqual(self.heuristic.evaluate_single_window([0, 1, 0, 1]), -4)
+        heuristic= ConnectFourHeuristic(False)
+        self.assertEqual(heuristic.evaluate_single_window([0, 1, 0, 0]), -2)
+        self.assertEqual(heuristic.evaluate_single_window([0, 1, 0, 1]), -4)
 
     def test_evaluate_window_with_player2_moves_only(self):
-        self.heuristic.set_piece(2)
-        self.assertEqual(self.heuristic.evaluate_single_window([0, 2, 0, 0]), 2)
-        self.assertEqual(self.heuristic.evaluate_single_window([0, 2, 0, 2]), 4)
+        heuristic= ConnectFourHeuristic(False)
+        self.assertEqual(heuristic.evaluate_single_window([0, 2, 0, 0]), 2)
+        self.assertEqual(heuristic.evaluate_single_window([0, 2, 0, 2]), 4)
 
     def test_evaluate_window_with_both_players_moves(self):
-        self.heuristic.set_piece(1)
-        self.assertEqual(self.heuristic.evaluate_single_window([0, 2, 0, 1]), 0)
-        self.assertEqual(self.heuristic.evaluate_single_window([2, 2, 2, 1]), 0)
+        heuristic= ConnectFourHeuristic(True)
+        self.assertEqual(heuristic.evaluate_single_window([0, 2, 0, 1]), 0)
+        self.assertEqual(heuristic.evaluate_single_window([2, 2, 2, 1]), 0)
 
     def test_evaluate_window_with_nothing_in_it(self):
-        self.heuristic.set_piece(1)
-        self.assertEqual(self.heuristic.evaluate_single_window([0, 0, 0, 0]), 0)
+        heuristic= ConnectFourHeuristic(True)
+        self.assertEqual(heuristic.evaluate_single_window([0, 0, 0, 0]), 0)
 
     def test_evaluate_window_with_one_players_moves(self):
-        self.heuristic.set_piece(2)
-        self.assertEqual(self.heuristic.evaluate_single_window([1, 0, 0, 1]), -4)
-        self.assertEqual(self.heuristic.evaluate_single_window([1, 0, 1, 1]), -8)
-        self.assertEqual(self.heuristic.evaluate_single_window([0, 2, 2, 2]), 8)
+        heuristic= ConnectFourHeuristic(False)
+        self.assertEqual(heuristic.evaluate_single_window([1, 0, 0, 1]), -4)
+        self.assertEqual(heuristic.evaluate_single_window([1, 0, 1, 1]), -8)
+        self.assertEqual(heuristic.evaluate_single_window([0, 2, 2, 2]), 8)
 
     def test_evaluate_window_with_win(self):
-        self.heuristic.set_piece(2)
-        self.assertEqual(self.heuristic.evaluate_single_window([1, 1, 1, 1]), -1000)
-        self.assertEqual(self.heuristic.evaluate_single_window([2, 2, 2, 2]), 1000)
+        heuristic= ConnectFourHeuristic(False)
+        self.assertEqual(heuristic.evaluate_single_window([1, 1, 1, 1]), -1000)
+        self.assertEqual(heuristic.evaluate_single_window([2, 2, 2, 2]), 1000)
 
     def test_evaluate_window_with_both_players_moves_in_it(self):
-        self.heuristic.set_piece(1)
-        self.assertEqual(self.heuristic.evaluate_single_window([1, 2, 1, 1]), 0)
-        self.assertEqual(self.heuristic.evaluate_single_window([2, 2, 0, 1]), 0)
-        self.assertEqual(self.heuristic.evaluate_single_window([2, 0, 0, 1]), 0)
+        heuristic= ConnectFourHeuristic(True)
+        self.assertEqual(heuristic.evaluate_single_window([1, 2, 1, 1]), 0)
+        self.assertEqual(heuristic.evaluate_single_window([2, 2, 0, 1]), 0)
+        self.assertEqual(heuristic.evaluate_single_window([2, 0, 0, 1]), 0)
 
     def test_evaluate_horizontal_with_one_players_moves(self):
         for i in [0, 0, 1, 1]:
