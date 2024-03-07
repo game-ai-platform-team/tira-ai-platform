@@ -15,7 +15,6 @@ class ConnectFourJudge(Judge):
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
         self.heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
-        self.my_piece: 0
 
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
