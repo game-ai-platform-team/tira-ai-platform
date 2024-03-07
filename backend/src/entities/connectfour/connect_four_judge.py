@@ -1,4 +1,3 @@
-from entities.connectfour.connect_four_heuristic import ConnectFourHeuristic
 from entities.judge import Judge
 from game_state import GameState
 
@@ -8,13 +7,11 @@ class ConnectFourJudge(Judge):
         self,
         moves: list[int] | None = None,
         board: list[list[int]] | None = None,
-        heuristic: ConnectFourHeuristic | None = None,
     ) -> None:
         rows = 6
         columns = 7
         self.__board: list[list[int]] = board or self.initialize_board(rows, columns)
         self.__moves: list[int] = moves or []
-        self.heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
 
     @property
     def board(self) -> list[list[int]]:
@@ -48,24 +45,32 @@ class ConnectFourJudge(Judge):
 
         return state
 
-    ##Adds a move to the judge and re-evaluates relevant windows to it
-    def add_move(self, move: str) -> None:
+    def add_move(self, move: str) -> tuple[int, int]:
         column = int(move)
+        move_position = (-1, -1)
+
         for row in range(len(self.__board[column])):
             if self.__board[column][row] == 0:
+                move_position = (column, row)
+
                 self.__board[column][row] = (len(self.__moves)) % 2 + 1
                 self.__moves.append(column)
-                self.heuristic.evaluate_relevant_windows(column, row, self.__board)
-                return
+
+                break
+
+        return move_position
 
     ##Removes a move to the judge and re-evaluates relevant windows to it
-    def remove_last_move(self):
+    def remove_last_move(self) -> tuple[int, int]:
         move = self.get_last_move()
-        self.__moves.pop()
 
-        if move:
-            self.__board[move[0]][move[1]] = 0
-            self.heuristic.evaluate_relevant_windows(move[0], move[1], self.__board)
+        if not move:
+            raise IndexError
+
+        self.__moves.pop()
+        self.__board[move[0]][move[1]] = 0
+
+        return move
 
     def get_debug_info(self):
         pass
@@ -101,11 +106,6 @@ class ConnectFourJudge(Judge):
 
     def __is_win(self) -> bool:
         pass
-
-    def evaluate_board(self):
-        if self.__is_draw():
-            return 0
-        return self.heuristic.evaluate_entire_board()
 
     def is_valid_location(self, column):
         return self.__board[column][-1] == 0
