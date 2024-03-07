@@ -5,6 +5,7 @@ from entities.connectfour.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
 INFINITY = 1000000
+COLUMNS = 7
 
 
 class ConnectFourEngine:
@@ -15,7 +16,6 @@ class ConnectFourEngine:
         pruning_judge: ConnectFourJudge | None = None,
         sorted_list: list[int] | None = None,
     ) -> None:
-        self.columns = 7
         self.judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
         self.__choices: list[int] = sorted_list or [3, 4, 2, 5, 1, 6, 0]
@@ -32,7 +32,7 @@ class ConnectFourEngine:
 
     def get_best_move(self) -> str | None:
         if len(self.judge.get_all_moves()) <= 2:
-            return str(self.columns // 2)
+            return str(COLUMNS // 2)
 
         best_move = self.iterative_deepening()
 
