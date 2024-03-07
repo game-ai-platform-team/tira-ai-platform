@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 from game_state import GameState
 
@@ -21,12 +22,15 @@ class Judge(ABC):
         """
 
     @abstractmethod
-    def add_move(self, move: str) -> None:
+    def add_move(self, move: str) -> Any:
         """
         Adds a move and updates internal data structures based on game.
 
         Args:
             move (str): The move to be added.
+
+        Returns:
+            Any: Additional information of added more when needed.
         """
 
     @abstractmethod
