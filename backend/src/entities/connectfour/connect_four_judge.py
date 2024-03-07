@@ -64,15 +64,6 @@ class ConnectFourJudge(Judge):
             self.__board[move[0]][move[1]] = 0
             self.heuristic.evaluate_relevant_windows(move[0], move[1], self.__board)
 
-    def is_game_over(self) -> GameState:
-        if self.__is_win():
-            return GameState.WIN
-
-        if self.__is_draw():
-            return GameState.DRAW
-
-        return GameState.CONTINUE
-
     def get_debug_info(self):
         pass
 
