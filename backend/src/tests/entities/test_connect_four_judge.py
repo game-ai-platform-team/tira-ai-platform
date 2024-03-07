@@ -158,7 +158,7 @@ class TestConnectFourJudge(unittest.TestCase):
     def test_remove_latest(self):
         self.judge.add_move("3")
         self.judge.add_move("2")
-        self.judge.remove_latest()
+        self.judge.remove_last_move()
         latest_move = self.judge.get_last_move()
         self.assertEqual(latest_move, (3, 0))
 

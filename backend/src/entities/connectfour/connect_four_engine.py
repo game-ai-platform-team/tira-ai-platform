@@ -91,7 +91,7 @@ class ConnectFourEngine:
             for next_move in self.__choices:
                 self.__judge.add_move(str(move))
                 new_value = self.min_max(next_move, depth - 1, alpha, beta, False)
-                self.__judge.remove_latest()
+                self.__judge.remove_last_move()
 
                 best_value = max(best_value, new_value)
                 alpha = max(alpha, best_value)
@@ -104,7 +104,7 @@ class ConnectFourEngine:
             for next_move in self.__choices:
                 self.__judge.add_move(str(move))
                 new_value = self.min_max(next_move, depth - 1, alpha, beta, True)
-                self.__judge.remove_latest()
+                self.__judge.remove_last_move()
 
                 best_value = min(best_value, new_value)
                 beta = min(beta, best_value)

@@ -56,7 +56,7 @@ class ConnectFourJudge(Judge):
                 return
 
     ##Removes a move to the judge and re-evaluates relevant windows to it
-    def remove_latest(self):
+    def remove_last_move(self):
         move = self.get_last_move()
         self.__moves.pop()
 
