@@ -24,17 +24,19 @@ class ConnectFourJudge(Judge):
         board = [([0] * rows) for i in range(columns)]
         return board
 
-    def get_last_move(self) -> tuple | None:
-        if len(self.__moves) == 0:
+    def get_last_move(self) -> tuple[int, int] | None:
+        if not self.__moves:
             return None
 
+        last_move = None
         column = self.__moves[-1]
 
         for row in range(len(self.__board[column]) - 1, -1, -1):
             if self.__board[column][row] != 0:
-                return (column, row)
+                last_move = (column, row)
+                break
 
-        return None
+        return last_move
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
