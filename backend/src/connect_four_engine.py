@@ -21,10 +21,10 @@ class ConnectFourEngine:
         self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
         self.sorted_list: list[int] = sorted_list or [3, 4, 2, 5, 1, 6, 0]
         self.difficulty: int = difficulty
-        self.start: float = 0
+        self.start_time: float = 0
 
     def __is_timeout(self) -> bool:
-        time_used = int((time.perf_counter() - self.start) * 1000)
+        time_used = int((time.perf_counter() - self.start_time) * 1000)
         return time_used >= self.difficulty
 
     def make_move(self, move: str) -> None:
@@ -45,7 +45,7 @@ class ConnectFourEngine:
     def iterative_deepening(self) -> int | None:
         depth = 1
         best_move = None
-        self.start = time.perf_counter()
+        self.start_time = time.perf_counter()
 
         while not self.__is_timeout():
             new_move = self.max_value(-INFINITY, INFINITY, depth)[0]
