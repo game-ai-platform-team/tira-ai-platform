@@ -21,6 +21,10 @@ class ConnectFourEngine:
         self.difficulty = difficulty
         self.start = 0
 
+    def __is_timeout(self) -> bool:
+        time_used = int((time.perf_counter() - self.start) * 1000)
+        return time_used >= self.difficulty
+
     def make_move(self, move: str) -> None:
         self.judge.add_move(move)
         self.pruning_judge.add_move(move)
@@ -41,12 +45,7 @@ class ConnectFourEngine:
         best_move = None
         self.start = time.perf_counter()
 
-        while True:
-            time_used = int((time.perf_counter() - self.start) * 1000)
-
-            if time_used >= self.difficulty:
-                break
-
+        while not self.__is_timeout():
             new_move = self.max_value(-1000, 1000, depth)[0]
 
             if new_move is None:
@@ -62,12 +61,10 @@ class ConnectFourEngine:
         best_move = None
         best_value = float("-inf")
 
-        time_used = int((time.perf_counter() - self.start) * 1000)
-
         if (
             self.pruning_judge.is_game_over() != GameState.CONTINUE
             or depth == 0
-            or time_used >= self.difficulty
+            or self.__is_timeout()
         ):
             best_value = self.pruning_judge.evaluate_board() * -1 * (depth + 1)
 
@@ -97,12 +94,10 @@ class ConnectFourEngine:
         best_move = None
         best_value = float("inf")
 
-        time_used = int((time.perf_counter() - self.start) * 1000)
-
         if (
             self.pruning_judge.is_game_over() != GameState.CONTINUE
             or depth == 0
-            or time_used >= self.difficulty
+            or self.__is_timeout()
         ):
             best_value = self.pruning_judge.evaluate_board() * (depth + 1)
 
