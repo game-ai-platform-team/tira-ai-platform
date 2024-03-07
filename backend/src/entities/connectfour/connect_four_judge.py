@@ -16,6 +16,10 @@ class ConnectFourJudge(Judge):
         self.__moves: list[int] = moves or []
         self.heuristic: ConnectFourHeuristic = heuristic or ConnectFourHeuristic()
 
+    @property
+    def board(self) -> list[list[int]]:
+        return self.__board
+
     def initialize_board(self, rows: int, columns: int) -> list[list[int]]:
         board = [([0] * rows) for i in range(columns)]
         return board
@@ -90,9 +94,6 @@ class ConnectFourJudge(Judge):
             return False
 
         return True
-
-    def get_board(self) -> list[list[int]]:
-        return self.__board
 
     def __is_draw(self) -> bool:
         if len(self.__moves) >= 6 * 7:
