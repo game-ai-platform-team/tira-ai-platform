@@ -97,9 +97,8 @@ class ConnectFourJudge(Judge):
             return True
         return False
 
-    ##Checks a win has been found in any window
     def __is_win(self) -> bool:
-        return self.heuristic.is_win()
+        pass
 
     def evaluate_board(self):
         if self.__is_draw():
