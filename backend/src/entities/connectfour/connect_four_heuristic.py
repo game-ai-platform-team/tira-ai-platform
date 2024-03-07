@@ -6,13 +6,13 @@ class ConnectFourHeuristic:
         self.ddown_windows: list[list[int]] = [([0] * (6)) for i in range(4)]
         self.dup_windows: list[list[int]] = [([0] * (3)) for i in range(4)]
         self.__board: list[list[int]] = [([0] * (6)) for i in range(7)]
-        self.my_piece = 0
-        self.opponent_piece = 0
+        self.my_color = 0
+        self.opponent_color = 0
 
     def set_piece(self, piece):
         if piece in (1, 2):
-            self.my_piece = piece
-            self.opponent_piece = piece % 2 + 1
+            self.my_color = piece
+            self.opponent_color = piece % 2 + 1
 
     ## Recognize 4 space windows that the given coordinates are in and re-evaluates them
     def evaluate_relevant_windows(self, col, row, board):
@@ -63,8 +63,8 @@ class ConnectFourHeuristic:
             self.dup_windows[col + i][row + i] = self.evaluate_single_window(window)
 
     def evaluate_single_window(self, window: list[int]) -> int:
-        my_pieces = window.count(self.my_piece)
-        opponent_pieces = window.count(self.opponent_piece)
+        my_pieces = window.count(self.my_color)
+        opponent_pieces = window.count(self.opponent_color)
         if my_pieces == 4:
             return 1000
         if opponent_pieces == 4:

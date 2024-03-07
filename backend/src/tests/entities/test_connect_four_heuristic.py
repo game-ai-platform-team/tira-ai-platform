@@ -11,11 +11,11 @@ class TestConnectFourHeuristic(unittest.TestCase):
 
     def test_set_piece(self):
         self.heuristic.set_piece(2)
-        self.assertEqual(self.heuristic.my_piece, 2)
-        self.assertEqual(self.heuristic.opponent_piece, 1)
+        self.assertEqual(self.heuristic.my_color, 2)
+        self.assertEqual(self.heuristic.opponent_color, 1)
         self.heuristic.set_piece(1)
-        self.assertEqual(self.heuristic.my_piece, 1)
-        self.assertEqual(self.heuristic.opponent_piece, 2)
+        self.assertEqual(self.heuristic.my_color, 1)
+        self.assertEqual(self.heuristic.opponent_color, 2)
 
     def test_evaluate_window_with_player1_moves_only(self):
         self.heuristic.set_piece(2)
