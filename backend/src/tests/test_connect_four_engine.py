@@ -4,7 +4,7 @@ from unittest.mock import Mock, call
 from connect_four_engine import ConnectFourEngine
 
 
-class TestGame(TestCase):
+class TestConnectFourEngine(TestCase):
     def setUp(self) -> None:
         self.judge_mock = Mock()
         self.pruning_judge_mock = Mock()
