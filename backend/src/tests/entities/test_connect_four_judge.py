@@ -171,14 +171,5 @@ class TestConnectFourJudge(unittest.TestCase):
         latest_move = self.judge.get_last_move()
         self.assertEqual(latest_move, (3, 3))
 
-    def test_evaluate_empty_board(self):
-        self.assertEqual(self.judge.evaluate_board(), 0)
-
-    def test_evaluate_board_after_some_moves_move(self):
-        self.judge.add_move(3)
-        self.assertEqual(self.judge.evaluate_board(), 14)
-        self.judge.add_move(3)
-        self.assertEqual(self.judge.evaluate_board(), -6)
-
     def test_get_valid_locations(self):
         self.assertEqual(self.judge.get_valid_locations(), [0, 1, 2, 3, 4, 5, 6])
