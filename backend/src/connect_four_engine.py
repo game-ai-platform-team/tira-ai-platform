@@ -4,6 +4,8 @@ import time
 from entities.connectfour.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
+INFINITY = 1000000
+
 
 class ConnectFourEngine:
     def __init__(
@@ -46,7 +48,7 @@ class ConnectFourEngine:
         self.start = time.perf_counter()
 
         while not self.__is_timeout():
-            new_move = self.max_value(-1000, 1000, depth)[0]
+            new_move = self.max_value(-INFINITY, INFINITY, depth)[0]
 
             if new_move is None:
                 continue
@@ -58,7 +60,7 @@ class ConnectFourEngine:
 
     def max_value(self, alpha: int, beta: int, depth: int) -> tuple:
         best_move = None
-        best_value = float("-inf")
+        best_value = -INFINITY
 
         if (
             self.pruning_judge.is_game_over() != GameState.CONTINUE
@@ -91,7 +93,7 @@ class ConnectFourEngine:
 
     def min_value(self, alpha: int, beta: int, depth: int) -> tuple:
         best_move = None
-        best_value = float("inf")
+        best_value = INFINITY
 
         if (
             self.pruning_judge.is_game_over() != GameState.CONTINUE
