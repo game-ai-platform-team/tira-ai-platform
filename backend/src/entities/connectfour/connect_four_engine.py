@@ -77,7 +77,8 @@ class ConnectFourEngine:
 
         if (
             depth == 0
-            or self.__pruning_judge.validate(str(move)) != GameState.CONTINUE
+            or self.__pruning_judge.validate(str(move))
+            not in [GameState.CONTINUE, GameState.DRAW, GameState.WIN]
             or self.__is_timeout()
         ):
             evaluation = self.__pruning_judge.evaluate_board()
