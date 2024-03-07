@@ -14,11 +14,11 @@ class ConnectFourEngine:
         difficulty: int = 1000,
         judge: ConnectFourJudge | None = None,
         pruning_judge: ConnectFourJudge | None = None,
-        sorted_list: list[int] | None = None,
+        choices: list[int] | None = None,
     ) -> None:
         self.__judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.__pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
-        self.__choices: list[int] = sorted_list or [3, 4, 2, 5, 1, 6, 0]
+        self.__choices: list[int] = choices or [3, 4, 2, 5, 1, 6, 0]
         self.__difficulty: int = difficulty
         self.__start_time: float = 0
 
