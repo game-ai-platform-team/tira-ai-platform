@@ -47,13 +47,14 @@ class ConnectFourEngine:
         best_evaluation = -INFINITY
         self.__start_time = time.perf_counter()
 
-        for move in self.__choices:
-            evaluation = self.min_max(move, depth, -INFINITY, INFINITY, True)
+        while not self.__is_timeout():
+            for move in self.__choices:
+                evaluation = self.min_max(move, depth, -INFINITY, INFINITY, True)
 
-            if evaluation > best_evaluation:
-                best_move = move
+                if evaluation > best_evaluation:
+                    best_move = move
 
-        depth += 1
+            depth += 1
 
         return best_move
 
