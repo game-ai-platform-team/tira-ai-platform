@@ -1,7 +1,7 @@
 import random
 import time
-from entities.connectfour.connect_four_heuristic import ConnectFourHeuristic
 
+from entities.connectfour.connect_four_heuristic import ConnectFourHeuristic
 from entities.connectfour.connect_four_judge import ConnectFourJudge
 from game_state import GameState
 
