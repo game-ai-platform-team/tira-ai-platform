@@ -52,7 +52,6 @@ class ConnectFourEngine:
                 continue
 
             best_move = new_move
-
             depth += 1
 
         return best_move
