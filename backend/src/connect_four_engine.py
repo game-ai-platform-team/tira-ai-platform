@@ -48,9 +48,6 @@ class ConnectFourEngine:
         self.__start_time = time.perf_counter()
 
         for move in self.__choices:
-            if self.__is_timeout():
-                break
-
             evaluation = self.min_max(move, depth, -INFINITY, INFINITY, True)
 
             if evaluation > best_evaluation:
