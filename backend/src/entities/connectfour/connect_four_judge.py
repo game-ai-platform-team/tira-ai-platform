@@ -20,7 +20,7 @@ class ConnectFourJudge(Judge):
         board = [([0] * rows) for i in range(columns)]
         return board
 
-    def calculate_latest_move(self) -> tuple | None:
+    def get_last_move(self) -> tuple | None:
         if len(self.__moves) == 0:
             return None
 
@@ -57,7 +57,7 @@ class ConnectFourJudge(Judge):
 
     ##Removes a move to the judge and re-evaluates relevant windows to it
     def remove_latest(self):
-        move = self.calculate_latest_move()
+        move = self.get_last_move()
         self.__moves.pop()
 
         if move:
