@@ -48,9 +48,6 @@ class ConnectFourJudge(Judge):
 
     ##Adds a move to the judge and re-evaluates relevant windows to it
     def add_move(self, move: str) -> None:
-        if self.heuristic.my_color == 0:
-            self.heuristic.set_piece(len(self.__moves) % 2 + 1)
-
         int_move = int(move)
         for row in range(len(self.__board[int_move])):
             if self.__board[int_move][row] == 0:
