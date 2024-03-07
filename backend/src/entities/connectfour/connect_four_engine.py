@@ -13,11 +13,9 @@ class ConnectFourEngine:
         self,
         difficulty: int = 1000,
         judge: ConnectFourJudge | None = None,
-        pruning_judge: ConnectFourJudge | None = None,
         choices: list[int] | None = None,
     ) -> None:
         self.__judge: ConnectFourJudge = judge or ConnectFourJudge()
-        self.__pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
         self.__choices: list[int] = choices or [3, 4, 2, 5, 1, 6, 0]
         self.__difficulty: int = difficulty
         self.__start_time: float = 0
@@ -28,7 +26,6 @@ class ConnectFourEngine:
 
     def make_move(self, move: str) -> None:
         self.__judge.add_move(move)
-        self.__pruning_judge.add_move(move)
 
     def get_best_move(self) -> str | None:
         if len(self.__judge.get_all_moves()) <= 2:
@@ -77,11 +74,11 @@ class ConnectFourEngine:
 
         if (
             depth == 0
-            or self.__pruning_judge.validate(str(move))
+            or self.__judge.validate(str(move))
             not in [GameState.CONTINUE, GameState.DRAW, GameState.WIN]
             or self.__is_timeout()
         ):
-            evaluation = self.__pruning_judge.evaluate_board()
+            evaluation = self.__judge.evaluate_board()
 
             if maximizing:
                 evaluation *= -1
@@ -92,9 +89,9 @@ class ConnectFourEngine:
             best_value = -INFINITY
 
             for next_move in self.__choices:
-                self.__pruning_judge.add_move(str(move))
+                self.__judge.add_move(str(move))
                 new_value = self.min_max(next_move, depth - 1, alpha, beta, False)
-                self.__pruning_judge.remove_latest()
+                self.__judge.remove_latest()
 
                 best_value = max(best_value, new_value)
                 alpha = max(alpha, best_value)
@@ -105,9 +102,9 @@ class ConnectFourEngine:
             best_value = INFINITY
 
             for next_move in self.__choices:
-                self.__pruning_judge.add_move(str(move))
+                self.__judge.add_move(str(move))
                 new_value = self.min_max(next_move, depth - 1, alpha, beta, True)
-                self.__pruning_judge.remove_latest()
+                self.__judge.remove_latest()
 
                 best_value = min(best_value, new_value)
                 beta = min(beta, best_value)
@@ -122,19 +119,19 @@ class ConnectFourEngine:
         best_value = -INFINITY
 
         if (
-            self.__pruning_judge.is_game_over() != GameState.CONTINUE
+            self.__judge.is_game_over() != GameState.CONTINUE
             or depth == 0
             or self.__is_timeout()
         ):
-            best_value = self.__pruning_judge.evaluate_board() * -1 * (depth + 1)
+            best_value = self.__judge.evaluate_board() * -1 * (depth + 1)
 
             return best_move, best_value
 
         for column in self.__choices:
-            if self.__pruning_judge.validate(str(column)) != GameState.CONTINUE:
+            if self.__judge.validate(str(column)) != GameState.CONTINUE:
                 continue
 
-            self.__pruning_judge.add_move(str(column))
+            self.__judge.add_move(str(column))
             new_value = self.min_value(alpha, beta, depth - 1)[1]
 
             if new_value > best_value:
@@ -143,10 +140,10 @@ class ConnectFourEngine:
             alpha = max(alpha, new_value)
 
             if alpha >= beta:
-                self.__pruning_judge.remove_latest()
+                self.__judge.remove_latest()
                 break
 
-            self.__pruning_judge.remove_latest()
+            self.__judge.remove_latest()
 
         return best_move, best_value
 
@@ -155,19 +152,19 @@ class ConnectFourEngine:
         best_value = INFINITY
 
         if (
-            self.__pruning_judge.is_game_over() != GameState.CONTINUE
+            self.__judge.is_game_over() != GameState.CONTINUE
             or depth == 0
             or self.__is_timeout()
         ):
-            best_value = self.__pruning_judge.evaluate_board() * (depth + 1)
+            best_value = self.__judge.evaluate_board() * (depth + 1)
 
             return best_move, best_value
 
         for column in self.__choices:
-            if self.__pruning_judge.validate(str(column)) != GameState.CONTINUE:
+            if self.__judge.validate(str(column)) != GameState.CONTINUE:
                 continue
 
-            self.__pruning_judge.add_move(str(column))
+            self.__judge.add_move(str(column))
             new_value = self.max_value(alpha, beta, depth - 1)[1]
 
             if new_value < best_value:
@@ -177,10 +174,10 @@ class ConnectFourEngine:
             beta = min(beta, new_value)
 
             if alpha >= beta:
-                self.__pruning_judge.remove_latest()
+                self.__judge.remove_latest()
                 break
 
-            self.__pruning_judge.remove_latest()
+            self.__judge.remove_latest()
 
         return best_move, best_value
 

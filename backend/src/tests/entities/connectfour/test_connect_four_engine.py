@@ -7,11 +7,7 @@ from entities.connectfour.connect_four_engine import ConnectFourEngine
 class TestConnectFourEngine(TestCase):
     def setUp(self) -> None:
         self.judge_mock = Mock()
-        self.pruning_judge_mock = Mock()
-        self.engine = ConnectFourEngine(
-            judge=self.judge_mock,
-            pruning_judge=self.pruning_judge_mock,
-        )
+        self.engine = ConnectFourEngine(judge=self.judge_mock)
         self.engine_with_judge = ConnectFourEngine()
 
     def test_make_move_adds_move_to_judges(self):
@@ -20,9 +16,6 @@ class TestConnectFourEngine(TestCase):
         self.engine.make_move("2")
 
         self.judge_mock.add_move.assert_has_calls([call("1"), call("5"), call("2")])
-        self.pruning_judge_mock.add_move.assert_has_calls(
-            [call("1"), call("5"), call("2")]
-        )
 
     def test_get_best_move_return_value_up_to_two_moves(self):
         self.judge_mock.get_all_moves.return_value = []
