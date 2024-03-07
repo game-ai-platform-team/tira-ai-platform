@@ -43,19 +43,80 @@ class ConnectFourEngine:
 
     def iterative_deepening(self) -> int | None:
         depth = 1
-        best_move = None
+        best_move = self.__choices[0]
+        best_evaluation = -INFINITY
         self.__start_time = time.perf_counter()
 
-        while not self.__is_timeout():
-            new_move = self.max_value(-INFINITY, INFINITY, depth)[0]
+        for move in self.__choices:
+            if self.__is_timeout():
+                break
 
-            if new_move is None:
-                continue
+            evaluation = self.min_max(move, depth, -INFINITY, INFINITY, True)
 
-            best_move = new_move
-            depth += 1
+            if evaluation > best_evaluation:
+                best_move = move
+
+        depth += 1
 
         return best_move
+
+    def min_max(
+        self, move: int, depth: int, alpha: int, beta: int, maximizing: bool
+    ) -> int:
+        """
+        Function that performs Minmax algorithm as DFS and returns the evaluation of last move.
+
+        Args:
+            move (int): Move to evaluate.
+            depth (int): Maximum depth of DFS.
+            alpha (int): Lower bound of the evaluation.
+            beta (int): Upper bound of the evaluation.
+            mode (bool): Determines whether to maximize evaluation.
+
+        Returns:
+            int: Evaluation of last move.
+        """
+
+        if (
+            depth == 0
+            or self.__pruning_judge.validate(str(move)) != GameState.CONTINUE
+            or self.__is_timeout()
+        ):
+            evaluation = self.__pruning_judge.evaluate_board()
+
+            if maximizing:
+                evaluation *= -1
+
+            return evaluation
+
+        if maximizing:
+            best_value = -INFINITY
+
+            for next_move in self.__choices:
+                self.__pruning_judge.add_move(str(move))
+                new_value = self.min_max(next_move, depth - 1, alpha, beta, False)
+                self.__pruning_judge.remove_latest()
+
+                best_value = max(best_value, new_value)
+                alpha = max(alpha, best_value)
+
+                if alpha >= beta:
+                    break
+        else:
+            best_value = INFINITY
+
+            for next_move in self.__choices:
+                self.__pruning_judge.add_move(str(move))
+                new_value = self.min_max(next_move, depth - 1, alpha, beta, True)
+                self.__pruning_judge.remove_latest()
+
+                best_value = min(best_value, new_value)
+                beta = min(beta, best_value)
+
+                if alpha >= beta:
+                    break
+
+        return best_value
 
     def max_value(self, alpha: int, beta: int, depth: int) -> tuple[int | None, int]:
         best_move = None
