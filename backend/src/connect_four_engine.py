@@ -19,9 +19,9 @@ class ConnectFourEngine:
         self.rows = 6
         self.judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
-        self.sorted_list = sorted_list or [3, 4, 2, 5, 1, 6, 0]
-        self.difficulty = difficulty
-        self.start = 0
+        self.sorted_list: list[int] = sorted_list or [3, 4, 2, 5, 1, 6, 0]
+        self.difficulty: int = difficulty
+        self.start: float = 0
 
     def __is_timeout(self) -> bool:
         time_used = int((time.perf_counter() - self.start) * 1000)
@@ -42,7 +42,7 @@ class ConnectFourEngine:
 
         return str(best_move)
 
-    def iterative_deepening(self):
+    def iterative_deepening(self) -> int | None:
         depth = 1
         best_move = None
         self.start = time.perf_counter()
@@ -58,7 +58,7 @@ class ConnectFourEngine:
 
         return best_move
 
-    def max_value(self, alpha: int, beta: int, depth: int) -> tuple:
+    def max_value(self, alpha: int, beta: int, depth: int) -> tuple[int | None, int]:
         best_move = None
         best_value = -INFINITY
 
@@ -91,7 +91,7 @@ class ConnectFourEngine:
 
         return best_move, best_value
 
-    def min_value(self, alpha: int, beta: int, depth: int) -> tuple:
+    def min_value(self, alpha: int, beta: int, depth: int) -> tuple[int | None, int]:
         best_move = None
         best_value = INFINITY
 
