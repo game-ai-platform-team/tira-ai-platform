@@ -16,7 +16,6 @@ class ConnectFourEngine:
         sorted_list: list[int] | None = None,
     ) -> None:
         self.columns = 7
-        self.rows = 6
         self.judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
         self.__choices: list[int] = sorted_list or [3, 4, 2, 5, 1, 6, 0]
@@ -71,7 +70,7 @@ class ConnectFourEngine:
 
             return best_move, best_value
 
-        for column in self.sorted_list:
+        for column in self.__choices:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
 
@@ -104,7 +103,7 @@ class ConnectFourEngine:
 
             return best_move, best_value
 
-        for column in self.sorted_list:
+        for column in self.__choices:
             if self.pruning_judge.validate(str(column)) != GameState.CONTINUE:
                 continue
 
