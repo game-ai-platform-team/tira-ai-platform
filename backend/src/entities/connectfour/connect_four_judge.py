@@ -48,12 +48,12 @@ class ConnectFourJudge(Judge):
 
     ##Adds a move to the judge and re-evaluates relevant windows to it
     def add_move(self, move: str) -> None:
-        int_move = int(move)
-        for row in range(len(self.__board[int_move])):
-            if self.__board[int_move][row] == 0:
-                self.__board[int_move][row] = (len(self.__moves)) % 2 + 1
-                self.__moves.append(int_move)
-                self.heuristic.evaluate_relevant_windows(int_move, row, self.__board)
+        column = int(move)
+        for row in range(len(self.__board[column])):
+            if self.__board[column][row] == 0:
+                self.__board[column][row] = (len(self.__moves)) % 2 + 1
+                self.__moves.append(column)
+                self.heuristic.evaluate_relevant_windows(column, row, self.__board)
                 return
 
     ##Removes a move to the judge and re-evaluates relevant windows to it
