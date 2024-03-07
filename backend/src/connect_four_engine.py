@@ -19,7 +19,7 @@ class ConnectFourEngine:
         self.rows = 6
         self.judge: ConnectFourJudge = judge or ConnectFourJudge()
         self.pruning_judge: ConnectFourJudge = pruning_judge or ConnectFourJudge()
-        self.sorted_list: list[int] = sorted_list or [3, 4, 2, 5, 1, 6, 0]
+        self.__choices: list[int] = sorted_list or [3, 4, 2, 5, 1, 6, 0]
         self.difficulty: int = difficulty
         self.start_time: float = 0
 
