@@ -24,7 +24,7 @@ class ConnectFourEngine:
         time_used = int((time.perf_counter() - self.__start_time) * 1000)
         return time_used >= self.__difficulty
 
-    def make_move(self, move: str) -> None:
+    def add_move(self, move: str) -> None:
         self.__judge.add_move(move)
 
     def get_best_move(self) -> str | None:
