@@ -38,6 +38,7 @@ jobs:
     with:
       working-directory: ./frontend
       environment: staging
+      backend-directory: ./backend
     secrets:
       OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
       OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
