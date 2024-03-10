@@ -26,7 +26,10 @@ jobs:
     permissions:
       contents: write
 
-    uses: ./.github/workflows/ci_backend.yml
+    uses: game-ai-platform-team/workflows/.github/workflows/ci_python.yml@main
+    with:
+      working-directory: ./backend
+      environment: staging
 
   e2e_test:
     name: End-to-end test
