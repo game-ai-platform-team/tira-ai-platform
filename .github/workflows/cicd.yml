@@ -11,9 +11,11 @@ jobs:
     permissions:
       contents: write
 
-    uses: ./.github/workflows/ci_frontend.yml
+    uses: game-ai-platform-team/workflows/.github/workflows/ci_node.yml@main
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    with:
+      working-directory: ./frontend
 
   ci_backend:
     name: CI (back-end)
