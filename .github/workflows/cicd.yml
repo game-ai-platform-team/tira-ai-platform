@@ -36,8 +36,11 @@ jobs:
     secrets:
       OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
       OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
+    with:
+      working-directory: ./frontend
+      environment: staging
 
-    uses: ./.github/workflows/e2e_test.yml
+    uses: game-ai-platform-team/workflows/.github/workflows/e2e_test.yml@main
 
   build:
     name: Build and deploy
