@@ -3,6 +3,7 @@
     "configurations": [
         {
             "name": "Python: Debug test",
+            "type": "debugpy",
             "request": "launch",
             "module": "pytest",
             "purpose": ["debug-test"],
@@ -11,7 +12,7 @@
         },
         {
             "name": "Python: Debug",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
