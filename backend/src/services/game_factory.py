@@ -1,7 +1,8 @@
 from typing import Callable
 
+from connect_four_lib.connect_four_judge import ConnectFourJudge
+
 from entities.chess_judge import ChessJudge
-from entities.connectfour.connect_four_judge import ConnectFourJudge
 from entities.player import Player
 from entities.player_connectfour import PlayerConnectFour
 from entities.player_stockfish import PlayerStockfish

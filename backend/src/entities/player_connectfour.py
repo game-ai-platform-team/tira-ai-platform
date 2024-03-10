@@ -1,4 +1,4 @@
-from entities.connectfour.connect_four_engine import ConnectFourEngine
+from connect_four_lib.connect_four_engine import ConnectFourEngine
 
 
 class PlayerConnectFour:
