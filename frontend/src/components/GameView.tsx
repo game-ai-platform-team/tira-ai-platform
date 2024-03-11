@@ -6,7 +6,7 @@ import statisticsService from "../services/StatisticsService";
 import { useAppSelector } from "../hook";
 import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
-import CSVCreater from "./CSVCreater.tsx";
+import CSVCreator from "./CSVCreator.tsx";
 import { LogBox } from "./LogBox.tsx";
 import PlayerStats from "./PlayerStats.tsx";
 
@@ -49,7 +49,7 @@ function GameView({ children, selectedGame }: GameViewProps) {
             {children}
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
-                <CSVCreater moves={moves} />
+                <CSVCreator moves={moves} />
             </div>
 
             {stats && (

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
 
-interface CSVCreaterProps {
+interface CSVCreatorProps {
     moves: MoveStatistics[] | null;
 }
 
-const CSVCreater: React.FC<CSVCreaterProps> = ({ moves }) => {
+const CSVCreator: React.FC<CSVCreatorProps> = ({ moves }) => {
     const [includeAdvantages, setIncludeAdvantages] = useState(true);
     const [includeTimes, setIncludeTimes] = useState(true);
     const [includeWhite, setIncludeWhite] = useState(true);
@@ -73,9 +73,9 @@ const CSVCreater: React.FC<CSVCreaterProps> = ({ moves }) => {
     };
 
     return (
-        <div className="CSVCreater-overlay">
-            <div className="CSVCreater">
-                <div className="CSVCreater-header">
+        <div className="CSVCreator-overlay">
+            <div className="CSVCreator">
+                <div className="CSVCreator-header">
                     <form onSubmit={downloadCSV}>
                         Elements in CSV
                         <br />
@@ -119,4 +119,4 @@ const CSVCreater: React.FC<CSVCreaterProps> = ({ moves }) => {
     );
 };
 
-export default CSVCreater;
+export default CSVCreator;
