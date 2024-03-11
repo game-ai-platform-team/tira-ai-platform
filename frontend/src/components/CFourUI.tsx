@@ -70,7 +70,7 @@ const CFourUI = ({ row, column, moves }: CFourUIProps) => {
     };
 
     return (
-        <div>
+        <div id="cfour-board">
             <svg
                 width={column * 80}
                 height={row * 80}
