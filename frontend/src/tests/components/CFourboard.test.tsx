@@ -21,7 +21,7 @@ describe("CFourboard", () => {
                     logs: "",
                     time: 100,
                     evaluation: 0,
-                })
+                }),
             );
         });
         store.dispatch(setBoardIndex(movesArray.length));
@@ -38,9 +38,8 @@ describe("CFourboard", () => {
         expect(board).not.toBeNull();
     });
 
-
     test("moves appear correctly", () => {
-        dispatchMovesFromArray([0, 4])
+        dispatchMovesFromArray([0, 4]);
         // bottom row left to right: 5, 11, 17, 23, 29, 35, 41
         const component = render(ui);
         const board = component.container.querySelector("#cfour-board");
@@ -50,12 +49,14 @@ describe("CFourboard", () => {
         expect(circle_red?.getAttribute("fill")).toBe("red");
         expect(circle_yellow?.getAttribute("fill")).toBe("yellow");
 
-        const whiteCircles = Array.from(board?.querySelectorAll("circle") || []).filter(circle => circle.getAttribute("fill") === "white");
+        const whiteCircles = Array.from(
+            board?.querySelectorAll("circle") || [],
+        ).filter((circle) => circle.getAttribute("fill") === "white");
         expect(whiteCircles.length).toBe(6 * 7 - 2);
     });
 
     test("moves appear correctly on top", () => {
-        dispatchMovesFromArray([0, 0])
+        dispatchMovesFromArray([0, 0]);
         const component = render(ui);
         const board = component.container.querySelector("#cfour-board");
         const circle_red = board?.children.item(0)?.children.item(5);
@@ -64,7 +65,9 @@ describe("CFourboard", () => {
         expect(circle_red?.getAttribute("fill")).toBe("red");
         expect(circle_yellow?.getAttribute("fill")).toBe("yellow");
 
-        const whiteCircles = Array.from(board?.querySelectorAll("circle") || []).filter(circle => circle.getAttribute("fill") === "white");
+        const whiteCircles = Array.from(
+            board?.querySelectorAll("circle") || [],
+        ).filter((circle) => circle.getAttribute("fill") === "white");
         expect(whiteCircles.length).toBe(6 * 7 - 2);
-    })
+    });
 });
