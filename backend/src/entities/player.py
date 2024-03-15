@@ -32,7 +32,11 @@ class Player:
         if self.__process is None or self.__process.poll():
             raise ProcessLookupError("Process has terminated unexpectedly.")
 
-        input_string = move + "\n"
+        if move == "":
+            input_string = "START: \n"
+        else:
+            input_string = f"MOVE: {move}\n"
+
         self.__process.stdin.write(input_string.encode("utf-8"))
         self.__process.stdin.flush()
 
