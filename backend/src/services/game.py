@@ -32,6 +32,7 @@ class Game:
         """
         previous_move = ""
         state = None
+        move = None
 
         for i in range(turns):
             player = self.__players[i % 2]
@@ -39,6 +40,7 @@ class Game:
                 move, elapsed_time = self.__play_one_move(player, previous_move)
             except TimeoutError:
                 self.__send_state(Move("", GameState.TIMEOUT, MoveMetadata(0, 0, "")))
+                break
 
             state = self.__update_state(self.__judge.validate(move))
 
