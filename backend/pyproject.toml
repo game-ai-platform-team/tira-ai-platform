@@ -20,7 +20,7 @@ requests = "^2.31.0"
 gitpython = "^3.1.42"
 gevent = "^24.2.1"
 pyuwsgi = "^2.0.23.post0"
-connect-four-lib = "^0.1.0"
+connect-four-lib = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
