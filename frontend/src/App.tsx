@@ -9,7 +9,7 @@ import NavigationBar from "./components/NavigationBar";
 function App() {
     const [selectedGame, setSelectedGame] = useState<string>("chess");
 
-    const handleGameChange = (game: string) => {
+    const handleGameChange = (game: string) => () => {
         setSelectedGame(game);
     };
 

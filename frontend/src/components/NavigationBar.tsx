@@ -1,9 +1,9 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import "../scss/NavigationBar.scss";
 
 interface NavigationBarProps {
     selectedGame: string;
-    handleGameChange: (game: string) => void;
+    handleGameChange: (game: string) => MouseEventHandler<HTMLButtonElement>;
 }
 
 const NavigationBar: React.FC<NavigationBarProps> = ({
@@ -20,25 +20,25 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                     {selectedGame}
                 </button>
                 <div className="dropdown-content">
-                    <button onClick={() => handleGameChange("chess")}>
+                    <button onClick={handleGameChange("chess")}>
                         <span role="img" aria-label="GameIcon">
                             ♟️
                         </span>{" "}
                         Chess
                     </button>
-                    <button onClick={() => handleGameChange("gomoku")}>
+                    <button onClick={handleGameChange("gomoku")}>
                         <span role="img" aria-label="GameIcon">
                             🌀
                         </span>{" "}
                         Gomoku
                     </button>
-                    <button onClick={() => handleGameChange("othello")}>
+                    <button onClick={handleGameChange("othello")}>
                         <span role="img" aria-label="GameIcon">
                             ⚪
                         </span>{" "}
                         Othello
                     </button>
-                    <button onClick={() => handleGameChange("connect_four")}>
+                    <button onClick={handleGameChange("connect_four")}>
                         <span role="img" aria-label="GameIcon">
                             🔴
                         </span>{" "}
