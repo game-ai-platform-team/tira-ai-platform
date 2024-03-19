@@ -10,7 +10,7 @@ class PlayerConnectFour:
         self.engine.add_move(move)
         new_move = self.engine.get_best_move()
         if new_move is None:
-            new_move = self.engine.random_valid_move()
+            new_move = self.engine.get_random_move()
             print("random move")
         self.engine.add_move(new_move)
         return new_move
