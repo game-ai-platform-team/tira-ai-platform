@@ -1,8 +1,4 @@
 describe("Chess game", function () {
-    it("front page can be opened", function () {
-        cy.visit("/");
-    });
-
     it("stays like it is without repository being submitted", function () {
         cy.visit("/");
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
