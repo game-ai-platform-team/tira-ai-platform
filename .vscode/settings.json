@@ -4,6 +4,13 @@
     "python.testing.pytestEnabled": true,
     "pylint.cwd": "${workspaceFolder}/backend/src",
     "pylint.args": [
-        "--rcfile=../.pylintrc"
+        "--rcfile=../.pylintrc",
+        "-j=0"
     ],
+    "python.testing.pytestArgs": [
+        "-n=auto"
+    ],
+    "python.analysis.extraPaths": [
+        "backend/src"
+    ]
 }

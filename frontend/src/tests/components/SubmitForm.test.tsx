@@ -1,26 +1,44 @@
 import { render } from "@testing-library/react";
 import SubmitForm from "../../components/SubmitForm";
-import { test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-test("url field exists", () => {
-    const component = render(<SubmitForm />);
-    const fileInput = component.container.querySelector("#url-field");
+describe("Submit form", () => {
+    describe("URL field", () => {
+        test("exists", () => {
+            const component = render(<SubmitForm />);
+            const input = component.container.querySelector("#url-field");
 
-    expect(fileInput).not.toBe(null);
-});
+            expect(input).not.toBe(null);
+        });
 
-test("submit button exists", () => {
-    const component = render(<SubmitForm />);
-    const submitButton = component.container.querySelector("#submit-button");
+        test("is URL field", () => {
+            const component = render(<SubmitForm />);
+            const input = component.container.querySelector(
+                "#url-field",
+            ) as HTMLInputElement;
 
-    expect(submitButton).not.toBe(null);
-});
+            expect(input.type).to.equal("url");
+        });
+    });
 
-test("elo slider exists", () => {
-    const component = render(<SubmitForm />);
-    const eloSlider = component.container.querySelector(
-        "#elo-slider",
-    ) as HTMLElement;
+    describe("Submit button", () => {
+        test("exists", () => {
+            const component = render(<SubmitForm />);
+            const submitButton =
+                component.container.querySelector("#submit-button");
 
-    expect(eloSlider).not.toBeNull();
+            expect(submitButton).not.toBe(null);
+        });
+    });
+
+    describe("elo slider", () => {
+        test("exists", () => {
+            const component = render(<SubmitForm />);
+            const eloSlider = component.container.querySelector(
+                "#elo-slider",
+            ) as HTMLElement;
+
+            expect(eloSlider).not.toBeNull();
+        });
+    });
 });

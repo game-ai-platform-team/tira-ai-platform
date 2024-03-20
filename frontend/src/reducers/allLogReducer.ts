@@ -8,7 +8,7 @@ const allLogSlice = createSlice({
             return logsPayload.payload;
         },
         resetAlLLog() {
-            return "0";
+            return "";
         },
     },
 });

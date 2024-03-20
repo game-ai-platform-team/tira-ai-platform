@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import CSVCreater from "../../components/CSVCreater.tsx";
+import CSVCreator from "../../components/CSVCreator.tsx";
 import { createMove } from "../../reducers/moveReducer";
 
 describe("CSVCreator", () => {
@@ -12,8 +12,8 @@ describe("CSVCreator", () => {
             evaluation: 0,
         });
 
-        const { container } = render(<CSVCreater moves={moves} />);
-        const CSV = container.querySelector(".CSVCreater");
+        const { container } = render(<CSVCreator moves={moves} />);
+        const CSV = container.querySelector(".CSVCreator");
 
         expect(CSV).not.toBeUndefined();
     });

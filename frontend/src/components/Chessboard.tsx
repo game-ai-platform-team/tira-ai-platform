@@ -1,5 +1,5 @@
 import { Chessboard as KokopuChessboard } from "kokopu-react";
-import "../scss/Chessboard.scss";
+import "../scss/Gameboard.scss";
 import { useAppSelector } from "../hook";
 import { useState, useEffect, useCallback } from "react";
 import store from "../store";
@@ -52,7 +52,7 @@ const Chessboard = () => {
     };
 
     return (
-        <div id="chessboard" className="card">
+        <div id="gameboard" className="card">
             <h2 className="card-header">Player1 vs Player2</h2>
             <KokopuChessboard
                 position={boards[currentMove]}
@@ -108,6 +108,7 @@ const Chessboard = () => {
                     )}
                 </select>
                 <select value={arrowColor} onChange={handleArrowColorChange}>
+                    <option value="">no arrow</option>
                     <option value="R">red</option>
                     <option value="G">green</option>
                     <option value="B">blue</option>

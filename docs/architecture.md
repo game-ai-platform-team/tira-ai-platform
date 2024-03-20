@@ -54,7 +54,7 @@ sequenceDiagram
 Frontend ->> App: socketio /gameconnection startgame
 App ->> Api: start(Github Url)
 GitHub ->> Api: Clone the given repository
-Api ->> SocketIOService: create a new service
+Api ->> SocketService: create a new service
 Api ->> GameFactory: Create a chess game
 GameFactory ->> Chess: Create
 
@@ -65,8 +65,8 @@ player1 -->> Chess: move1
 
 Chess ->> judge: validate(move1)
 judge -->> Chess: True
-Chess ->> SocketIOService: send game state
-SocketIOService ->> Frontend: socketio /gameconnection newmove
+Chess ->> SocketService: send game state
+SocketService ->> Frontend: socketio /gameconnection newmove
 
 Chess ->> player2: play(move1)
 player2 -->> Chess: move2
@@ -75,8 +75,8 @@ Chess ->> judge: validate(move2)
 judge -->> Chess: False
 
 Note over Chess: The game ends, either invalid move or player2 lost
-Chess ->> SocketIOService: send game state
-SocketIOService ->> Frontend: socketio /gameconnection newmove
+Chess ->> SocketService: send game state
+SocketService ->> Frontend: socketio /gameconnection newmove
 
 
 box Container
@@ -96,35 +96,36 @@ end
 classDiagram
 
 App --> Api
+App --> IAMService
 Api ..> Game
 Api --> GameFactory
+Api ..> SocketService
 Game --> Player
 Game --> Judge
 Game --> Move
-Game --> SocketIOService
+Game --> SocketService
 GameFactory --> Game
 GameFactory ..> Judge
 GameFactory ..> Player
-GameFactory ..> SocketIOService
+GameFactory ..> SocketService
 Judge --> GameState
 Player --> PlayerLogger
 
-SocketIOService ..> Move
+SocketService ..> Move
 
 class GameFactory {
-    get_chess_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
-    get_othello_game(player1_file: Path, player2_file: Path, judge: Judge, socketio_service: SocketIOService) Game
+    get_game(socket_service: SocketService, game: str, repo: ClonedRepository, elo: int) Game
 }
 
 class Game {
     -players: list[Player]
     -judge: Judge
-    -socketio_service: SocketIOService
+    -socket_service: SocketService
 
     play(turns: int, delay: float, debug: bool) dict
 }
 
-class SocketIOService {
+class SocketService {
     +send(move: Move)
 }
 
@@ -133,6 +134,7 @@ class Judge {
     add_move(move: str)
     get_all_moves() list[str]
     get_debug_info() str
+    analyze() float
 }
 
 class Player {
@@ -160,12 +162,18 @@ class Move {
 }
 
 class Api {
-    start(file: str) dict
+    start(socket_service: SocketService, github_url: str, elo: int, active_game: str,) dict
 }
 
 class App {
     route1()
     route2()
+}
+
+class IAMService {
+    authorize() bool
+    get_role() str
+    check_access(role: str, action: str)
 }
 ```
 
@@ -181,6 +189,9 @@ store -- App: Provider
 
 App --> NavigationBar
 App --> GameView
+
+NavigationBar --> LoginView
+LoginView --> LoginService
 
 GameView --> SubmitForm
 GameView --> StatisticsService
@@ -221,6 +232,11 @@ namespace services {
         +getEvaluations()
         +uciToPGN()
     }
+
+    class LoginService {
+        + login()
+        + logout()
+    }
 }
 
 namespace UI {
@@ -233,6 +249,7 @@ namespace UI {
     class ChessBoard
     class Move
     class MoveList
+    class LoginView
 }
 ```
 

@@ -38,6 +38,10 @@ ENV HOME=/home/user
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
 
+RUN apt update
+RUN apt install git -y
+RUN pip install poetry
+
 COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 COPY --from=node_build /frontend/dist /frontend/dist
 
@@ -56,5 +60,5 @@ RUN chown -R user:user $HOME \
 
 USER 1001
 EXPOSE 5000:5000
-CMD ["python3", "src/app.py"]
+CMD ["poetry", "run", "invoke", "dev"]
 

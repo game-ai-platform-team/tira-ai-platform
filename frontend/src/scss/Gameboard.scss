@@ -1,4 +1,4 @@
-#chessboard {
+#gameboard {
     width: min-content;
     height: min-content;
     padding: 30px;
@@ -8,8 +8,8 @@
     justify-content: center;
 }
 
-#nextChessboardButton,
-#previousChessboardButton {
+#nextMoveButton,
+#previousMoveButton {
     background-color: #a0522d;
     color: white;
     padding: 1em;
@@ -22,7 +22,7 @@
     transition: background-color 0.3s ease;
 }
 
-#nextChessboardButton:hover,
-#previousChessboardButton:hover {
+#nextMoveButton:hover,
+#previousMoveButton:hover {
     background-color: #8b4513;
 }

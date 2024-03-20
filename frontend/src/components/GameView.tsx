@@ -1,21 +1,28 @@
+import { ReactNode } from "react";
 import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
 import statisticsService from "../services/StatisticsService";
-import AdvantageBar from "./AdvantageBar";
-import { ReactNode } from "react";
 import { useAppSelector } from "../hook";
 import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
-import CSVCreater from "./CSVCreater.tsx";
+import CSVCreator from "./CSVCreator.tsx";
 import { LogBox } from "./LogBox.tsx";
+import PlayerStats from "./PlayerStats.tsx";
 
-function GameView({ children }: { children: ReactNode }) {
-    const moveIndex = useAppSelector((state) => state.boardIndex) - 1;
+interface GameViewProps {
+    selectedGame: string;
+    children: ReactNode;
+}
+
+function GameView({ children, selectedGame }: GameViewProps) {
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
     const evals = statisticsService.getEvaluations(moves, true);
+
+    const wStats = statisticsService.getStatistics(moves, 0);
+    const bStats = statisticsService.getStatistics(moves, 1);
 
     const handleCopyPGN = () => {
         const text = statisticsService.uciToPGN(moves);
@@ -37,22 +44,33 @@ function GameView({ children }: { children: ReactNode }) {
     return (
         <div id="game-view">
             <div className="card">
-                <SubmitForm />
+                <SubmitForm selectedGame={selectedGame} />
             </div>
             {children}
-            <AdvantageBar linePosition={evals.advantages[moveIndex]} />
-
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
-                <CSVCreater moves={moves} />
+                <CSVCreator moves={moves} />
             </div>
 
-            <div id="statistics" className="card">
-                {stats && <AdvantageChart data={evals.advantages} />}
-                {stats && <TimeChart data={stats.times} />}
-            </div>
+            {stats && (
+                <div id="statistics" className="card">
+                    <AdvantageChart data={evals.advantages} />
+                    <TimeChart data={stats.times} />
+                </div>
+            )}
 
-            <div>
+            {wStats && bStats && stats && (
+                <div id="player-stats" className="card">
+                    <PlayerStats
+                        whiteStats={wStats}
+                        blackStats={bStats}
+                        evals={evals}
+                        moves={moves}
+                    />
+                </div>
+            )}
+
+            <div className="card">
                 <LogBox />
             </div>
         </div>

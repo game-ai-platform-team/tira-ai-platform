@@ -486,11 +486,11 @@ describe("StatisticsService", () => {
             const moves = [
                 { move: "a7a5", time: 100, logs: "", evaluation: 0.06 }, //Excellent
                 { move: "a7a5", time: 100, logs: "", evaluation: 0 }, //Great
-                { move: "g1f3", time: 300, logs: "", evaluation: 0 }, //Best
-                { move: "a2a4", time: 200, logs: "", evaluation: 0.025 }, //Good
-                { move: "a2a4", time: 200, logs: "", evaluation: -0.05 }, //Inaccuracy
+                { move: "g1f3", time: 300, logs: "", evaluation: 0 }, //Excellent
+                { move: "a2a4", time: 200, logs: "", evaluation: 0.1 }, //Good
+                { move: "a2a4", time: 200, logs: "", evaluation: -0.06 }, //Inaccuracy
                 { move: "a7a5", time: 100, logs: "", evaluation: 0 }, //Good
-                { move: "g1f3", time: 300, logs: "", evaluation: -0.2 }, //Mistake
+                { move: "g1f3", time: 300, logs: "", evaluation: -0.3 }, //Mistake
                 { move: "g1f3", time: 300, logs: "", evaluation: 0.5 }, //Blunder
             ];
 
@@ -498,7 +498,7 @@ describe("StatisticsService", () => {
             expect(evaluations.moveClasses).toEqual([
                 "EXCELLENT",
                 "GREAT",
-                "BEST",
+                "EXCELLENT",
                 "GOOD",
                 "INACCURACY",
                 "GOOD",
@@ -528,6 +528,63 @@ describe("StatisticsService", () => {
             );
             expect(whiteEvaluations.moveClasses.length).toEqual(3);
             expect(blackEvaluations.moveClasses.length).toEqual(2);
+        });
+
+        test("Accuracy when white wins is high for white and low for black", () => {
+            const moves = [
+                { move: "", time: 1, logs: "", evaluation: 0 },
+                { move: "", time: 1, logs: "", evaluation: 0.5 },
+                { move: "", time: 1, logs: "", evaluation: 0.5 },
+                { move: "", time: 1, logs: "", evaluation: 0.999 },
+                { move: "", time: 1, logs: "", evaluation: 1 },
+            ];
+
+            const evals = statisticsService.getEvaluations(moves, false);
+
+            expect(evals.accuracyWhite).toBeGreaterThanOrEqual(90);
+            expect(evals.accuracyBlack).toBeLessThanOrEqual(40);
+        });
+
+        test("Accuracy when black wins is high for black and low for white", () => {
+            const moves = [
+                { move: "", time: 1, logs: "", evaluation: -0.5 },
+                { move: "", time: 1, logs: "", evaluation: -0.5 },
+                { move: "", time: 1, logs: "", evaluation: -0.999 },
+                { move: "", time: 1, logs: "", evaluation: -1 },
+            ];
+
+            const evals = statisticsService.getEvaluations(moves, false);
+
+            expect(evals.accuracyBlack).toBeGreaterThanOrEqual(90);
+            expect(evals.accuracyWhite).toBeLessThanOrEqual(40);
+        });
+
+        test("Greatest accuracy is 100", () => {
+            const moves = [
+                { move: "", time: 1, logs: "", evaluation: 99 },
+                { move: "", time: 1, logs: "", evaluation: 99 },
+                { move: "", time: 1, logs: "", evaluation: 99 },
+                { move: "", time: 1, logs: "", evaluation: 99 },
+            ];
+
+            const evals = statisticsService.getEvaluations(moves, false);
+
+            expect(evals.accuracyBlack).toBeLessThanOrEqual(100);
+            expect(evals.accuracyWhite).toBeLessThanOrEqual(100);
+        });
+
+        test("Lowest accuracy is 0", () => {
+            const moves = [
+                { move: "", time: 1, logs: "", evaluation: -99 },
+                { move: "", time: 1, logs: "", evaluation: -99 },
+                { move: "", time: 1, logs: "", evaluation: -99 },
+                { move: "", time: 1, logs: "", evaluation: -99 },
+            ];
+
+            const evals = statisticsService.getEvaluations(moves, false);
+
+            expect(evals.accuracyBlack).toBeGreaterThanOrEqual(0);
+            expect(evals.accuracyWhite).toBeGreaterThanOrEqual(0);
         });
     });
 });

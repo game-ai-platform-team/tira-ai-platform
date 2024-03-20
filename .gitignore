@@ -16,3 +16,7 @@ backend/temp/**
 move_current
 screenshots
 frontend/cypress/downloads/**
+
+# Local secrets/environment variables
+*.local
+*secret*

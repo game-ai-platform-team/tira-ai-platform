@@ -29,7 +29,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
         <div>
             <h2 className="card-header">Advantage Chart</h2>
             <LineChart
-                width={1200}
+                width={1000}
                 height={400}
                 data={data.map((value, index) => ({ value, index }))}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
