@@ -1,14 +1,16 @@
-import { useState } from "react";
+import React, { MouseEventHandler } from "react";
 import "../scss/NavigationBar.scss";
+import Button from "./Button";
 
-const NavigationBar = () => {
-    const [selectedGame, setSelectedGame] = useState<string>("Chess");
+interface NavigationBarProps {
+    selectedGame: string;
+    handleGameChange: (game: string) => MouseEventHandler<HTMLButtonElement>;
+}
 
-    const handleGameChange = (game: string) => {
-        setSelectedGame(game);
-        // Placeholder - add what happens when the game is changed
-    };
-
+const NavigationBar: React.FC<NavigationBarProps> = ({
+    selectedGame,
+    handleGameChange,
+}) => {
     return (
         <div id="navigation-bar">
             <div className="dropdown">
@@ -19,30 +21,26 @@ const NavigationBar = () => {
                     {selectedGame}
                 </button>
                 <div className="dropdown-content">
-                    <button onClick={() => handleGameChange("Chess")}>
-                        <span role="img" aria-label="GameIcon">
-                            ♟️
-                        </span>{" "}
-                        Chess
-                    </button>
-                    <button onClick={() => handleGameChange("Gomoku")}>
-                        <span role="img" aria-label="GameIcon">
-                            🌀
-                        </span>{" "}
-                        Gomoku
-                    </button>
-                    <button onClick={() => handleGameChange("Othello")}>
-                        <span role="img" aria-label="GameIcon">
-                            ⚪
-                        </span>{" "}
-                        Othello
-                    </button>
-                    <button onClick={() => handleGameChange("Connect4")}>
-                        <span role="img" aria-label="GameIcon">
-                            🔴
-                        </span>{" "}
-                        Connect4
-                    </button>
+                    <Button
+                        label="Chess"
+                        icon="♟️"
+                        onClick={handleGameChange("chess")}
+                    />
+                    <Button
+                        label="Gomoku"
+                        icon="🌀"
+                        onClick={handleGameChange("othello")}
+                    />
+                    <Button
+                        label="Othello"
+                        icon="⚪"
+                        onClick={handleGameChange("gomoku")}
+                    />
+                    <Button
+                        label="Connect 4"
+                        icon="🔴"
+                        onClick={handleGameChange("connect_four")}
+                    />
                 </div>
             </div>
             <button className="nav-button">
@@ -51,6 +49,7 @@ const NavigationBar = () => {
                 </span>{" "}
                 Feedback
             </button>
+            <button onClick={() => (location.href = "/login")}> login</button>
         </div>
     );
 };
@@ -64,7 +63,7 @@ const getGameIcon = (game: string): string => {
             return "🌀";
         case "Othello":
             return "⚪";
-        case "Connect4":
+        case "connect_four":
             return "🔴";
         default:
             return "";

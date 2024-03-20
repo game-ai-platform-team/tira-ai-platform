@@ -5,7 +5,9 @@
 
 Project done for the Helsinki University faculty of computer science. Helps students in developing game ai's.
 
-# Project links
+## Project links
+
+All [repositories](https://github.com/orgs/game-ai-platform-team/repositories)
 
 ## Production & Staging
 
@@ -18,7 +20,7 @@ Project done for the Helsinki University faculty of computer science. Helps stud
 - [Admin manual](docs/admin_manual.md)
 - [Backlog](https://github.com/orgs/game-ai-platform-team/projects/1)
 
-# Documentation
+## Documentation
 
 - [Architecture](https://github.com/game-ai-platform-team/tira-ai-platform/blob/main/docs/architecture.md)
 - [Definition of Done](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/definitionofdone.md)

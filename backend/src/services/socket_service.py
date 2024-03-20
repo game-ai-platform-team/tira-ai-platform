@@ -3,7 +3,7 @@ from flask_socketio import SocketIO
 from entities.move import Move
 
 
-class SocketIOService:
+class SocketService:
     def __init__(self, socketio: SocketIO, sid: str) -> None:
         self.socketio: SocketIO = socketio
         self.sid: str = sid
@@ -18,3 +18,6 @@ class SocketIOService:
 
     def send_final_state(self, param):
         self.socketio.emit("final", param, namespace="/gameconnection", to=self.sid)
+
+    def send_error(self, error: str):
+        self.socketio.emit("error", error, namespace="/gameconnection", to=self.sid)

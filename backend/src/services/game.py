@@ -1,22 +1,21 @@
 import time
-from typing import Any
 
 from entities.judge import Judge
-from entities.move import Move
+from entities.move import Move, MoveMetadata
 from entities.player import Player
 from game_state import GameState
-from services.socket_io_service import SocketIOService
+from services.socket_service import SocketService
 
 
 class Game:
     def __init__(
         self,
-        socketio_service: SocketIOService,
+        socket_service: SocketService,
         player1: Player,
         player2: Player,
         judge: Judge,
     ) -> None:
-        self.__socketio_service: SocketIOService = socketio_service
+        self.__socket_service: SocketService = socket_service
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
@@ -33,20 +32,21 @@ class Game:
         """
         previous_move = ""
         state = None
+        move = None
 
         for i in range(turns):
             player = self.__players[i % 2]
             try:
                 move, elapsed_time = self.__play_one_move(player, previous_move)
-            except Exception as ex:
-                if type(ex) == TimeoutError:
-                    self.__send_state(Move("", GameState.TIMEOUT, 0, 0))
-                    break
-                else:
-                    raise ex
+            except TimeoutError:
+                self.__send_state(Move("", GameState.TIMEOUT, MoveMetadata(0, 0, "")))
+                break
 
-            state = self.__judge.validate(move)
-            self.__judge.add_move(move)
+            state = self.__update_state(self.__judge.validate(move))
+
+            if state == GameState.CONTINUE:
+                self.__judge.add_move(move)
+                state = self.__update_state(self.__judge.is_game_over())
             evaluation = self.__judge.analyze()
 
             if i == turns - 1 and state == GameState.CONTINUE:
@@ -54,19 +54,19 @@ class Game:
 
             logs = player.get_and_reset_current_logs()
 
-            move_object = Move(move, state, elapsed_time, evaluation, logs)
+            move_object = Move(
+                move, state, MoveMetadata(elapsed_time, evaluation, logs)
+            )
 
             self.__send_state(move_object)
 
             previous_move = move
-
             if debug:
                 self.__print_debug_info(move_object)
-
             if state != GameState.CONTINUE:
                 break
 
-        self.__sendGameEnd(state)
+        self.__send_game_end(state)
         self.__cleanup()
 
     def __cleanup(self) -> None:
@@ -87,14 +87,11 @@ class Game:
         return (move, elapsed_time)
 
     def __send_state(self, move: Move) -> None:
-        if move.state in (GameState.ILLEGAL, GameState.INVALID):
-            move = Move("", move.state, move.time, move.evaluation, move.logs)
+        self.__socket_service.send(move)
 
-        self.__socketio_service.send(move)
-
-    def __sendGameEnd(self, state):
+    def __send_game_end(self, state) -> None:
         if state != GameState.CONTINUE:
-            self.__socketio_service.send_final_state(
+            self.__socket_service.send_final_state(
                 {
                     "state": str(state),
                     "allLogs": self.__players[0].get_and_reset_all_logs(),
@@ -110,3 +107,6 @@ class Game:
         )
 
         print(info)
+
+    def __update_state(self, state):
+        return GameState(state.name.upper())

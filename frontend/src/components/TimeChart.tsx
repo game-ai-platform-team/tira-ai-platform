@@ -37,7 +37,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
         <div>
             <h2 className="card-header">Time Chart</h2>
             <LineChart
-                width={1200}
+                width={1000}
                 height={400}
                 data={chartData}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}

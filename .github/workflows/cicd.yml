@@ -1,0 +1,54 @@
+name: CI/CD
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ci_frontend:
+    name: CI (front-end)
+    permissions:
+      contents: write
+
+    uses: game-ai-platform-team/workflows/.github/workflows/ci_node.yml@main
+    with:
+      working-directory: ./frontend
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  ci_backend:
+    name: CI (back-end)
+    permissions:
+      contents: write
+      
+    uses: game-ai-platform-team/workflows/.github/workflows/ci_python.yml@main
+    with:
+      working-directory: ./backend
+      environment: staging
+    secrets: inherit
+
+  e2e_test:
+    name: End-to-end test
+
+    uses: game-ai-platform-team/workflows/.github/workflows/e2e_test.yml@main
+    with:
+      working-directory: ./frontend
+      environment: staging
+      backend-directory: ./backend
+    secrets:
+      OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
+      OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
+
+
+  build:
+    name: Build and deploy
+    needs: [ci_backend, ci_frontend, e2e_test]
+    if: github.event_name == 'push'
+
+    uses: ./.github/workflows/build.yml
+    with:
+      environment: staging
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}

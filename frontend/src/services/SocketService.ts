@@ -17,13 +17,13 @@ export function startGame(config: GameConfig) {
 
     socket.on("newmove", (move: MoveStatistics) => {
         store.dispatch(createMove(move));
-        store.dispatch(newBoard(move));
-        store.dispatch(nextBoard());
         store.dispatch(
             updateState(
                 move.state !== undefined ? move.state : GameState.INVALID,
             ),
         );
+        store.dispatch(nextBoard());
+        store.dispatch(newBoard(move));
     });
 
     socket.on("final", (data: { state: string; allLogs: string }) => {
@@ -31,4 +31,8 @@ export function startGame(config: GameConfig) {
         store.dispatch(setAllLog(data.allLogs));
     });
     socket.emit("startgame", config);
+
+    socket.on("error", (data: string) => {
+        console.log(data);
+    });
 }

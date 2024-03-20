@@ -3,6 +3,7 @@ from pathlib import Path
 
 from entities.player_logger import PlayerLogger
 
+
 class TestPlayer(unittest.TestCase):
     def setUp(self):
         self.logger = PlayerLogger()
