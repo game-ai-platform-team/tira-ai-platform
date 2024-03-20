@@ -13,7 +13,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
 }) => {
     return (
         <div id="navigation-bar">
-            <div className="dropdown">
+            <div id="game-selection-menu" className="dropdown">
                 <button className="nav-button">
                     <span role="img" aria-label="GameIcon">
                         {getGameIcon(selectedGame)}

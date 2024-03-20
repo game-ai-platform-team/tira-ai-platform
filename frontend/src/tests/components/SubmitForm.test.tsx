@@ -5,14 +5,14 @@ import { test, expect, describe } from "vitest";
 describe("Submit form", () => {
     describe("URL field", () => {
         test("exists", () => {
-            const component = render(<SubmitForm />);
+            const component = render(<SubmitForm selectedGame="" />);
             const input = component.container.querySelector("#url-field");
 
             expect(input).not.toBe(null);
         });
 
         test("is URL field", () => {
-            const component = render(<SubmitForm />);
+            const component = render(<SubmitForm selectedGame="" />);
             const input = component.container.querySelector(
                 "#url-field",
             ) as HTMLInputElement;
@@ -23,7 +23,7 @@ describe("Submit form", () => {
 
     describe("Submit button", () => {
         test("exists", () => {
-            const component = render(<SubmitForm />);
+            const component = render(<SubmitForm selectedGame="" />);
             const submitButton =
                 component.container.querySelector("#submit-button");
 
@@ -33,7 +33,7 @@ describe("Submit form", () => {
 
     describe("elo slider", () => {
         test("exists", () => {
-            const component = render(<SubmitForm />);
+            const component = render(<SubmitForm selectedGame="" />);
             const eloSlider = component.container.querySelector(
                 "#elo-slider",
             ) as HTMLElement;
