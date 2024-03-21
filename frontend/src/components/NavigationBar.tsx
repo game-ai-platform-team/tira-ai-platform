@@ -14,12 +14,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
     return (
         <div id="navigation-bar">
             <div id="game-selection-menu" className="dropdown">
-                <button className="nav-button">
-                    <span role="img" aria-label="GameIcon">
-                        {getGameIcon(selectedGame)}
-                    </span>{" "}
-                    {selectedGame}
-                </button>
+                <Button
+                    className="nav-button"
+                    label={selectedGame}
+                    icon={getGameIcon(selectedGame)}
+                />
                 <div className="dropdown-content">
                     <Button
                         label="Chess"
@@ -43,12 +42,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                     />
                 </div>
             </div>
-            <button className="nav-button">
-                <span role="img" aria-label="Feedback">
-                    &#x1F4AC;
-                </span>{" "}
-                Feedback
-            </button>
+            <Button className="nav-button" label="Feedback" icon="💬" />
             <button onClick={() => (location.href = "/login")}> login</button>
         </div>
     );
