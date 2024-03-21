@@ -1,6 +1,8 @@
 import React, { MouseEventHandler } from "react";
+import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownMenu from "react-bootstrap/DropdownMenu";
 import "../scss/NavigationBar.scss";
-import Button from "./Button";
 
 interface NavigationBarProps {
     selectedGame: string;
@@ -13,36 +15,35 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
 }) => {
     return (
         <div id="navigation-bar">
-            <div id="game-selection-menu" className="dropdown">
-                <Button
+            <Dropdown>
+                <Dropdown.Toggle
+                    as={Button}
+                    variant="flat"
+                    size="lg"
                     className="nav-button"
-                    label={selectedGame}
-                    icon={getGameIcon(selectedGame)}
-                />
-                <div className="dropdown-content">
-                    <Button
-                        label="Chess"
-                        icon="♟️"
-                        onClick={handleGameChange("chess")}
-                    />
-                    <Button
-                        label="Gomoku"
-                        icon="🌀"
-                        onClick={handleGameChange("othello")}
-                    />
-                    <Button
-                        label="Othello"
-                        icon="⚪"
-                        onClick={handleGameChange("gomoku")}
-                    />
-                    <Button
-                        label="Connect 4"
-                        icon="🔴"
-                        onClick={handleGameChange("connect_four")}
-                    />
-                </div>
-            </div>
-            <Button className="nav-button" label="Feedback" icon="💬" />
+                >
+                    {getGameIcon(selectedGame)} {selectedGame}
+                </Dropdown.Toggle>
+
+                <DropdownMenu>
+                    <Dropdown.Item onClick={handleGameChange("chess")}>
+                        ♟️ Chess
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={handleGameChange("gomoku")}>
+                        🌀 Gomoku
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={handleGameChange("othello")}>
+                        ⚪ Othello
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={handleGameChange("connect_four")}>
+                        🔴 Connect 4
+                    </Dropdown.Item>
+                </DropdownMenu>
+            </Dropdown>
+
+            <Button className="nav-button" variant="flat" size="lg">
+                💬 Feedback
+            </Button>
             <button onClick={() => (location.href = "/login")}> login</button>
         </div>
     );
@@ -51,11 +52,11 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
 // Function to get the appropriate icon for each game
 const getGameIcon = (game: string): string => {
     switch (game) {
-        case "Chess":
+        case "chess":
             return "♟️";
-        case "Gomoku":
+        case "gomoku":
             return "🌀";
-        case "Othello":
+        case "othello":
             return "⚪";
         case "connect_four":
             return "🔴";

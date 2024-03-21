@@ -5,6 +5,7 @@ import Gomokuboard from "./components/Gomokuboard";
 import Othelloboard from "./components/Othelloboard";
 import GameView from "./components/GameView";
 import NavigationBar from "./components/NavigationBar";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
     const [selectedGame, setSelectedGame] = useState<string>("chess");
