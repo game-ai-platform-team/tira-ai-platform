@@ -1,17 +1,17 @@
 import { io } from "socket.io-client";
-import store from "../store";
-import { createMove } from "../reducers/moveReducer";
-import { newBoard } from "../reducers/boardReducer";
-import GameConfig from "../interfaces/GameConfig";
+import GameConfig from "../interfaces/GameConfig.ts";
 import MoveStatistics from "../interfaces/MoveStatistics";
-import { nextBoard } from "../reducers/boardIndexReducer";
 import { setAllLog } from "../reducers/allLogReducer.ts";
+import { nextBoard } from "../reducers/boardIndexReducer";
+import { newBoard } from "../reducers/boardReducer";
 import { updateState } from "../reducers/gameReducer.ts";
+import { createMove } from "../reducers/moveReducer";
+import store from "../store";
 import { GameState } from "../types.ts";
 
 const path = `${import.meta.env.BASE_URL}/socket.io`.replace("//", "/");
 
-export function startGame(config: GameConfig) {
+const startGame = (config: GameConfig) => {
     const socket = io("/gameconnection", { path });
     socket.connect();
 
@@ -35,4 +35,6 @@ export function startGame(config: GameConfig) {
     socket.on("error", (data: string) => {
         console.log(data);
     });
-}
+};
+
+export { startGame };
