@@ -1,15 +1,14 @@
-import { MouseEventHandler } from "react";
+import { ButtonHTMLAttributes } from "react";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
     icon: string;
-    onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button = ({ label, icon, onClick }: ButtonProps) => (
-    <button onClick={onClick}>
-        <span role="img">{icon}</span>
-        {label}
+const Button = (props: ButtonProps) => (
+    <button {...props}>
+        <span role="img">{props.icon}</span>
+        {props.label}
     </button>
 );
 
