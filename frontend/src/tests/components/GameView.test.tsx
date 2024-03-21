@@ -18,7 +18,7 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView selectedGame="">
+                <GameView>
                     <p></p>
                 </GameView>
             </Provider>
@@ -35,7 +35,7 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView selectedGame="">
+                <GameView>
                     <p></p>
                 </GameView>
             </Provider>
@@ -54,7 +54,7 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView selectedGame="">
+                <GameView>
                     <Chessboard />
                 </GameView>
             </Provider>
@@ -71,7 +71,7 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView selectedGame="">
+                <GameView>
                     <Chessboard />
                 </GameView>
             </Provider>
@@ -92,7 +92,7 @@ describe("GameView", () => {
 
         const ui = (
             <Provider store={store}>
-                <GameView selectedGame="">
+                <GameView>
                     <Chessboard />
                 </GameView>
             </Provider>
