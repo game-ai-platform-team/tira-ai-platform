@@ -13,7 +13,7 @@ describe("Chess game", function () {
     it("plays a game when a repository is submitted", function () {
         cy.visit("/");
 
-        cy.get("#url-field").type(
+        cy.get('[aria-label="Repository URL"]').type(
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
         );
         cy.get("#submit-button").click();
@@ -27,7 +27,7 @@ describe("Chess game", function () {
     it("pressing move opens move stats", function () {
         cy.visit("/");
 
-        cy.get("#url-field").type(
+        cy.get('[aria-label="Repository URL"]').type(
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
         );
 
@@ -40,7 +40,7 @@ describe("Chess game", function () {
     it("downloading csv works", function () {
         cy.visit("/");
 
-        cy.get("#url-field").type(
+        cy.get('[aria-label="Repository URL"]').type(
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
         );
 
