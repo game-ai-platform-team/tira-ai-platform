@@ -61,6 +61,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
                                   : "white";
                         return (
                             <circle
+                                key={index}
                                 cx={cx}
                                 cy={cy}
                                 r={4}
