@@ -34,39 +34,3 @@
 .nav-button:hover {
     background-color: #8b4513;
 }
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #a0522d;
-    min-width: 130px;
-    border-radius: 4px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-.dropdown-content button {
-    color: white;
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    background-color: #a0522d;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-}
-
-.dropdown-content button:hover {
-    background-color: #8b4513;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
