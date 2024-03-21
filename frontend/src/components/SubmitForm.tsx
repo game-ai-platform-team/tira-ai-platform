@@ -85,7 +85,8 @@ function SubmitForm(): JSX.Element {
             </div>
             <form id="github-submit-form" onSubmit={onSubmitGithub}>
                 <input
-                    id="url-field"
+                    title="Repository URL"
+                    aria-label="Repository URL"
                     type="url"
                     value={githubUrl}
                     onChange={(event) => setGithubUrl(event.target.value)}
