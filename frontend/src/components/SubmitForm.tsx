@@ -4,6 +4,7 @@ import GameConfig from "../interfaces/GameConfig";
 import { newGame } from "../reducers/gameReducer";
 import resetStateReducer from "../reducers/resetReducer";
 import "../scss/SubmitForm.scss";
+import { startGame } from "../services/SocketService";
 import { GameState } from "../types";
 
 function SubmitForm(): JSX.Element {
@@ -35,7 +36,9 @@ function SubmitForm(): JSX.Element {
                 githubUrl,
                 game,
             };
+
             dispatch(newGame(gameConfig));
+            startGame(gameConfig);
         }
     };
 

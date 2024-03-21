@@ -20,8 +20,6 @@ const gameSlice = createSlice({
         newGame(state, action: PayloadAction<GameConfig>) {
             const config = action.payload;
 
-            startGame(config);
-
             return {
                 ...state,
                 isGameRunning: true,
