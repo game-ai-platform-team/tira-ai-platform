@@ -1,17 +1,17 @@
 import React, { ChangeEvent, useState } from "react";
-import "../scss/SubmitForm.scss";
-import store from "../store";
-import { newGame, resetGame } from "../reducers/gameReducer";
+import { useAppDispatch, useAppSelector } from "../hook";
 import GameConfig from "../interfaces/GameConfig";
-import { resetBoardIndex } from "../reducers/boardIndexReducer";
-import { resetBoards } from "../reducers/boardReducer";
-import { resetMoves } from "../reducers/moveReducer";
+import { newGame } from "../reducers/gameReducer";
+import resetStateReducer from "../reducers/resetReducer";
+import "../scss/SubmitForm.scss";
 import { GameState } from "../types";
-import { resetAlLLog } from "../reducers/allLogReducer";
-import { useAppSelector } from "../hook";
 
 function SubmitForm(): JSX.Element {
+    const dispatch = useAppDispatch();
+
     const game = useAppSelector((state) => state.game.config.game);
+    const gameState = useAppSelector((state) => state.game.state);
+    const isGameRunning = useAppSelector((state) => state.game.isGameRunning);
 
     const [elo, setElo] = useState<number>(1350);
     const [games, setGames] = useState<number>(1);
@@ -29,27 +29,21 @@ function SubmitForm(): JSX.Element {
 
     const onSubmitGithub = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        if (githubUrl && elo && !store.getState().game.isGameRunning) {
+        if (githubUrl && elo && !isGameRunning) {
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
                 game,
             };
-            store.dispatch(newGame(gameConfig));
+            dispatch(newGame(gameConfig));
         }
     };
 
     const onResetGame = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        if (
-            store.getState().game.isGameRunning &&
-            store.getState().game.state !== GameState.CONTINUE
-        ) {
-            store.dispatch(resetGame());
-            store.dispatch(resetBoardIndex());
-            store.dispatch(resetBoards());
-            store.dispatch(resetMoves());
-            store.dispatch(resetAlLLog());
+
+        if (isGameRunning && gameState !== GameState.CONTINUE) {
+            dispatch(resetStateReducer());
         }
     };
 
