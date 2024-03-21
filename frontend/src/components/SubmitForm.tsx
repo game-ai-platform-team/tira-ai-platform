@@ -63,6 +63,8 @@ function SubmitForm(): JSX.Element {
                     max={4000}
                     value={elo}
                     onChange={handleEloChange}
+                    title="Difficulty"
+                    aria-label="Difficulty"
                 />
                 <p>Elo: {elo}</p>
             </div>
@@ -93,7 +95,11 @@ function SubmitForm(): JSX.Element {
                     Submit
                 </button>
             </form>
-            <button id="submit-button" onClick={onResetGame}>
+            <button
+                id="submit-button"
+                onClick={onResetGame}
+                aria-label="Submit"
+            >
                 {" "}
                 Reset
             </button>

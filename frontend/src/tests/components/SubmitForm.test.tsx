@@ -31,24 +31,11 @@ describe("Submit form", () => {
         });
     });
 
-    describe("Submit button", () => {
-        test("exists", () => {
-            const component = render(<SubmitForm selectedGame="" />);
-            const submitButton =
-                component.container.querySelector("#submit-button");
-
-            expect(submitButton).not.toBe(null);
-        });
+    test("Submit button exists", () => {
+        expect(screen.getByLabelText("Submit")).toBeDefined();
     });
 
-    describe("elo slider", () => {
-        test("exists", () => {
-            const component = render(<SubmitForm selectedGame="" />);
-            const eloSlider = component.container.querySelector(
-                "#elo-slider",
-            ) as HTMLElement;
-
-            expect(eloSlider).not.toBeNull();
-        });
+    test("Difficult slider exists", () => {
+        expect(screen.getByLabelText("Difficulty")).not.toBeNull();
     });
 });

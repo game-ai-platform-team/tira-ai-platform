@@ -16,7 +16,7 @@ describe("Chess game", function () {
         cy.get('[aria-label="Repository URL"]').type(
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
         );
-        cy.get("#submit-button").click();
+        cy.get('[aria-label="Submit"]').click();
 
         cy.get("#game-view", { timeout: 15000 }).should(
             "not.contain",
@@ -31,7 +31,7 @@ describe("Chess game", function () {
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
         );
 
-        cy.get("#submit-button").click();
+        cy.get('[aria-label="Submit"]').click();
 
         cy.get(".move", { timeout: 15000 }).first().click();
         cy.get(".move-details").contains("Time:");
@@ -44,7 +44,7 @@ describe("Chess game", function () {
             "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
         );
 
-        cy.get("#submit-button").click();
+        cy.get('[aria-label="Submit"]').click();
 
         cy.get("#download-csv", { timeout: 10000 }).click();
         cy.readFile("cypress/downloads/statistics.csv");
