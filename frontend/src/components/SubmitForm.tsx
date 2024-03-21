@@ -8,8 +8,11 @@ import { resetBoards } from "../reducers/boardReducer";
 import { resetMoves } from "../reducers/moveReducer";
 import { GameState } from "../types";
 import { resetAlLLog } from "../reducers/allLogReducer";
+import { useAppSelector } from "../hook";
 
-function SubmitForm(props: { selectedGame: string }): JSX.Element {
+function SubmitForm(): JSX.Element {
+    const game = useAppSelector((state) => state.game.config.game);
+
     const [elo, setElo] = useState<number>(1350);
     const [games, setGames] = useState<number>(1);
 
@@ -30,7 +33,7 @@ function SubmitForm(props: { selectedGame: string }): JSX.Element {
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
-                game: props.selectedGame,
+                game,
             };
             store.dispatch(newGame(gameConfig));
         }
