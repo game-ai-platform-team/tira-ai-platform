@@ -1,4 +1,4 @@
-[![CI](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/ci.yml)
+[![CI/CD](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/cicd.yml/badge.svg)](https://github.com/game-ai-platform-team/tira-ai-platform/actions/workflows/cicd.yml)
 [![codecov](https://codecov.io/gh/game-ai-platform-team/tira-ai-platform/graph/badge.svg?token=1X0SYPT0QS)](https://codecov.io/gh/game-ai-platform-team/tira-ai-platform)
 
 # tira-ai-platform
