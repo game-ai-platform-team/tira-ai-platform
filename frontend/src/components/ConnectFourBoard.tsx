@@ -1,13 +1,13 @@
 import { useAppSelector } from "../hook";
 import MoveStatistics from "../interfaces/MoveStatistics";
 
-interface CFourUIProps {
+interface ConnectFourBoardProps {
     row: number;
     column: number;
     moves: MoveStatistics[];
 }
 
-const CFourUI = ({ row, column, moves }: CFourUIProps) => {
+const ConnectFourBoard = ({ row, column, moves }: ConnectFourBoardProps) => {
     const style = { backgroundColor: "#a0522d" };
     const boardIndex = useAppSelector((state) => state.boardIndex);
 
@@ -83,4 +83,4 @@ const CFourUI = ({ row, column, moves }: CFourUIProps) => {
     );
 };
 
-export default CFourUI;
+export default ConnectFourBoard;
