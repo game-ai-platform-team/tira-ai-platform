@@ -17,6 +17,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
         <div id="navigation-bar">
             <Dropdown>
                 <Dropdown.Toggle
+                    aria-label="Select game"
                     as={Button}
                     variant="flat"
                     size="lg"
@@ -25,7 +26,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                     {getGameIcon(selectedGame)} {selectedGame}
                 </Dropdown.Toggle>
 
-                <DropdownMenu>
+                <DropdownMenu aria-label="Available games">
                     <Dropdown.Item onClick={handleGameChange("chess")}>
                         ♟️ Chess
                     </Dropdown.Item>
@@ -41,7 +42,12 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                 </DropdownMenu>
             </Dropdown>
 
-            <Button className="nav-button" variant="flat" size="lg">
+            <Button
+                className="nav-button"
+                variant="flat"
+                size="lg"
+                aria-label="Feedback"
+            >
                 💬 Feedback
             </Button>
             <button onClick={() => (location.href = "/login")}> login</button>
