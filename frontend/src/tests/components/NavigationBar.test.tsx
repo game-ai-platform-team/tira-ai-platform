@@ -1,13 +1,19 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
 import NavigationBar from "../../components/NavigationBar";
+import { Provider } from "react-redux";
+import store from "../../store";
 
 describe("Navigation bar", () => {
     let gameSelectionButton: null | HTMLElement = null;
 
     beforeEach(() => {
-        render(<NavigationBar selectedGame="" handleGameChange={vi.fn()} />);
+        render(
+            <Provider store={store}>
+                <NavigationBar />
+            </Provider>,
+        );
         gameSelectionButton = screen.getByLabelText("Select game");
     });
 
