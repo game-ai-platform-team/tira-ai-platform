@@ -1,23 +1,33 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import SubmitForm from "../../components/SubmitForm";
 import { test, expect, describe } from "vitest";
+import { Provider } from "react-redux";
+import store from "../../store";
 
 describe("Submit form", () => {
-    describe("URL field", () => {
-        test("exists", () => {
-            const component = render(<SubmitForm selectedGame="" />);
-            const input = component.container.querySelector("#url-field");
+    beforeEach(() => {
+        render(
+            <Provider store={store}>
+                <SubmitForm />;
+            </Provider>,
+        );
+    });
 
-            expect(input).not.toBe(null);
+    describe("URL field", () => {
+        let urlField: HTMLInputElement | null = null;
+
+        beforeEach(() => {
+            urlField = screen.getByLabelText(
+                "Repository URL",
+            ) as HTMLInputElement;
+        });
+
+        test("exists", () => {
+            expect(urlField).toBeDefined();
         });
 
         test("is URL field", () => {
-            const component = render(<SubmitForm selectedGame="" />);
-            const input = component.container.querySelector(
-                "#url-field",
-            ) as HTMLInputElement;
-
-            expect(input.type).to.equal("url");
+            expect(urlField!.type).to.equal("url");
         });
     });
 
