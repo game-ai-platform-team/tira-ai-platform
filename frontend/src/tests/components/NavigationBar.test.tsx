@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import NavigationBar from "../../components/NavigationBar";
-import { vi } from "vitest";
+import { vi, test, expect } from "vitest";
 
 test("feedback is on the navigation bar", () => {
     const { queryByText } = render(
