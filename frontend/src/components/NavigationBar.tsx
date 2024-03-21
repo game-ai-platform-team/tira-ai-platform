@@ -1,18 +1,18 @@
-import React, { MouseEventHandler } from "react";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
+import { useAppDispatch, useAppSelector } from "../hook";
+import { updateGame } from "../reducers/gameReducer";
 import "../scss/NavigationBar.scss";
 
-interface NavigationBarProps {
-    selectedGame: string;
-    handleGameChange: (game: string) => MouseEventHandler<HTMLButtonElement>;
-}
+const NavigationBar = () => {
+    const game = useAppSelector((state) => state.game.config.game);
+    const dispatch = useAppDispatch();
 
-const NavigationBar: React.FC<NavigationBarProps> = ({
-    selectedGame,
-    handleGameChange,
-}) => {
+    const handleChangeGame = (game: string) => () => {
+        dispatch(updateGame(game));
+    };
+
     return (
         <div id="navigation-bar">
             <Dropdown>
@@ -23,20 +23,20 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                     size="lg"
                     className="nav-button"
                 >
-                    {getGameIcon(selectedGame)} {selectedGame}
+                    {getGameIcon(game)} {game}
                 </Dropdown.Toggle>
 
                 <DropdownMenu aria-label="Available games">
-                    <Dropdown.Item onClick={handleGameChange("chess")}>
+                    <Dropdown.Item onClick={handleChangeGame("chess")}>
                         ♟️ Chess
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={handleGameChange("gomoku")}>
+                    <Dropdown.Item onClick={handleChangeGame("gomoku")}>
                         🌀 Gomoku
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={handleGameChange("othello")}>
+                    <Dropdown.Item onClick={handleChangeGame("othello")}>
                         ⚪ Othello
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={handleGameChange("connect_four")}>
+                    <Dropdown.Item onClick={handleChangeGame("connect_four")}>
                         🔴 Connect 4
                     </Dropdown.Item>
                 </DropdownMenu>

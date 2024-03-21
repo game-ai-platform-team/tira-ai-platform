@@ -11,11 +11,10 @@ import { LogBox } from "./LogBox.tsx";
 import PlayerStats from "./PlayerStats.tsx";
 
 interface GameViewProps {
-    selectedGame: string;
     children: ReactNode;
 }
 
-function GameView({ children, selectedGame }: GameViewProps) {
+function GameView({ children }: GameViewProps) {
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
@@ -44,7 +43,7 @@ function GameView({ children, selectedGame }: GameViewProps) {
     return (
         <div id="game-view">
             <div className="card">
-                <SubmitForm selectedGame={selectedGame} />
+                <SubmitForm />
             </div>
             {children}
             <div className="card">
