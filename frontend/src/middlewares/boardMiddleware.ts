@@ -27,6 +27,14 @@ const boardMiddleware: Middleware =
                     action.payload = position.fen();
                 }
             }
+        } else if (action.type == "board/resetBoard") {
+            const boards = new Map();
+
+            boards.set("chess", new Position().fen());
+
+            const game = store.getState().game.config.game;
+
+            action.payload = boards.get(game);
         }
 
         return next(action);
