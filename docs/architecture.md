@@ -193,6 +193,9 @@ App --> GameView
 NavigationBar --> LoginView
 LoginView --> LoginService
 
+GameService <|-- ChessService
+GameService <|-- ConnectFourService
+
 GameView --> SubmitForm
 GameView --> StatisticsService
 GameView --> MoveList
@@ -237,6 +240,15 @@ namespace services {
         + login()
         + logout()
     }
+
+    class GameService {
+        <<interface>>
+        +getBoard(previousBoard, move) string
+        +getInitialBoard() string
+    }
+
+    class ChessService
+    class ConnectFourService
 }
 
 namespace UI {
