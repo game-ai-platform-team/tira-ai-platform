@@ -1,18 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Position } from "kokopu";
-import MoveStatistics from "../interfaces/MoveStatistics";
 
 const boardSlice = createSlice({
     name: "board",
     initialState: [new Position().fen()],
     reducers: {
-        newBoard(state, action: PayloadAction<MoveStatistics>) {
-            const oldPosition = state[state.length - 1];
-            const position = new Position(oldPosition);
-
-            position.play(position.uci(action.payload.move));
-
-            state.push(position.fen());
+        newBoard(state, action: PayloadAction<string>) {
+            state.push(action.payload);
         },
         resetBoards() {
             return [new Position().fen()];
