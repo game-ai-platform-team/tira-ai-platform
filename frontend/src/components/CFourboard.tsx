@@ -3,7 +3,8 @@ import { useState, useEffect, useCallback } from "react";
 import store from "../store";
 import { setBoardIndex } from "../reducers/boardIndexReducer";
 import "../scss/Gameboard.scss";
-import ConnectFourBoard from "./ConnectFourBoard";
+import { CFourUI } from "connect-four-board"
+import { toNumber } from "lodash";
 
 const CFourboard = () => {
     const moves = useAppSelector((state) => state.moves);
@@ -26,7 +27,7 @@ const CFourboard = () => {
         <div id="gameboard" className="card">
             <h2 className="card-header">Connect Four</h2>
             <div>
-                <ConnectFourBoard row={6} column={7} moves={moves} />
+                <CFourUI rows={6} columns={7} moves={moves.map(movestat => toNumber(movestat.move))} move_index={boardIndex} />
             </div>
 
             <div style={{ textAlign: "center", marginTop: "20px" }}>
