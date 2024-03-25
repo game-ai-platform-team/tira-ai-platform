@@ -8,8 +8,8 @@ const boardSlice = createSlice({
         newBoard(state, action: PayloadAction<string>) {
             state.push(action.payload);
         },
-        resetBoards() {
-            return [new Position().fen()];
+        resetBoards(state, action: PayloadAction<string>) {
+            return [action.payload];
         },
     },
 });
