@@ -1,19 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Position } from "kokopu";
+import { combineReducers } from "@reduxjs/toolkit";
+import chessboardReducer from "./board/chessboardReducer";
 
-const boardSlice = createSlice({
-    name: "board",
-    initialState: [new Position().fen()],
-    reducers: {
-        newBoard(state, action: PayloadAction<string>) {
-            state.push(action.payload);
-        },
-        resetBoards(state, action: PayloadAction<string>) {
-            return [action.payload];
-        },
-    },
-});
+const boardReducer = combineReducers({ chessboards: chessboardReducer });
 
-export default boardSlice.reducer;
-
-export const { newBoard, resetBoards } = boardSlice.actions;
+export default boardReducer;

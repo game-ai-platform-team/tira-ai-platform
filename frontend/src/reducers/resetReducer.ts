@@ -1,9 +1,13 @@
 import store from "../store";
 import { resetBoardIndex } from "./boardIndexReducer";
-import { resetBoards } from "./boardReducer";
 import { resetGame } from "./gameReducer";
 import { resetMoves } from "./moveReducer";
 import { resetAlLLog } from "./allLogReducer.ts";
+import { resetChessboards } from "./board/chessboardReducer.ts";
+
+const resetBoards = () => () => {
+    store.dispatch(resetChessboards());
+};
 
 const resetStateReducer = () => {
     return () => {
