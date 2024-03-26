@@ -35,3 +35,8 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add("submitRepository", (url: string) => {
+    cy.get('[aria-label="Repository URL"]').type(url);
+    cy.get('[aria-label="Submit"]').click();
+});
