@@ -90,19 +90,12 @@ function SubmitForm(): JSX.Element {
                     value={githubUrl}
                     onChange={(event) => setGithubUrl(event.target.value)}
                 />
-                <button type="submit" id="submit-button">
+                <button type="submit" id="submit-button" aria-label="Submit">
                     {" "}
                     Submit
                 </button>
             </form>
-            <button
-                id="submit-button"
-                onClick={onResetGame}
-                aria-label="Submit"
-            >
-                {" "}
-                Reset
-            </button>
+            <button onClick={onResetGame}> Reset</button>
         </div>
     );
 }
