@@ -11,7 +11,7 @@ const Chessboard = () => {
     const [currentMove, setCurrentMove] = useState(0);
     const [selectedTheme, setSelectedTheme] = useState("original");
     const [selectedPieceset, setSelectedPieceset] = useState("cburnett");
-    const boards = useAppSelector((state) => state.boards);
+    const boards = useAppSelector((state) => state.boards.chessboards);
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
 
