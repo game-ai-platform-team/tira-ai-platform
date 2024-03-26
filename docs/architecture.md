@@ -193,9 +193,6 @@ App --> GameView
 NavigationBar --> LoginView
 LoginView --> LoginService
 
-GameService <|-- ChessService
-GameService <|-- ConnectFourService
-
 GameView --> SubmitForm
 GameView --> StatisticsService
 GameView --> MoveList
@@ -240,15 +237,6 @@ namespace services {
         + login()
         + logout()
     }
-
-    class GameService {
-        <<interface>>
-        +getBoard(previousBoard, move) string
-        +getInitialBoard() string
-    }
-
-    class ChessService
-    class ConnectFourService
 }
 
 namespace UI {
@@ -273,6 +261,7 @@ classDiagram
 store -- moveReducer
 store -- gameReducer
 store -- boardReducer
+store --> GameService
 
 gameReducer ..> newGame
 moveReducer ..> newMove
@@ -292,10 +281,22 @@ resetReducer ..> boardReducer
 resetReducer ..> gameReducer
 resetReducer ..> boardIndexReducer
 
+GameService <|-- ChessService
+GameService <|-- ConnectFourService
+
 namespace services {
     class SocketService {
         +startGame(config: gameConfig)
     }
+
+    class GameService {
+        <<interface>>
+        +getBoard(previousBoard, move) string
+        +getInitialBoard() string
+    }
+
+    class ChessService
+    class ConnectFourService
 }
 
 class gameConfig {
