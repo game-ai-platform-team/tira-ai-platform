@@ -1,7 +1,7 @@
-const repositoryUrl =
-    "https://github.com/game-ai-platform-team/stupid-chess-ai.git";
-
 describe("Chess game", function () {
+    const repositoryUrl =
+        "https://github.com/game-ai-platform-team/stupid-chess-ai.git";
+
     it("stays like it is without repository being submitted", function () {
         cy.visit("/");
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
