@@ -9,13 +9,17 @@ import { createMove } from "../reducers/moveReducer";
 import store from "../store";
 import { GameState } from "../types.ts";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { newConnectFourBoard } from "../reducers/board/connectFourBoardReducer.ts";
 
 const path = `${import.meta.env.BASE_URL}/socket.io`.replace("//", "/");
 
 const boardActionCreators = new Map<
     string,
     ActionCreatorWithPayload<MoveStatistics>
->([["chess", newChessboard]]);
+>([
+    ["chess", newChessboard],
+    ["connect_four", newConnectFourBoard],
+]);
 
 const startGame = (config: GameConfig) => {
     const newBoard = boardActionCreators.get(config.game)!;
