@@ -319,7 +319,6 @@ namespace ReducersAndActionCreators {
     class boardReducer {
         <<module>>
         boardReducer(state, action)
-        newBoard(board: BoardProps) newBoard
         resetBoards() resetBoards
     }
 
