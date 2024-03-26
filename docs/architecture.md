@@ -267,7 +267,6 @@ moveReducer ..> newMove
 boardReducer ..> newBoard
 newGame ..> gameConfig
 
-gameReducer --> SocketService
 moveReducer <-- SocketService
 
 boardIndexReducer ..> nextBoard
@@ -279,6 +278,8 @@ resetReducer ..> moveReducer
 resetReducer ..> boardReducer
 resetReducer ..> gameReducer
 resetReducer ..> boardIndexReducer
+
+note for newBoard "Each game has own newBoard action"
 
 namespace services {
     class SocketService {
@@ -340,7 +341,7 @@ namespace Actions {
     }
 
     class newBoard {
-        payload: BoardProps
+        payload: MoveStatistics
     }
 
     class newGame {
