@@ -8,7 +8,7 @@ const connectFourSlice = createSlice({
     reducers: {
         newConnectFourBoard(state, action: PayloadAction<MoveStatistics>) {
             const move = toNumber(action.payload);
-            const previousBoard = state[state.length - 1];
+            const previousBoard = state[state.length - 1] || [];
 
             state.push(previousBoard.concat(move));
         },
