@@ -1,9 +1,7 @@
 describe("Connect 4 game", function () {
     beforeEach(() => {
         cy.visit("/");
-
-        cy.get('[aria-label="Select game"]').click();
-        cy.get('[aria-label="Available games"]').contains("Connect 4").click();
+        cy.selectGame("Connect 4");
     });
 
     it("stays like it is without repository being submitted", function () {
