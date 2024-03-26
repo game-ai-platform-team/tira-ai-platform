@@ -36,7 +36,14 @@
 //   }
 // }
 
-Cypress.Commands.add("submitRepository", (url: string) => {
-    cy.get('[aria-label="Repository URL"]').type(url);
-    cy.get('[aria-label="Submit"]').click();
+Cypress.Commands.addAll({
+    submitRepository(url: string) {
+        cy.get('[aria-label="Repository URL"]').type(url);
+        cy.get('[aria-label="Submit"]').click();
+    },
+
+    selectGame(game: string) {
+        cy.get('[aria-label="Select game"]').click();
+        cy.get('[aria-label="Available games"]').contains(game).click();
+    },
 });
