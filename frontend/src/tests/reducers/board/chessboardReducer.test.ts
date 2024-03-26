@@ -1,6 +1,6 @@
-import store from "../../store";
-import { newBoard } from "../../reducers/boardReducer";
-import resetStateReducer from "../../reducers/resetReducer";
+import store from "../../../store";
+import { newChessboard } from "../../../reducers/board/chessboardReducer";
+import resetStateReducer from "../../../reducers/resetReducer";
 
 describe("BoardReducer", () => {
     beforeEach(() => {
@@ -9,17 +9,17 @@ describe("BoardReducer", () => {
 
     test("changes board", () => {
         store.dispatch(
-            newBoard({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
+            newChessboard({ move: "c2c3", logs: "", time: 100, evaluation: 0 }),
         );
-        expect(store.getState().boards).toHaveLength(2);
-        expect(store.getState().boards[1]).toEqual(
+        expect(store.getState().boards.chessboards).toHaveLength(2);
+        expect(store.getState().boards.chessboards[1]).toEqual(
             "rnbqkbnr/pppppppp/8/8/8/2P5/PP1PPPPP/RNBQKBNR b KQkq - 0 1",
         );
     });
 
     test("changes board multiple times", () => {
         store.dispatch(
-            newBoard({
+            newChessboard({
                 move: "d2d4",
                 logs: "something",
                 time: 123,
@@ -27,7 +27,7 @@ describe("BoardReducer", () => {
             }),
         );
         store.dispatch(
-            newBoard({
+            newChessboard({
                 move: "b8c6",
                 logs: "something",
                 time: 123,
@@ -35,8 +35,8 @@ describe("BoardReducer", () => {
             }),
         );
 
-        expect(store.getState().boards).toHaveLength(3);
-        expect(store.getState().boards[2]).toEqual(
+        expect(store.getState().boards.chessboards).toHaveLength(3);
+        expect(store.getState().boards.chessboards[2]).toEqual(
             "r1bqkbnr/pppppppp/2n5/8/3P4/8/PPP1PPPP/RNBQKBNR w KQkq - 0 1",
         );
     });
