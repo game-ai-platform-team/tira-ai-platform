@@ -1,3 +1,6 @@
+const repositoryUrl =
+    "https://github.com/game-ai-platform-team/stupid-chess-ai.git";
+
 describe("Chess game", function () {
     it("stays like it is without repository being submitted", function () {
         cy.visit("/");
@@ -13,10 +16,7 @@ describe("Chess game", function () {
     it("plays a game when a repository is submitted", function () {
         cy.visit("/");
 
-        cy.get('[aria-label="Repository URL"]').type(
-            "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
-        );
-        cy.get('[aria-label="Submit"]').click();
+        cy.submitRepository(repositoryUrl);
 
         cy.get("#game-view", { timeout: 15000 }).should(
             "not.contain",
@@ -27,11 +27,7 @@ describe("Chess game", function () {
     it("pressing move opens move stats", function () {
         cy.visit("/");
 
-        cy.get('[aria-label="Repository URL"]').type(
-            "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
-        );
-
-        cy.get('[aria-label="Submit"]').click();
+        cy.submitRepository(repositoryUrl);
 
         cy.get(".move", { timeout: 15000 }).first().click();
         cy.get(".move-details").contains("Time:");
@@ -40,11 +36,7 @@ describe("Chess game", function () {
     it("downloading csv works", function () {
         cy.visit("/");
 
-        cy.get('[aria-label="Repository URL"]').type(
-            "https://github.com/game-ai-platform-team/stupid-chess-ai.git",
-        );
-
-        cy.get('[aria-label="Submit"]').click();
+        cy.submitRepository(repositoryUrl);
 
         cy.get("#download-csv", { timeout: 10000 }).click();
         cy.readFile("cypress/downloads/statistics.csv");
