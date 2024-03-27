@@ -37,11 +37,11 @@ class Player:
     def play(self, move) -> str:
         if self.__process is None or self.__process.poll():
             raise ProcessLookupError("Process has terminated unexpectedly.")
-        
+
         if move == "":
-            input_string = "START: \n"
+            input_string = "PLAY:\n"
         else:
-            input_string = f"MOVE: {move}\n"
+            input_string = f"MOVE:{move}\nPLAY:\n"
 
         self.__process.stdin.write(input_string.encode("utf-8"))
         self.__process.stdin.flush()
@@ -54,16 +54,15 @@ class Player:
         while True:
             if not self.__process.stdout:
                 break
-            
+
             output = self.__process.stdout.readline().decode("utf-8")
 
             if output.strip(" ") != "":
                 print(output)
 
             self.__all_logger.log(output[:-1])
-
-            if output.startswith("MOVE: "):
-                return output.replace("MOVE: ", "").strip()
+            if output.startswith("MOVE:"):
+                return output.replace("MOVE:", "").strip()
 
             self.__turn_logger.log(output.strip() + "\n")
 
