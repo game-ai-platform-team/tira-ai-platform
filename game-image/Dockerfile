@@ -1,5 +1,8 @@
 FROM python:3-slim as runtime
 
+RUN adduser --home /home/user user
+WORKDIR /home/user
+
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
     POETRY_VIRTUALENVS_CREATE=1 \
@@ -9,25 +12,18 @@ RUN apt update
 RUN apt install git -y
 RUN pip install poetry
 
-WORKDIR /app
+ENV HOME=/home/user
+ENV VIRTUAL_ENV=/home/user/.venv \
+    PATH="/home/user/.venv/bin:$PATH"
 
 COPY ./ .
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root --no-directory
 
-ENV HOME=/home/user
-ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH"
-
-RUN adduser --home /home/user user
-
 RUN chown -R user:user $HOME \
     && chmod -R 755 $HOME \
-    && chgrp -R 0 /app \
-    && chmod -R g=u /app \
-    && chgrp -R 0 /$HOME \
-    && chmod -R g=u /$HOME
+    && chgrp -R 0 $HOME \
+    && chmod -R g=u $HOME
 
-USER 1001
-EXPOSE 5000:5000
+USER user
 CMD ["poetry", "run", "python3", "src/main.py"]
 
