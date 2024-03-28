@@ -7,8 +7,8 @@ from config import HPC_LOGIN_NODE, HPC_SSH_PRIVATE_KEY_PATH
 
 
 class SSHConnection(AbstractContextManager):
-    def __init__(self) -> None:
-        self.__client = SSHClient()
+    def __init__(self, client: SSHClient | None = None) -> None:
+        self.__client = client or SSHClient()
 
         self.__client.set_missing_host_key_policy(AutoAddPolicy())
 
