@@ -20,3 +20,5 @@ frontend/cypress/downloads/**
 # Local secrets/environment variables
 *.local
 *secret*
+hpc_private_key
+hpc_private_key.pub
