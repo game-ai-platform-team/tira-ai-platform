@@ -8,16 +8,28 @@ To run the project, the easiest way is to have docker installed and running the 
 sudo bash buildrun.sh
 ```
 
-## OpenID configuration
+## Configuration
 
-The OpenID Connect Client is implemented with Authlib which requires
+All configurations can be defined as environment variables or in `backend/.env` and `backend/.env.secret`.
 
-- `OIDC_CLIENT_ID`
-- `OIDC_CLIENT_SECRET`
+### `.env`
 
-These can be defined as environment variables or in `.env.secret` file:
+|Name|Default|Required|
+|-|-|-|
+|`OIDC_REDIRECT_PATH`|`https://localhost:5000`|✅|
+|`HPC_SSH_PRIVATE_KEY_LOCATION` [^hpc_private_key]|`backend/src/hpc_private_key`|❌|
+|`TEMP_DIR`|`~/temp`|❌|
+|`DEFAULT_CHESS_AI_FILENAME`|`chess_ai.py`|❌|
+|`DEFAULT_CHESS_AI_PATH`|`backend/src/DEFAULT_CHESS_AI_FILENAME`|❌|
+|`DEFAULT_CHESS_TIMEOUT`|`5`|❌|
 
-```ini
-OIDC_CLIENT_ID=<ENTITY_ID_FROM_SP_REGISTER>
-OIDC_CLIENT_SECRET=<CLIENT_SECRET_FROM_SP_REGISTER>
-```
+### `.env.secret`
+
+|Name|Required|
+|-|-|
+|`OIDC_CLIENT_ID` [^oidc_sp_registry]|✅|
+|`OIDC_CLIENT_SECRET` [^oidc_sp_registry]|✅|
+|`HPC_LOGIN_NODE`|✅|
+
+[^oidc_sp_registry]: The OpenID Connect (OIDC) secrets need to be configured in [Service Provider Registry](https://sp-registry.it.helsinki.fi/).
+[^hpc_private_key]: Default algorithm is Ed25519
