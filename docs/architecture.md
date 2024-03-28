@@ -100,6 +100,8 @@ App --> IAMService
 Api ..> Game
 Api --> GameFactory
 Api ..> SocketService
+Api ..> SSHConnection
+Api --> BatchScriptBuilder
 Game --> Player
 Game --> Judge
 Game --> Move
@@ -128,6 +130,19 @@ class Game {
 class SocketService {
     +send(move: Move)
 }
+
+namespace HPC {
+    class SSHConnection {
+        <<AbstractContextManager>>
+    +execute(command: str)
+    +send_file(file: Path)
+    }
+
+    class BatchScriptBuilder {
+        +create_script(repository_url: str, game: str) Path
+    }
+}
+
 
 class Judge {
     validate(move: str) bool
