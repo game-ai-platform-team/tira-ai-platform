@@ -27,3 +27,17 @@ class SSHConnection(AbstractContextManager):
     ) -> bool | None:
         self.__client.close()
 
+    def execute(self, command: str) -> list[str]:
+        """
+        Executes a command and returns stdout as list of strings.
+
+        Args:
+            command (str): Command to be executed.
+
+        Returns:
+            list[str]: stdout as list of strings.
+        """
+
+        stdin, stdout, stderr = self.__client.exec_command(command)
+
+        return stdout.readlines()
