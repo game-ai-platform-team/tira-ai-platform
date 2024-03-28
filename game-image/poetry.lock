@@ -161,6 +161,17 @@ files = [
 ]
 
 [[package]]
+name = "connect-four-lib"
+version = "1.1.1"
+description = "A library for connect 4 game"
+optional = false
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "connect_four_lib-1.1.1-py3-none-any.whl", hash = "sha256:a7d0b3d080d35fb2d1ff75ff9ae81708d14aa97ec9f04da5966d8e8fbe20ee5a"},
+    {file = "connect_four_lib-1.1.1.tar.gz", hash = "sha256:3cd0bd2b4a4c3257b3b39e8e66ca3bf2d95bc7dc0eb7d14b36e25cbd7ebeb603"},
+]
+
+[[package]]
 name = "cryptography"
 version = "42.0.5"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
@@ -673,4 +684,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "171f509ac8e3f3c1ca67b48ff015c96ec7a1d63582288efb111b91bad24f0b47"
+content-hash = "64a41d0ce812365eaea55f22aff8cf314d53a7b02e007c2b4d3745fea6e3ba92"
