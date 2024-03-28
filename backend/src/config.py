@@ -26,5 +26,5 @@ OIDC_REDIRECT_PATH = getenv("OIDC_REDIRECT_PATH") or "https://localhost:5000"
 
 HPC_LOGIN_NODE = getenv("HPC_LOGIN_NODE")
 HPC_SSH_PRIVATE_KEY_PATH = (
-    getenv("HPC_SSH_PRIVATE_KEY_LOCATION") or ROOTDIR / "src" / "hpc_private_key"
+    getenv("HPC_SSH_PRIVATE_KEY_LOCATION") or ROOTDIR / "hpc_private_key"
 )
