@@ -1,13 +1,5 @@
 # Admin manual
 
-## Running the project
-
-To run the project, the easiest way is to have docker installed and running the following in the main directory
-
-```shell
-sudo bash buildrun.sh
-```
-
 ## Configuration
 
 All configurations can be defined as environment variables or in `backend/.env` and `backend/.env.secret`.
