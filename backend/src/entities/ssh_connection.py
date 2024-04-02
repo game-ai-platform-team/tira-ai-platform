@@ -15,7 +15,7 @@ class SSHConnection(AbstractContextManager):
     def __enter__(self) -> "SSHConnection":
         private_key = PKey.from_path(HPC_SSH_PRIVATE_KEY_PATH)
 
-        self.__client.connect(hostname=HPC_LOGIN_NODE, pkey=private_key)
+        self.__client.connect(hostname=HPC_LOGIN_NODE, pkey=private_key, username="jiahao")
 
         return self
 

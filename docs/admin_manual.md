@@ -30,6 +30,7 @@ All configurations can be defined as environment variables or in `backend/.env` 
 |`OIDC_CLIENT_ID` [^oidc_sp_registry]|✅|
 |`OIDC_CLIENT_SECRET` [^oidc_sp_registry]|✅|
 |`HPC_LOGIN_NODE`|✅|
+|`HPC_USERNAME`|✅|
 
 [^oidc_sp_registry]: The OpenID Connect (OIDC) secrets need to be configured in [Service Provider Registry](https://sp-registry.it.helsinki.fi/).
 [^hpc_private_key]: Default algorithm is Ed25519
