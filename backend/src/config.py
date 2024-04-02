@@ -25,6 +25,7 @@ OIDC_REDIRECT_PATH = getenv("OIDC_REDIRECT_PATH") or "https://localhost:5000"
 # raise KeyError("OIDC client id or secret missing")
 
 HPC_LOGIN_NODE = getenv("HPC_LOGIN_NODE")
+HPC_USERNAME = getenv("HPC_USERNAME")
 HPC_SSH_PRIVATE_KEY_PATH = (
     getenv("HPC_SSH_PRIVATE_KEY_LOCATION") or ROOTDIR / "hpc_private_key"
 )
