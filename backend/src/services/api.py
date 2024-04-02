@@ -5,6 +5,8 @@ from pathlib import Path
 from git import GitCommandError, Repo
 
 from config import TEMP_DIR
+from entities.player import Player
+from services.game_factory import game_factory
 from services.socket_service import SocketService
 
 
@@ -35,10 +37,11 @@ class Api:
 
         repo = clone.repository
 
-        print(f"Send packet to HPC: ({github_url}, {elo}, {active_game})")
+        player = Player(repo)
 
-        for _ in range(4):
-            print(f"received packet...")
+        with player:
+            game = game_factory.get_game(socket_service, active_game, player, elo)
+            game.play()
 
         clone.remove()
 

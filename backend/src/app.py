@@ -76,6 +76,11 @@ def io_startgame(data):
     api.start(socket_service, data["githubUrl"], data["elo"], active_game=data["game"])
 
 
+@app.route("/ping")
+def ping():
+    return "pong"
+
+
 @app.route("/check-login")
 def check_login():
     user = session.get("user")
