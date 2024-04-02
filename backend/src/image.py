@@ -1,8 +1,3 @@
-from services.game import Game
-from entities.chess_judge import ChessJudge
-from entities.player_stockfish import PlayerStockfish
-from entities.player import Player
-
 import random
 import shutil
 from pathlib import Path
@@ -10,9 +5,13 @@ from pathlib import Path
 from git import GitCommandError, Repo
 
 from config import TEMP_DIR
+from entities.chess_judge import ChessJudge
 from entities.player import Player
+from entities.player_stockfish import PlayerStockfish
+from services.game import Game
 
 print("Starting image")
+
 
 class GitCloneResult:
     def __init__(self):
@@ -22,6 +21,7 @@ class GitCloneResult:
 
     def remove(self):
         shutil.rmtree(self.repository.working_dir)
+
 
 def git_clone(github_url):
     TEMP_DIR.mkdir(parents=True, exist_ok=True)
@@ -43,10 +43,10 @@ clone = git_clone(github_url)
 repo = clone.repository
 
 game = Game(
-                Player(repo),
-                PlayerStockfish(elo),
-                ChessJudge(),
-            )
+    Player(repo),
+    PlayerStockfish(elo),
+    ChessJudge(),
+)
 
 
 result = game.play()
