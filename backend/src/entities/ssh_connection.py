@@ -3,7 +3,7 @@ from types import TracebackType
 
 from paramiko import AutoAddPolicy, PKey, SSHClient
 
-from config import HPC_LOGIN_NODE, HPC_SSH_PRIVATE_KEY_PATH
+from config import HPC_LOGIN_NODE, HPC_SSH_PRIVATE_KEY_PATH, HPC_USERNAME
 
 
 class SSHConnection(AbstractContextManager):
@@ -15,9 +15,7 @@ class SSHConnection(AbstractContextManager):
     def __enter__(self) -> "SSHConnection":
         private_key = PKey.from_path(HPC_SSH_PRIVATE_KEY_PATH)
 
-        self.__client.connect(
-            hostname=HPC_LOGIN_NODE, pkey=private_key, username="jiahao"
-        )
+        self.__client.connect(hostname=HPC_LOGIN_NODE, pkey=private_key, username=HPC_USERNAME)
 
         return self
 
