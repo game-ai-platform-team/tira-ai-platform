@@ -15,7 +15,9 @@ class SSHConnection(AbstractContextManager):
         username: str = HPC_USERNAME,
     ) -> None:
         self.__client: SSHClient = client or SSHClient()
-        self.__private_key: PKey = private_key or PKey.from_path(HPC_SSH_PRIVATE_KEY_PATH)
+        self.__private_key: PKey = private_key or PKey.from_path(
+            HPC_SSH_PRIVATE_KEY_PATH
+        )
         self.__hostname: str = hostname
         self.__username: str = username
 
