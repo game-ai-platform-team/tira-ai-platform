@@ -46,48 +46,59 @@ graph LR
 - Container architecture will probably change
 - Factory class is responsible for instantiating correct player1, player2, validator
 
-## Architecture draft
+## Sequence diagram
+
+### Submitting AI and playing a game
 
 ```mermaid
 sequenceDiagram
 
-Frontend ->> App: socketio /gameconnection startgame
-App ->> Api: start(Github Url)
-GitHub ->> Api: Clone the given repository
-Api ->> SocketService: create a new service
-Api ->> GameFactory: Create a chess game
-GameFactory ->> Chess: Create
+participant Frontend
 
-Api ->> Chess: Play
-
-Chess ->> player1: play("")
-player1 -->> Chess: move1
-
-Chess ->> judge: validate(move1)
-judge -->> Chess: True
-Chess ->> SocketService: send game state
-SocketService ->> Frontend: socketio /gameconnection newmove
-
-Chess ->> player2: play(move1)
-player2 -->> Chess: move2
-
-Chess ->> judge: validate(move2)
-judge -->> Chess: False
-
-Note over Chess: The game ends, either invalid move or player2 lost
-Chess ->> SocketService: send game state
-SocketService ->> Frontend: socketio /gameconnection newmove
-
-
-box Container
-    participant Frontend
+box Back-end
     participant App
     participant Api
-    participant Chess
-    participant player1
-    participant player2
-    participant judge
+    participant BatchScriptBuilder
+    participant SSHConnection
 end
+
+Frontend ->>+ App: ws://.../gameconnection startgame
+
+App ->>+ Api: start(game, repo_url, difficulty)
+Api ->>+ SSHConnection: connect()
+SSHConnection -->>- Api: 
+
+SSHConnection ->>+ HPC: Connect over SSH
+HPC -->>- SSHConnection: 
+
+SSHConnection -->> Api: 
+Api ->>+ BatchScriptBuilder: create_script(game, repo_url, difficulty)
+BatchScriptBuilder -->>- Api: Path(script_path)
+
+Api ->>+ SSHConnection: send_file(Path(script_path))
+SSHConnection -)+ HPC: sbatch script
+HPC --)- SSHConnection: 
+SSHConnection -->>- Api: 
+
+loop Every second
+    Api ->>+ SSHConnection: read_file(output_file)
+    SSHConnection ->> HPC: cat output_file
+    HPC -->> SSHConnection: output_file
+    SSHConnection -->>- Api: output_file
+
+    loop while new lines
+        Api ->> Api: Read new line
+        Api ->> Frontend: ws://.../newmove {move: "e1e6", state: "CONTINUE", time: 100, evaluation: 1, logs: "Logs" }
+    end
+end
+
+Api ->>+ SSHConnection: close()
+SSHConnection ->>+ HPC: Close connection
+HPC -->>- SSHConnection: 
+SSHConnection -->>- Api: 
+Api ->> Frontend: ws://.../final {state: WIN, allLogs: "All logs"}
+Api -->>- App: 
+App -->>- Frontend: 
 ```
 
 ## Backend
