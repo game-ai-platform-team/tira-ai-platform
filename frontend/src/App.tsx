@@ -6,7 +6,6 @@ import GameView from "./components/GameView";
 import NavigationBar from "./components/NavigationBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAppSelector } from "./hook";
-import Notification from "./components/Notification";
 
 function App() {
     const game = useAppSelector((state) => state.game.config.game);
@@ -15,7 +14,6 @@ function App() {
         <div className="app">
             <header>
                 <NavigationBar />
-                <Notification />
             </header>
             <main>
                 <GameView>

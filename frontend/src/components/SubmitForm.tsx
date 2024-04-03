@@ -50,6 +50,7 @@ function SubmitForm(): JSX.Element {
 
         if (isGameRunning && gameState !== GameState.CONTINUE) {
             dispatch(resetStateReducer());
+            dispatch(setToast("Game successfully reset!"));
         }
     };
 
@@ -99,7 +100,6 @@ function SubmitForm(): JSX.Element {
                 </button>
             </form>
             <button onClick={onResetGame}> Reset</button>
-
             <Notification />
         </div>
     );
