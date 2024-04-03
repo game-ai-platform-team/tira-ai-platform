@@ -4,14 +4,14 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from config import TEMP_DIR
-from services.api import Api
+from services.api import API
 
 
-class TestApi(TestCase):
+class TestAPI(TestCase):
     def setUp(self) -> None:
         if not os.path.exists(TEMP_DIR):
             os.mkdir(TEMP_DIR)
-        self.api = Api()
+        self.api = API()
         self.socket_mock = Mock()
         self.valid_repo = "https://github.com/game-ai-platform-team/stupid-chess-ai"
         self.invalid_repo = "https://github.com/invalid_repo"
