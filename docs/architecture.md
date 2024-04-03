@@ -136,6 +136,7 @@ namespace HPC {
         <<AbstractContextManager>>
     +execute(command: str)
     +send_file(file: Path)
+    +read_file(file: Path) list[str]
     }
 
     class BatchScriptBuilder {
