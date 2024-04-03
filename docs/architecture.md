@@ -62,7 +62,7 @@ box Back-end
     participant SSHConnection
 end
 
-Frontend ->>+ App: ws://.../gameconnection startgame
+Frontend ->> App: ws://.../gameconnection startgame
 
 App ->>+ API: start(game, repo_url, difficulty)
 API ->>+ SSHConnection: connect()
@@ -82,9 +82,9 @@ SSHConnection -->>- API:
 
 loop Every second
     API ->>+ SSHConnection: read_file(output_file)
-    SSHConnection ->> HPC: cat output_file
-    HPC -->> SSHConnection: output_file
-    SSHConnection -->>- API: output_file
+    SSHConnection ->>+ HPC: cat output_file
+    HPC -->>- SSHConnection: file content
+    SSHConnection -->>- API: file content
 
     loop while new lines
         API ->> API: Read new line
@@ -96,9 +96,8 @@ API ->>+ SSHConnection: close()
 SSHConnection ->>+ HPC: Close connection
 HPC -->>- SSHConnection: 
 SSHConnection -->>- API: 
-API ->> Frontend: ws://.../final {state: WIN, allLogs: "All logs"}
-API -->>- App: 
-App -->>- Frontend: 
+
+App -->> Frontend: ws://.../final {state: WIN, allLogs: "All logs"}
 ```
 
 ## Backend
