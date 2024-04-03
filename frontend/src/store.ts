@@ -4,6 +4,7 @@ import moveReducer from "./reducers/moveReducer";
 import boardReducer from "./reducers/boardReducer";
 import boardIndexReducer from "./reducers/boardIndexReducer";
 import allLogReducer from "./reducers/allLogReducer.ts";
+import toastReducer from "./reducers/toastReducer.ts";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         boards: boardReducer,
         boardIndex: boardIndexReducer,
         allLog: allLogReducer,
+        notification: toastReducer,
     },
 });
 
