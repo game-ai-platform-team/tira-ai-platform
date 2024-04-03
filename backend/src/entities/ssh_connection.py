@@ -1,4 +1,5 @@
 from contextlib import AbstractContextManager
+from pathlib import Path
 from types import TracebackType
 
 from paramiko import AutoAddPolicy, PKey, SSHClient
@@ -52,3 +53,6 @@ class SSHConnection(AbstractContextManager):
         stdin, stdout, stderr = self.__client.exec_command(command)
 
         return stdout.readlines()
+
+    def read_file(self, file: Path) -> list[str]:
+        return self.execute(f"cat {file}")
