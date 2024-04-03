@@ -7,6 +7,7 @@ import "../scss/SubmitForm.scss";
 import { startGame } from "../services/SocketService";
 import { GameState } from "../types";
 import { setToast } from "../reducers/toastReducer";
+import Notification from "../components/Notification";
 
 function SubmitForm(): JSX.Element {
     const dispatch = useAppDispatch();
@@ -96,8 +97,11 @@ function SubmitForm(): JSX.Element {
                     {" "}
                     Submit
                 </button>
+
             </form>
             <button onClick={onResetGame}> Reset</button>
+
+            <Notification/>
         </div>
     );
 }
