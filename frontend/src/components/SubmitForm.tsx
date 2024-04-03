@@ -6,6 +6,7 @@ import resetStateReducer from "../reducers/resetReducer";
 import "../scss/SubmitForm.scss";
 import { startGame } from "../services/SocketService";
 import { GameState } from "../types";
+import { setToast } from "../reducers/toastReducer";
 
 function SubmitForm(): JSX.Element {
     const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ function SubmitForm(): JSX.Element {
 
             dispatch(newGame(gameConfig));
             startGame(gameConfig);
+            dispatch(setToast("Game submitted successfully!"));
         }
     };
 
