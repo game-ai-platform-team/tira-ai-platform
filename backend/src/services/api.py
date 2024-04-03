@@ -10,7 +10,7 @@ from services.game_factory import game_factory
 from services.socket_service import SocketService
 
 
-class Api:
+class API:
     def __init__(self):
         self.temp_dir = TEMP_DIR
 
@@ -59,4 +59,4 @@ class Api:
         return result
 
 
-api = Api()
+api = API()

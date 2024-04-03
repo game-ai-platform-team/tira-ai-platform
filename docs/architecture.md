@@ -57,47 +57,47 @@ participant Frontend
 
 box Back-end
     participant App
-    participant Api
+    participant API
     participant BatchScriptBuilder
     participant SSHConnection
 end
 
 Frontend ->>+ App: ws://.../gameconnection startgame
 
-App ->>+ Api: start(game, repo_url, difficulty)
-Api ->>+ SSHConnection: connect()
-SSHConnection -->>- Api: 
+App ->>+ API: start(game, repo_url, difficulty)
+API ->>+ SSHConnection: connect()
+SSHConnection -->>- API: 
 
 SSHConnection ->>+ HPC: Connect over SSH
 HPC -->>- SSHConnection: 
 
-SSHConnection -->> Api: 
-Api ->>+ BatchScriptBuilder: create_script(game, repo_url, difficulty)
-BatchScriptBuilder -->>- Api: Path(script_path)
+SSHConnection -->> API: 
+API ->>+ BatchScriptBuilder: create_script(game, repo_url, difficulty)
+BatchScriptBuilder -->>- API: Path(script_path)
 
-Api ->>+ SSHConnection: send_file(Path(script_path))
+API ->>+ SSHConnection: send_file(Path(script_path))
 SSHConnection -)+ HPC: sbatch script
 HPC --)- SSHConnection: 
-SSHConnection -->>- Api: 
+SSHConnection -->>- API: 
 
 loop Every second
-    Api ->>+ SSHConnection: read_file(output_file)
+    API ->>+ SSHConnection: read_file(output_file)
     SSHConnection ->> HPC: cat output_file
     HPC -->> SSHConnection: output_file
-    SSHConnection -->>- Api: output_file
+    SSHConnection -->>- API: output_file
 
     loop while new lines
-        Api ->> Api: Read new line
-        Api ->> Frontend: ws://.../newmove {move: "e1e6", state: "CONTINUE", time: 100, evaluation: 1, logs: "Logs" }
+        API ->> API: Read new line
+        API ->> Frontend: ws://.../newmove {move: "e1e6", state: "CONTINUE", time: 100, evaluation: 1, logs: "Logs" }
     end
 end
 
-Api ->>+ SSHConnection: close()
+API ->>+ SSHConnection: close()
 SSHConnection ->>+ HPC: Close connection
 HPC -->>- SSHConnection: 
-SSHConnection -->>- Api: 
-Api ->> Frontend: ws://.../final {state: WIN, allLogs: "All logs"}
-Api -->>- App: 
+SSHConnection -->>- API: 
+API ->> Frontend: ws://.../final {state: WIN, allLogs: "All logs"}
+API -->>- App: 
 App -->>- Frontend: 
 ```
 
@@ -106,13 +106,13 @@ App -->>- Frontend:
 ```mermaid
 classDiagram
 
-App --> Api
+App --> API
 App --> IAMService
-Api ..> Game
-Api --> GameFactory
-Api ..> SocketService
-Api ..> SSHConnection
-Api --> BatchScriptBuilder
+API ..> Game
+API --> GameFactory
+API ..> SocketService
+API ..> SSHConnection
+API --> BatchScriptBuilder
 Game --> Player
 Game --> Judge
 Game --> Move
@@ -188,7 +188,7 @@ class Move {
     evaluation: int
 }
 
-class Api {
+class API {
     start(socket_service: SocketService, github_url: str, elo: int, active_game: str,) dict
 }
 
