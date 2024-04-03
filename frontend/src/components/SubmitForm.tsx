@@ -97,11 +97,10 @@ function SubmitForm(): JSX.Element {
                     {" "}
                     Submit
                 </button>
-
             </form>
             <button onClick={onResetGame}> Reset</button>
 
-            <Notification/>
+            <Notification />
         </div>
     );
 }

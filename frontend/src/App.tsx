@@ -8,7 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useAppSelector } from "./hook";
 import Notification from "./components/Notification";
 
-
 function App() {
     const game = useAppSelector((state) => state.game.config.game);
 
