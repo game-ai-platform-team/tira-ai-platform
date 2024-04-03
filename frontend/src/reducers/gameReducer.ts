@@ -8,7 +8,7 @@ const initialState: {
     config: GameConfig;
 } = {
     isGameRunning: false,
-    state: GameState.INVALID,
+    state: GameState.CONTINUE,
     config: { elo: -1, githubUrl: "example.repo", game: "chess" },
 };
 
