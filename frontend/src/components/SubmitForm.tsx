@@ -42,8 +42,9 @@ function SubmitForm(): JSX.Element {
             dispatch(newGame(gameConfig));
             startGame(gameConfig);
             dispatch(setToast("Game submitted successfully!"));
+        } else {
+            dispatch(setToast("Failed"));
         }
-        else {dispatch(setToast("Failed"))}
     };
 
     const onResetGame = (e: React.SyntheticEvent) => {
