@@ -4,16 +4,19 @@ import { setToast } from "../reducers/toastReducer";
 
 const Notification = () => {
     const notification = useAppSelector((state) => state.notification);
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     return (
-        <Toast onClose={() => dispatch(setToast(""))} show={notification !== ""} delay={5000} autohide>
-            <Toast.Header>
-                Notification!!!!!
-            </Toast.Header>
+        <Toast
+            onClose={() => dispatch(setToast(""))}
+            show={notification !== ""}
+            delay={5000}
+            autohide
+        >
+            <Toast.Header>Notification!!!!!</Toast.Header>
             <Toast.Body>{notification}</Toast.Body>
         </Toast>
     );
-}
+};
 
 export default Notification;

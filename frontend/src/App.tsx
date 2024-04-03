@@ -15,7 +15,7 @@ function App() {
         <div className="app">
             <header>
                 <NavigationBar />
-                <Notification/>
+                <Notification />
             </header>
             <main>
                 <GameView>
