@@ -106,12 +106,13 @@ App -->> Frontend: ws://.../final {state: WIN, allLogs: "All logs"}
 classDiagram
 
 App --> API
-App --> IAMService
+
 API ..> Game
 API --> GameFactory
 API ..> SocketService
 API ..> SSHConnection
 API --> BatchScriptBuilder
+
 Game --> Player
 Game --> Judge
 Game --> Move
@@ -125,23 +126,19 @@ Player --> PlayerLogger
 
 SocketService ..> Move
 
+class API {
+    start(socket_service: SocketService, repository_url: str, difficulty: int, game: str)
+}
+
 class GameFactory {
-    get_game(socket_service: SocketService, game: str, repo: ClonedRepository, elo: int) Game
+    +get_game(game: str, repository: Repo, difficulty: int) Game
 }
 
-class Game {
-    -players: list[Player]
-    -judge: Judge
-    -socket_service: SocketService
-
-    play(turns: int, delay: float, debug: bool) dict
+class BatchScriptBuilder {
+    +create_script(repository_url: str, game: str) Path
 }
 
-class SocketService {
-    +send(move: Move)
-}
-
-namespace HPC {
+namespace Network {
     class SSHConnection {
         <<AbstractContextManager>>
     +execute(command: str)
@@ -149,57 +146,52 @@ namespace HPC {
     +read_file(file: Path) list[str]
     }
 
-    class BatchScriptBuilder {
-        +create_script(repository_url: str, game: str) Path
+    class SocketService {
+        +send(move: Move)
     }
 }
 
+namespace duo-game-lib {
+    class Game {
+        -players: list[Player]
+        -judge: Judge
 
-class Judge {
-    validate(move: str) bool
-    add_move(move: str)
-    get_all_moves() list[str]
-    get_debug_info() str
-    analyze() float
-}
+        +play(turns: int, delay: float, debug: bool) dict
+    }
 
-class Player {
-    +play(move: str) str
-}
+    class Judge {
+        +validate(move: str) bool
+        +add_move(move: str)
+        +get_all_moves() list[str]
+        +get_debug_info() str
+        +analyze() float
+    }
 
-class GameState {
-    CONTINUE
-    WIN
-    DRAW
-    INVALID
-    ILLEGAL
-    MAX_TURNS
-}
+    class Player {
+        +play(move: str) str
+    }
 
-class PlayerLogger {
-    logs: str[]
-}
+    class GameState {
+        <<Enum>>
 
-class Move {
-    move: str,
-    state: GameState,
-    time: int,
-    evaluation: int
-}
+        CONTINUE
+        WIN
+        DRAW
+        INVALID
+        ILLEGAL
+        MAX_TURNS
+    }
 
-class API {
-    start(socket_service: SocketService, github_url: str, elo: int, active_game: str,) dict
-}
+    class PlayerLogger {
+        +logs: str[]
+    }
 
-class App {
-    route1()
-    route2()
-}
-
-class IAMService {
-    authorize() bool
-    get_role() str
-    check_access(role: str, action: str)
+    class Move {
+        +move: str,
+        +state: GameState,
+        +time: int,
+        +evaluation: int
+    }
 }
 ```
 
