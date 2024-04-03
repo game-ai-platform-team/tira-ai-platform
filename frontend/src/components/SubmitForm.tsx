@@ -56,10 +56,14 @@ function SubmitForm(): JSX.Element {
         }
     };
 
-    gameState === GameState.WIN && dispatch(setToast("Game ended successfully"));
-    gameState === GameState.INVALID && dispatch(setToast("Game ended, an invalid move was made"));
-    gameState === GameState.ILLEGAL && dispatch(setToast("Game ended, an illegal move was made"));
-    gameState === GameState.TIMEOUT && dispatch(setToast("TIMEOUT!!! Your ai is too slow"));
+    gameState === GameState.WIN &&
+        dispatch(setToast("Game ended successfully"));
+    gameState === GameState.INVALID &&
+        dispatch(setToast("Game ended, an invalid move was made"));
+    gameState === GameState.ILLEGAL &&
+        dispatch(setToast("Game ended, an illegal move was made"));
+    gameState === GameState.TIMEOUT &&
+        dispatch(setToast("TIMEOUT!!! Your ai is too slow"));
 
     return (
         <div id="drag-and-drop-container">
