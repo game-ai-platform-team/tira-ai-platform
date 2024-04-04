@@ -72,7 +72,7 @@ SSHConnection ->>+ HPC: Connect over SSH
 HPC -->>- SSHConnection: 
 
 SSHConnection -->> API: 
-API ->>+ BatchScriptBuilder: create_script(game, repo_url, difficulty)
+API ->>+ BatchScriptBuilder: create_script(game, repo_url, difficulty, id)
 BatchScriptBuilder -->>- API: Path(script_path)
 
 API ->>+ SSHConnection: send_file(Path(script_path))
@@ -135,7 +135,7 @@ class GameFactory {
 }
 
 class BatchScriptBuilder {
-    +create_script(repository_url: str, game: str) Path
+    +create_script(game: str, repository_url: str, difficulty: int, id: str) Path
 }
 
 namespace Network {
