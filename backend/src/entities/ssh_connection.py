@@ -54,8 +54,23 @@ class SSHConnection(AbstractContextManager):
 
         return stdout.readlines()
 
-    def read_file(self, file: Path) -> list[str]:
-        return self.execute(f"cat {file}")
+    def read_file(self, path: Path) -> list[str]:
+        """
+        Read remote file.
+
+        Args:
+            path (Path): Path to remote file.
+
+        Returns:
+            list[str]: Lines of the file.
+        """
+
+        data = []
+
+        with self.__client.open_sftp().file(str(path)) as content:
+            data = content.readlines()
+
+        return data
 
     def send_file(self, file: Path) -> Path:
         """
