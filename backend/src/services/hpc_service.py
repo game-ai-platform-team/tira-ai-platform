@@ -11,6 +11,15 @@ class HPCService:
         self.__current_output_line = 0
 
     def submit(self, game: str, repository_url: str, difficulty: int) -> None:
+        """
+        Submits new game image to HPC.
+
+        Args:
+            game (str): Game type.
+            repository_url (str): URL of AI repository.
+            difficulty (int): Difficulty for reference AI.
+        """
+
         batch = BatchBuilder.create_script(game, repository_url, difficulty, self.__id)
 
         remote_path = self.__connection.send_file(batch)
