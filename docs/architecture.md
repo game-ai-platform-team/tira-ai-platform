@@ -59,24 +59,23 @@ box Back-end
     participant App
     participant API
     participant HPCService
-    participant BatchBuilder
     participant SSHConnection
+    participant BatchBuilder
 end
 
 Frontend ->>+ App: ws://.../gameconnection startgame
 
 App ->>+ API: start(game, repo, difficulty)
-API ->>+ SSHConnection: connect()
 
-SSHConnection ->>+ HPC: Connect over SSH
-HPC -->>- SSHConnection: 
-SSHConnection -->>- API: connection
-
-API ->>+ HPCService: HPCService(connection)
+API ->>+ HPCService: HPCService()
+    HPCService ->>+ SSHConnection: connect()
+    SSHConnection ->>+ HPC: Connect over SSH
+    HPC -->>- SSHConnection: 
+    SSHConnection -->>- HPCService: connection
 HPCService -->>- API: service
 
 API ->>+ HPCService: submit(game, repo, difficulty)
-    HPCService ->>+ BatchBuilder: create_script(game, repo_url, difficulty, id)
+    HPCService ->>+ BatchBuilder: create_script(game, repo, difficulty, id)
     BatchBuilder -->>- HPCService: script_path
 
     HPCService ->>+ SSHConnection: send_file(script_path)
@@ -108,10 +107,12 @@ end
 
 deactivate HPC
 
-API ->>+ SSHConnection: close()
+API ->>+ HPCService: close()
+    HPCService ->>+ SSHConnection: close()
     SSHConnection ->>+ HPC: Close connection
     HPC -->>- SSHConnection: 
-SSHConnection -->>- API: 
+    SSHConnection -->>- HPCService: 
+HPCService -->>- API: 
 
 API -->>- App: 
 App -->>- Frontend: 
@@ -153,6 +154,7 @@ class GameFactory {
 }
 
 class HPCService {
+    <<AbstractContextManager>>
     +submit(game: str, repository_url: str, difficulty: int)
     +read_output() list[str]
 }
