@@ -14,7 +14,18 @@ BATCH_CONFIG = {
 
 class BatchBuilder:
     @staticmethod
-    def create_script(game: str, repository_url: str,  id_: str) -> Path:
+    def create_script(
+        game: str, repository_url: str, difficulty: int, id_: str
+    ) -> Path:
+        environment_variables = {
+            "GAME": game,
+            "REPOSITORY_URL": repository_url,
+            "DIFFICULTY": difficulty,
+        }
+        environment_variable_pairs = ",".join(
+            f"{key}={value}" for key, value in environment_variables.items()
+        )
+
         script = "\n".join(
             [
                 "#!/bin/bash",
@@ -24,7 +35,7 @@ class BatchBuilder:
                 f"#SBATCH -t {BATCH_CONFIG['time']}",
                 f"#SBATCH -t {BATCH_CONFIG['cpu']}",
                 f"#SBATCH -o result-{id_}.txt",
-                f"#SBATCH --export=REPOSITORY_URL={repository_url},GAME={game}",
+                f"#SBATCH --export={environment_variable_pairs}",
                 "echo 'Hello world!'",
             ]
         )

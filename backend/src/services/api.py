@@ -21,7 +21,7 @@ class API:
         id = str(uuid1())
 
         with SSHConnection() as connection:
-            script = BatchBuilder.create_script(game,repository_url,  id)
+            script = BatchBuilder.create_script(game, repository_url, difficulty, id)
 
             remote_path = connection.send_file(script)
 
