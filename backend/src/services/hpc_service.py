@@ -1,14 +1,30 @@
+from contextlib import AbstractContextManager
 from pathlib import Path
+from types import TracebackType
 from uuid import uuid1
 from entities.ssh_connection import SSHConnection
 from services.batch_builder import BatchBuilder
 
 
-class HPCService:
-    def __init__(self, connection: SSHConnection, id_: str | None = None) -> None:
-        self.__connection: SSHConnection = connection
+class HPCService(AbstractContextManager):
+    def __init__(
+        self, connection: SSHConnection | None = None, id_: str | None = None
+    ) -> None:
+        self.__connection: SSHConnection = connection or SSHConnection()
         self.__id: str = id_ or str(uuid1())
         self.__current_output_line = 0
+
+    def __enter__(self) -> "HPCService":
+        self.__connection.__enter__()
+        return self
+
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> bool | None:
+        self.__connection.__exit__(exc_type, exc_value, traceback)
 
     def submit(self, game: str, repository_url: str, difficulty: int) -> None:
         """
