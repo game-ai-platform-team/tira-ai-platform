@@ -50,7 +50,7 @@ class SSHConnection(AbstractContextManager):
             list[str]: stdout as list of strings.
         """
 
-        stdin, stdout, stderr = self.__client.exec_command(command)
+        stdout = self.__client.exec_command(command)[1]
 
         return stdout.readlines()
 
