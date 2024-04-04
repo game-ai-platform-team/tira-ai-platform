@@ -1,7 +1,9 @@
 from contextlib import AbstractContextManager
+from functools import cached_property
 from pathlib import Path
 from types import TracebackType
 from uuid import uuid1
+
 from entities.ssh_connection import SSHConnection
 from services.batch_builder import BatchBuilder
 
@@ -25,6 +27,10 @@ class HPCService(AbstractContextManager):
         traceback: TracebackType | None,
     ) -> bool | None:
         self.__connection.__exit__(exc_type, exc_value, traceback)
+
+    @cached_property
+    def output_path(self) -> Path:
+        return Path(f"result-{self.__id}.txt")
 
     def submit(self, game: str, repository_url: str, difficulty: int) -> None:
         """
@@ -50,9 +56,7 @@ class HPCService(AbstractContextManager):
             list[str]: New lines of output file.
         """
 
-        output_path = Path(f"result-{self.__id}.txt")
-
-        data = self.__connection.read_file(output_path)
+        data = self.__connection.read_file(self.output_path)
         new_lines = data[self.__current_output_line :]
 
         self.__current_output_line = len(data)
