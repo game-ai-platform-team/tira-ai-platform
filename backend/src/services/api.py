@@ -3,7 +3,7 @@ from time import sleep
 from uuid import uuid1
 
 from entities.ssh_connection import SSHConnection
-from services.batch_script_builder import BatchScriptBuilder
+from services.batch_builder import BatchBuilder
 from services.socket_service import SocketService
 
 
@@ -21,7 +21,7 @@ class API:
         id = str(uuid1())
 
         with SSHConnection() as connection:
-            script = BatchScriptBuilder.create_script(repository_url, game, id)
+            script = BatchBuilder.create_script(repository_url, game, id)
 
             remote_path = connection.send_file(script)
 
