@@ -22,6 +22,6 @@ All [repositories](https://github.com/orgs/game-ai-platform-team/repositories)
 
 ## Documentation
 
-- [Architecture](https://github.com/game-ai-platform-team/tira-ai-platform/blob/main/docs/architecture.md)
-- [Definition of Done](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/definitionofdone.md)
-- [Conventions](https://github.com/game-ai-platform-team/tira-ai-platform/blob/main/docs/conventions.md)
+- [Architecture](docs/architecture.md)
+- [Definition of Done](docs/definitionofdone.md)
+- [Conventions](docs/conventions.md)
