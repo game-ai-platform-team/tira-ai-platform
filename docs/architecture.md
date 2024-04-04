@@ -58,46 +58,63 @@ participant Frontend
 box Back-end
     participant App
     participant API
+    participant HPCService
     participant BatchBuilder
     participant SSHConnection
 end
 
-Frontend ->> App: ws://.../gameconnection startgame
+Frontend ->>+ App: ws://.../gameconnection startgame
 
-App ->>+ API: start(game, repo_url, difficulty)
+App ->>+ API: start(game, repo, difficulty)
 API ->>+ SSHConnection: connect()
-SSHConnection -->>- API: 
 
 SSHConnection ->>+ HPC: Connect over SSH
 HPC -->>- SSHConnection: 
+SSHConnection -->>- API: connection
 
-SSHConnection -->> API: 
-API ->>+ BatchBuilder: create_script(game, repo_url, difficulty, id)
-BatchBuilder -->>- API: Path(script_path)
+API ->>+ HPCService: HPCService(connection)
+HPCService -->>- API: service
 
-API ->>+ SSHConnection: send_file(Path(script_path))
-SSHConnection -)+ HPC: sbatch script
-HPC --)- SSHConnection: 
-SSHConnection -->>- API: 
+API ->>+ HPCService: submit(game, repo, difficulty)
+    HPCService ->>+ BatchBuilder: create_script(game, repo_url, difficulty, id)
+    BatchBuilder -->>- HPCService: script_path
+
+    HPCService ->>+ SSHConnection: send_file(script_path)
+        SSHConnection ->>+ HPC: script file
+        HPC -->>- SSHConnection: 
+    SSHConnection -->>- HPCService: remote_path
+
+    HPCService ->>+ SSHConnection: execute("sbatch script")
+        SSHConnection -)+ HPC: sbatch script
+        
+    SSHConnection -->>- HPCService: 
+HPCService -->>- API: 
 
 loop Every second
-    API ->>+ SSHConnection: read_file(output_file)
-    SSHConnection ->>+ HPC: cat output_file
-    HPC -->>- SSHConnection: file content
-    SSHConnection -->>- API: file content
+    API ->>+ HPCService: read_output()
+        HPCService ->>+ SSHConnection: read_file(output_file)
+        SSHConnection ->>+ HPC: Read output_file
+        HPC -->>- SSHConnection: file content
+        SSHConnection -->>- HPCService: file content
+
+        HPCService -->> HPCService: Remove duplicate lines
+
+    HPCService -->>- API: new lines in file
 
     loop while new lines
-        API ->> API: Read new line
         API ->> Frontend: ws://.../newmove {move: "e1e6", state: "CONTINUE", time: 100, evaluation: 1, logs: "Logs" }
     end
 end
 
+deactivate HPC
+
 API ->>+ SSHConnection: close()
-SSHConnection ->>+ HPC: Close connection
-HPC -->>- SSHConnection: 
+    SSHConnection ->>+ HPC: Close connection
+    HPC -->>- SSHConnection: 
 SSHConnection -->>- API: 
 
-App -->> Frontend: ws://.../final {state: WIN, allLogs: "All logs"}
+API -->>- App: 
+App -->>- Frontend: 
 ```
 
 ## Backend
@@ -107,20 +124,21 @@ classDiagram
 
 App --> API
 
-API ..> Game
-API --> GameFactory
 API ..> SocketService
 API ..> SSHConnection
-API --> BatchBuilder
+API ..> HPCService
+HPCService --> SSHConnection
+HPCService --> BatchBuilder
 
+Image --> GameFactory
+Image ..> Game
+
+GameFactory ..> Judge
+GameFactory ..> Player
+GameFactory --> Game
 Game --> Player
 Game --> Judge
 Game --> Move
-Game --> SocketService
-GameFactory --> Game
-GameFactory ..> Judge
-GameFactory ..> Player
-GameFactory ..> SocketService
 Judge --> GameState
 Player --> PlayerLogger
 
@@ -132,6 +150,13 @@ class API {
 
 class GameFactory {
     +get_game(game: str, repository: Repo, difficulty: int) Game
+}
+
+class HPCService {
+    -connection: SSHConnection
+
+    +submit(game: str, repository_url: str, difficulty: int)
+    +read_output() list[str]
 }
 
 class BatchBuilder {
