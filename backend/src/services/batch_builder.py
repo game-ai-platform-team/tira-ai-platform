@@ -2,7 +2,6 @@ from pathlib import Path
 
 from config import TEMP_DIR
 
-
 BATCH_CONFIG = {
     "cluster": "ukko",
     "memory": "4G",
