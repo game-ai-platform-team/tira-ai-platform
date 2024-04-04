@@ -1,6 +1,5 @@
 from time import sleep
 
-from entities.ssh_connection import SSHConnection
 from services.hpc_service import HPCService
 from services.socket_service import SocketService
 
