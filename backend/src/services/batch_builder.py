@@ -12,7 +12,7 @@ BATCH_CONFIG = {
 }
 
 
-class BatchScriptBuilder:
+class BatchBuilder:
     @staticmethod
     def create_script(repository_url: str, game: str, id: str) -> Path:
         script = "\n".join(

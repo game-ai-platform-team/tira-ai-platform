@@ -58,7 +58,7 @@ participant Frontend
 box Back-end
     participant App
     participant API
-    participant BatchScriptBuilder
+    participant BatchBuilder
     participant SSHConnection
 end
 
@@ -72,8 +72,8 @@ SSHConnection ->>+ HPC: Connect over SSH
 HPC -->>- SSHConnection: 
 
 SSHConnection -->> API: 
-API ->>+ BatchScriptBuilder: create_script(game, repo_url, difficulty, id)
-BatchScriptBuilder -->>- API: Path(script_path)
+API ->>+ BatchBuilder: create_script(game, repo_url, difficulty, id)
+BatchBuilder -->>- API: Path(script_path)
 
 API ->>+ SSHConnection: send_file(Path(script_path))
 SSHConnection -)+ HPC: sbatch script
@@ -111,7 +111,7 @@ API ..> Game
 API --> GameFactory
 API ..> SocketService
 API ..> SSHConnection
-API --> BatchScriptBuilder
+API --> BatchBuilder
 
 Game --> Player
 Game --> Judge
@@ -134,7 +134,7 @@ class GameFactory {
     +get_game(game: str, repository: Repo, difficulty: int) Game
 }
 
-class BatchScriptBuilder {
+class BatchBuilder {
     +create_script(game: str, repository_url: str, difficulty: int, id: str) Path
 }
 
