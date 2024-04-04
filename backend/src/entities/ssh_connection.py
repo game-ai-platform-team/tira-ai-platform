@@ -56,3 +56,21 @@ class SSHConnection(AbstractContextManager):
 
     def read_file(self, file: Path) -> list[str]:
         return self.execute(f"cat {file}")
+
+    def send_file(self, file: Path) -> Path:
+        """
+        Sends file to remote.
+
+        Args:
+            file (Path): Path to local file.
+
+        Returns:
+            Path: Remote path of sent file.
+        """
+
+        remote_path = Path(file.name)
+
+        with self.__client.open_sftp() as client:
+            client.put(file, str(remote_path))
+
+        return remote_path
