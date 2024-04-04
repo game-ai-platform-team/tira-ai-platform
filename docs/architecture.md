@@ -153,8 +153,6 @@ class GameFactory {
 }
 
 class HPCService {
-    -connection: SSHConnection
-
     +submit(game: str, repository_url: str, difficulty: int)
     +read_output() list[str]
 }
