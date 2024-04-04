@@ -16,9 +16,7 @@ class API:
         if game not in ["chess", "connect_four"]:
             return
 
-        with SSHConnection() as connection:
-            hpc = HPCService(connection)
-
+        with HPCService() as hpc:
             hpc.submit(game, repository_url, difficulty)
 
             sleep(1)
