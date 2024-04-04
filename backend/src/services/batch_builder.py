@@ -14,7 +14,7 @@ BATCH_CONFIG = {
 
 class BatchBuilder:
     @staticmethod
-    def create_script(repository_url: str, game: str, id_: str) -> Path:
+    def create_script(game: str, repository_url: str,  id_: str) -> Path:
         script = "\n".join(
             [
                 "#!/bin/bash",
