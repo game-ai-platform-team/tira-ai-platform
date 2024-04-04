@@ -1,62 +1,35 @@
-import random
-import shutil
 from pathlib import Path
+from time import sleep
+from uuid import uuid1
 
-from git import GitCommandError, Repo
-
-from config import TEMP_DIR
-from entities.player import Player
-from services.game_factory import game_factory
+from entities.ssh_connection import SSHConnection
+from services.batch_script_builder import BatchScriptBuilder
 from services.socket_service import SocketService
 
 
 class API:
-    def __init__(self):
-        self.temp_dir = TEMP_DIR
-
-    class GitCloneResult:
-        def __init__(self):
-            self.success: bool = False
-            self.error: str = "Unknown error"
-            self.repository: None | Repo = None
-
-        def remove(self):
-            shutil.rmtree(self.repository.working_dir)
-
     def start(
-        self, socket_service: SocketService, github_url: str, elo: int, active_game: str
+        self,
+        socket_service: SocketService,
+        repository_url: str,
+        difficulty: int,
+        game: str,
     ):
-        if active_game not in ["chess", "connect_four"]:
+        if game not in ["chess", "connect_four"]:
             return
 
-        clone = self.git_clone(github_url)
+        id = str(uuid1())
 
-        if not clone.success:
-            socket_service.send_error(clone.error)
-            return
+        with SSHConnection() as connection:
+            script = BatchScriptBuilder.create_script(repository_url, game, id)
 
-        repo = clone.repository
+            remote_path = connection.send_file(script)
 
-        player = Player(repo)
+            connection.execute(f"sbatch {str(remote_path)}")
 
-        with player:
-            game = game_factory.get_game(socket_service, active_game, player, elo)
-            game.play()
+            sleep(1)
 
-        clone.remove()
-
-    def git_clone(self, github_url):
-        self.temp_dir.mkdir(parents=True, exist_ok=True)
-        repo_dir_name = "repo" + str(random.randint(1000000, 9999999))
-        repo_dir = Path.joinpath(self.temp_dir, repo_dir_name)
-        result = self.GitCloneResult()
-        try:
-            repo = Repo.clone_from(github_url, repo_dir)
-            result.success = True
-            result.repository = repo
-        except GitCommandError as e:
-            result.error = f"Error cloning repository from {github_url}: {e}"
-        return result
+            print(connection.read_file(Path(f"result-{id}.txt")))
 
 
 api = API()
