@@ -28,7 +28,7 @@ class RepositoryPlayer(Player):
         self.__turn_logger = PlayerLogger()
         self.__all_logger = PlayerLogger()
 
-    def __enter__(self):
+    def __enter__(self) -> "RepositoryPlayer":
         print(self.runcommand)
         runcommand_array = self.runcommand.strip().split(" ")
         self.__process = subprocess.Popen(
@@ -39,9 +39,10 @@ class RepositoryPlayer(Player):
             cwd=self.repo.working_dir,
         )
 
+        return self
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.terminate_self()
-
 
     def get_and_reset_current_logs(self) -> str:
         return self.__turn_logger.get_and_clear_logs()
