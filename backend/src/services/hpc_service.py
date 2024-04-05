@@ -4,7 +4,7 @@ from pathlib import Path
 from types import TracebackType
 from uuid import uuid1
 
-from config import TEMP_DIR
+from config import HPC_GAME_IMAGE_PATH, TEMP_DIR
 from entities.ssh_connection import SSHConnection
 
 BATCH_CONFIG = {
@@ -95,8 +95,7 @@ class HPCService(AbstractContextManager):
                 f"#SBATCH -t {BATCH_CONFIG['time']}",
                 f"#SBATCH -t {BATCH_CONFIG['cpu']}",
                 f"#SBATCH -o result-{self.__id}.txt",
-                f"#SBATCH --export={environment_variable_pairs}",
-                "echo 'Hello world!'",
+                f"singularity run {HPC_GAME_IMAGE_PATH} --env {environment_variable_pairs}",
             ]
         )
 
