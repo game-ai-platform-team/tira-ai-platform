@@ -91,5 +91,8 @@ describe("Submit form", () => {
                 await screen.findAllByText("Game ended successfully"),
             ).not.toBe(null);
         });
+        test("no notification", async () => {
+            expect(screen.queryByText("Notification!!!")).toBe(null);
+        });
     });
 });
