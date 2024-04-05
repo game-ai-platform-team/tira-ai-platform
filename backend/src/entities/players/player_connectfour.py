@@ -1,8 +1,12 @@
 from connect_four_lib.connect_four_engine import ConnectFourEngine
 
+from entities.players.player import Player
 
-class PlayerConnectFour:
+
+class PlayerConnectFour(Player):
     def __init__(self, elo) -> None:
+        super().__init__()
+
         self.engine = ConnectFourEngine()
         self.elo = elo
 

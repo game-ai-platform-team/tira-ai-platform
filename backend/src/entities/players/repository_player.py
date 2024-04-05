@@ -6,10 +6,13 @@ from git import Repo
 
 from config import DEFAULT_CHESS_TIMEOUT
 from entities.player_logger import PlayerLogger
+from entities.players.player import Player
 
 
-class RepositoryPlayer:
+class RepositoryPlayer(Player):
     def __init__(self, repo: Repo, timeout: float = DEFAULT_CHESS_TIMEOUT) -> None:
+        super().__init__()
+
         self.repo = repo
         self.__timeout = timeout
         self.__process = None

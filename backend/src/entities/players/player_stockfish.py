@@ -1,8 +1,11 @@
+from entities.players.player import Player
 from stockfish_engine import get_stockfish_engine
 
 
-class PlayerStockfish:
+class PlayerStockfish(Player):
     def __init__(self, elo) -> None:
+        super().__init__()
+
         self.engine = get_stockfish_engine()
         self.boardstate = []
         self.engine.set_elo_rating(elo)
