@@ -141,7 +141,6 @@ Game --> Player
 Game --> Judge
 Game --> Move
 Judge --> GameState
-Player --> PlayerLogger
 
 SocketService ..> Move
 
@@ -183,10 +182,12 @@ namespace Network {
 namespace duo-game-lib {
     class Game {
         <<AbstractContextManager>>
+
         -players: list[Player]
         -judge: Judge
+        -logger: Callable
 
-        +play(turns: int, delay: float, debug: bool) dict
+        +play(turns: int, debug: bool)
     }
 
     class Judge {
@@ -199,8 +200,9 @@ namespace duo-game-lib {
     }
 
     class Player {
-        <<AbstractContextManager>>
+        <<AbstractContextManager, ABC>>
         +play(move: str) str
+        +pop_logs() str
     }
 
     class GameState {
@@ -214,10 +216,6 @@ namespace duo-game-lib {
         MAX_TURNS
     }
 
-    class PlayerLogger {
-        +logs: str[]
-    }
-
     class Move {
         +move: str,
         +state: GameState,
@@ -226,6 +224,11 @@ namespace duo-game-lib {
     }
 }
 ```
+
+### Notes
+
+- `Player` represents AI, both local and repository-based.
+  It is responsible for providing unified interface across different engines.
 
 ## Frontend
 
