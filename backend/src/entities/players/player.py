@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from contextlib import AbstractContextManager
+from types import TracebackType
 
 
 class Player(AbstractContextManager, ABC):
@@ -9,6 +10,17 @@ class Player(AbstractContextManager, ABC):
 
     def __init__(self, logs: list[str] | None = None) -> None:
         self._logs: list[str] = logs or []
+
+    def __enter__(self) -> "Player":
+        return self
+
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> bool | None:
+        pass
 
     @abstractmethod
     def play(self, move: str) -> str:
