@@ -1,7 +1,6 @@
 from unittest import TestCase
-from unittest.mock import ANY, Mock, call
+from unittest.mock import Mock, call
 
-from entities.move import Move, MoveMetadata
 from game_state import GameState
 from services.game import Game
 
@@ -15,13 +14,6 @@ class TestGame(TestCase):
         self.game = Game(
             self.io_mock, self.player1_mock, self.player2_mock, self.judge_mock
         )
-
-    def test_send_state_calls_socket_service(self):
-        move = Move("e2e4", GameState.CONTINUE, MoveMetadata(3, 1, ""))
-
-        self.game._Game__send_state(move)
-
-        self.io_mock.send.assert_called_with(move)
 
     def test_play_continue_continues_game(self):
         self.player1_mock.play.side_effect = ["a", "b", "c"]
@@ -107,7 +99,7 @@ class TestGame(TestCase):
         self.player1_mock.play.assert_has_calls([call(1), call(2)])
         self.player2_mock.play.assert_has_calls([call("a"), call("b")])
 
-    def test_play_socket_service_called_with_correct_moves(self):
+    def test_play_logs_correct_moves(self):
         self.player1_mock.play.side_effect = ["a", "b", "c"]
         self.player2_mock.play.side_effect = [1, 2]
         self.judge_mock.validate.return_value = GameState.CONTINUE
@@ -115,15 +107,15 @@ class TestGame(TestCase):
 
         self.game.play(5)
 
-        calls = self.io_mock.send.call_args_list
-        move_args = list(map(lambda call: call.args[0].move, calls))
+        calls = self.io_mock.call_args_list
+        move_args = list(map(lambda call: call.args[0].move, calls[:-1]))
 
         self.assertEqual(
             move_args,
             ["a", 1, "b", 2, "c"],
         )
 
-    def test_play_socket_service_called_with_correct_states(self):
+    def test_play_logs_correct_states(self):
         states = [GameState.CONTINUE] * 4
         states.append(GameState.ILLEGAL)
 
@@ -134,8 +126,8 @@ class TestGame(TestCase):
 
         self.game.play(5)
 
-        calls = self.io_mock.send.call_args_list
-        state_args = list(map(lambda call: call.args[0].state, calls))
+        calls = self.io_mock.call_args_list
+        state_args = list(map(lambda call: call.args[0].state, calls[:-1]))
 
         self.assertEqual(state_args, states)
 
@@ -147,6 +139,4 @@ class TestGame(TestCase):
 
         self.game.play(2)
 
-        self.io_mock.send.assert_called_with(
-            Move(ANY, GameState.MAX_TURNS, MoveMetadata(ANY, ANY, ANY))
-        )
+        self.io_mock.assert_called_with(f"END: {GameState.MAX_TURNS}")

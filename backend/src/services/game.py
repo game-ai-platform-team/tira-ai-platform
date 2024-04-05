@@ -1,21 +1,22 @@
+from collections.abc import Callable
 import time
+from typing import Any
 
 from entities.judge import Judge
 from entities.move import Move, MoveMetadata
 from entities.player import Player
 from game_state import GameState
-from services.socket_service import SocketService
 
 
 class Game:
     def __init__(
         self,
-        socket_service: SocketService,
+        logger: Callable[[str], None],
         player1: Player,
         player2: Player,
         judge: Judge,
     ) -> None:
-        self.__socket_service: SocketService = socket_service
+        self.__logger: Callable[[Any], None] = logger
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
 
@@ -39,7 +40,7 @@ class Game:
             try:
                 move, elapsed_time = self.__play_one_move(player, previous_move)
             except TimeoutError:
-                self.__send_state(Move("", GameState.TIMEOUT, MoveMetadata(0, 0, "")))
+                self.__logger(Move("", GameState.TIMEOUT, MoveMetadata(0, 0, "")))
                 break
 
             state = self.__update_state(self.__judge.validate(move))
@@ -57,8 +58,7 @@ class Game:
             move_object = Move(
                 move, state, MoveMetadata(elapsed_time, evaluation, logs)
             )
-
-            self.__send_state(move_object)
+            self.__logger(move_object)
 
             previous_move = move
             if debug:
@@ -66,7 +66,7 @@ class Game:
             if state != GameState.CONTINUE:
                 break
 
-        self.__send_game_end(state)
+        self.__logger(f"END: {state}")
         self.__cleanup()
 
     def __cleanup(self) -> None:
@@ -85,18 +85,6 @@ class Game:
         elapsed_time = int((time.perf_counter() - start_time) * 1000)
 
         return (move, elapsed_time)
-
-    def __send_state(self, move: Move) -> None:
-        self.__socket_service.send(move)
-
-    def __send_game_end(self, state) -> None:
-        if state != GameState.CONTINUE:
-            self.__socket_service.send_final_state(
-                {
-                    "state": str(state),
-                    "allLogs": self.__players[0].get_and_reset_all_logs(),
-                }
-            )
 
     def __print_debug_info(self, move: Move) -> None:
         info = "\n".join(
