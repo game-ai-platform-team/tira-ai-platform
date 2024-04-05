@@ -47,35 +47,49 @@ describe("Submit form", () => {
         beforeEach(() => {
             store.dispatch(resetGame());
         });
-    
+
         test("invalid notification", async () => {
             store.dispatch(updateState(GameState.INVALID));
-    
-            expect(await screen.findAllByText("Game ended, an invalid move was made")).not.toBe(null);
+
+            expect(
+                await screen.findAllByText(
+                    "Game ended, an invalid move was made",
+                ),
+            ).not.toBe(null);
         });
 
         test("illegal notification", async () => {
             store.dispatch(updateState(GameState.ILLEGAL));
-    
-            expect(await screen.findAllByText("Game ended, an illegal move was made")).not.toBe(null);
+
+            expect(
+                await screen.findAllByText(
+                    "Game ended, an illegal move was made",
+                ),
+            ).not.toBe(null);
         });
 
         test("win notification", async () => {
             store.dispatch(updateState(GameState.WIN));
-    
-            expect(await screen.findAllByText("Game ended successfully")).not.toBe(null);
+
+            expect(
+                await screen.findAllByText("Game ended successfully"),
+            ).not.toBe(null);
         });
 
         test("timeout notification", async () => {
             store.dispatch(updateState(GameState.TIMEOUT));
-    
-            expect(await screen.findAllByText("TIMEOUT!!! Your ai is too slow")).not.toBe(null);
+
+            expect(
+                await screen.findAllByText("TIMEOUT!!! Your ai is too slow"),
+            ).not.toBe(null);
         });
 
         test("draw notification", async () => {
             store.dispatch(updateState(GameState.DRAW));
-    
-            expect(await screen.findAllByText("Game ended successfully")).not.toBe(null);
+
+            expect(
+                await screen.findAllByText("Game ended successfully"),
+            ).not.toBe(null);
         });
     });
 });
