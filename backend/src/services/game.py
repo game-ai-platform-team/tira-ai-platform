@@ -1,5 +1,7 @@
 from collections.abc import Callable
+from contextlib import AbstractContextManager
 import time
+from types import TracebackType
 from typing import Any
 
 from entities.judge import Judge
@@ -8,7 +10,7 @@ from entities.player import Player
 from game_state import GameState
 
 
-class Game:
+class Game(AbstractContextManager):
     def __init__(
         self,
         logger: Callable[[str], None],
@@ -19,6 +21,21 @@ class Game:
         self.__logger: Callable[[Any], None] = logger
         self.__players: list[Player] = [player1, player2]
         self.__judge: Judge = judge
+
+    def __enter__(self) -> Any:
+        for player in self.__players:
+            player.__enter__()
+
+        return self
+
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> bool | None:
+        for player in self.__players:
+            player.__exit__(exc_type, exc_value, traceback)
 
     def play(self, turns: int = 250, debug: bool = False):
         """
@@ -67,15 +84,6 @@ class Game:
                 break
 
         self.__logger(f"END: {state}")
-        self.__cleanup()
-
-    def __cleanup(self) -> None:
-        """
-        Terminates all subprocesses.
-        """
-
-        for player in self.__players:
-            player.terminate_self()
 
     def __play_one_move(self, player: Player, prev_move: str) -> tuple[str, int]:
         start_time = time.perf_counter()
