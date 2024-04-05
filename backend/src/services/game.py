@@ -49,25 +49,28 @@ class Game(AbstractContextManager):
             dict[str, Any]: The game result containing winner, moves, etc.
         """
         previous_move = ""
-        state = None
+        state = GameState.CONTINUE
         move = None
 
-        for i in range(turns):
+        i = 0
+
+        while state == GameState.CONTINUE:
+            if i == turns:
+                state = GameState.MAX_TURNS
+                break
+
             player = self.__players[i % 2]
             move, elapsed_time = self.__play_one_move(player, previous_move)
 
             if elapsed_time >= 1000:
                 state = GameState.TIMEOUT
-                break
+                continue
 
             state = self.__judge.validate(move)
 
             if state == GameState.CONTINUE:
                 self.__judge.add_move(move)
                 state = self.__judge.is_game_over()
-
-            if i == turns - 1 and state == GameState.CONTINUE:
-                state = GameState.MAX_TURNS
 
             move_object = Move(
                 move,
@@ -81,10 +84,11 @@ class Game(AbstractContextManager):
             self.__logger(move_object)
 
             previous_move = move
+
             if debug:
                 self.__print_debug_info(move_object)
-            if state != GameState.CONTINUE:
-                break
+
+            i += 1
 
         self.__logger(f"END: {state}")
 
