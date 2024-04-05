@@ -57,8 +57,8 @@ function SubmitForm(): JSX.Element {
     };
 
     useEffect(() => {
-        gameState === GameState.WIN || GameState.DRAW &&
-            dispatch(setToast("Game ended successfully"));
+        gameState === GameState.WIN ||
+            (GameState.DRAW && dispatch(setToast("Game ended successfully")));
         gameState === GameState.INVALID &&
             dispatch(setToast("Game ended, an invalid move was made"));
         gameState === GameState.ILLEGAL &&
