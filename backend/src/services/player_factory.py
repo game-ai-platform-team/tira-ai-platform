@@ -33,3 +33,5 @@ class PlayerFactory:
 
         return RepositoryPlayer(repository)
 
+
+player_factory = PlayerFactory()
