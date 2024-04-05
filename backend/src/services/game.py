@@ -54,10 +54,10 @@ class Game(AbstractContextManager):
 
         for i in range(turns):
             player = self.__players[i % 2]
-            try:
-                move, elapsed_time = self.__play_one_move(player, previous_move)
-            except TimeoutError:
-                self.__logger(Move("", GameState.TIMEOUT, MoveMetadata(0, 0, "")))
+            move, elapsed_time = self.__play_one_move(player, previous_move)
+
+            if elapsed_time >= 1000:
+                state = GameState.TIMEOUT
                 break
 
             state = self.__judge.validate(move)
