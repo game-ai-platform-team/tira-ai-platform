@@ -182,6 +182,7 @@ namespace Network {
 
 namespace duo-game-lib {
     class Game {
+        <<AbstractContextManager>>
         -players: list[Player]
         -judge: Judge
 
@@ -197,6 +198,7 @@ namespace duo-game-lib {
     }
 
     class Player {
+        <<AbstractContextManager>>
         +play(move: str) str
     }
 
