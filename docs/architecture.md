@@ -170,9 +170,9 @@ namespace Factories {
 namespace Network {
     class SSHConnection {
         <<AbstractContextManager>>
-    +execute(command: str)
-    +send_file(file: Path)
-    +read_file(file: Path) list[str]
+        +execute(command: str)
+        +send_file(file: Path)
+        +read_file(file: Path) list[str]
     }
 
     class SocketService {
