@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
-from entities.player_stockfish import PlayerStockfish
+from entities.players.player_stockfish import PlayerStockfish
 
 
 class TestPlayerStockfish(unittest.TestCase):
