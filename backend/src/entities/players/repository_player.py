@@ -28,6 +28,21 @@ class RepositoryPlayer(Player):
         self.__turn_logger = PlayerLogger()
         self.__all_logger = PlayerLogger()
 
+    def __enter__(self):
+        print(self.runcommand)
+        runcommand_array = self.runcommand.strip().split(" ")
+        self.__process = subprocess.Popen(
+            args=runcommand_array,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=self.repo.working_dir,
+        )
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.terminate_self()
+
+
     def get_and_reset_current_logs(self) -> str:
         return self.__turn_logger.get_and_clear_logs()
 
@@ -62,20 +77,6 @@ class RepositoryPlayer(Player):
             self.__turn_logger.log(output.strip() + "\n")
 
         return ""
-
-    def __enter__(self):
-        print(self.runcommand)
-        runcommand_array = self.runcommand.strip().split(" ")
-        self.__process = subprocess.Popen(
-            args=runcommand_array,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            cwd=self.repo.working_dir,
-        )
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.terminate_self()
 
     def terminate_self(self):
         if self.__process is not None:
