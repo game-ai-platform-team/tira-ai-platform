@@ -6,7 +6,7 @@ from game_state import GameState
 class MoveMetadata:
     def __init__(self, time: int, evaluation: int, logs: str):
         self.time: int = time
-        self.evaluation: int = evaluation
+        self.evaluation: float | int = evaluation
         self.logs: str = logs
 
 
@@ -15,7 +15,7 @@ class Move:
         self.move: str = move
         self.state: GameState = state
         self.time: int = metadata.time
-        self.evaluation: int = metadata.evaluation
+        self.evaluation: float | int = metadata.evaluation
         self.logs: str = metadata.logs
 
     def __str__(self) -> str:
@@ -38,7 +38,7 @@ class Move:
             "logs": self.logs,
         }
 
-    def __eq__(self, other: "Move") -> bool:
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, Move):
             return False
 
