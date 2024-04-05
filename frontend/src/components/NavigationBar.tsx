@@ -42,7 +42,13 @@ const NavigationBar = () => {
                 </DropdownMenu>
             </Dropdown>
 
-            <Button onClick={() => (window.open("https://github.com/game-ai-platform-team/tira-ai-platform/issues", "_blank"))}
+            <Button
+                onClick={() =>
+                    window.open(
+                        "https://github.com/game-ai-platform-team/tira-ai-platform/issues",
+                        "_blank",
+                    )
+                }
                 className="nav-button"
                 variant="flat"
                 size="lg"
