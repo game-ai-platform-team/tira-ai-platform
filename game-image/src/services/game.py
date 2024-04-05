@@ -2,18 +2,18 @@ import time
 
 from entities.judge import Judge
 from entities.move import Move, MoveMetadata
-from entities.player import Player
+from entities.repository_player import RepositoryPlayer
 from game_state import GameState
 
 
 class Game:
     def __init__(
         self,
-        player1: Player,
-        player2: Player,
+        player1: RepositoryPlayer,
+        player2: RepositoryPlayer,
         judge: Judge,
     ) -> None:
-        self.__players: list[Player] = [player1, player2]
+        self.__players: list[RepositoryPlayer] = [player1, player2]
         self.__judge: Judge = judge
 
     def play(self, turns: int = 250, debug: bool = False):
@@ -71,7 +71,7 @@ class Game:
         for player in self.__players:
             player.terminate_self()
 
-    def __play_one_move(self, player: Player, prev_move: str) -> tuple[str, int]:
+    def __play_one_move(self, player: RepositoryPlayer, prev_move: str) -> tuple[str, int]:
         start_time = time.perf_counter()
 
         move = player.play(prev_move)

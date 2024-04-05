@@ -8,7 +8,7 @@ from config import DEFAULT_CHESS_TIMEOUT
 from entities.player_logger import PlayerLogger
 
 
-class Player:
+class RepositoryPlayer:
     def __init__(self, repo: Repo, timeout: float = DEFAULT_CHESS_TIMEOUT) -> None:
         self.repo = repo
         self.__timeout = timeout
