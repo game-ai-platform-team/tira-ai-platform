@@ -65,15 +65,18 @@ class Game(AbstractContextManager):
             if state == GameState.CONTINUE:
                 self.__judge.add_move(move)
                 state = self.__judge.is_game_over()
-            evaluation = self.__judge.analyze()
 
             if i == turns - 1 and state == GameState.CONTINUE:
                 state = GameState.MAX_TURNS
 
-            logs = player.get_and_reset_current_logs()
-
             move_object = Move(
-                move, state, MoveMetadata(elapsed_time, evaluation, logs)
+                move,
+                state,
+                MoveMetadata(
+                    elapsed_time,
+                    self.__judge.analyze(),
+                    player.get_and_reset_current_logs(),
+                ),
             )
             self.__logger(move_object)
 
