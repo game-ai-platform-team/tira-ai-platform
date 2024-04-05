@@ -2,7 +2,7 @@ import time
 
 from entities.judge import Judge
 from entities.move import Move, MoveMetadata
-from entities.repository_player import RepositoryPlayer
+from entities.players.repository_player import RepositoryPlayer
 from game_state import GameState
 
 

@@ -1,8 +1,8 @@
 from collections.abc import Callable
 
-from entities.repository_player import RepositoryPlayer
-from entities.player_connectfour import PlayerConnectFour
-from entities.player_stockfish import PlayerStockfish
+from entities.players.repository_player import RepositoryPlayer
+from entities.players.player_connectfour import PlayerConnectFour
+from entities.players.player_stockfish import PlayerStockfish
 
 
 class PlayerFactory:

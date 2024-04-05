@@ -3,7 +3,7 @@ from typing import Callable
 from connect_four_lib.connect_four_judge import ConnectFourJudge
 
 from entities.chess_judge import ChessJudge
-from entities.repository_player import RepositoryPlayer
+from entities.players.repository_player import RepositoryPlayer
 from services.game import Game
 
 
