@@ -128,8 +128,11 @@ API ..> SSHConnection
 API ..> HPCService
 HPCService --> SSHConnection
 
-Image --> GameFactory
 Image ..> Game
+Image --> GameFactory
+GameFactory --> PlayerFactory
+
+PlayerFactory ..> Player
 
 GameFactory ..> Judge
 GameFactory ..> Player
@@ -146,15 +149,22 @@ class API {
     start(socket_service: SocketService, repository_url: str, difficulty: int, game: str)
 }
 
-class GameFactory {
-    +get_game(game: str, repository: Repo, difficulty: int) Game
-}
-
 class HPCService {
     <<AbstractContextManager>>
     +submit(game: str, repository_url: str, difficulty: int)
     +read_output() list[str]
     -create_script(game: str, repository_url: str, difficulty: int) Path
+}
+
+namespace Factories {
+    class GameFactory {
+        +get_game(game: str, repository: Repo, difficulty: int) Game
+    }
+
+    class PlayerFactory {
+        +get_local_player(game: str, difficulty: int)
+        +get_remote_player(game: str, difficulty: int, repository: Repo)
+    }
 }
 
 namespace Network {
