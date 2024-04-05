@@ -130,9 +130,9 @@ HPCService --> SSHConnection
 
 Image ..> Game
 Image --> GameFactory
-GameFactory --> PlayerFactory
+Image --> PlayerFactory
 
-PlayerFactory ..> Player
+PlayerFactory --> Player
 
 GameFactory ..> Judge
 GameFactory ..> Player
@@ -158,12 +158,12 @@ class HPCService {
 
 namespace Factories {
     class GameFactory {
-        +get_game(game: str, repository: Repo, difficulty: int) Game
+        +get_game(game: str, player1: Player, player2: Player) Game
     }
 
     class PlayerFactory {
-        +get_local_player(game: str, difficulty: int)
-        +get_remote_player(game: str, repository: Repo)
+        +get_local_player(game: str, difficulty: int) Player
+        +get_remote_player(game: str, repository_url: str) Player
     }
 }
 
