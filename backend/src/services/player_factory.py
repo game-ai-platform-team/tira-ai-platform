@@ -6,7 +6,9 @@ from entities.players.player_stockfish import PlayerStockfish
 
 
 class PlayerFactory:
-    def __init__(self, players: dict[str, Callable[[int], Player]]) -> None:
+    def __init__(
+        self, players: dict[str, Callable[[int], Player]] | None = None
+    ) -> None:
         self.__games: dict[str, Callable[[int], Player]] = players or {
             "chess": self.__get_chess_player,
             "connect_four": self.__get_connect_four_player,
