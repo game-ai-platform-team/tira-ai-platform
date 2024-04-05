@@ -10,6 +10,15 @@ class Judge(ABC):
     """
 
     @abstractmethod
+    def is_game_over(self) -> GameState:
+        """
+        Returns corresponding ending state if game over, otherwise CONTINUE.
+
+        Returns:
+            GameState: State of game.
+        """
+
+    @abstractmethod
     def validate(self, move: str) -> GameState:
         """
         Validates a move, does not change internal states.
@@ -49,4 +58,14 @@ class Judge(ABC):
 
         Returns:
             list[str]: List of moves.
+        """
+
+    @abstractmethod
+    def analyze(self) -> float | int:
+        """
+        Evaluation game situation.
+        Depends on game and may need additional arguments to evaluate situation.
+
+        Returns:
+            float | int: Evaluation of game.
         """
