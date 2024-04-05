@@ -21,6 +21,7 @@ def get_stockfish_engine():
 
 
 def set_board(board: chess.Board, board_position:str):
+    board.reset()
     print(f"Set board to {board_position}!")
     board.set_fen(board_position)
 
@@ -29,7 +30,7 @@ def make_move(board: chess.Board):
     print(f"I found {len(legal_moves)} legal moves: {', '.join(legal_moves)}")
 
     engine = get_stockfish_engine()
-    engine.set_position([i.uci() for i in board.move_stack])
+    engine.set_fen_position(board.fen())
     choice = engine.get_best_move()
 
     board.push_uci(choice)
