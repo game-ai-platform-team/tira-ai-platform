@@ -1,3 +1,4 @@
+from re import match
 from time import sleep
 
 from services.hpc_service import HPCService
@@ -17,10 +18,13 @@ class API:
 
         with HPCService() as hpc:
             hpc.submit(game, repository_url, difficulty)
+            output = []
 
-            sleep(1)
+            while not filter(lambda line: match("^END:[\\s\\S]*", line), output):
+                output = hpc.read_output()
 
-            print(hpc.read_output())
+                print(output)
+                sleep(1)
 
 
 api = API()
