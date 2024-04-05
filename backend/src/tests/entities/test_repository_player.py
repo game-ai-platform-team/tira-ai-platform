@@ -2,7 +2,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock
 
-from entities.player import Player
+from entities.repository_player import RepositoryPlayer
 
 
 class TestPlayer(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestPlayer(unittest.TestCase):
         mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo1")
 
-        player = Player(mock_repo)
+        player = RepositoryPlayer(mock_repo)
         with player:
             move = "MOVE: e2e4"
             out = player.play(move)
@@ -26,7 +26,7 @@ class TestPlayer(unittest.TestCase):
         mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo1")
 
-        player = Player(mock_repo)
+        player = RepositoryPlayer(mock_repo)
         self.assertRaises(ProcessLookupError, player.play, "move")
 
     def test_raise_error_when_timeout(self):
@@ -34,7 +34,7 @@ class TestPlayer(unittest.TestCase):
         mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo2")
 
-        player = Player(mock_repo, 1)
+        player = RepositoryPlayer(mock_repo, 1)
         with player:
             self.assertRaises(TimeoutError, player.play, "move")
 
@@ -43,7 +43,7 @@ class TestPlayer(unittest.TestCase):
         mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo3")
 
-        player = Player(mock_repo, 4)
+        player = RepositoryPlayer(mock_repo, 4)
         with player:
             out = player.play("MOVE: e2e4")
 
@@ -54,7 +54,7 @@ class TestPlayer(unittest.TestCase):
         mock_repo.all_mocks_dir = self.my_file.parent.parent.joinpath("mockrepos")
         mock_repo.working_dir = mock_repo.all_mocks_dir.joinpath("mockrepo3")
 
-        player = Player(mock_repo, 1)
+        player = RepositoryPlayer(mock_repo, 1)
         with player:
             self.assertRaises(TimeoutError, player.play, "move")
             self.assertRaises(ProcessLookupError, player.play, "move")

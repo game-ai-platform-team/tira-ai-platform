@@ -6,7 +6,7 @@ from typing import Any
 
 from entities.judge import Judge
 from entities.move import Move, MoveMetadata
-from entities.player import Player
+from entities.repository_player import RepositoryPlayer
 from game_state import GameState
 
 
@@ -14,12 +14,12 @@ class Game(AbstractContextManager):
     def __init__(
         self,
         logger: Callable[[str], None],
-        player1: Player,
-        player2: Player,
+        player1: RepositoryPlayer,
+        player2: RepositoryPlayer,
         judge: Judge,
     ) -> None:
         self.__logger: Callable[[Any], None] = logger
-        self.__players: list[Player] = [player1, player2]
+        self.__players: list[RepositoryPlayer] = [player1, player2]
         self.__judge: Judge = judge
 
     def __enter__(self) -> Any:
@@ -92,7 +92,7 @@ class Game(AbstractContextManager):
 
         self.__logger(f"END: {state}")
 
-    def __play_one_move(self, player: Player, prev_move: str) -> tuple[str, int]:
+    def __play_one_move(self, player: RepositoryPlayer, prev_move: str) -> tuple[str, int]:
         start_time = time.perf_counter()
 
         move = player.play(prev_move)
