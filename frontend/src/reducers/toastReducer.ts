@@ -1,4 +1,3 @@
-// toastReducer.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const toastSlice = createSlice({

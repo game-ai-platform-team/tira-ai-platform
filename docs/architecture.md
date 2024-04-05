@@ -249,6 +249,7 @@ MoveList --> Move
 Move --> MoveStatistics
 
 SubmitForm --> gameReducer: newGame
+SubmitForm --> toastReducer: setToast
 Board -- store
 MoveList -- store
 AdvantageBar -- store
@@ -293,6 +294,7 @@ namespace UI {
     class Move
     class MoveList
     class LoginView
+    class Notification
 }
 ```
 
@@ -304,11 +306,17 @@ classDiagram
 store -- moveReducer
 store -- gameReducer
 store -- boardReducer
+store -- toastReducer
 
 gameReducer ..> newGame
+gameReducer ..> updateGame
+gameReducer ..> updateState
+gameReducer ..> resetGame
 moveReducer ..> newMove
 boardReducer ..> newBoard
 newGame ..> gameConfig
+toastReducer ..> setToast
+
 
 moveReducer <-- SocketService
 
@@ -342,6 +350,7 @@ class store {
     boardIndex: number
     in_progress: boolean
     game_result: GameResult
+    notification: string
 }
 
 
@@ -357,7 +366,9 @@ namespace ReducersAndActionCreators {
         <<module>>
         gameReducer(state, action)
         newGame(gameConfig) newGame
+        updateGame(state, action)
         resetGame() resetGame
+        updateState(state, action)
     }
 
     class boardReducer {
@@ -376,6 +387,11 @@ namespace ReducersAndActionCreators {
     
     class resetReducer {
     }
+
+    class toastReducer {
+        <<module>>
+        setToast(_, action)
+    }
 }
 
 namespace Actions {
@@ -391,9 +407,23 @@ namespace Actions {
         payload: gameConfig
     }
 
+    class updateGame {
+        payload: string
+    }
+
+    class updateState {
+        payload: GameState
+    }
+
+    class setToast {
+        payload: string
+    }
+
     class nextBoard
 
     class previousBoard
+
+    class resetGame
 }
 
 ```
