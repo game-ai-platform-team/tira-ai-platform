@@ -1,8 +1,13 @@
 from collections.abc import Callable
+from uuid import uuid1
 
+from git import Repo
+
+from config import TEMP_DIR
 from entities.players.player import Player
 from entities.players.player_connectfour import PlayerConnectFour
 from entities.players.player_stockfish import PlayerStockfish
+from entities.players.repository_player import RepositoryPlayer
 
 
 class PlayerFactory:
@@ -22,3 +27,9 @@ class PlayerFactory:
 
     def __get_connect_four_player(self, difficulty: int) -> Player:
         return PlayerConnectFour(difficulty)
+
+    def get_remote_player(self, repository_url: str) -> Player:
+        repository = Repo.clone_from(repository_url, TEMP_DIR / str(uuid1()), depth=1)
+
+        return RepositoryPlayer(repository)
+
