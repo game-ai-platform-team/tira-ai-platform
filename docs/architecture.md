@@ -60,7 +60,6 @@ box Back-end
     participant API
     participant HPCService
     participant SSHConnection
-    participant BatchBuilder
 end
 
 Frontend ->>+ App: ws://.../gameconnection startgame
@@ -75,8 +74,7 @@ API ->>+ HPCService: HPCService()
 HPCService -->>- API: service
 
 API ->>+ HPCService: submit(game, repo, difficulty)
-    HPCService ->>+ BatchBuilder: create_script(game, repo, difficulty, id)
-    BatchBuilder -->>- HPCService: script_path
+    HPCService ->> HPCService: create_script(game, repo, difficulty, id)
 
     HPCService ->>+ SSHConnection: send_file(script_path)
         SSHConnection ->>+ HPC: script file
@@ -129,7 +127,6 @@ API ..> SocketService
 API ..> SSHConnection
 API ..> HPCService
 HPCService --> SSHConnection
-HPCService --> BatchBuilder
 
 Image --> GameFactory
 Image ..> Game
@@ -157,10 +154,7 @@ class HPCService {
     <<AbstractContextManager>>
     +submit(game: str, repository_url: str, difficulty: int)
     +read_output() list[str]
-}
-
-class BatchBuilder {
-    +create_script(game: str, repository_url: str, difficulty: int, id: str) Path
+    -create_script(game: str, repository_url: str, difficulty: int) Path
 }
 
 namespace Network {
