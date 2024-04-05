@@ -1,6 +1,6 @@
+import time
 from collections.abc import Callable
 from contextlib import AbstractContextManager
-import time
 from types import TracebackType
 from typing import Any
 
