@@ -1,21 +1,3 @@
-# Generate front-end files
-FROM node:lts as node_build
-
-ARG MODE
-
-ENV NODE_ENV="production"
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
-
-WORKDIR /frontend
-
-COPY frontend/package.json frontend/pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
-
-COPY ./frontend .
-RUN pnpm run build
-
 # Install backend dependencies
 FROM python:3 as backend
 
@@ -43,7 +25,6 @@ RUN apt install git -y
 RUN pip install poetry
 
 COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
-COPY --from=node_build /frontend/dist /frontend/dist
 
 WORKDIR /app
 
@@ -55,10 +36,8 @@ RUN chown -R user:user $HOME \
     && chgrp -R 0 /app \
     && chmod -R g=u /app \
     && chgrp -R 0 /$HOME \
-    && chmod -R g=u /$HOME \
-    && chmod -R g=u /frontend/dist
+    && chmod -R g=u /$HOME
 
 USER 1001
-EXPOSE 5000:5000
-CMD ["poetry", "run", "invoke", "dev"]
 
+CMD ["poetry", "run", "invoke", "run-image"]
