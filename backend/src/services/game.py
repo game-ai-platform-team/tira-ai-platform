@@ -60,11 +60,11 @@ class Game(AbstractContextManager):
                 self.__logger(Move("", GameState.TIMEOUT, MoveMetadata(0, 0, "")))
                 break
 
-            state = self.__update_state(self.__judge.validate(move))
+            state = self.__judge.validate(move)
 
             if state == GameState.CONTINUE:
                 self.__judge.add_move(move)
-                state = self.__update_state(self.__judge.is_game_over())
+                state = self.__judge.is_game_over()
             evaluation = self.__judge.analyze()
 
             if i == turns - 1 and state == GameState.CONTINUE:
@@ -103,6 +103,3 @@ class Game(AbstractContextManager):
         )
 
         print(info)
-
-    def __update_state(self, state):
-        return GameState(state.name.upper())
