@@ -4,8 +4,16 @@ from pathlib import Path
 from types import TracebackType
 from uuid import uuid1
 
+from config import TEMP_DIR
 from entities.ssh_connection import SSHConnection
-from services.batch_builder import BatchBuilder
+
+BATCH_CONFIG = {
+    "cluster": "ukko",
+    "memory": "4G",
+    "partition": "short",
+    "cpu": 1,
+    "time": "00:10:00",
+}
 
 
 class HPCService(AbstractContextManager):
@@ -34,6 +42,10 @@ class HPCService(AbstractContextManager):
     def output_path(self) -> Path:
         return Path(f"result-{self.__id}.txt")
 
+    @cached_property
+    def batch_path(self) -> Path:
+        return TEMP_DIR / f"batch-{self.__id}.sh"
+
     def submit(self, game: str, repository_url: str, difficulty: int) -> None:
         """
         Submits new game image to HPC.
@@ -44,8 +56,7 @@ class HPCService(AbstractContextManager):
             difficulty (int): Difficulty for reference AI.
         """
 
-        batch = BatchBuilder.create_script(game, repository_url, difficulty, self.__id)
-
+        batch = self.__create_script(game, repository_url, difficulty)
         remote_path = self.__connection.send_file(batch)
 
         self.__connection.execute(f"sbatch {remote_path}")
@@ -64,3 +75,32 @@ class HPCService(AbstractContextManager):
         self.__current_output_line = len(data)
 
         return new_lines
+
+    def __create_script(self, game: str, repository_url: str, difficulty: int) -> Path:
+        environment_variables = {
+            "GAME": game,
+            "REPOSITORY_URL": repository_url,
+            "DIFFICULTY": difficulty,
+        }
+        environment_variable_pairs = ",".join(
+            f"{key}={value}" for key, value in environment_variables.items()
+        )
+
+        script = "\n".join(
+            [
+                "#!/bin/bash",
+                f"#SBATCH -M {BATCH_CONFIG['cluster']}",
+                f"#SBATCH -p {BATCH_CONFIG['partition']}",
+                f"#SBATCH --mem {BATCH_CONFIG['memory']}",
+                f"#SBATCH -t {BATCH_CONFIG['time']}",
+                f"#SBATCH -t {BATCH_CONFIG['cpu']}",
+                f"#SBATCH -o result-{self.__id}.txt",
+                f"#SBATCH --export={environment_variable_pairs}",
+                "echo 'Hello world!'",
+            ]
+        )
+
+        with open(self.batch_path, mode="w", encoding="utf-8") as file:
+            file.write(script)
+
+        return self.batch_path
