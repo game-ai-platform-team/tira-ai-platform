@@ -30,7 +30,9 @@ class RepositoryPlayer(Player):
 
     def __enter__(self) -> "RepositoryPlayer":
         print(self.runcommand)
+
         runcommand_array = self.runcommand.strip().split(" ")
+
         self.__process = subprocess.Popen(
             args=runcommand_array,
             stdin=subprocess.PIPE,
