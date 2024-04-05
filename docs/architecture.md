@@ -163,7 +163,7 @@ namespace Factories {
 
     class PlayerFactory {
         +get_local_player(game: str, difficulty: int)
-        +get_remote_player(game: str, difficulty: int, repository: Repo)
+        +get_remote_player(game: str, repository: Repo)
     }
 }
 
