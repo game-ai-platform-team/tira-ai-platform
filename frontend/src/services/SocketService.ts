@@ -10,6 +10,7 @@ import store from "../store";
 import { GameState } from "../types.ts";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { newConnectFourBoard } from "../reducers/board/connectFourBoardReducer.ts";
+import { setToast } from "../reducers/toastReducer.ts";
 
 const path = `${import.meta.env.BASE_URL}/socket.io`.replace("//", "/");
 
@@ -46,6 +47,7 @@ const startGame = (config: GameConfig) => {
 
     socket.on("error", (data: string) => {
         console.log(data);
+        store.dispatch(setToast("ERROR"))
     });
 };
 
