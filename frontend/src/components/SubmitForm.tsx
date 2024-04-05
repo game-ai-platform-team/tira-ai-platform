@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hook";
 import GameConfig from "../interfaces/GameConfig";
 import { newGame } from "../reducers/gameReducer";
@@ -56,14 +56,16 @@ function SubmitForm(): JSX.Element {
         }
     };
 
-    gameState === GameState.WIN &&
-        dispatch(setToast("Game ended successfully"));
-    gameState === GameState.INVALID &&
-        dispatch(setToast("Game ended, an invalid move was made"));
-    gameState === GameState.ILLEGAL &&
-        dispatch(setToast("Game ended, an illegal move was made"));
-    gameState === GameState.TIMEOUT &&
-        dispatch(setToast("TIMEOUT!!! Your ai is too slow"));
+    useEffect(() => {
+        gameState === GameState.WIN || GameState.DRAW &&
+            dispatch(setToast("Game ended successfully"));
+        gameState === GameState.INVALID &&
+            dispatch(setToast("Game ended, an invalid move was made"));
+        gameState === GameState.ILLEGAL &&
+            dispatch(setToast("Game ended, an illegal move was made"));
+        gameState === GameState.TIMEOUT &&
+            dispatch(setToast("TIMEOUT!!! Your ai is too slow"));
+    }, [dispatch, gameState]);
 
     return (
         <div id="drag-and-drop-container">
