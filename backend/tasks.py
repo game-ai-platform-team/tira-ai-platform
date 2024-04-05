@@ -39,3 +39,8 @@ def start(
     ctx,
 ):
     ctx.run("poetry run uwsgi --ini wsgi.ini")
+
+
+@task
+def run_image(ctx):
+    ctx.run("poetry run python3 src/image.py")
