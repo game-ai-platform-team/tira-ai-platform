@@ -4,7 +4,7 @@ from game_state import GameState
 
 
 class MoveMetadata:
-    def __init__(self, time: int, evaluation: int, logs: str):
+    def __init__(self, time: int, evaluation: float | int, logs: str):
         self.time: int = time
         self.evaluation: float | int = evaluation
         self.logs: str = logs
