@@ -18,6 +18,8 @@ class HPCService(AbstractContextManager):
 
     def __enter__(self) -> "HPCService":
         self.__connection.__enter__()
+        self.__connection.execute(f"touch {self.output_path}")
+
         return self
 
     def __exit__(
