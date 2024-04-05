@@ -190,11 +190,12 @@ namespace duo-game-lib {
     }
 
     class Judge {
-        +validate(move: str) bool
+        +validate(move: str) GameState
+        +is_game_over() GameState
         +add_move(move: str)
         +get_all_moves() list[str]
         +get_debug_info() str
-        +analyze() float
+        +analyze() float | int
     }
 
     class Player {
