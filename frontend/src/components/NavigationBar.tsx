@@ -18,6 +18,7 @@ const NavigationBar = () => {
                     variant="flat"
                     size="lg"
                     className="nav-button"
+                    style={{ color: 'white' }}
                 >
                     {getGameIcon(game !== undefined ? game : "")}{" "}
                     {game !== "" ? game : "🤔 Select Game "}
@@ -49,15 +50,18 @@ const NavigationBar = () => {
                 variant="flat"
                 size="lg"
                 aria-label="Feedback"
+                style={{ color: 'white' }}
             >
                 💬 Feedback
             </Button>
+            <div className="tira-text">
+                TIRA-AI-PLATFORM
+            </div>
             <button onClick={() => (location.href = "/login")}> login</button>
         </div>
     );
 };
 
-// Function to get the appropriate icon for each game
 const getGameIcon = (game: string): string => {
     switch (game) {
         case "chess":
