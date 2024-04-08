@@ -15,7 +15,6 @@ import Gomokuboard from "./Gomokuboard.tsx";
 import Othelloboard from "./Othelloboard.tsx";
 import { Home } from "./Home.tsx";
 
-
 function GameView() {
     const moves = useAppSelector((state) => state.moves);
 
@@ -48,7 +47,7 @@ function GameView() {
                 <SubmitForm />
             </div>
             <Routes>
-                <Route path="/" element={<Home/>} />
+                <Route path="/" element={<Home />} />
                 <Route path="/chess" element={<Chessboard />} />
                 <Route path="/connect_four" element={<CFourboard />} />
                 <Route path="/gomoku" element={<Gomokuboard />} />
