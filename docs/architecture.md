@@ -69,7 +69,7 @@ App ->>+ API: start(game, repo, difficulty)
 API ->>+ Image: Image(game, repo, difficulty)
     Image ->> Image: build()
     Note over API, Image: Image path can be generated from id
-Image -->>- API: (id, image_path)
+Image -->>- API: id
 
 API ->>+ HPCService: HPCService()
     HPCService ->>+ SSHConnection: connect()
@@ -119,7 +119,7 @@ API -->>- App:
 App -->>- Frontend: 
 ```
 
-> [!INFO]
+> [!NOTE]
 > Python context manager closes connections and removes temporary files.
 
 ## Backend
@@ -164,7 +164,7 @@ class HPCService {
 
 class Image {
     <<AbstractContextManager>>
-    +build() tuple[str, Path]
+    +build() str
 }
 
 namespace Factories {
