@@ -43,4 +43,4 @@ def start(
 
 @task
 def run_image(ctx):
-    ctx.run("poetry run python3 src/image.py")
+    ctx.run("poetry run python3 src/run_image.py")
