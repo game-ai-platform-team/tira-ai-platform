@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, test } from "vitest";
 import NavigationBar from "../../components/NavigationBar";
 import { Provider } from "react-redux";
 import store from "../../store";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Navigation bar", () => {
     let gameSelectionButton: null | HTMLElement = null;
@@ -11,7 +12,9 @@ describe("Navigation bar", () => {
     beforeEach(() => {
         render(
             <Provider store={store}>
-                <NavigationBar />
+                <BrowserRouter>
+                    <NavigationBar />
+                </BrowserRouter>
             </Provider>,
         );
         gameSelectionButton = screen.getByLabelText("Select game");

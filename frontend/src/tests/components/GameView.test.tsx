@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { Provider } from "react-redux";
 import store from "../../store";
 import { createMove, resetMoves } from "../../reducers/moveReducer";
-import Chessboard from "../../components/Chessboard";
+import { MemoryRouter } from "react-router-dom";
 
 describe("GameView", () => {
     beforeEach(() => {
@@ -18,9 +18,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView>
-                    <p></p>
-                </GameView>
+                <MemoryRouter initialEntries={["/chess"]}>
+                    <GameView />
+                </ MemoryRouter>
             </Provider>
         );
         const component = render(ui);
@@ -35,9 +35,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView>
-                    <p></p>
-                </GameView>
+                <MemoryRouter initialEntries={["/chess"]}>
+                    <GameView />
+                </ MemoryRouter>
             </Provider>
         );
         const component = render(ui);
@@ -54,9 +54,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView>
-                    <Chessboard />
-                </GameView>
+                <MemoryRouter initialEntries={["/chess"]}>
+                    <GameView />
+                </ MemoryRouter>
             </Provider>
         );
         const component = render(ui);
@@ -71,9 +71,9 @@ describe("GameView", () => {
         );
         const ui = (
             <Provider store={store}>
-                <GameView>
-                    <Chessboard />
-                </GameView>
+                <MemoryRouter initialEntries={["/chess"]}>
+                    <GameView />
+                </ MemoryRouter>
             </Provider>
         );
         const component = render(ui);
@@ -92,9 +92,9 @@ describe("GameView", () => {
 
         const ui = (
             <Provider store={store}>
-                <GameView>
-                    <Chessboard />
-                </GameView>
+                <MemoryRouter initialEntries={["/chess"]}>
+                    <GameView />
+                </ MemoryRouter>
             </Provider>
         );
         const component = render(ui);
