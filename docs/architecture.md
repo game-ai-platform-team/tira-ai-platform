@@ -58,6 +58,7 @@ participant Frontend
 box Back-end
     participant App
     participant API
+    participant Image
     participant HPCService
     participant SSHConnection
 end
@@ -65,6 +66,10 @@ end
 Frontend ->>+ App: ws://.../gameconnection startgame
 
 App ->>+ API: start(game, repo, difficulty)
+API ->>+ Image: Image(game, repo, difficulty)
+    Image ->> Image: build()
+    Note over API, Image: Image path can be generated from id
+Image -->>- API: (id, image_path)
 
 API ->>+ HPCService: HPCService()
     HPCService ->>+ SSHConnection: connect()
@@ -73,8 +78,13 @@ API ->>+ HPCService: HPCService()
     SSHConnection -->>- HPCService: connection
 HPCService -->>- API: service
 
-API ->>+ HPCService: submit(game, repo, difficulty)
-    HPCService ->> HPCService: create_script(game, repo, difficulty, id)
+API ->>+ HPCService: submit(image_path)
+    HPCService ->>+ SSHConnection: send_file(image_path)
+        SSHConnection ->>+ HPC: image file
+        HPC -->>- SSHConnection: 
+    SSHConnection -->>- HPCService: remote_path
+
+    HPCService ->> HPCService: create_script(id)
 
     HPCService ->>+ SSHConnection: send_file(script_path)
         SSHConnection ->>+ HPC: script file
@@ -105,16 +115,12 @@ end
 
 deactivate HPC
 
-API ->>+ HPCService: close()
-    HPCService ->>+ SSHConnection: close()
-    SSHConnection ->>+ HPC: Close connection
-    HPC -->>- SSHConnection: 
-    SSHConnection -->>- HPCService: 
-HPCService -->>- API: 
-
 API -->>- App: 
 App -->>- Frontend: 
 ```
+
+> [!INFO]
+> Python context manager closes connections and removes temporary files.
 
 ## Backend
 
@@ -126,11 +132,12 @@ App --> API
 API ..> SocketService
 API ..> SSHConnection
 API ..> HPCService
+API ..> Image
 HPCService --> SSHConnection
 
-Image ..> Game
-Image --> GameFactory
-Image --> PlayerFactory
+run_image ..> Game
+run_image --> GameFactory
+run_image --> PlayerFactory
 
 PlayerFactory --> Player
 
@@ -155,6 +162,11 @@ class HPCService {
     -create_script(game: str, repository_url: str, difficulty: int) Path
 }
 
+class Image {
+    <<AbstractContextManager>>
+    +build() tuple[str, Path]
+}
+
 namespace Factories {
     class GameFactory {
         +get_game(game: str, player1: Player, player2: Player) Game
@@ -162,7 +174,7 @@ namespace Factories {
 
     class PlayerFactory {
         +get_local_player(game: str, difficulty: int) Player
-        +get_remote_player(repository_url: str) Player
+        +get_remote_player(repository: Repo) Player
     }
 }
 
