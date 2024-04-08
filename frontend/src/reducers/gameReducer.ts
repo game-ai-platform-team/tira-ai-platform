@@ -37,5 +37,4 @@ const gameSlice = createSlice({
 
 export default gameSlice.reducer;
 
-export const { newGame, resetGame, updateState } =
-    gameSlice.actions;
+export const { newGame, resetGame, updateState } = gameSlice.actions;

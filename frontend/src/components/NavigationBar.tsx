@@ -8,7 +8,7 @@ const NavigationBar = () => {
     const path = useLocation();
     const game = path.pathname.split("/").pop();
 
-    console.log(game)
+    console.log(game);
     return (
         <div id="navigation-bar">
             <Dropdown>
@@ -19,7 +19,8 @@ const NavigationBar = () => {
                     size="lg"
                     className="nav-button"
                 >
-                    {getGameIcon(game!==undefined?game:"")} {game!==""?game:"🤔 Select Game "}
+                    {getGameIcon(game !== undefined ? game : "")}{" "}
+                    {game !== "" ? game : "🤔 Select Game "}
                 </Dropdown.Toggle>
 
                 <DropdownMenu aria-label="Available games">
