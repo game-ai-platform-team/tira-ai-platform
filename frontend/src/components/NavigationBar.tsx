@@ -1,18 +1,14 @@
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
-import { useAppDispatch, useAppSelector } from "../hook";
-import { updateGame } from "../reducers/gameReducer";
 import "../scss/NavigationBar.scss";
+import { Link, useLocation } from "react-router-dom";
 
 const NavigationBar = () => {
-    const game = useAppSelector((state) => state.game.config.game);
-    const dispatch = useAppDispatch();
+    const path = useLocation();
+    const game = path.pathname.split("/").pop();
 
-    const handleChangeGame = (game: string) => () => {
-        dispatch(updateGame(game));
-    };
-
+    console.log(game)
     return (
         <div id="navigation-bar">
             <Dropdown>
@@ -23,25 +19,24 @@ const NavigationBar = () => {
                     size="lg"
                     className="nav-button"
                 >
-                    {getGameIcon(game)} {game}
+                    {getGameIcon(game!==undefined?game:"")} {game!==""?game:"🤔 Select Game "}
                 </Dropdown.Toggle>
 
                 <DropdownMenu aria-label="Available games">
-                    <Dropdown.Item onClick={handleChangeGame("chess")}>
+                    <Dropdown.Item as={Link} to="/chess">
                         ♟️ Chess
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={handleChangeGame("gomoku")}>
+                    <Dropdown.Item as={Link} to="/gomoku">
                         🌀 Gomoku
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={handleChangeGame("othello")}>
+                    <Dropdown.Item as={Link} to="/othello">
                         ⚪ Othello
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={handleChangeGame("connect_four")}>
+                    <Dropdown.Item as={Link} to="/connect_four">
                         🔴 Connect 4
                     </Dropdown.Item>
                 </DropdownMenu>
             </Dropdown>
-
             <Button
                 onClick={() =>
                     window.open(

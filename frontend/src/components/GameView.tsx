@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
@@ -9,12 +8,15 @@ import TimeChart from "./TimeChart";
 import CSVCreator from "./CSVCreator.tsx";
 import { LogBox } from "./LogBox.tsx";
 import PlayerStats from "./PlayerStats.tsx";
+import { Route, Routes } from "react-router-dom";
+import Chessboard from "./Chessboard.tsx";
+import CFourboard from "./CFourboard.tsx";
+import Gomokuboard from "./Gomokuboard.tsx";
+import Othelloboard from "./Othelloboard.tsx";
+import { Home } from "./Home.tsx";
 
-interface GameViewProps {
-    children: ReactNode;
-}
 
-function GameView({ children }: GameViewProps) {
+function GameView() {
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
@@ -45,7 +47,13 @@ function GameView({ children }: GameViewProps) {
             <div className="card">
                 <SubmitForm />
             </div>
-            {children}
+            <Routes>
+                <Route path="/" element={<Home/>} />
+                <Route path="/chess" element={<Chessboard />} />
+                <Route path="/connect_four" element={<CFourboard />} />
+                <Route path="/gomoku" element={<Gomokuboard />} />
+                <Route path="/othello" element={<Othelloboard />} />
+            </Routes>
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
                 <CSVCreator moves={moves} />

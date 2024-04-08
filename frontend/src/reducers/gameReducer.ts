@@ -26,10 +26,6 @@ const gameSlice = createSlice({
                 config,
             };
         },
-        updateGame(state, action: PayloadAction<string>) {
-            const config = { ...state.config, game: action.payload };
-            return { ...state, config };
-        },
         resetGame() {
             return initialState;
         },
@@ -41,5 +37,5 @@ const gameSlice = createSlice({
 
 export default gameSlice.reducer;
 
-export const { newGame, resetGame, updateState, updateGame } =
+export const { newGame, resetGame, updateState } =
     gameSlice.actions;
