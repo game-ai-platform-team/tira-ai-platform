@@ -45,6 +45,7 @@ def start(
 def run_image(ctx):
     ctx.run("poetry run python3 src/run_image.py")
 
+
 @task
 def convert_recipe(ctx):
     ctx.run("poetry run spython recipe Dockerfile Singularity")
