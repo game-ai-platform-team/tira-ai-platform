@@ -10,7 +10,7 @@ RUN pip install poetry
 
 WORKDIR /app
 
-COPY backend/pyproject.toml backend/poetry.lock ./
+COPY ./pyproject.toml ./poetry.lock ./
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root --no-directory
 
 # Configure runtime
@@ -28,7 +28,7 @@ COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 WORKDIR /app
 
-COPY ./backend .
+COPY ./ .
 RUN adduser --home /home/user user
 
 RUN chown -R user:user $HOME \
