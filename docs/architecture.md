@@ -164,7 +164,8 @@ class HPCService {
 
 class Image {
     <<AbstractContextManager>>
-    +build() str
+    +id: str
+    +path: Path
 }
 
 namespace Factories {
