@@ -1,6 +1,7 @@
 from re import match
 from time import sleep
 
+from entities.image import Image
 from services.hpc_service import HPCService
 from services.socket_service import SocketService
 
@@ -16,15 +17,17 @@ class API:
         if game not in ["chess", "connect_four"]:
             return
 
-        with HPCService() as hpc:
-            hpc.submit(game, repository_url, difficulty)
-            output = []
+        with Image() as image:
+            with HPCService(id_=image.id) as hpc:
+                hpc.submit(image.path)
 
-            while not filter(lambda line: match("^END:[\\s\\S]*", line), output):
-                output = hpc.read_output()
+                output = []
 
-                print(output)
-                sleep(1)
+                while not filter(lambda line: match("^END:[\\s\\S]*", line), output):
+                    output = hpc.read_output()
+
+                    print(output)
+                    sleep(1)
 
 
 api = API()

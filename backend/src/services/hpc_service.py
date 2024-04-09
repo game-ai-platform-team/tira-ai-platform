@@ -46,20 +46,19 @@ class HPCService(AbstractContextManager):
     def batch_path(self) -> Path:
         return TEMP_DIR / f"batch-{self.__id}.sh"
 
-    def submit(self, game: str, repository_url: str, difficulty: int) -> None:
+    def submit(self, image_path: Path) -> None:
         """
         Submits new game image to HPC.
 
         Args:
-            game (str): Game type.
-            repository_url (str): URL of AI repository.
-            difficulty (int): Difficulty for reference AI.
+            image_path (Path): Local path to game image.
         """
 
-        batch = self.__create_script(game, repository_url, difficulty)
-        remote_path = self.__connection.send_file(batch)
+        remote_image_path = self.__connection.send_file(image_path)
+        batch = self.__create_script(remote_image_path)
+        remote_batch_path = self.__connection.send_file(batch)
 
-        self.__connection.execute(f"sbatch {remote_path}")
+        self.__connection.execute(f"sbatch {remote_batch_path}")
 
     def read_output(self) -> list[str]:
         """
@@ -76,16 +75,7 @@ class HPCService(AbstractContextManager):
 
         return new_lines
 
-    def __create_script(self, game: str, repository_url: str, difficulty: int) -> Path:
-        environment_variables = {
-            "GAME": game,
-            "REPOSITORY_URL": repository_url,
-            "DIFFICULTY": difficulty,
-        }
-        environment_variable_pairs = ",".join(
-            f"{key}={value}" for key, value in environment_variables.items()
-        )
-
+    def __create_script(self, image_path: Path) -> Path:
         script = "\n".join(
             [
                 "#!/bin/bash",
@@ -95,7 +85,7 @@ class HPCService(AbstractContextManager):
                 f"#SBATCH -t {BATCH_CONFIG['time']}",
                 f"#SBATCH -t {BATCH_CONFIG['cpu']}",
                 f"#SBATCH -o result-{self.__id}.txt",
-                f"singularity run {HPC_GAME_IMAGE_PATH} --env {environment_variable_pairs}",
+                f"singularity run --no-home --pwd /app {image_path}",
             ]
         )
 
