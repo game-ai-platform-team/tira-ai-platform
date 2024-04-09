@@ -16,9 +16,17 @@ class Image(AbstractContextManager):
         self.__id: str = id_ or str(uuid1())
         self.__path: Path = path or TEMP_DIR / f"{self.__id}.sif"
 
+    @property
+    def path(self) -> Path:
+        return self.__path
+
+    @property
+    def id(self) -> str:
+        return self.__id
+
     def __enter__(self) -> "Image":
         os.system(f"docker build {ROOTDIR} -t {self.__id}")
-        os.system(f"singularity build {self.__path} docker-daemon://{self.__id}")
+        os.system(f"singularity build {self.path} docker-daemon://{self.__id}")
 
         return self
 
