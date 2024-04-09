@@ -68,8 +68,7 @@ Frontend ->>+ App: ws://.../gameconnection startgame
 App ->>+ API: start(game, repo, difficulty)
 API ->>+ Image: Image(game, repo, difficulty)
     Image ->> Image: build()
-    Note over API, Image: Image path can be generated from id
-Image -->>- API: id
+Image -->>- API: image
 
 API ->>+ HPCService: HPCService()
     HPCService ->>+ SSHConnection: connect()
