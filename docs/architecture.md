@@ -156,9 +156,9 @@ class API {
 
 class HPCService {
     <<AbstractContextManager>>
-    +submit(game: str, repository_url: str, difficulty: int)
+    +submit(image_path: Path)
     +read_output() list[str]
-    -create_script(game: str, repository_url: str, difficulty: int) Path
+    -create_script(image_path: Path) Path
 }
 
 class Image {
