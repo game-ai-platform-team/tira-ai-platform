@@ -28,6 +28,8 @@ COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 WORKDIR /app
 
+RUN mkdir ./temp
+
 COPY ./ .
 RUN adduser --home /home/user user
 
