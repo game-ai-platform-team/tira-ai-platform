@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, test } from "vitest";
 import NavigationBar from "../../components/NavigationBar";
 import { Provider } from "react-redux";
 import store from "../../store";
-import { BrowserRouter, useLocation } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Navigation bar", () => {
     let gameSelectionButton: null | HTMLElement = null;
@@ -91,10 +91,19 @@ describe("Navigation bar", () => {
             })
 
             test("redirects to chess url", () => {
+                const url2 = window.location.href;
+                expect(url2).include("/connect_four")
                 const game = within(gameDropdown!).getByText("Chess", {
                     exact: false,
                 });
                 fireEvent.click(game);
+                const url = window.location.href;
+                expect(url).include("/chess")
+            })
+
+            test("url remains the same when clicking feedback", () => {
+                const button = screen.getByLabelText("Feedback") as HTMLElement;
+                fireEvent.click(button);
                 const url = window.location.href;
                 expect(url).include("/chess")
             })
