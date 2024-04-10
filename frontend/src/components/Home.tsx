@@ -4,8 +4,7 @@ import manual from "../../../docs/user_manual/manual.md"
 const Home = () => {
     return (
         <div className="card">
-            <ReactMarkdown children={manual}
-            />
+            <ReactMarkdown>{manual}</ReactMarkdown>
         </div>
     );
   };
