@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-import manual from "../../../docs/user_manual/manual.md"
+import manual from "../../../docs/user_manual/manual.md";
 
 const Home = () => {
     return (
@@ -7,6 +7,6 @@ const Home = () => {
             <ReactMarkdown>{manual}</ReactMarkdown>
         </div>
     );
-  };
-  
-  export default Home;
+};
+
+export default Home;
