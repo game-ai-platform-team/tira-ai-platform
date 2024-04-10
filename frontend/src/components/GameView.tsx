@@ -8,14 +8,18 @@ import TimeChart from "./TimeChart";
 import CSVCreator from "./CSVCreator.tsx";
 import { LogBox } from "./LogBox.tsx";
 import PlayerStats from "./PlayerStats.tsx";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Chessboard from "./Chessboard.tsx";
 import CFourboard from "./CFourboard.tsx";
 import Gomokuboard from "./Gomokuboard.tsx";
 import Othelloboard from "./Othelloboard.tsx";
-import { Home } from "./Home.tsx";
+import Home from "./Home.tsx";
 
 function GameView() {
+    const path = useLocation();
+    const game = path.pathname.split("/").pop();
+    const ispathempty = (game !== undefined ? game : "");
+
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
@@ -43,20 +47,26 @@ function GameView() {
 
     return (
         <div id="game-view">
-            <div className="card">
+            {ispathempty && (<div className="card">
                 <SubmitForm />
             </div>
+            )}
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route
+                    path=""
+                    element={<Home />}
+                />
                 <Route path="/chess" element={<Chessboard />} />
                 <Route path="/connect_four" element={<CFourboard />} />
                 <Route path="/gomoku" element={<Gomokuboard />} />
                 <Route path="/othello" element={<Othelloboard />} />
             </Routes>
-            <div className="card">
-                <MoveList handleCopyPGN={handleCopyPGN} />
-                <CSVCreator moves={moves} />
-            </div>
+            {ispathempty && (
+                <div className="card">
+                    <MoveList handleCopyPGN={handleCopyPGN} />
+                    <CSVCreator moves={moves} />
+                </div>
+            )}
 
             {stats && (
                 <div id="statistics" className="card">
@@ -76,9 +86,10 @@ function GameView() {
                 </div>
             )}
 
-            <div className="card">
+            {ispathempty && (<div className="card">
                 <LogBox />
             </div>
+            )}
         </div>
     );
 }
