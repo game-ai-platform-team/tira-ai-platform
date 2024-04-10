@@ -1,10 +1,10 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, test } from "vitest";
 import NavigationBar from "../../components/NavigationBar";
 import { Provider } from "react-redux";
 import store from "../../store";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
 
 describe("Navigation bar", () => {
     let gameSelectionButton: null | HTMLElement = null;
@@ -80,6 +80,24 @@ describe("Navigation bar", () => {
 
                 expect(game).toBeDefined();
             });
+
+            test("redirects to connect four url", () => {
+                const game = within(gameDropdown!).getByText("Connect 4", {
+                    exact: false,
+                });
+                fireEvent.click(game);
+                const url = window.location.href;
+                expect(url).include("/connect_four")
+            })
+
+            test("redirects to chess url", () => {
+                const game = within(gameDropdown!).getByText("Chess", {
+                    exact: false,
+                });
+                fireEvent.click(game);
+                const url = window.location.href;
+                expect(url).include("/chess")
+            })
         });
     });
 });
