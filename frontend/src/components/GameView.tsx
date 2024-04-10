@@ -18,7 +18,7 @@ import Home from "./Home.tsx";
 function GameView() {
     const path = useLocation();
     const game = path.pathname.split("/").pop();
-    const ispathempty = (game !== undefined ? game : "");
+    const ispathempty = game !== undefined ? game : "";
 
     const moves = useAppSelector((state) => state.moves);
 
@@ -47,15 +47,13 @@ function GameView() {
 
     return (
         <div id="game-view">
-            {ispathempty && (<div className="card">
-                <SubmitForm />
-            </div>
+            {ispathempty && (
+                <div className="card">
+                    <SubmitForm />
+                </div>
             )}
             <Routes>
-                <Route
-                    path=""
-                    element={<Home />}
-                />
+                <Route path="" element={<Home />} />
                 <Route path="/chess" element={<Chessboard />} />
                 <Route path="/connect_four" element={<CFourboard />} />
                 <Route path="/gomoku" element={<Gomokuboard />} />
@@ -86,9 +84,10 @@ function GameView() {
                 </div>
             )}
 
-            {ispathempty && (<div className="card">
-                <LogBox />
-            </div>
+            {ispathempty && (
+                <div className="card">
+                    <LogBox />
+                </div>
             )}
         </div>
     );

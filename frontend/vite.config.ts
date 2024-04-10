@@ -10,15 +10,18 @@ const env = loadEnv(mode, process.cwd());
 export default defineConfig({
     mode,
     base: env.VITE_BASE_URL,
-    plugins: [react(), {
-        name: "markdown-loader",
-        transform(code, id) {
-          if (id.slice(-3) === ".md") {
-            return `export default ${JSON.stringify(code)};`;
-          }
-        }
-      }],
-    
+    plugins: [
+        react(),
+        {
+            name: "markdown-loader",
+            transform(code, id) {
+                if (id.slice(-3) === ".md") {
+                    return `export default ${JSON.stringify(code)};`;
+                }
+            },
+        },
+    ],
+
     test: {
         environment: "jsdom",
         globals: true,
