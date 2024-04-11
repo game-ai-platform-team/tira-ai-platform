@@ -16,24 +16,26 @@ class API:
         if game not in ["chess", "connect_four"]:
             return
 
-        with Image(game, repository_url, difficulty) as image:
-            with HPCService(id_=image.id) as hpc:
-                hpc.submit(image.path)
+        with (
+            Image(game, repository_url, difficulty) as image,
+            HPCService(id_=image.id) as hpc,
+        ):
+            hpc.submit(image.path)
 
-                output = []
+            output = []
 
-                while True:
-                    output = hpc.read_output()
+            while True:
+                output = hpc.read_output()
 
-                    for line in output:
-                        parts = line.split(":")
-                        tag = parts[0]
+                for line in output:
+                    parts = line.split(":")
+                    tag = parts[0]
 
-                        if tag == "END":
-                            return
+                    if tag == "END":
+                        return
 
-                    print(output)
-                    sleep(1)
+                print(output)
+                sleep(1)
 
 
 api = API()
