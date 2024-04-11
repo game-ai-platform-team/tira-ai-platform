@@ -1,7 +1,7 @@
 import os
+import re
 from contextlib import AbstractContextManager
 from pathlib import Path
-import re
 from types import TracebackType
 from uuid import uuid1
 
