@@ -84,7 +84,7 @@ class HPCService(AbstractContextManager):
                 f"#SBATCH --mem {BATCH_CONFIG['memory']}",
                 f"#SBATCH -t {BATCH_CONFIG['time']}",
                 f"#SBATCH -t {BATCH_CONFIG['cpu']}",
-                f"#SBATCH -o result-{self.__id}.txt",
+                f"#SBATCH -o {self.output_path}",
                 f"singularity run --no-home --pwd /app {image_path}",
             ]
         )
