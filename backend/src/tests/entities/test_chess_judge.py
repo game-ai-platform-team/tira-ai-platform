@@ -1,9 +1,9 @@
 import unittest
 
 from chess import Board
+from game_state import GameState
 
 from entities.chess_judge import ChessJudge
-from game_state import GameState
 
 
 class TestChessJudge(unittest.TestCase):
