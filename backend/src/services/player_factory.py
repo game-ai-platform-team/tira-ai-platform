@@ -1,8 +1,8 @@
 from collections.abc import Callable
 
+from duo_game_lib.player import Player
 from git import Repo
 
-from entities.players.player import Player
 from entities.players.player_connectfour import PlayerConnectFour
 from entities.players.player_stockfish import PlayerStockfish
 from entities.players.repository_player import RepositoryPlayer

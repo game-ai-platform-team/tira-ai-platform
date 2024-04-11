@@ -2,11 +2,11 @@ import select
 import subprocess
 from pathlib import Path
 
+from duo_game_lib.player import Player
 from git import Repo
 
 from config import DEFAULT_CHESS_TIMEOUT
 from entities.player_logger import PlayerLogger
-from entities.players.player import Player
 
 
 class RepositoryPlayer(Player):

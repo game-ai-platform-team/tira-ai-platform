@@ -1,4 +1,5 @@
-from entities.players.player import Player
+from duo_game_lib.player import Player
+
 from stockfish_engine import get_stockfish_engine
 
 

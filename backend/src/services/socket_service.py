@@ -1,6 +1,5 @@
+from duo_game_lib.move import Move
 from flask_socketio import SocketIO
-
-from entities.move import Move
 
 
 class SocketService:

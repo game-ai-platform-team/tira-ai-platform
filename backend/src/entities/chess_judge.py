@@ -1,10 +1,10 @@
 from math import exp
 
 from chess import Board, InvalidMoveError, Move
+from duo_game_lib.game_state import GameState
+from duo_game_lib.judge import Judge
 from stockfish import Stockfish
 
-from entities.judge import Judge
-from game_state import GameState
 from stockfish_engine import get_stockfish_engine
 
 
