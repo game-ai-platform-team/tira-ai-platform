@@ -58,6 +58,7 @@ participant Frontend
 box Back-end
     participant App
     participant API
+    participant Image
     participant HPCService
     participant SSHConnection
 end
@@ -65,6 +66,9 @@ end
 Frontend ->>+ App: ws://.../gameconnection startgame
 
 App ->>+ API: start(game, repo, difficulty)
+API ->>+ Image: Image(game, repo, difficulty)
+    Image ->> Image: build()
+Image -->>- API: image
 
 API ->>+ HPCService: HPCService()
     HPCService ->>+ SSHConnection: connect()
@@ -73,8 +77,8 @@ API ->>+ HPCService: HPCService()
     SSHConnection -->>- HPCService: connection
 HPCService -->>- API: service
 
-API ->>+ HPCService: submit(image_definition_path, game, repo, difficulty)
-    HPCService ->>+ SSHConnection: send_file(image_definition_path)
+API ->>+ HPCService: submit(image_path)
+    HPCService ->>+ SSHConnection: send_file(image_path)
         SSHConnection ->>+ HPC: image file
         HPC -->>- SSHConnection: 
     SSHConnection -->>- HPCService: remote_path
@@ -127,6 +131,7 @@ App --> API
 API ..> SocketService
 API ..> SSHConnection
 API ..> HPCService
+API ..> Image
 HPCService --> SSHConnection
 
 run_image ..> Game
@@ -154,6 +159,12 @@ class HPCService {
     +submit(image_path: Path)
     +read_output() list[str]
     -create_script(image_path: Path) Path
+}
+
+class Image {
+    <<AbstractContextManager>>
+    +id: str
+    +path: Path
 }
 
 namespace Factories {
