@@ -16,9 +16,17 @@ RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --n
 # Configure runtime
 FROM python:3-slim as runtime
 
+ARG REPOSITORY_URL
+ARG GAME
+ARG GAME_ID
+ARG DIFFICULTY
+
 ENV HOME=/home/user
 ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH"
+    PATH="/app/.venv/bin:$PATH" \
+    GAME=${GAME} \
+    REPOSITORY_PATH=/app/temp/${GAME_ID} \
+    DIFFICULTY=${DIFFICULTY}
 
 RUN apt update
 RUN apt install git -y
@@ -29,6 +37,7 @@ COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 WORKDIR /app
 
 RUN mkdir ./temp
+RUN git clone ${REPOSITORY_URL} $REPOSITORY_PATH
 
 COPY ./ .
 RUN adduser --home /home/user user
