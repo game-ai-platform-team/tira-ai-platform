@@ -17,7 +17,7 @@ class API:
         if game not in ["chess", "connect_four"]:
             return
 
-        with Image() as image:
+        with Image(game, repository_url, difficulty) as image:
             with HPCService(id_=image.id) as hpc:
                 hpc.submit(image.path)
 
