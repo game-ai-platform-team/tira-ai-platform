@@ -1,7 +1,7 @@
 import unittest
 
 from chess import Board
-from game_state import GameState
+from duo_game_lib.game_state import GameState
 
 from entities.chess_judge import ChessJudge
 
