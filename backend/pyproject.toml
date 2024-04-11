@@ -20,7 +20,7 @@ requests = "^2.31.0"
 gitpython = "^3.1.42"
 gevent = "^24.2.1"
 pyuwsgi = "^2.0.23.post0"
-connect-four-lib = "^1.1.0"
+connect-four-lib = "^1.2.0"
 paramiko = "^3.4.0"
 duo-game-lib = "^0.1.0"
 
