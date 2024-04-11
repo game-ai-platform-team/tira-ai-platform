@@ -1,4 +1,3 @@
-from re import match
 from time import sleep
 
 from entities.image import Image
@@ -13,7 +12,7 @@ class API:
         repository_url: str,
         difficulty: int,
         game: str,
-    ):
+    ) -> None:
         if game not in ["chess", "connect_four"]:
             return
 
@@ -23,8 +22,15 @@ class API:
 
                 output = []
 
-                while not filter(lambda line: match("^END:[\\s\\S]*", line), output):
+                while True:
                     output = hpc.read_output()
+
+                    for line in output:
+                        parts = line.split(":")
+                        tag = parts[0]
+
+                        if tag == "END":
+                            return
 
                     print(output)
                     sleep(1)
