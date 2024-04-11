@@ -1,6 +1,5 @@
 from connect_four_lib.connect_four_engine import ConnectFourEngine
-
-from entities.players.player import Player
+from duo_game_lib.player import Player
 
 
 class PlayerConnectFour(Player):
