@@ -12,7 +12,6 @@ import { Button } from "react-bootstrap";
 import Chessboard from "./Chessboard.tsx";
 import CFourboard from "./CFourboard.tsx";
 
-
 interface GameViewProps {
     game: string;
 }
@@ -26,7 +25,7 @@ function GameView(props: GameViewProps) {
     const wStats = statisticsService.getStatistics(moves, 0);
     const bStats = statisticsService.getStatistics(moves, 1);
 
-    const gameBoard = (props.game === "chess" ? <Chessboard /> : <CFourboard />)
+    const gameBoard = props.game === "chess" ? <Chessboard /> : <CFourboard />;
 
     const handleCopyPGN = () => {
         const text = statisticsService.uciToPGN(moves);
@@ -53,7 +52,7 @@ function GameView(props: GameViewProps) {
             {gameBoard}
             <Button
                 onClick={() => {
-                    let instructionsWindow = undefined
+                    let instructionsWindow = undefined;
                     if (props.game === "chess") {
                         instructionsWindow = window.open(
                             "chessmanual",
@@ -69,7 +68,10 @@ function GameView(props: GameViewProps) {
                         );
                     }
 
-                    if (instructionsWindow !== undefined && instructionsWindow !== null) {
+                    if (
+                        instructionsWindow !== undefined &&
+                        instructionsWindow !== null
+                    ) {
                         instructionsWindow.focus();
                     } else {
                         console.error("Popup blocked by browser");

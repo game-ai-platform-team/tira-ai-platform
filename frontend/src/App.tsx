@@ -13,15 +13,24 @@ function App() {
                 <NavigationBar />
             </header>
             <main>
-            <Routes>
-                <Route path="" element={<Home />} />
-                <Route path="/chess" element={<GameView game = "chess" />} />
-                <Route path="/connect_four" element={<GameView game = "connectfour" />} />
-                <Route path="/gomoku" element={<GameView game = "gomoku" />} />
-                <Route path="/othello" element={<GameView game = "othello" />} />
-                <Route path="/chessmanual" element={<ChessManual />} />
-                <Route path="/cfourmanual" element={<CFourManual />} />
-            </Routes>
+                <Routes>
+                    <Route path="" element={<Home />} />
+                    <Route path="/chess" element={<GameView game="chess" />} />
+                    <Route
+                        path="/connect_four"
+                        element={<GameView game="connectfour" />}
+                    />
+                    <Route
+                        path="/gomoku"
+                        element={<GameView game="gomoku" />}
+                    />
+                    <Route
+                        path="/othello"
+                        element={<GameView game="othello" />}
+                    />
+                    <Route path="/chessmanual" element={<ChessManual />} />
+                    <Route path="/cfourmanual" element={<CFourManual />} />
+                </Routes>
             </main>
         </div>
     );
