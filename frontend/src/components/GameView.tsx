@@ -8,19 +8,16 @@ import TimeChart from "./TimeChart";
 import CSVCreator from "./CSVCreator.tsx";
 import { LogBox } from "./LogBox.tsx";
 import PlayerStats from "./PlayerStats.tsx";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import Chessboard from "./Chessboard.tsx";
 import CFourboard from "./CFourboard.tsx";
-import Gomokuboard from "./Gomokuboard.tsx";
-import Othelloboard from "./Othelloboard.tsx";
-import Home from "./Home.tsx";
-import { Button } from "react-bootstrap";
 
-function GameView() {
-    const path = useLocation();
-    const game = path.pathname.split("/").pop();
-    const ispathempty = game !== undefined ? game : "";
 
+interface GameViewProps {
+    game: string;
+}
+
+function GameView(props: GameViewProps) {
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
@@ -28,6 +25,8 @@ function GameView() {
 
     const wStats = statisticsService.getStatistics(moves, 0);
     const bStats = statisticsService.getStatistics(moves, 1);
+
+    const gameBoard = (props.game === "chess" ? <Chessboard /> : <CFourboard />)
 
     const handleCopyPGN = () => {
         const text = statisticsService.uciToPGN(moves);
@@ -48,42 +47,47 @@ function GameView() {
 
     return (
         <div id="game-view">
-            {ispathempty && (
-                <div className="card">
-                    <SubmitForm />
-                </div>
-            )}
-            <Routes>
-                <Route path="" element={<Home />} />
-                <Route path="/chess" element={<Chessboard />} />
-                <Route path="/connect_four" element={<CFourboard />} />
-                <Route path="/gomoku" element={<Gomokuboard />} />
-                <Route path="/othello" element={<Othelloboard />} />
-            </Routes>
+            <div className="card">
+                <SubmitForm />
+            </div>
+            {gameBoard}
+            <Button
+                onClick={() => {
+                    let instructionsWindow = undefined
+                    if (props.game === "chess") {
+                        instructionsWindow = window.open(
+                            "chessmanual",
+                            "_blank",
+                            "width=600,height=400",
+                        );
+                    }
+                    if (props.game === "connect_four") {
+                        instructionsWindow = window.open(
+                            "cfourmanual",
+                            "_blank",
+                            "width=600,height=400",
+                        );
+                    }
 
-            {ispathempty && (
-                <Button
-                    onClick={() => (
-                        <div className="card">
-                            <Home />
-                        </div>
-                    )}
-                    className="instruction-button"
-                    variant="flat"
-                    size="lg"
-                    aria-label="Instructions"
-                    style={{ color: "black" }}
-                >
-                    Instructions
-                </Button>
-            )}
+                    if (instructionsWindow !== undefined && instructionsWindow !== null) {
+                        instructionsWindow.focus();
+                    } else {
+                        console.error("Popup blocked by browser");
+                    }
+                }}
+                className="instruction-button"
+                variant="flat"
+                size="lg"
+                aria-label="Instructions"
+                style={{ color: "black" }}
+            >
+                Instructions
+            </Button>
 
-            {ispathempty && (
-                <div className="card">
-                    <MoveList handleCopyPGN={handleCopyPGN} />
-                    <CSVCreator moves={moves} />
-                </div>
-            )}
+            <div className="card">
+                <MoveList handleCopyPGN={handleCopyPGN} />
+                <CSVCreator moves={moves} />
+            </div>
 
             {stats && (
                 <div id="statistics" className="card">
@@ -103,11 +107,9 @@ function GameView() {
                 </div>
             )}
 
-            {ispathempty && (
-                <div className="card">
-                    <LogBox />
-                </div>
-            )}
+            <div className="card">
+                <LogBox />
+            </div>
         </div>
     );
 }
