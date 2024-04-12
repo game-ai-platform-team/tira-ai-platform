@@ -4,7 +4,7 @@ from connect_four_lib.connect_four_player import ConnectFourPlayer
 from duo_game_lib.player import Player
 from git import Repo
 
-from entities.players.player_stockfish import PlayerStockfish
+from entities.players.chess_player import ChessPlayer
 from entities.players.repository_player import RepositoryPlayer
 
 
@@ -21,7 +21,7 @@ class PlayerFactory:
         return self.__games[game](difficulty)
 
     def __get_chess_player(self, difficulty: int) -> Player:
-        return PlayerStockfish(difficulty)
+        return ChessPlayer(difficulty)
 
     def __get_connect_four_player(self, difficulty: int) -> Player:
         return ConnectFourPlayer(difficulty)

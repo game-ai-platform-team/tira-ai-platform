@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import Mock
 
-from entities.players.player_stockfish import PlayerStockfish
+from entities.players.chess_player import ChessPlayer
 
 
 class TestPlayerStockfish(unittest.TestCase):
     def setUp(self):
-        self.sf_player = PlayerStockfish(1)
+        self.sf_player = ChessPlayer(1)
         self.sf_player.engine = Mock()
         self.move1 = "e2e4"
         self.move2 = "f7f6"
@@ -29,7 +29,7 @@ class TestPlayerStockfish(unittest.TestCase):
 
     def test_set_skill_elo(self):
         elo = 1350
-        self.stockfish_player = PlayerStockfish(elo)
+        self.stockfish_player = ChessPlayer(elo)
         parameters = self.stockfish_player.engine.get_parameters()
 
         self.assertEqual(parameters["UCI_Elo"], elo)

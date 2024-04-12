@@ -3,7 +3,7 @@ from duo_game_lib.player import Player
 from stockfish_engine import get_stockfish_engine
 
 
-class PlayerStockfish(Player):
+class ChessPlayer(Player):
     def __init__(self, elo) -> None:
         super().__init__()
 
