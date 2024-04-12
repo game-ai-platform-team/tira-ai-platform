@@ -67,13 +67,16 @@ function GameView() {
                         <div className="card">
                             <Home />
                         </div>
-                        )}
+                    )}
                     className="instruction-button"
                     variant="flat"
                     size="lg"
                     aria-label="Instructions"
-                    style={{ color: "black" }}>Instructions
-                </Button>)}
+                    style={{ color: "black" }}
+                >
+                    Instructions
+                </Button>
+            )}
 
             {ispathempty && (
                 <div className="card">
