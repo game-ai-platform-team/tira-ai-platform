@@ -38,6 +38,32 @@ const NavigationBar = () => {
                     </Dropdown.Item>
                 </DropdownMenu>
             </Dropdown>
+
+            <Dropdown>
+                <Dropdown.Toggle
+                    aria-label="instructions"
+                    as={Button}
+                    variant="flat"
+                    size="lg"
+                    className="nav-button"
+                    style={{ color: "white" }}
+                >
+                    {"📚 Instructions "}
+                </Dropdown.Toggle>
+
+                <DropdownMenu aria-label="Available games">
+                    <Dropdown.Item as={Link} to="/">
+                        📖 General
+                    </Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/chessmanual">
+                        ♟️ Chess
+                    </Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/cfourmanual">
+                        🔴 Connect four
+                    </Dropdown.Item>
+                </DropdownMenu>
+            </Dropdown>
+
             <Button
                 onClick={() =>
                     window.open(
