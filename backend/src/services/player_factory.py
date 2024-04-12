@@ -1,9 +1,9 @@
 from collections.abc import Callable
 
+from connect_four_lib.connect_four_player import ConnectFourPlayer
 from duo_game_lib.player import Player
 from git import Repo
 
-from entities.players.player_connectfour import PlayerConnectFour
 from entities.players.player_stockfish import PlayerStockfish
 from entities.players.repository_player import RepositoryPlayer
 
@@ -24,7 +24,7 @@ class PlayerFactory:
         return PlayerStockfish(difficulty)
 
     def __get_connect_four_player(self, difficulty: int) -> Player:
-        return PlayerConnectFour(difficulty)
+        return ConnectFourPlayer(difficulty)
 
     def get_remote_player(self, repository: Repo) -> Player:
         return RepositoryPlayer(repository)
