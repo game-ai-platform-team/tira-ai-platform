@@ -14,6 +14,7 @@ import CFourboard from "./CFourboard.tsx";
 import Gomokuboard from "./Gomokuboard.tsx";
 import Othelloboard from "./Othelloboard.tsx";
 import Home from "./Home.tsx";
+import { Button } from "react-bootstrap";
 
 function GameView() {
     const path = useLocation();
@@ -59,6 +60,21 @@ function GameView() {
                 <Route path="/gomoku" element={<Gomokuboard />} />
                 <Route path="/othello" element={<Othelloboard />} />
             </Routes>
+
+            {ispathempty && (
+                <Button
+                    onClick={() => (
+                        <div className="card">
+                            <Home />
+                        </div>
+                        )}
+                    className="instruction-button"
+                    variant="flat"
+                    size="lg"
+                    aria-label="Instructions"
+                    style={{ color: "black" }}>Instructions
+                </Button>)}
+
             {ispathempty && (
                 <div className="card">
                     <MoveList handleCopyPGN={handleCopyPGN} />
