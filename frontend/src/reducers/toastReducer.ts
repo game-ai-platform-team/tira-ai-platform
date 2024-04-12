@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const toastSlice = createSlice({
     name: "toast",
-    initialState: "",
+    initialState: {text: "", color: "Secondary"},
     reducers: {
-        setToast(_, action: PayloadAction<string>) {
+        setToast(_, action: PayloadAction<{text: string, color: string}>) {
             return action.payload;
         },
     },

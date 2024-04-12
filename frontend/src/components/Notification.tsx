@@ -8,13 +8,14 @@ const Notification = () => {
 
     return (
         <Toast
-            onClose={() => dispatch(setToast(""))}
-            show={notification !== ""}
+            onClose={() => dispatch(setToast({text:"", color:"Success"}))}
+            show={notification.text !== ""}
             delay={5000}
             autohide
+            bg={notification.color.toLowerCase()}
         >
             <Toast.Header>Notification!!!!!</Toast.Header>
-            <Toast.Body>{notification}</Toast.Body>
+            <Toast.Body>{notification.text}</Toast.Body>
         </Toast>
     );
 };

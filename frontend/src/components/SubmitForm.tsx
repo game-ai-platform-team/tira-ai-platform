@@ -41,9 +41,9 @@ function SubmitForm(): JSX.Element {
 
             dispatch(newGame(gameConfig));
             startGame(gameConfig);
-            dispatch(setToast("Game submitted successfully!"));
+            dispatch(setToast({text:"Game submitted successfully!", color:"Success"}));
         } else {
-            dispatch(setToast("Failed"));
+            dispatch(setToast({text:"Failed", color:"Danger"}));
         }
     };
 
@@ -52,19 +52,19 @@ function SubmitForm(): JSX.Element {
 
         if (isGameRunning && gameState !== GameState.CONTINUE) {
             dispatch(resetStateReducer());
-            dispatch(setToast("Game successfully reset!"));
+            dispatch(setToast({text:"Game successfully reset!", color:"Success"}));
         }
     };
 
     useEffect(() => {
         gameState === GameState.WIN ||
-            (GameState.DRAW && dispatch(setToast("Game ended successfully")));
+            (GameState.DRAW && dispatch(setToast({text:"Game ended successfully!", color:"Success"})));
         gameState === GameState.INVALID &&
-            dispatch(setToast("Game ended, an invalid move was made"));
+            dispatch(setToast({text:"Game ended, an invalid move was made", color:"Danger"}));
         gameState === GameState.ILLEGAL &&
-            dispatch(setToast("Game ended, an illegal move was made"));
+            dispatch(setToast({text:"Game ended, an illegal move was made", color:"Danger"}));
         gameState === GameState.TIMEOUT &&
-            dispatch(setToast("TIMEOUT!!! Your ai is too slow"));
+            dispatch(setToast({text:"TIMEOUT!!! Your ai is too slow", color:"Danger"}));
     }, [dispatch, gameState]);
 
     return (
