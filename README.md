@@ -22,7 +22,10 @@ All [repositories](https://github.com/orgs/game-ai-platform-team/repositories)
 
 ## Documentation
 
-- [Architecture](docs/architecture.md)
-- [Definition of Done](docs/definitionofdone.md)
-- [Conventions](docs/conventions.md)
-- [Testing](docs/testing.md)
+- [Architecture](/docs/architecture.md)
+
+### Development
+
+- [Definition of Done](/docs/development/definitionofdone.md)
+- [Conventions](/docs/development/conventions.md)
+- [Testing](/docs/development/testing.md)
