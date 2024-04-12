@@ -74,10 +74,17 @@ const NavigationBar = () => {
                     }
                     id="nav-button"
                     aria-label="Feedback"
-                    style={{ color: "white" }}> 💬 Feedback</Button>
+                    style={{ color: "white" }}
+                >
+                    {" "}
+                    💬 Feedback
+                </Button>
             </div>
             <div>
-                <Button id="nav-button" onClick={() => (location.href = "/login")}>
+                <Button
+                    id="nav-button"
+                    onClick={() => (location.href = "/login")}
+                >
                     🔐 Login
                 </Button>
             </div>
