@@ -2,9 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import GameView from "./components/GameView";
 import NavigationBar from "./components/NavigationBar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./components/Home";
 import CFourManual from "./components/CFourManual";
 import ChessManual from "./components/ChessManual";
+import GeneralManual from "./components/GeneralManual";
+import Home from "./components/Home";
 
 function App() {
     return (
@@ -14,7 +15,8 @@ function App() {
             </header>
             <main>
                 <Routes>
-                    <Route path="" element={<Home />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/generalmanual" element={<GeneralManual />} />
                     <Route path="/chess" element={<GameView game="chess" />} />
                     <Route
                         path="/connect_four"

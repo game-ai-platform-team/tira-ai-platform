@@ -10,6 +10,7 @@ const NavigationBar = () => {
 
     return (
         <div id="navigation-bar">
+            <Link id="nav-button" to="/">🏠 Home</Link>
             <Dropdown>
                 <Dropdown.Toggle
                     aria-label="Select game"
@@ -52,7 +53,7 @@ const NavigationBar = () => {
                 </Dropdown.Toggle>
 
                 <DropdownMenu aria-label="Available instructions">
-                    <Dropdown.Item href="/" target="_blank">
+                    <Dropdown.Item href="/generalmanual" target="_blank">
                         📖 General
                     </Dropdown.Item>
                     <Dropdown.Item href="/chessmanual" target="_blank">
