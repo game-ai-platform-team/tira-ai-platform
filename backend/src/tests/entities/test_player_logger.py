@@ -1,5 +1,4 @@
 import unittest
-from pathlib import Path
 
 from entities.player_logger import PlayerLogger
 
