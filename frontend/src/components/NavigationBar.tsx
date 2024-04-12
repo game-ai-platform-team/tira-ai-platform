@@ -51,14 +51,14 @@ const NavigationBar = () => {
                     {"📚 Instructions "}
                 </Dropdown.Toggle>
 
-                <DropdownMenu aria-label="Available games">
-                    <Dropdown.Item as={Link} to="/">
+                <DropdownMenu aria-label="Available instructions">
+                    <Dropdown.Item href="/" target="_blank">
                         📖 General
                     </Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/chessmanual">
+                    <Dropdown.Item href="/chessmanual" target="_blank">
                         ♟️ Chess
                     </Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/cfourmanual">
+                    <Dropdown.Item href="/cfourmanual" target="_blank">
                         🔴 Connect four
                     </Dropdown.Item>
                 </DropdownMenu>
