@@ -8,7 +8,7 @@ const Notification = () => {
 
     return (
         <Toast
-            onClose={() => dispatch(setToast({text:"", color:"Success"}))}
+            onClose={() => dispatch(setToast({ text: "", color: "Success" }))}
             show={notification.text !== ""}
             delay={5000}
             autohide

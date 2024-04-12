@@ -41,9 +41,14 @@ function SubmitForm(): JSX.Element {
 
             dispatch(newGame(gameConfig));
             startGame(gameConfig);
-            dispatch(setToast({text:"Game submitted successfully!", color:"Success"}));
+            dispatch(
+                setToast({
+                    text: "Game submitted successfully!",
+                    color: "Success",
+                }),
+            );
         } else {
-            dispatch(setToast({text:"Failed", color:"Danger"}));
+            dispatch(setToast({ text: "Failed", color: "Danger" }));
         }
     };
 
@@ -52,19 +57,45 @@ function SubmitForm(): JSX.Element {
 
         if (isGameRunning && gameState !== GameState.CONTINUE) {
             dispatch(resetStateReducer());
-            dispatch(setToast({text:"Game successfully reset!", color:"Success"}));
+            dispatch(
+                setToast({
+                    text: "Game successfully reset!",
+                    color: "Success",
+                }),
+            );
         }
     };
 
     useEffect(() => {
         gameState === GameState.WIN ||
-            (GameState.DRAW && dispatch(setToast({text:"Game ended successfully!", color:"Success"})));
+            (GameState.DRAW &&
+                dispatch(
+                    setToast({
+                        text: "Game ended successfully!",
+                        color: "Success",
+                    }),
+                ));
         gameState === GameState.INVALID &&
-            dispatch(setToast({text:"Game ended, an invalid move was made", color:"Danger"}));
+            dispatch(
+                setToast({
+                    text: "Game ended, an invalid move was made",
+                    color: "Danger",
+                }),
+            );
         gameState === GameState.ILLEGAL &&
-            dispatch(setToast({text:"Game ended, an illegal move was made", color:"Danger"}));
+            dispatch(
+                setToast({
+                    text: "Game ended, an illegal move was made",
+                    color: "Danger",
+                }),
+            );
         gameState === GameState.TIMEOUT &&
-            dispatch(setToast({text:"TIMEOUT!!! Your ai is too slow", color:"Danger"}));
+            dispatch(
+                setToast({
+                    text: "TIMEOUT!!! Your ai is too slow",
+                    color: "Danger",
+                }),
+            );
     }, [dispatch, gameState]);
 
     return (
