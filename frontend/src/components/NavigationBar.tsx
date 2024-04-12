@@ -14,9 +14,9 @@ const NavigationBar = () => {
                 <Dropdown.Toggle
                     aria-label="Select game"
                     as={Button}
-                    variant="flat"
+                    id="nav-button"
                     size="lg"
-                    className="nav-button"
+                    className="nav-dropdown"
                     style={{ color: "white" }}
                 >
                     {getGameIcon(game !== undefined ? game : "")}{" "}
@@ -43,9 +43,9 @@ const NavigationBar = () => {
                 <Dropdown.Toggle
                     aria-label="instructions"
                     as={Button}
-                    variant="flat"
+                    id="nav-button"
                     size="lg"
-                    className="nav-button"
+                    className="nav-dropdown"
                     style={{ color: "white" }}
                 >
                     {"📚 Instructions "}
@@ -64,23 +64,24 @@ const NavigationBar = () => {
                 </DropdownMenu>
             </Dropdown>
 
-            <Button
-                onClick={() =>
-                    window.open(
-                        "https://github.com/game-ai-platform-team/tira-ai-platform/issues",
-                        "_blank",
-                    )
-                }
-                className="nav-button"
-                variant="flat"
-                size="lg"
-                aria-label="Feedback"
-                style={{ color: "white" }}
-            >
-                💬 Feedback
-            </Button>
-            <div className="tira-text">TIRA-AI-PLATFORM</div>
-            <button onClick={() => (location.href = "/login")}> login</button>
+            <div>
+                <Button
+                    onClick={() =>
+                        window.open(
+                            "https://github.com/game-ai-platform-team/tira-ai-platform/issues",
+                            "_blank",
+                        )
+                    }
+                    id="nav-button"
+                    aria-label="Feedback"
+                    style={{ color: "white" }}> 💬 Feedback</Button>
+            </div>
+            <div>
+                <Button id="nav-button" onClick={() => (location.href = "/login")}>
+                    🔐 Login
+                </Button>
+            </div>
+            <div className="tira-text"> TIRA-AI-PLATFORM</div>
         </div>
     );
 };
