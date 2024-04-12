@@ -8,6 +8,7 @@ import TimeChart from "./TimeChart";
 import CSVCreator from "./CSVCreator.tsx";
 import { LogBox } from "./LogBox.tsx";
 import PlayerStats from "./PlayerStats.tsx";
+import { Button } from "react-bootstrap";
 import Chessboard from "./Chessboard.tsx";
 import CFourboard from "./CFourboard.tsx";
 
@@ -49,6 +50,41 @@ function GameView(props: GameViewProps) {
                 <SubmitForm />
             </div>
             {gameBoard}
+            <Button
+                onClick={() => {
+                    let instructionsWindow = undefined;
+                    if (props.game === "chess") {
+                        instructionsWindow = window.open(
+                            "chessmanual",
+                            "_blank",
+                            "width=600,height=400",
+                        );
+                    }
+                    if (props.game === "connect_four") {
+                        instructionsWindow = window.open(
+                            "cfourmanual",
+                            "_blank",
+                            "width=600,height=400",
+                        );
+                    }
+
+                    if (
+                        instructionsWindow !== undefined &&
+                        instructionsWindow !== null
+                    ) {
+                        instructionsWindow.focus();
+                    } else {
+                        console.error("Popup blocked by browser");
+                    }
+                }}
+                className="instruction-button"
+                variant="flat"
+                size="lg"
+                aria-label="Instructions"
+                style={{ color: "black" }}
+            >
+                Instructions
+            </Button>
 
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
