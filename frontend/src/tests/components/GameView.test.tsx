@@ -19,7 +19,7 @@ describe("GameView", () => {
         const ui = (
             <Provider store={store}>
                 <MemoryRouter initialEntries={["/chess"]}>
-                    <GameView />
+                    <GameView game={"chess"} />
                 </MemoryRouter>
             </Provider>
         );
@@ -36,7 +36,7 @@ describe("GameView", () => {
         const ui = (
             <Provider store={store}>
                 <MemoryRouter initialEntries={["/chess"]}>
-                    <GameView />
+                    <GameView game={"chess"} />
                 </MemoryRouter>
             </Provider>
         );
@@ -55,7 +55,7 @@ describe("GameView", () => {
         const ui = (
             <Provider store={store}>
                 <MemoryRouter initialEntries={["/chess"]}>
-                    <GameView />
+                    <GameView game={"chess"} />
                 </MemoryRouter>
             </Provider>
         );
@@ -72,7 +72,7 @@ describe("GameView", () => {
         const ui = (
             <Provider store={store}>
                 <MemoryRouter initialEntries={["/chess"]}>
-                    <GameView />
+                    <GameView game={"chess"} />
                 </MemoryRouter>
             </Provider>
         );
@@ -93,7 +93,7 @@ describe("GameView", () => {
         const ui = (
             <Provider store={store}>
                 <MemoryRouter initialEntries={["/chess"]}>
-                    <GameView />
+                    <GameView game={"chess"} />
                 </MemoryRouter>
             </Provider>
         );
