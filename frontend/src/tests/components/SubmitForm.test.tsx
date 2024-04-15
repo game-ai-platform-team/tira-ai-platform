@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "../../store";
 import { resetGame, updateState } from "../../reducers/gameReducer";
 import { GameState } from "../../types";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Submit form", () => {
     beforeEach(() => {
@@ -12,7 +13,9 @@ describe("Submit form", () => {
 
         render(
             <Provider store={store}>
-                <SubmitForm />;
+                <BrowserRouter>
+                    <SubmitForm/>
+                </BrowserRouter>
             </Provider>,
         );
     });
@@ -72,7 +75,7 @@ describe("Submit form", () => {
             store.dispatch(updateState(GameState.WIN));
 
             expect(
-                await screen.findAllByText("Game ended successfully"),
+                await screen.findAllByText("Game ended successfully!"),
             ).not.toBe(null);
         });
 
@@ -88,7 +91,7 @@ describe("Submit form", () => {
             store.dispatch(updateState(GameState.DRAW));
 
             expect(
-                await screen.findAllByText("Game ended successfully"),
+                await screen.findAllByText("Game ended successfully!"),
             ).not.toBe(null);
         });
         test("no notification", async () => {

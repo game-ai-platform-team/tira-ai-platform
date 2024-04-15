@@ -8,11 +8,12 @@ import { startGame } from "../services/SocketService";
 import { GameState } from "../types";
 import { setToast } from "../reducers/toastReducer";
 import Notification from "../components/Notification";
+import { useLocation } from "react-router-dom";
 
 function SubmitForm(): JSX.Element {
     const dispatch = useAppDispatch();
-
-    const game = useAppSelector((state) => state.game.config.game);
+    const path = useLocation();
+    const game = path.pathname.split("/").pop();
     const gameState = useAppSelector((state) => state.game.state);
     const isGameRunning = useAppSelector((state) => state.game.isGameRunning);
 
@@ -32,11 +33,12 @@ function SubmitForm(): JSX.Element {
 
     const onSubmitGithub = (e: React.SyntheticEvent) => {
         e.preventDefault();
+        const currentGame = !game?"chess":game
         if (githubUrl && elo && !isGameRunning) {
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
-                game,
+                game:currentGame,
             };
 
             dispatch(newGame(gameConfig));
@@ -103,7 +105,11 @@ function SubmitForm(): JSX.Element {
             <h2 className="card-header">Upload your file</h2>
 
             <div id="config-slider">
-                <label htmlFor="elo-slider">Select Stockfish Elo:</label>
+                {game === "chess" ? (
+                    <label htmlFor="elo-slider">Select Stockfish elo:</label>
+                ) : (
+                    <label htmlFor="elo-slider">Select Difficulty:</label>
+                )}
                 <input
                     id="elo-slider"
                     type="range"
@@ -114,7 +120,11 @@ function SubmitForm(): JSX.Element {
                     title="Difficulty"
                     aria-label="Difficulty"
                 />
-                <p>Elo: {elo}</p>
+                {game === "chess" ? (
+                    <p>Elo: {elo}</p>
+                ) : (
+                    <p>Difficulty: {elo}</p>
+                )}
             </div>
             <div id="config-slider">
                 <label htmlFor="game-slider">
