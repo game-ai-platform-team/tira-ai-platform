@@ -9,12 +9,15 @@ describe("ConnectFourBoardReducer", () => {
 
     test("changes board", () => {
         store.dispatch(
-            newConnectFourBoard({ move: "3", logs: "", time: 100, evaluation: 0 }),
+            newConnectFourBoard({
+                move: "3",
+                logs: "",
+                time: 100,
+                evaluation: 0,
+            }),
         );
         expect(store.getState().boards.connectFourBoards).toHaveLength(1);
-        expect(store.getState().boards.connectFourBoards[0][0]).toEqual(
-            3,
-        );
+        expect(store.getState().boards.connectFourBoards[0][0]).toEqual(3);
     });
 
     test("changes board multiple times", () => {
@@ -36,11 +39,7 @@ describe("ConnectFourBoardReducer", () => {
         );
 
         expect(store.getState().boards.connectFourBoards).toHaveLength(2);
-        expect(store.getState().boards.connectFourBoards[0][0]).toEqual(
-            1,
-        );
-        expect(store.getState().boards.connectFourBoards[1][1]).toEqual(
-            6,
-        );
+        expect(store.getState().boards.connectFourBoards[0][0]).toEqual(1);
+        expect(store.getState().boards.connectFourBoards[1][1]).toEqual(6);
     });
 });

@@ -14,7 +14,10 @@ function App() {
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/generalmanual" element={<Manual game="general" />} />
+                    <Route
+                        path="/generalmanual"
+                        element={<Manual game="general" />}
+                    />
                     <Route path="/chess" element={<GameView game="chess" />} />
                     <Route
                         path="/connect_four"
@@ -28,8 +31,14 @@ function App() {
                         path="/othello"
                         element={<GameView game="othello" />}
                     />
-                    <Route path="/chessmanual" element={<Manual game="chess" />} />
-                    <Route path="/cfourmanual" element={<Manual game="connect_four" />} />
+                    <Route
+                        path="/chessmanual"
+                        element={<Manual game="chess" />}
+                    />
+                    <Route
+                        path="/cfourmanual"
+                        element={<Manual game="connect_four" />}
+                    />
                 </Routes>
             </main>
         </div>

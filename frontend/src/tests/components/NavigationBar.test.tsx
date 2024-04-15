@@ -136,9 +136,12 @@ describe("Navigation bar", () => {
             });
 
             test("has connect 4 manual", async () => {
-                const game = within(instructionDropdown!).getByText("Connect Four", {
-                    exact: false,
-                });
+                const game = within(instructionDropdown!).getByText(
+                    "Connect Four",
+                    {
+                        exact: false,
+                    },
+                );
 
                 expect(game).toBeDefined();
             });

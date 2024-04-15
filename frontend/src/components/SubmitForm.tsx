@@ -33,12 +33,12 @@ function SubmitForm(): JSX.Element {
 
     const onSubmitGithub = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const currentGame = !game?"chess":game
+        const currentGame = !game ? "chess" : game;
         if (githubUrl && elo && !isGameRunning) {
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
-                game:currentGame,
+                game: currentGame,
             };
 
             dispatch(newGame(gameConfig));
@@ -105,7 +105,8 @@ function SubmitForm(): JSX.Element {
             <h2 className="card-header">Upload your file</h2>
 
             <div id="config-slider">
-            chess             {game === "chess" ? (
+                chess{" "}
+                {game === "chess" ? (
                     <label htmlFor="elo-slider">Select Stockfish elo:</label>
                 ) : (
                     <label htmlFor="elo-slider">Select Difficulty:</label>

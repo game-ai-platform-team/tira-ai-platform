@@ -4,11 +4,16 @@ import chess from "../../../docs/user_manual/chess.md";
 import connect_four from "../../../docs/user_manual/connect_four.md";
 
 interface manualProps {
-    game: string
+    game: string;
 }
 
 const GeneralManual = (props: manualProps) => {
-    const currentManual = props.game === "chess" ? (chess) : props.game === "cfour" ? (connect_four) : manual
+    const currentManual =
+        props.game === "chess"
+            ? chess
+            : props.game === "cfour"
+              ? connect_four
+              : manual;
     return (
         <div className="card container">
             <ReactMarkdown>{currentManual}</ReactMarkdown>
