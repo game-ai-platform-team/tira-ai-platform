@@ -10,7 +10,7 @@ interface manualProps {
 const GeneralManual = (props: manualProps) => {
     const currentManual = props.game === "chess" ? (chess) : props.game === "cfour" ? (connect_four) : manual
     return (
-        <div className="card">
+        <div className="card container">
             <ReactMarkdown>{currentManual}</ReactMarkdown>
         </div>
     );
