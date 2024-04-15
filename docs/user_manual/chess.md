@@ -28,7 +28,7 @@ TAG:DATA
     -   Server will provide its move in this format.
     -   Your AI should give its move in this format.
     -   **Data Format**: The move made.
-    -   **Example**: `MOVE:3` indicates a move made into the middle column.
+    -   **Example**: `MOVE:e2e4` indicates a pawn moving from e2 to e4.
 
 -   `PLAY:`
 

@@ -23,8 +23,8 @@ the MOVE line, which outputs a move to the game, and should only contain a singu
 
 ## Supported games
 
-- [Chess](chess.md)
-- [Connect four](connect_four.md)
+- [Chess](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/user_manual/chess.md)
+- [Connect four](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/user_manual/connect_four.md)
 
 ## Submitting code from GitHub
 Your GitHub repository must contain a directory ``tiraconfig``, where there are two files:

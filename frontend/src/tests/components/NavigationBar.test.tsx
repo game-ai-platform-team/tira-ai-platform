@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 
 describe("Navigation bar", () => {
     let gameSelectionButton: null | HTMLElement = null;
+    let instructionSelectionButton: null | HTMLElement = null;
 
     beforeEach(() => {
         render(
@@ -18,6 +19,7 @@ describe("Navigation bar", () => {
             </Provider>,
         );
         gameSelectionButton = screen.getByLabelText("Select game");
+        instructionSelectionButton = screen.getByLabelText("instructions");
     });
 
     test("feedback is on the navigation bar", () => {
@@ -37,7 +39,7 @@ describe("Navigation bar", () => {
             ).toThrowError();
         });
 
-        describe("dropdown menu", () => {
+        describe("game dropdown menu", () => {
             let gameDropdown: null | HTMLElement = null;
 
             beforeEach(async () => {
@@ -106,6 +108,55 @@ describe("Navigation bar", () => {
                 fireEvent.click(button);
                 const url = window.location.href;
                 expect(url).include("/chess");
+            });
+        });
+    });
+
+    describe("instruction selection", () => {
+        test("button exists", () => {
+            expect(instructionSelectionButton).not.toBeNull();
+        });
+
+        test("dropdown menu is hidden at start", () => {
+            expect(() =>
+                screen.getByLabelText("Available instructions"),
+            ).toThrowError();
+        });
+
+        describe("instruction dropdown menu", () => {
+            let instructionDropdown: null | HTMLElement = null;
+
+            beforeEach(async () => {
+                const user = userEvent.setup();
+                await user.click(instructionSelectionButton as HTMLElement);
+
+                instructionDropdown = screen.getByLabelText(
+                    "Available instructions",
+                ) as HTMLElement;
+            });
+
+            test("has chess manual", async () => {
+                const game = within(instructionDropdown!).getByText("Chess", {
+                    exact: false,
+                });
+
+                expect(game).toBeDefined();
+            });
+
+            test("has general manual", async () => {
+                const game = within(instructionDropdown!).getByText("General", {
+                    exact: false,
+                });
+
+                expect(game).toBeDefined();
+            });
+
+            test("has connect 4 manual", async () => {
+                const game = within(instructionDropdown!).getByText("Connect Four", {
+                    exact: false,
+                });
+
+                expect(game).toBeDefined();
             });
         });
     });
