@@ -50,5 +50,5 @@ Incase you want to display any logs on the server, you need to add a normal prin
 
 ```terminal
 MOVE: <number of column 0-6>
-This would be treated as a log
+The above line would be treated as a move. This line would be treated as a log.
 ```
