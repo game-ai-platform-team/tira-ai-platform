@@ -1,11 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import GameView from "./components/GameView";
 import NavigationBar from "./components/NavigationBar";
+import GameView from "./components/GameView";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CFourManual from "./components/CFourManual";
-import ChessManual from "./components/ChessManual";
-import GeneralManual from "./components/GeneralManual";
 import Home from "./components/Home";
+import Manual from "./components/Manual";
 
 function App() {
     return (
@@ -16,7 +14,7 @@ function App() {
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/generalmanual" element={<GeneralManual />} />
+                    <Route path="/generalmanual" element={<Manual game="general" />} />
                     <Route path="/chess" element={<GameView game="chess" />} />
                     <Route
                         path="/connect_four"
@@ -30,8 +28,8 @@ function App() {
                         path="/othello"
                         element={<GameView game="othello" />}
                     />
-                    <Route path="/chessmanual" element={<ChessManual />} />
-                    <Route path="/cfourmanual" element={<CFourManual />} />
+                    <Route path="/chessmanual" element={<Manual game="chess" />} />
+                    <Route path="/cfourmanual" element={<Manual game="connect_four" />} />
                 </Routes>
             </main>
         </div>
