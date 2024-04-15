@@ -2,6 +2,9 @@
 
 In short, the server will always provide a move and then ask for your AI to play the next move. The only output your AI needs to make is `MOVE:<move>` when the server inputs the `PLAY:` command.
 
+[Example of a simple connect four application compatible with tira-AI-platform](https://github.com/game-ai-platform-team/stupid-connect-four-ai)
+
+
 ## Notation
 
 Moves are indicated by the number of the column into which the piece is to be dropped. Columns are numbered starting from the left:

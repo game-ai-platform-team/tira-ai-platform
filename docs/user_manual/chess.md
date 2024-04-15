@@ -2,6 +2,9 @@
 
 In short, the server will always provide a move and then ask for your AI to play the next move. The only output your AI needs to make is `MOVE:<move>` when the server inputs the `PLAY:` command.
 
+[Example of a simple chess application compatible with tira-AI-platform](https://github.com/game-ai-platform-team/stupid-chess-ai)
+
+
 ## Notation
 
 The communication between your AI and the server is done using [UCI](https://en.wikipedia.org/wiki/Universal_Chess_Interface) format.

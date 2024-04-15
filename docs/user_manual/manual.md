@@ -2,6 +2,8 @@
 
 The server assumes that provided AIs manage tracks previous moves itself.
 Therefore the server will only provide input of one AI to another and read outputs.
+[Example of a simple connect four application compatible with tira-AI-platform](https://github.com/game-ai-platform-team/stupid-connect-four-ai)
+
 
 ## Logs vs Moves
 
@@ -22,6 +24,7 @@ the MOVE line, which outputs a move to the game, and should only contain a singu
 ## Supported games
 
 - [Chess](chess.md)
+- [Connect four](connect_four.md)
 
 ## Submitting code from GitHub
 Your GitHub repository must contain a directory ``tiraconfig``, where there are two files:
