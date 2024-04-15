@@ -18,12 +18,12 @@ def test(ctx):
 
 @task
 def coverage_html(ctx):
-    ctx.run(f"pytest --cov {SOURCE_DIR} --cov-report html -n auto", pty=True)
+    ctx.run(f"pytest {SOURCE_DIR} --cov  --cov-report html -n auto", pty=True)
 
 
 @task
 def coverage_xml(ctx):
-    ctx.run(f"pytest --cov {SOURCE_DIR} --cov-report xml -n auto", pty=True)
+    ctx.run(f"pytest {SOURCE_DIR} --cov --cov-report xml -n auto", pty=True)
 
 
 @task
