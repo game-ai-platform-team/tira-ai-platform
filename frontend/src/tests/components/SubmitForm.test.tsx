@@ -14,7 +14,7 @@ describe("Submit form", () => {
         render(
             <Provider store={store}>
                 <BrowserRouter>
-                    <SubmitForm/>
+                    <SubmitForm />
                 </BrowserRouter>
             </Provider>,
         );
