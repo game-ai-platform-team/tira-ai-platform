@@ -28,12 +28,6 @@ const NavigationBar = () => {
                     <Dropdown.Item as={Link} to="/chess">
                         ♟️ Chess
                     </Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/gomoku">
-                        🌀 Gomoku
-                    </Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/othello">
-                        ⚪ Othello
-                    </Dropdown.Item>
                     <Dropdown.Item as={Link} to="/connect_four">
                         🔴 Connect 4
                     </Dropdown.Item>
@@ -98,10 +92,6 @@ const getGameIcon = (game: string): string => {
     switch (game) {
         case "chess":
             return "♟️";
-        case "gomoku":
-            return "🌀";
-        case "othello":
-            return "⚪";
         case "connect_four":
             return "🔴";
         default:

@@ -59,22 +59,6 @@ describe("Navigation bar", () => {
                 expect(game).toBeDefined();
             });
 
-            test("has gomoku", async () => {
-                const game = within(gameDropdown!).getByText("Gomoku", {
-                    exact: false,
-                });
-
-                expect(game).toBeDefined();
-            });
-
-            test("has othello", async () => {
-                const game = within(gameDropdown!).getByText("Othello", {
-                    exact: false,
-                });
-
-                expect(game).toBeDefined();
-            });
-
             test("has connect 4", async () => {
                 const game = within(gameDropdown!).getByText("Connect 4", {
                     exact: false,
