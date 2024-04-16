@@ -1,8 +1,8 @@
-from time import sleep
 from json import loads
+from time import sleep
 
-from duo_game_lib.move import Move, MoveMetadata
 from duo_game_lib.game_state import GameState
+from duo_game_lib.move import Move, MoveMetadata
 
 from entities.image import Image
 from services.hpc_service import HPCService
