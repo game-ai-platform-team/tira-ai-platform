@@ -1,4 +1,8 @@
 from time import sleep
+from json import loads
+
+from duo_game_lib.move import Move, MoveMetadata
+from duo_game_lib.game_state import GameState
 
 from entities.image import Image
 from services.hpc_service import HPCService
@@ -6,6 +10,26 @@ from services.socket_service import SocketService
 
 
 class API:
+    def construct_move_object_from_json(self, content: str):
+        """
+        Logic to construct requisite objects
+
+        Args:
+            content (str): json string
+
+        Returns:
+            Move: Move with parameters extracted from content.
+
+        """
+        json_object = loads(content)
+        time = json_object["time"]
+        evaluation = json_object["evaluation"]
+        logs = json_object["logs"]
+        move_metadata = MoveMetadata(time, evaluation, logs)
+        state = GameState(json_object["state"])
+
+        return Move(json_object["move"], state, move_metadata)
+
     def start(
         self,
         socket_service: SocketService,
@@ -28,13 +52,16 @@ class API:
                 output = hpc.read_output()
 
                 for line in output:
-                    parts = line.split(":")
-                    tag = parts[0]
+                    content = line.split(":", 1)
+
+                    tag = content[0]
 
                     if tag == "END":
                         return
-
-                print(output)
+                    elif tag == "MOVE":
+                        json_string = content[1]
+                        move_object = self.construct_move_object_from_json(json_string)
+                        socket_service.send(move_object)
                 sleep(1)
 
 
