@@ -10,15 +10,15 @@ from services.hpc_service import HPCService
 class TestHPCService(TestCase):
     def setUp(self) -> None:
         self.connection = MagicMock()
-        self.__id = "id1234"
-        self.hpc_service = HPCService(self.connection, self.__id)
-        self.batch_path = TEMP_DIR / f"batch-{self.__id}.sh"
+        self.id_ = "id1234"
+        self.hpc_service = HPCService(self.connection, self.id_)
+        self.batch_path = TEMP_DIR / f"batch-{self.id_}.sh"
 
         if self.batch_path.exists():
             os.remove(self.batch_path)
 
     def test_output_path(self):
-        self.assertEqual(self.hpc_service.output_path, Path(f"result-{self.__id}.txt"))
+        self.assertEqual(self.hpc_service.output_path, Path(f"result-{self.id_}.txt"))
 
     def test_batch_path(self):
         self.assertEqual(self.hpc_service.batch_path, self.batch_path)
