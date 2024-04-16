@@ -27,7 +27,7 @@ class GameFactory:
         Args:
             text (str): Text to print.
         """
-        os.system(f"echo {text}")
+        os.system(f"echo '{text}'")
 
     def get_game(self, game: str, player1: Player, player2: Player) -> Game:
         """
