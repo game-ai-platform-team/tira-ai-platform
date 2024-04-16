@@ -55,7 +55,25 @@ class TestHPCService(TestCase):
         self.connection.send_file.assert_any_call(Path("batch_path"))
 
     def test_submit_writes_batch_file(self):
-        pass
+        self.hpc_service.submit(Mock())
+        self.assertTrue(self.batch_path.exists())
 
-    def read_output_remembers_position(self):
-        pass
+    def read_output_returns_all_lines_first_time(self):
+        connection = Mock()
+        hpc_service = HPCService(connection)
+        lines = ["line"] * 6
+
+        connection.read_file.return_value = [lines]
+
+        self.assertEqual(hpc_service.read_output(), lines)
+
+    def test_read_output_remembers_position(self):
+        connection = Mock()
+        hpc_service = HPCService(connection)
+        lines = [f"line {i}" for i in range(7)]
+
+        connection.read_file.side_effect = [lines[:2], lines[:3], lines[:6]]
+
+        self.assertEqual(hpc_service.read_output(), ["line 0", "line 1"])
+        self.assertEqual(hpc_service.read_output(), ["line 2"])
+        self.assertEqual(hpc_service.read_output(), ["line 3", "line 4", "line 5"])
