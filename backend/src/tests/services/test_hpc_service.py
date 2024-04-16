@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock, patch
@@ -11,14 +12,16 @@ class TestHPCService(TestCase):
         self.connection = MagicMock()
         self.__id = "id1234"
         self.hpc_service = HPCService(self.connection, self.__id)
+        self.batch_path = TEMP_DIR / f"batch-{self.__id}.sh"
+
+        if self.batch_path.exists():
+            os.remove(self.batch_path)
 
     def test_output_path(self):
         self.assertEqual(self.hpc_service.output_path, Path(f"result-{self.__id}.txt"))
 
     def test_batch_path(self):
-        self.assertEqual(
-            self.hpc_service.batch_path, TEMP_DIR / f"batch-{self.__id}.sh"
-        )
+        self.assertEqual(self.hpc_service.batch_path, self.batch_path)
 
     def test_enter_starts_connection(self):
         with self.hpc_service:
