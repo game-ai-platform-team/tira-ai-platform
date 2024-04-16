@@ -1,3 +1,4 @@
+import os
 from typing import Callable
 
 from connect_four_lib.connect_four_judge import ConnectFourJudge
@@ -5,8 +6,6 @@ from duo_game_lib.game import Game
 from duo_game_lib.player import Player
 
 from entities.chess_judge import ChessJudge
-
-import os
 
 
 class GameFactory:
