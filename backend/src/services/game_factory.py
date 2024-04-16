@@ -6,6 +6,8 @@ from duo_game_lib.player import Player
 
 from entities.chess_judge import ChessJudge
 
+import os
+
 
 class GameFactory:
     def __init__(
@@ -17,7 +19,16 @@ class GameFactory:
             "chess": self.__get_chess_game,
             "connect_four": self.__get_connect_four_game,
         }
-        self.__logger: Callable[[str], None] = logger or print
+        self.__logger: Callable[[str], None] = logger or self.default_logger
+
+    def default_logger(self, text: str):
+        """
+        Print text to console with os.system to avoid locking stdout.
+
+        Args:
+            text (str): Text to print.
+        """
+        os.system(f"echo {text}")
 
     def get_game(self, game: str, player1: Player, player2: Player) -> Game:
         """
