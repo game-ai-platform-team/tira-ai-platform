@@ -11,9 +11,9 @@ interface manualProps {
  * Uses ReactMarkdown to render .md files
  * The manual shown depends on the relevant game
  *
- * @param String matching the desired manual. 
- * Unless parameter is "chess" or "connect_four" resorts to the general manual  
- * 
+ * @param String matching the desired manual.
+ * Unless parameter is "chess" or "connect_four" resorts to the general manual
+ *
  * @returns A manual matching the relevant game or a general manual if no game is relevant
  */
 const GeneralManual = (props: manualProps) => {
