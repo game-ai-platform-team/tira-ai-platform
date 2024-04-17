@@ -105,7 +105,6 @@ function SubmitForm(): JSX.Element {
             <h2 className="card-header">Upload your file</h2>
 
             <div id="config-slider">
-                chess{" "}
                 {game === "chess" ? (
                     <label htmlFor="elo-slider">Select Stockfish elo:</label>
                 ) : (
