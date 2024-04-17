@@ -1,3 +1,7 @@
+import Toast from "react-bootstrap/Toast";
+import { useAppDispatch, useAppSelector } from "../hook";
+import { setToast } from "../reducers/toastReducer";
+
 /**
  * React component for displaying notifications using Bootstrap Toast.
  *
@@ -6,10 +10,6 @@
  *
  * @returns {TSX.Element} The Notification component TSX.
  */
-import Toast from "react-bootstrap/Toast";
-import { useAppDispatch, useAppSelector } from "../hook";
-import { setToast } from "../reducers/toastReducer";
-
 const Notification = () => {
     const notification = useAppSelector((state) => state.notification);
     const dispatch = useAppDispatch();
