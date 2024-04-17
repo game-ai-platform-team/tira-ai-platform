@@ -2,7 +2,7 @@ import SubmitForm from "./SubmitForm";
 import MoveList from "./MoveList";
 import "../scss/GameView.scss";
 import statisticsService from "../services/StatisticsService";
-import { useAppSelector } from "../hook";
+import { useAppDispatch, useAppSelector } from "../hook";
 import AdvantageChart from "./AdvantageChart";
 import TimeChart from "./TimeChart";
 import CSVCreator from "./CSVCreator.tsx";
@@ -10,12 +10,14 @@ import { LogBox } from "./LogBox.tsx";
 import PlayerStats from "./PlayerStats.tsx";
 import Chessboard from "./Chessboard.tsx";
 import CFourboard from "./CFourboard.tsx";
+import { setToast } from "../reducers/toastReducer.ts";
 
 interface GameViewProps {
     game: string;
 }
 
 function GameView(props: GameViewProps) {
+    const dispatch = useAppDispatch();
     const moves = useAppSelector((state) => state.moves);
 
     const stats = statisticsService.getStatistics(moves);
@@ -35,8 +37,20 @@ function GameView(props: GameViewProps) {
         pgn.select();
         try {
             navigator.clipboard.writeText(pgn.value);
-            console.log("Text copied to clipboard:", text);
+            dispatch(
+                setToast({
+                    text: "PGN copied successfully!",
+                    color: "Success",
+                }),
+            );
+            console.log( "Text copied to clipboard:", text);
         } catch (error) {
+            dispatch(
+                setToast({
+                    text: "Unable to copy PGN.",
+                    color: "Danger",
+                }),
+            );
             console.error("Unable to copy text to clipboard:", error);
         }
 
