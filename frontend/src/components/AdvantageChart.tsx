@@ -19,7 +19,7 @@ interface AdvantageChartProps {
 }
 /**
  * Draws a line chart depicting who is in the lead during each step of the game.
- * Clicking the chart will display the corresponding turn on the game board. 
+ * Clicking the chart will display the corresponding turn on the game board.
  *
  * @returns A line chart describing which player is in the lead.
  */
