@@ -24,14 +24,6 @@ function App() {
                         element={<GameView game="connectfour" />}
                     />
                     <Route
-                        path="/gomoku"
-                        element={<GameView game="gomoku" />}
-                    />
-                    <Route
-                        path="/othello"
-                        element={<GameView game="othello" />}
-                    />
-                    <Route
                         path="/chessmanual"
                         element={<Manual game="chess" />}
                     />
