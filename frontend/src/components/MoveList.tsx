@@ -2,6 +2,7 @@ import "../scss/MoveList.scss";
 import Move from "./Move";
 import store from "../store";
 import { GameState } from "../types";
+import { useLocation } from "react-router-dom";
 
 /**
  * Typescript object for showing the moves of the current game.
@@ -14,6 +15,8 @@ import { GameState } from "../types";
 function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
     const moves = store.getState().moves;
     const gameState = store.getState().game.state;
+    const path = useLocation();
+    const game = path.pathname.split("/").pop();
     let winner = "";
 
     if (gameState === GameState.WIN) {
@@ -27,9 +30,11 @@ function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
 
     return (
         <div className="move-list">
-            <a href="#" onClick={handleCopyPGN}>
+            {game === "chess" && (
+                <a href="#" onClick={handleCopyPGN}>
                 Copy PGN
             </a>
+            )}
             <p>State: {gameState}</p>
             {gameState === GameState.WIN && <p>Winner: {winner}</p>}
             <p>Received moves:</p>
