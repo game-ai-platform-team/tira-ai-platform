@@ -3,7 +3,16 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
 import "../scss/NavigationBar.scss";
 import { Link, useLocation } from "react-router-dom";
-
+/**
+ * Navigation bar containing all functions relevant to navigating the application
+ * Home-button returns user to the home page
+ * Select game opens a dropdown menu for naviating between games
+ * Instructions opens a dropdown menu of links that open manuals to new tabs
+ * Feedback opens a new tab to project's issues in github
+ * Login feature is not yet implemented
+ *
+ * @returns navigation bar object
+ */
 const NavigationBar = () => {
     const path = useLocation();
     const game = path.pathname.split("/").pop();
