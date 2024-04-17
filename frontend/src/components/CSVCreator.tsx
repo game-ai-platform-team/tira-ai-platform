@@ -4,7 +4,14 @@ import MoveStatistics from "../interfaces/MoveStatistics.ts";
 interface CSVCreatorProps {
     moves: MoveStatistics[] | null;
 }
-
+/**
+ * Creates and downloads a CSV-file of the current game.
+ * User can define which statistics will be shown in the CSV using the checkboxes.
+ *
+ * @returns CSVCreator element that contains:
+ * Checkboxes using which user can choose what dara will be included in the CSV
+ * Button that creates and downloads a CSV of the game. 
+ */
 const CSVCreator: React.FC<CSVCreatorProps> = ({ moves }) => {
     const [includeAdvantages, setIncludeAdvantages] = useState(true);
     const [includeTimes, setIncludeTimes] = useState(true);
