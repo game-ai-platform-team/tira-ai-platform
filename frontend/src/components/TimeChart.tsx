@@ -19,7 +19,7 @@ interface LineChartProps {
 }
 /**
  * Draws a line chart depicting how much time AIs take for each move.
- * Clicking the chart will display the corresponding turn on the game board. 
+ * Clicking the chart will display the corresponding turn on the game board.
  *
  * @returns A line chart describing how much time making each move took.
  */
