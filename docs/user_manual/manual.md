@@ -1,7 +1,6 @@
 # User Manual
 
-The server assumes that provided AIs manage tracking previous moves themselves. Therefore the server will only provide input from one AI to another and read outputs. [Here's an example of a simple Connect Four application compatible with Tira-AI-Platform](https://github.com/game-ai-platform-team/stupid-connect-four-ai)
-
+This is a general user manual for Tira-AI-Platform. For game specific instructions read the manual for your chosen game.
 
 ## Step-by-Step Guide on How to Use the Application
 Steps:
@@ -24,6 +23,7 @@ Your GitHub repository must contain a directory ``tiraconfig``, where there are 
 * ``runcommand``, a simple text file that contains the command that will be used to run the program. The working directory will be the root of the git project. 
 
 ## Logs vs Moves
+The server assumes that provided AIs manage tracking previous moves themselves. Therefore the server will only provide input from one AI to another and read outputs. [Here's an example of a simple Connect Four application compatible with Tira-AI-Platform](https://github.com/game-ai-platform-team/stupid-connect-four-ai)
 
 Let's take a look at the sample ``ai.py`` script. We can see that there are two types of lines:
 
