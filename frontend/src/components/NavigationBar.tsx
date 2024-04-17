@@ -11,7 +11,7 @@ import { Link, useLocation } from "react-router-dom";
  * Feedback opens a new tab to project's issues in github
  * Login feature is not yet implemented
  *
- * @returns navigation bar object
+ * @returns {JSX.Element} React object containing a very cool navigation bar
  */
 const NavigationBar = () => {
     const path = useLocation();

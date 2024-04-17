@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 /**
  * Typescript object for showing the moves of the current game.
  *
- * @returns Object containing the following:
+ * @returns {JSX.Element} React object containing the following:
  * A button for copying current list of moves.
  * Current gamestate
  * List of all moves as clickable "Move"-objects

@@ -16,13 +16,6 @@ import connectFourBoardReducer, {
     resetConnectFourBoards,
 } from "./board/connectFourBoardReducer";
 
-/**
- * Reducer function combining chessboard and Connect Four board reducers.
- *
- * @param {Object} state - The current state of the boards.
- * @param {Object} action - The action dispatched to update the state.
- * @returns {Object} The updated state.
- */
 const boardReducer = combineReducers({
     chessboards: chessboardReducer,
     connectFourBoards: connectFourBoardReducer,
