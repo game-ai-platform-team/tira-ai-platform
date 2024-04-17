@@ -21,7 +21,7 @@ interface AdvantageChartProps {
  * Draws a line chart depicting who is in the lead during each step of the game.
  * Clicking the chart will display the corresponding turn on the game board.
  *
- * @returns A line chart describing which player is in the lead.
+ * @returns {JSX.Element} A line chart describing which player is in the lead.
  */
 const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
     const referenceIndex = useAppSelector((state) => state.boardIndex);

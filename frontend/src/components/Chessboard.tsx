@@ -5,6 +5,14 @@ import { useState, useEffect, useCallback } from "react";
 import store from "../store";
 import { setBoardIndex } from "../reducers/boardIndexReducer";
 
+/**
+ * Draws a standard chess game board and arrow buttons for navigating between game states
+ * Board is drawn using an external library from kokopu-react
+ * @see setBoardIndex - used from store.ts to change the currently visible game state
+ * There are also various methods for modifying the visual style of the game.
+ *
+ * @returns {JSX.Element} A react object depicting a chess board.
+ */
 const Chessboard = () => {
     const [arrow, setArrow] = useState("G");
     const [arrowColor, setArrowColor] = useState("G");

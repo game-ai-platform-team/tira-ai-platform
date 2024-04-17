@@ -8,7 +8,7 @@ interface CSVCreatorProps {
  * Creates and downloads a CSV-file of the current game.
  * User can define which statistics will be shown in the CSV using the checkboxes.
  *
- * @returns CSVCreator element that contains:
+ * @returns {JSX.Element} React component that contains:
  * Checkboxes using which user can choose what dara will be included in the CSV
  * Button that creates and downloads a CSV of the game.
  */

@@ -14,7 +14,7 @@ interface manualProps {
  * @param String matching the desired manual.
  * Unless parameter is "chess" or "connect_four" resorts to the general manual
  *
- * @returns A manual matching the relevant game or a general manual if no game is relevant
+ * @returns {JSX.Element} A manual matching the relevant game or a general manual if no game is relevant
  */
 const GeneralManual = (props: manualProps) => {
     const currentManual =

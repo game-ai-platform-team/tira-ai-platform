@@ -3,7 +3,8 @@ import MoveStatistics from "../interfaces/MoveStatistics";
 /**
  * A typescript object for visualizing a single move.
  *
- * @returns A single move as text.
+ * @returns {JSX.Element} A single move as a react component.
+ * Initially the object diaplays only the move as text.
  * Clicking the text shows logs the time taken for the move
  */
 const Move = ({
