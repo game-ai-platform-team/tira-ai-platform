@@ -10,7 +10,7 @@ interface CSVCreatorProps {
  *
  * @returns CSVCreator element that contains:
  * Checkboxes using which user can choose what dara will be included in the CSV
- * Button that creates and downloads a CSV of the game. 
+ * Button that creates and downloads a CSV of the game.
  */
 const CSVCreator: React.FC<CSVCreatorProps> = ({ moves }) => {
     const [includeAdvantages, setIncludeAdvantages] = useState(true);
