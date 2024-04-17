@@ -85,6 +85,8 @@ class HPCService(AbstractContextManager):
                 f"#SBATCH -t {BATCH_CONFIG['time']}",
                 f"#SBATCH -t {BATCH_CONFIG['cpu']}",
                 f"#SBATCH -o {self.output_path}",
+                f"module purge"
+                f"module load Python/3.11.5-GCCcore-13.2.0 Java/17.0.6 Singularity_nosuid/4.1.1-GCC-13.2.0 poetry/1.6.1-GCCcore-13.2.0"
                 f"singularity run --no-home --pwd /app {image_path}",
             ]
         )

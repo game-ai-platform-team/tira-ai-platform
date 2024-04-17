@@ -28,16 +28,11 @@ ENV VIRTUAL_ENV=/app/.venv \
     REPOSITORY_PATH=/app/temp/${GAME_ID} \
     DIFFICULTY=${DIFFICULTY}
 
-RUN apt update
-RUN apt install git -y
-RUN pip install poetry
 
 COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 WORKDIR /app
 
-RUN mkdir ./temp
-RUN git clone ${REPOSITORY_URL} $REPOSITORY_PATH
 
 COPY ./ .
 RUN adduser --home /home/user user
@@ -51,4 +46,4 @@ RUN chown -R user:user $HOME \
 
 USER 1001
 
-CMD ["poetry", "run", "invoke", "run-image"]
+CMD ["poetry", "run", "invoke", "run"]
