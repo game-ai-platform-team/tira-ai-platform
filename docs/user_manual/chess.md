@@ -52,3 +52,28 @@ Incase you want to display any logs on the server, you need to add a normal prin
 MOVE: <UCI notation>
 The above line would be treated as a move. This line would be treated as a log
 ```
+
+## Viewing Previous Moves
+
+You can navigate through the game and view the board situation for a specific move by:
+  - Clicking the back and forth buttons.
+  - Clicking the move in the moves list.
+  - Clicking the corresponding circle on the advantage or time chart.
+
+## Exporting Your Game
+
+After the game, you can review all moves, times, advantages, and logs. You also have the option to download a CSV file containing all the mentioned statistics.
+
+If you wish to export your game to view it on another chess site, simply click "Copy PGN." The Portable Game Notation (PGN) will be in the following format:
+
+```terminal
+[Event "?"]
+[Site "tira-ai-platform"]
+[Date "2024.04.17"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+
+*
+```
