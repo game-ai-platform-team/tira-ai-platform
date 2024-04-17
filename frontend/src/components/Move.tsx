@@ -1,6 +1,11 @@
 import { useState } from "react";
 import MoveStatistics from "../interfaces/MoveStatistics";
-
+/**
+ * A typescript object for visualizing a single move.
+ *
+ * @returns A single move as text. 
+ * Clicking the text shows logs the time taken for the move
+ */
 const Move = ({
     move,
     logs,
