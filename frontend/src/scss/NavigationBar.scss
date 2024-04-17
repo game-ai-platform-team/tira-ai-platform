@@ -7,6 +7,7 @@
     border-bottom-right-radius: 20px;
     left: 20px;
     right: 20px;
+    height: 90px;
     z-index: 1000;
     border: none;
 }
@@ -20,16 +21,21 @@
     border: none;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 8px;
     font-size: 18px;
     transition: background-color 0.3s ease;
     position: relative;
-    width: 180px;
+    width: 200px;
     text-align: center;
     flex-wrap: nowrap;
     text-decoration: none;
+    min-height: 90px;
+    max-height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #nav-button:hover {
@@ -37,7 +43,8 @@
 }
 
 .tira-text {
-    position: absolute;
+    position: relative;
+    margin-left: auto;
     right: 20px;
     color: white;
     font-weight: bold;
