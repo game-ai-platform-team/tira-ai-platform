@@ -8,7 +8,7 @@ import toastReducer from "./reducers/toastReducer.ts";
 /**
  * A store for multiple reducers that can have their state read from store.
  *
- * @returns multiple aka a thunk of reducers
+ * @returns a thunk of reducers
  *
  */
 const store = configureStore({

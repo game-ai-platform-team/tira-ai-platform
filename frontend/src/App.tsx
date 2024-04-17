@@ -5,6 +5,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/Home";
 import Manual from "./components/Manual";
 
+/**
+ * Main component of the application, rendering different views based on the route.
+ *
+ * @returns {JSX.Element} The rendered application component.
+ */
+
 function App() {
     return (
         <div className="app">

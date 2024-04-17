@@ -1,3 +1,7 @@
+/**
+ * WebSocket client for communicating with the backend.
+ */
+
 import { io } from "socket.io-client";
 import GameConfig from "../interfaces/GameConfig.ts";
 import MoveStatistics from "../interfaces/MoveStatistics";
