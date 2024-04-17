@@ -55,3 +55,12 @@ Incase you want to display any logs on the server, you need to add a normal prin
 MOVE: <number of column 0-6>
 The above line would be treated as a move. This line would be treated as a log.
 ```
+
+## Statistics and Export
+
+After the game, you can review all moves, times, advantages, and logs. You can navigate through the game and view the board situation for a specific move by:
+  - Clicking the back and forth buttons.
+  - Clicking the move in the moves list.
+  - Clicking the corresponding circle on the advantage or time chart.
+
+You also have the option to download a CSV file containing all the mentioned statistics.
