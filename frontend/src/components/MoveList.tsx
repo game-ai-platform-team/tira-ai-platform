@@ -3,6 +3,14 @@ import Move from "./Move";
 import store from "../store";
 import { GameState } from "../types";
 
+/**
+ * Typescript object for showing the moves of the current game.
+ *
+ * @returns Object containing the following:
+ * A button for copying current list of moves.
+ * Current gamestate
+ * List of all moves as clickable "Move"-objects
+ */
 function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
     const moves = store.getState().moves;
     const gameState = store.getState().game.state;
