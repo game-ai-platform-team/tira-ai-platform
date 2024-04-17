@@ -16,6 +16,12 @@ interface GameViewProps {
     game: string;
 }
 
+/**
+ * Draws the entire app other than the navigationbar.
+ * @param string game: a string representing the currently active game
+ *
+ * @returns {JSX.Element} the entire view of the app when a game is chosen
+ */
 function GameView(props: GameViewProps) {
     const dispatch = useAppDispatch();
     const moves = useAppSelector((state) => state.moves);

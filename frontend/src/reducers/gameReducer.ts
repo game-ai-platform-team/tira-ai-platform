@@ -2,6 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import GameConfig from "../interfaces/GameConfig";
 import { GameState } from "../types";
 
+/**
+ * Redux slice for managing game state.
+ * Contains reducer and actions for handling game-related data.
+ *
+ * @returns {Object} The slice containing reducer and actions.
+ */
+
 const initialState: {
     isGameRunning: boolean;
     state: GameState;
