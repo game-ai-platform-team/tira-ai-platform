@@ -43,7 +43,7 @@ function GameView(props: GameViewProps) {
                     color: "Success",
                 }),
             );
-            console.log( "Text copied to clipboard:", text);
+            console.log("Text copied to clipboard:", text);
         } catch (error) {
             dispatch(
                 setToast({

@@ -32,8 +32,8 @@ function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
         <div className="move-list">
             {game === "chess" && (
                 <a href="#" onClick={handleCopyPGN}>
-                Copy PGN
-            </a>
+                    Copy PGN
+                </a>
             )}
             <p>State: {gameState}</p>
             {gameState === GameState.WIN && <p>Winner: {winner}</p>}
