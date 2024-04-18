@@ -89,12 +89,12 @@ def check_login():
 
 @app.route("/")
 def index():
-    return send_file(FRONTEND_DIR / "dist" / "index.html")
+    return send_file(FRONTEND_DIR / "index.html")
 
 
 @app.route("/<path:path>")
 def default(path):
-    return send_from_directory(FRONTEND_DIR / "dist", path)
+    return send_from_directory(FRONTEND_DIR, path)
 
 
 if __name__ == "__main__":
