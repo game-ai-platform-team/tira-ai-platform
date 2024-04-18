@@ -57,4 +57,5 @@ class Image(AbstractContextManager):
         exc_value: BaseException | None,
         traceback: TracebackType | None,
     ) -> bool | None:
-        pass
+        os.system(f"docker rmi $(docker images | grep {self.__id})")
+        self.__path.unlink(missing_ok=True)
