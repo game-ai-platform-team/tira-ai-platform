@@ -17,7 +17,7 @@ from flask import (
 from flask_cors import CORS
 from flask_socketio import SocketIO
 
-from config import OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, BACKEND_DIR
+from config import FRONTEND_DIR, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET
 from services.api import api
 from services.socket_service import SocketService
 
@@ -89,12 +89,12 @@ def check_login():
 
 @app.route("/")
 def index():
-    return send_file(BACKEND_DIR.parent / "frontend" / "dist" / "index.html")
+    return send_file(FRONTEND_DIR / "dist" / "index.html")
 
 
 @app.route("/<path:path>")
 def default(path):
-    return send_from_directory(BACKEND_DIR.parent / "frontend" / "dist", path)
+    return send_from_directory(FRONTEND_DIR / "dist", path)
 
 
 if __name__ == "__main__":
