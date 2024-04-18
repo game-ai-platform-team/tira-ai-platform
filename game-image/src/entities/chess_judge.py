@@ -13,7 +13,7 @@ class ChessJudge(Judge):
         self, board: Board | None = None, engine: Stockfish | None = None
     ) -> None:
         self.__board: Board = board or Board()
-        self.__engine: Stockfish = engine or Stockfish(path=STOCKFISH_PATH)
+        self.__engine: Stockfish = engine or Stockfish(path=str(STOCKFISH_PATH))
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE

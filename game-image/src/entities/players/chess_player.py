@@ -8,7 +8,7 @@ class ChessPlayer(Player):
     def __init__(self, elo: int, engine: Stockfish | None = None) -> None:
         super().__init__()
 
-        self.engine: Stockfish = engine or Stockfish(path=STOCKFISH_PATH)
+        self.engine: Stockfish = engine or Stockfish(path=str(STOCKFISH_PATH))
         self.boardstate = []
         self.engine.set_elo_rating(elo)
 
