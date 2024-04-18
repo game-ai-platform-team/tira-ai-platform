@@ -5,16 +5,16 @@ This is a general user manual for Tira-AI-Platform. For game specific instructio
 ## Step-by-Step Guide on How to Use the Application
 Steps:
 
-    1. Create your own project with the correct project structure as specified in the "Submitting Code From GitHub" section.
-    2. Copy the HTTPS link to your project's GitHub repository.
-    3. Paste it in the submit form.
-    4. Select the difficulty of the opponent AI.
-    5. Press "Submit" and wait for the game to start.
-    6. Review your game stats, moves, etc.
-    7. Download statistics or export the game (PGN for chess, other games specified in their manuals).
-    8. Navigate through the board by pressing the back and forth buttons, clicking on moves in the moves list, or clicking on the corresponding points on the time or advantage charts.
-    9. All logs are displayed in the logs box.
-    10. If you want to play another game, press "Reset" and then "Submit" to play a new game.
+1. Create your own project with the correct project structure as specified in the "Submitting Code From GitHub" section.
+2. Copy the HTTPS link to your project's GitHub repository.
+3. Paste it in the submit form.
+4. Select the difficulty of the opponent AI.
+5. Press "Submit" and wait for the game to start.
+6. Review your game stats, moves, etc.
+7. Download statistics or export the game (PGN for chess, other games specified in their manuals).
+8. Navigate through the board by pressing the back and forth buttons, clicking on moves in the moves list, or clicking on the corresponding points on the time or advantage charts.
+9. All logs are displayed in the logs box.
+10. If you want to play another game, press "Reset" and then "Submit" to play a new game.
 
 ## Submitting Code From GitHub
 
