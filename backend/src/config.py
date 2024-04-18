@@ -3,7 +3,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-BACKEND_DIR = Path(__file__).parent.parent
+ROOT_DIR = Path(__file__).parent.parent.parent
+BACKEND_DIR = ROOT_DIR / "backend"
+IMAGE_DIR = ROOT_DIR / "game-image"
 
 try:
     load_dotenv(dotenv_path=BACKEND_DIR / ".env")
@@ -14,7 +16,6 @@ except FileNotFoundError:
 TEMP_DIR = BACKEND_DIR / "temp"
 TEMP_DIR.mkdir(exist_ok=True)
 
-IMAGE_DIR = BACKEND_DIR.parent / "game-image"
 
 DEFAULT_CHESS_TIMEOUT = float(getenv("CHESS_TIMEOUT") or 5)
 
