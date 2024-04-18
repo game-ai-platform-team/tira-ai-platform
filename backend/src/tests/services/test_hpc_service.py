@@ -39,6 +39,13 @@ class TestHPCService(TestCase):
 
         self.connection.__exit__.assert_called_once()
 
+    @patch.object(Path, "unlink")
+    def test_exit_deletes_batch_file(self, mock_unlink: Mock):
+        with self.hpc_service:
+            pass
+
+        mock_unlink.assert_called_once()
+
     def test_submit_sends_image(self):
         image = Mock()
 
