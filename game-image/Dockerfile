@@ -28,6 +28,8 @@ ENV VIRTUAL_ENV=/app/.venv \
     REPOSITORY_PATH=/app/temp/${GAME_ID} \
     DIFFICULTY=${DIFFICULTY}
 
+RUN apt update
+RUN apt install stockfish
 
 COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 

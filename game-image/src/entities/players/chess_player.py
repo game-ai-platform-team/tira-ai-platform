@@ -1,13 +1,14 @@
 from duo_game_lib.player import Player
+from stockfish.models import Stockfish
 
-from entities.stockfish_engine import get_stockfish_engine
+from config import STOCKFISH_PATH
 
 
 class ChessPlayer(Player):
-    def __init__(self, elo) -> None:
+    def __init__(self, elo: int, engine: Stockfish | None = None) -> None:
         super().__init__()
 
-        self.engine = get_stockfish_engine()
+        self.engine: Stockfish = engine or Stockfish(path=STOCKFISH_PATH)
         self.boardstate = []
         self.engine.set_elo_rating(elo)
 
