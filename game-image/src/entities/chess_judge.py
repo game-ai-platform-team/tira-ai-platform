@@ -5,7 +5,7 @@ from duo_game_lib.game_state import GameState
 from duo_game_lib.judge import Judge
 from stockfish import Stockfish
 
-from entities.stockfish_engine import get_stockfish_engine
+from config import STOCKFISH_PATH
 
 
 class ChessJudge(Judge):
@@ -13,7 +13,7 @@ class ChessJudge(Judge):
         self, board: Board | None = None, engine: Stockfish | None = None
     ) -> None:
         self.__board: Board = board or Board()
-        self.__engine: Stockfish = engine or get_stockfish_engine()
+        self.__engine: Stockfish = engine or Stockfish(path=STOCKFISH_PATH)
 
     def validate(self, move: str) -> GameState:
         state = GameState.CONTINUE
