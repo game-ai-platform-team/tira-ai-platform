@@ -1,51 +1,5 @@
 # Architecture
 
-## Submitting file from front-end and run chess game
-
-## Container Game Flow
-
-```mermaid
-graph LR
-    client -- Github Url --> frontend
-
-    frontend -- start socketio message with github Url --> app
-
-    game -. Periodic move data \n after validation .-> app
-    app -. Periodic socketio messages  \n containing move data .-> frontend
-    app -- Github Url  --> game
-    game <-- move --> player1
-    game <-- move --> player2
-    game <-- validate move --> validator
-    game -- game state --> app
-    game -- save file --> game
-    app -- Finishing socketio message --> frontend
-
-
-    GitHub -- Clone a github repository --> game
-
-    subgraph appContainer
-    app
-    end
-    subgraph gameContainer
-    game
-    player1
-    validator
-    player2
-    end
-
-    subgraph Clientside
-    client
-    frontend
-    end
-
-    style Clientside fill:#FFC0CB,stroke:#333,stroke-width:2px
-```
-
-- Periodic data is sent every time a move is validated. This is described by the dotted arrow.
-- The cycle described by the line arrow only occurs once.
-- Container architecture will probably change
-- Factory class is responsible for instantiating correct player1, player2, validator
-
 ## Sequence diagram
 
 ### Submitting AI and playing a game
@@ -150,35 +104,26 @@ Judge --> GameState
 
 SocketService ..> Move
 
-class API {
-    start(socket_service: SocketService, repository_url: str, difficulty: int, game: str)
-}
+namespace backend {
+    class App
 
-class HPCService {
-    <<AbstractContextManager>>
-    +submit(image_path: Path)
-    +read_output() list[str]
-    -create_script(image_path: Path) Path
-}
-
-class Image {
-    <<AbstractContextManager>>
-    +id: str
-    +path: Path
-}
-
-namespace Factories {
-    class GameFactory {
-        +get_game(game: str, player1: Player, player2: Player) Game
+    class API {
+        start(socket_service: SocketService, repository_url: str, difficulty: int, game: str)
     }
 
-    class PlayerFactory {
-        +get_local_player(game: str, difficulty: int) Player
-        +get_remote_player(repository: Repo) Player
+    class HPCService {
+        <<AbstractContextManager>>
+        +submit(image_path: Path)
+        +read_output() list[str]
+        -create_script(image_path: Path) Path
     }
-}
 
-namespace Network {
+    class Image {
+        <<AbstractContextManager>>
+        +id: str
+        +path: Path
+    }
+
     class SSHConnection {
         <<AbstractContextManager>>
         +execute(command: str)
@@ -188,6 +133,19 @@ namespace Network {
 
     class SocketService {
         +send(move: Move)
+    }
+}
+
+namespace game-image {
+    class run_image
+
+    class GameFactory {
+        +get_game(game: str, player1: Player, player2: Player) Game
+    }
+
+    class PlayerFactory {
+        +get_local_player(game: str, difficulty: int) Player
+        +get_remote_player(repository: Repo) Player
     }
 }
 
@@ -237,10 +195,11 @@ namespace duo-game-lib {
 }
 ```
 
-### Notes
-
-- `Player` represents AI, both local and repository-based.
-  It is responsible for providing unified interface across different engines.
+> [!NOTE]
+>
+> - `Player` represents AI, both local and repository-based.
+>   It is responsible for providing unified interface across different engines.
+> - `game-image` currently contains chess-related classes that should be moved to own repository, see [#18](https://github.com/game-ai-platform-team/tira-ai-platform/issues/18)
 
 ## Frontend
 
