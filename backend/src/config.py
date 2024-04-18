@@ -14,6 +14,8 @@ except FileNotFoundError:
 TEMP_DIR = ROOT_DIR / "temp"
 TEMP_DIR.mkdir(exist_ok=True)
 
+IMAGE_DIR = ROOT_DIR.parent / "game-image"
+
 DEFAULT_CHESS_TIMEOUT = float(getenv("CHESS_TIMEOUT") or 5)
 
 OIDC_CLIENT_ID = getenv("OIDC_CLIENT_ID")
