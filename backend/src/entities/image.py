@@ -5,7 +5,7 @@ from pathlib import Path
 from types import TracebackType
 from uuid import uuid1
 
-from config import ROOTDIR, TEMP_DIR
+from config import IMAGE_DIR, TEMP_DIR
 
 
 class Image(AbstractContextManager):
@@ -46,7 +46,7 @@ class Image(AbstractContextManager):
         return self.__id
 
     def __enter__(self) -> "Image":
-        os.system(f"docker build {ROOTDIR} -t {self.__id} {self.__build_args}")
+        os.system(f"docker build {IMAGE_DIR} -t {self.__id} {self.__build_args}")
         os.system(f"singularity build {self.path} docker-daemon://{self.__id}")
 
         return self
