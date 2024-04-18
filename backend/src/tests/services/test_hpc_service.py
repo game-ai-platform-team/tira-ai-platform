@@ -14,8 +14,10 @@ class TestHPCService(TestCase):
         self.hpc_service = HPCService(self.connection, self.id_)
         self.batch_path = TEMP_DIR / f"batch-{self.id_}.sh"
 
-        if self.batch_path.exists():
-            os.remove(self.batch_path)
+        self.batch_path.unlink(missing_ok=True)
+
+    def tearDown(self) -> None:
+        self.batch_path.unlink(missing_ok=True)
 
     def test_output_path(self):
         self.assertEqual(self.hpc_service.output_path, Path(f"result-{self.id_}.txt"))
