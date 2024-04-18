@@ -7,26 +7,25 @@ Project done for the Helsinki University faculty of computer science. Helps stud
 
 ## Project links
 
-All [repositories](https://github.com/orgs/game-ai-platform-team/repositories)
+- All [repositories](https://github.com/orgs/game-ai-platform-team/repositories)
+- [Backlog](https://github.com/orgs/game-ai-platform-team/projects/1)
 
 ## Production & Staging
 
 - [Production]()
 - [Staging](https://ai-dev-platform-ohtuprojekti-staging.apps.ocp-test-0.k8s.it.helsinki.fi/index.html)
 
-## Project
+## Documentation
+
+### Usage
 
 - [User manual](docs/user_manual/manual.md)
 - [Admin manual](docs/admin_manual.md)
-- [Backlog](https://github.com/orgs/game-ai-platform-team/projects/1)
-
-## Documentation
-
-- [Architecture](/docs/architecture.md)
 
 ### Development
 
 - [Definition of Done](/docs/development/definitionofdone.md)
 - [Conventions](/docs/development/conventions.md)
 - [Testing](/docs/development/testing.md)
+- [Architecture](/docs/architecture.md)
 - [Adding new AI](https://github.com/game-ai-platform-team/ai-library-template)
