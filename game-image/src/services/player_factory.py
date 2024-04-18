@@ -4,7 +4,6 @@ from connect_four_lib.connect_four_player import ConnectFourPlayer
 from duo_game_lib.player import Player
 from git import Repo
 
-from config import STOCKFISH_PATH
 from entities.players.chess_player import ChessPlayer
 from entities.players.repository_player import RepositoryPlayer
 from utils.install_stockfish import install_stockfish
@@ -23,7 +22,7 @@ class PlayerFactory:
         return self.__games[game](difficulty)
 
     def __get_chess_player(self, difficulty: int) -> Player:
-        install_stockfish(STOCKFISH_PATH)
+        install_stockfish()
 
         return ChessPlayer(difficulty)
 

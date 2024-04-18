@@ -6,8 +6,10 @@ from tempfile import TemporaryDirectory
 
 from urllib3 import request
 
+from config import STOCKFISH_PATH as DEFAULT_STOCKFISH_PATH
 
-def install_stockfish(path: Path) -> None:
+
+def install_stockfish(path: Path = DEFAULT_STOCKFISH_PATH) -> None:
     """
     Installs stockfish binary if missing.
 
