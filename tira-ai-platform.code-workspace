@@ -1,0 +1,39 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "backend"
+		},
+		{
+			"path": "frontend"
+		},
+		{
+			"path": "game-image"
+		}
+	],
+	"settings": {},
+	"launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Python: Debug test",
+                "type": "debugpy",
+                "request": "launch",
+                "module": "pytest",
+                "justMyCode": true,
+                "args": ["${file}"]
+            },
+            {
+                "name": "Python: Debug",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${file}",
+                "console": "integratedTerminal",
+                "justMyCode": true
+            }
+        ]
+    }
+
+}
