@@ -6,9 +6,11 @@ from utils.install_stockfish import install_stockfish
 
 
 class TestPlayerStockfish(unittest.TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls) -> None:
         install_stockfish()
 
+    def setUp(self):
         self.sf_player = ChessPlayer(1)
         self.engine = Mock()
         self.sf_player.engine = self.engine
