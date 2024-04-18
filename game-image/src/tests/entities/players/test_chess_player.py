@@ -7,7 +7,8 @@ from entities.players.chess_player import ChessPlayer
 class TestPlayerStockfish(unittest.TestCase):
     def setUp(self):
         self.sf_player = ChessPlayer(1)
-        self.sf_player.engine = Mock()
+        self.engine = Mock()
+        self.sf_player.engine = self.engine
         self.move1 = "e2e4"
         self.move2 = "f7f6"
 
@@ -17,7 +18,7 @@ class TestPlayerStockfish(unittest.TestCase):
         self.assertEqual(self.sf_player.boardstate[0], self.move1)
 
     def test_adds_new_move_to_boardstate(self):
-        self.sf_player.engine.get_best_move.return_value = "f7f6"
+        self.engine.get_best_move.return_value = "f7f6"
         self.sf_player.play(self.move1)
 
         self.assertEqual(self.sf_player.boardstate, [self.move1, self.move2])
@@ -25,7 +26,7 @@ class TestPlayerStockfish(unittest.TestCase):
     def test_engine_set_position_called(self):
         self.sf_player.play(self.move1)
 
-        self.sf_player.engine.set_position.assert_called_with(self.sf_player.boardstate)
+        self.engine.set_position.assert_called_with(self.sf_player.boardstate)
 
     def test_set_skill_elo(self):
         elo = 1350
