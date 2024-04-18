@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from unittest import TestCase
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock, mock_open, patch
 
 from config import TEMP_DIR
 from services.hpc_service import HPCService
@@ -57,8 +57,10 @@ class TestHPCService(TestCase):
         self.connection.send_file.assert_any_call(Path("batch_path"))
 
     def test_submit_writes_batch_file(self):
-        self.hpc_service.submit(Mock())
-        self.assertTrue(self.batch_path.exists())
+        with patch("builtins.open", mock_open(read_data="data")) as mock_file:
+            self.hpc_service.submit(Mock())
+
+        mock_file.assert_called_with(self.batch_path, mode="w", encoding="utf-8")
 
     def read_output_returns_all_lines_first_time(self):
         connection = Mock()
