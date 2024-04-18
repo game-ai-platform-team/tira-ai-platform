@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "game-ai-testing-platform-game-image"
+name = "game-image"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
