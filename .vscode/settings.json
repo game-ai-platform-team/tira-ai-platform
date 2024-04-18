@@ -2,7 +2,7 @@
     "python.testing.cwd": "${workspaceFolder}/backend/src",
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "pylint.cwd": "${workspaceFolder}/backend/src",
+    "pylint.cwd": "${fileDirname}",
     "pylint.args": [
         "--rcfile=../.pylintrc",
         "-j=0"
@@ -11,6 +11,7 @@
         "-n=auto"
     ],
     "python.analysis.extraPaths": [
-        "backend/src"
+        "backend/src",
+        "game-image/src"
     ]
 }
