@@ -2,10 +2,13 @@ import unittest
 from unittest.mock import Mock
 
 from entities.players.chess_player import ChessPlayer
+from utils.install_stockfish import install_stockfish
 
 
 class TestPlayerStockfish(unittest.TestCase):
     def setUp(self):
+        install_stockfish()
+
         self.sf_player = ChessPlayer(1)
         self.engine = Mock()
         self.sf_player.engine = self.engine
