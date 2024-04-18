@@ -12,7 +12,7 @@ Project done for the Helsinki University faculty of computer science. Helps stud
 
 ## Production & Staging
 
-- [Production]()
+- [Production](https://algolabra.cs.helsinki.fi)
 - [Staging](https://ai-dev-platform-ohtuprojekti-staging.apps.ocp-test-0.k8s.it.helsinki.fi/index.html)
 
 ## Documentation
