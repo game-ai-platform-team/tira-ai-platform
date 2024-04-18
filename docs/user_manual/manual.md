@@ -3,6 +3,7 @@
 This is a general user manual for Tira-AI-Platform. For game specific instructions read the manual for your chosen game.
 
 ## Step-by-Step Guide on How to Use the Application
+
 Steps:
 
 1. Create your own project with the correct project structure as specified in the "Submitting Code From GitHub" section.
@@ -19,10 +20,12 @@ Steps:
 ## Submitting Code From GitHub
 
 Your GitHub repository must contain a directory ``tiraconfig``, where there are two files:
-* ``setup.sh``, a shell script, that will be run before running the AI itself. 
-* ``runcommand``, a simple text file that contains the command that will be used to run the program. The working directory will be the root of the git project. 
+
+* ``setup.sh``, a shell script, that will be run before running the AI itself.
+* ``runcommand``, a simple text file that contains the command that will be used to run the program. The working directory will be the root of the git project.
 
 ## Logs vs Moves
+
 The server assumes that provided AIs manage tracking previous moves themselves. Therefore the server will only provide input from one AI to another and read outputs. [Here's an example of a simple Connect Four application compatible with Tira-AI-Platform](https://github.com/game-ai-platform-team/stupid-connect-four-ai)
 
 Let's take a look at the sample ``ai.py`` script. We can see that there are two types of lines:
@@ -39,13 +42,13 @@ The first line indicates free-form logs. This will be visible to you in the fron
 
 ## Supported Games
 
-- [Chess](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/user_manual/chess.md)
-- [Connect Four](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/user_manual/connect_four.md)
+* [Chess](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/user_manual/chess.md)
+* [Connect Four](https://github.com/game-ai-platform-team/tira-ai-platform/blob/dev/docs/user_manual/connect_four.md)
 
 ## Supported Progamming Languages
 
-- Python 3.x
+* Python 3.x
 
 ## Feedback and Suggestions
 
-- You can provide feedback, feature requests and bug reports on our GitHub issues page. The link is in the navigationbar under ``Feedback``.
+* You can provide feedback, feature requests and bug reports on our GitHub issues page. The link is in the navigationbar under ``Feedback``.
