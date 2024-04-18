@@ -17,7 +17,6 @@ except FileNotFoundError:
 TEMP_DIR = BACKEND_DIR / "temp"
 TEMP_DIR.mkdir(exist_ok=True)
 
-
 DEFAULT_CHESS_TIMEOUT = float(getenv("CHESS_TIMEOUT") or 5)
 
 OIDC_CLIENT_ID = getenv("OIDC_CLIENT_ID")
