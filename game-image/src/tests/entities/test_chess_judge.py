@@ -8,6 +8,10 @@ from utils.install_stockfish import install_stockfish
 
 
 class TestChessJudge(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        install_stockfish()
+
     def setUp(self) -> None:
         install_stockfish()
         self.judge = ChessJudge()
