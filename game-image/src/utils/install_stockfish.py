@@ -17,9 +17,10 @@ def install_stockfish(path: Path) -> None:
     if path.exists():
         return
 
-    stockfish_url = "https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64-avx2.tar"
-
-    response = request("GET", stockfish_url)
+    response = request(
+        "GET",
+        "https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64-avx2.tar",
+    )
 
     with (
         TemporaryDirectory() as temp_dir,
