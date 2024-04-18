@@ -4,10 +4,12 @@ from chess import Board
 from duo_game_lib.game_state import GameState
 
 from entities.chess_judge import ChessJudge
+from utils.install_stockfish import install_stockfish
 
 
 class TestChessJudge(unittest.TestCase):
     def setUp(self) -> None:
+        install_stockfish()
         self.judge = ChessJudge()
 
     def test_validate_returns_continue_initially(self):
