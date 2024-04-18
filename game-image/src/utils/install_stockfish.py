@@ -4,6 +4,7 @@ from pathlib import Path
 from shutil import copy
 from tempfile import TemporaryDirectory
 
+from filelock import FileLock
 from urllib3 import request
 
 from config import STOCKFISH_PATH as DEFAULT_STOCKFISH_PATH
@@ -17,17 +18,18 @@ def install_stockfish(path: Path = DEFAULT_STOCKFISH_PATH) -> None:
         path (Path): Path to install stockfish binary
     """
 
-    if path.exists():
-        return
+    with FileLock(path.with_suffix(".lock")):
+        if path.exists():
+            return
 
-    response = request(
-        "GET",
-        "https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64-avx2.tar",
-    )
+        response = request(
+            "GET",
+            "https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64-avx2.tar",
+        )
 
-    with (
-        TemporaryDirectory() as temp_dir,
-        tarfile.open(fileobj=BytesIO(response.data)) as file,
-    ):
-        file.extract("stockfish/stockfish-ubuntu-x86-64-avx2", temp_dir)
-        copy(temp_dir / Path("stockfish/stockfish-ubuntu-x86-64-avx2"), path)
+        with (
+            TemporaryDirectory() as temp_dir,
+            tarfile.open(fileobj=BytesIO(response.data)) as file,
+        ):
+            file.extract("stockfish/stockfish-ubuntu-x86-64-avx2", temp_dir)
+            copy(temp_dir / Path("stockfish/stockfish-ubuntu-x86-64-avx2"), path)
