@@ -28,6 +28,17 @@ jobs:
       environment: staging
     secrets: inherit
 
+  ci_game_image:
+    name: CI (game-image)
+    permissions:
+      contents: write
+      
+    uses: game-ai-platform-team/workflows/.github/workflows/ci_python.yml@main
+    with:
+      working-directory: ./game-image
+      environment: staging
+    secrets: inherit
+
   e2e_test:
     name: End-to-end test
 
