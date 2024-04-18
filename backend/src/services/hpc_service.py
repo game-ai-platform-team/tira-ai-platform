@@ -37,6 +37,7 @@ class HPCService(AbstractContextManager):
         traceback: TracebackType | None,
     ) -> bool | None:
         self.__connection.__exit__(exc_type, exc_value, traceback)
+        self.batch_path.unlink(missing_ok=True)
 
     @cached_property
     def output_path(self) -> Path:
