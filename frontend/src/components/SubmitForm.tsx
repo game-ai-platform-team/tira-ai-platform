@@ -57,11 +57,13 @@ function SubmitForm(): JSX.Element {
                 }),
             );
         } else {
-            dispatch(setToast({
-                title: "Game submission failed!",
-                text: "Make sure your project follows the correct project structure, as described in the manual.",
-                color: "Danger",
-            }));
+            dispatch(
+                setToast({
+                    title: "Game submission failed!",
+                    text: "Make sure your project follows the correct project structure, as described in the manual.",
+                    color: "Danger",
+                }),
+            );
         }
     };
 
@@ -82,13 +84,14 @@ function SubmitForm(): JSX.Element {
 
     useEffect(() => {
         if (gameState === GameState.WIN || gameState === GameState.DRAW) {
-                dispatch(
-                    setToast({
-                        title: "Game ended successfully!",
-                        text: `There was a ${gameState}`,
-                        color: "Success",
+            dispatch(
+                setToast({
+                    title: "Game ended successfully!",
+                    text: `There was a ${gameState}`,
+                    color: "Success",
                 }),
-            )};
+            );
+        }
         if (gameState === GameState.INVALID) {
             dispatch(
                 setToast({
@@ -96,7 +99,8 @@ function SubmitForm(): JSX.Element {
                     text: "An invalid move was made",
                     color: "Danger",
                 }),
-            )};
+            );
+        }
         if (gameState === GameState.ILLEGAL) {
             dispatch(
                 setToast({
@@ -104,7 +108,8 @@ function SubmitForm(): JSX.Element {
                     text: "An illegal move was made",
                     color: "Danger",
                 }),
-            )};
+            );
+        }
         if (gameState === GameState.TIMEOUT) {
             dispatch(
                 setToast({
@@ -112,7 +117,8 @@ function SubmitForm(): JSX.Element {
                     text: "TIMEOUT!!! Your ai is too slow",
                     color: "Danger",
                 }),
-            )};
+            );
+        }
     }, [dispatch, gameState]);
 
     return (

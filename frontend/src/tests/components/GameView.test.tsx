@@ -121,9 +121,7 @@ describe("GameView", () => {
             store.dispatch(updateState(GameState.INVALID));
 
             expect(
-                await screen.findAllByText(
-                    "An invalid move was made",
-                ),
+                await screen.findAllByText("An invalid move was made"),
             ).not.toBe(null);
         });
 
@@ -131,9 +129,7 @@ describe("GameView", () => {
             store.dispatch(updateState(GameState.ILLEGAL));
 
             expect(
-                await screen.findAllByText(
-                    "An illegal move was made",
-                ),
+                await screen.findAllByText("An illegal move was made"),
             ).not.toBe(null);
         });
 
@@ -144,9 +140,9 @@ describe("GameView", () => {
                 await screen.findAllByText("Game ended successfully!"),
             ).not.toBe(null);
 
-            expect(
-                await screen.findAllByText("There was a WIN"),
-            ).not.toBe(null);
+            expect(await screen.findAllByText("There was a WIN")).not.toBe(
+                null,
+            );
         });
 
         test("timeout notification", async () => {
@@ -164,9 +160,9 @@ describe("GameView", () => {
                 await screen.findAllByText("Game ended successfully!"),
             ).not.toBe(null);
 
-            expect(
-                await screen.findAllByText("There was a DRAW"),
-            ).not.toBe(null);
+            expect(await screen.findAllByText("There was a DRAW")).not.toBe(
+                null,
+            );
         });
     });
 });
