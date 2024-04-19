@@ -1,0 +1,18 @@
+#drag-and-drop-container {
+    top: 10%;
+    left: 53%;
+    height: 330px; 
+    width: 600px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    gap: 30px;
+    overflow-y: auto;
+}
+
+.log-code {
+    white-space: pre-wrap;
+    width: 100%;
+}

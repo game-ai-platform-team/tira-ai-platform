@@ -71,12 +71,15 @@ function GameView(props: GameViewProps): JSX.Element {
 
     return (
         <div id="game-view">
-            <Notification />
-            <div className="card">
-                <SubmitForm />
+            <div>
+                <div className="card">
+                    <SubmitForm />
+                </div>
+                <div className="card">
+                    <LogBox />
+                </div>
             </div>
             {gameBoard}
-
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
                 <CSVCreator moves={moves} />
@@ -99,10 +102,6 @@ function GameView(props: GameViewProps): JSX.Element {
                     />
                 </div>
             )}
-
-            <div className="card">
-                <LogBox />
-            </div>
         </div>
     );
 }
