@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 /**
  * Redux slice for changing the board state.
- * The functions are called from various places.
+ * The functions are called whenever a new move is made and when user browses through game states in UI
  */
 const boardIndexSlice = createSlice({
     name: "boardIndex",
