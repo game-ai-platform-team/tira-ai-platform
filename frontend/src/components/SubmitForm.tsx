@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 
 /**
  * Renders a form for submitting game configurations including Elo rating or difficulty level
- * and repository URL for AI code. Provides options for starting a new gameand a button for
+ * and repository URL for AI code. Provides options for starting a new game and a button for
  * resetting the current game state.
  *
  * @returns {JSX.Element} JSX element containing the rendered submit form.
