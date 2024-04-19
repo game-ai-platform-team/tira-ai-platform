@@ -1,5 +1,9 @@
 /**
- * WebSocket client for communicating with the backend.
+ * Handles WebSocket communication with the backend server.
+ *
+ * This module facilitates communication with the backend server using WebSocket (socket.io).
+ * It provides functions for starting a game, receiving and dispatching moves and game states,
+ * and handling errors and final game states.
  */
 
 import { io } from "socket.io-client";

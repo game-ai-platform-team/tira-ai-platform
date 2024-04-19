@@ -12,7 +12,7 @@ const Move = ({
     logs,
     time,
     index,
-}: MoveStatistics & { index: number }) => {
+}: MoveStatistics & { index: number }): JSX.Element => {
     const [visible, setVisible] = useState(false);
     const showWhenVisible = { display: visible ? "" : "none" };
     const dropdownImage = visible

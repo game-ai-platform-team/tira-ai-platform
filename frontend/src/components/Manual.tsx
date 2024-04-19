@@ -17,7 +17,7 @@ interface manualProps {
  *
  * @returns {JSX.Element} A manual matching the relevant game or a general manual if no game is relevant
  */
-const GeneralManual = (props: manualProps) => {
+const GeneralManual = (props: manualProps): JSX.Element => {
     const currentManual =
         props.game === "chess"
             ? chess

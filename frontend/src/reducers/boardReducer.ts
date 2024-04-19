@@ -1,9 +1,8 @@
 /**
  * Redux reducer for managing various game boards.
- *
- * This reducer combines multiple board reducers for different games,
- * such as chessboards and Connect Four boards.
- * It also exports an action creator for resetting all boards.
+ * This reducer combines multiple board reducers for different games.
+ * It is used as a part of resetReducer
+ * @see /resetReducer.ts
  *
  * @module boardReducer
  * @returns {Function} The combined reducer function.
@@ -23,7 +22,6 @@ const boardReducer = combineReducers({
 
 /**
  * Action creator for resetting all game boards.
- *
  * @returns {AppThunkAction} A thunk action to dispatch reset actions for all boards.
  */
 const resetBoards = (): AppThunkAction => (dispatch) => {

@@ -4,7 +4,11 @@ import _ from "lodash";
 
 const STARTING_ADVANTAGE: number = 0.066;
 /**
- * Interface for an object describing the game.
+ * Interface for an object describing the game. Contains:
+ * longest&shortest: Longest and shortest time taken for a move
+ * average: Average time taken for each move
+ * times: List of times taken by each individual move
+ * logs: All logs as a string
  */
 export interface Statistics {
     longest: MoveStatistics;
@@ -73,6 +77,9 @@ function getEvaluations(
     return { advantages, moveClasses, accuracyWhite, accuracyBlack };
 }
 
+/**
+ * Function for turning UCI notation into a PGN notation
+ */
 function uciToPGN(
     moves: MoveStatistics[],
     whiteName?: string,

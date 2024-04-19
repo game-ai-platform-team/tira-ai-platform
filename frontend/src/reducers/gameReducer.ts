@@ -3,10 +3,16 @@ import GameConfig from "../interfaces/GameConfig";
 import { GameState } from "../types";
 
 /**
- * Redux slice for managing game state.
- * Contains reducer and actions for handling game-related data.
+ * Redux slice for managing and reading game state, game config and whether or not the game is running.
+ * @see /../types.ts
+ * @see /../interfaces/GameConfig.ts
  *
- * @returns {Object} The slice containing reducer and actions.
+ * newGame is called in SubmitForm
+ * @see /../components/SubmitForm.tsx
+ * resetGame and updateState are called in SocketService
+ * @see /../services/SocketService
+ *
+ * @exports {Object} The slice containing reducer and actions.
  */
 
 const initialState: {

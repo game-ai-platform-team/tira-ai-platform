@@ -23,7 +23,9 @@ interface AdvantageChartProps {
  *
  * @returns {JSX.Element} A line chart describing which player is in the lead.
  */
-const AdvantageChart: React.FC<AdvantageChartProps> = ({ data }) => {
+const AdvantageChart: React.FC<AdvantageChartProps> = ({
+    data,
+}): JSX.Element => {
     const referenceIndex = useAppSelector((state) => state.boardIndex);
 
     const handleChartClick = (move: string) => {

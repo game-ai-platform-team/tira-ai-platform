@@ -4,7 +4,7 @@
  * @returns {JSX.Element} BEAUTIFUL great.png and the same picture that slides into the screen using "marquee"
  * if it doesnt work then woahhh :)
  */
-const Home = () => {
+const Home = (): JSX.Element => {
     return (
         <div style={{ fontSize: "2em", color: "#3F3B6C" }}>
             Do you need help developing your game AI? You&apos;ve come to the

@@ -13,7 +13,7 @@ import { setBoardIndex } from "../reducers/boardIndexReducer";
  *
  * @returns {JSX.Element} A react object depicting a chess board.
  */
-const Chessboard = () => {
+const Chessboard = (): JSX.Element => {
     const [arrow, setArrow] = useState("G");
     const [arrowColor, setArrowColor] = useState("G");
     const [currentMove, setCurrentMove] = useState(0);

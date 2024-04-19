@@ -13,7 +13,7 @@ import { Link, useLocation } from "react-router-dom";
  *
  * @returns {JSX.Element} React object containing a very cool navigation bar
  */
-const NavigationBar = () => {
+const NavigationBar = (): JSX.Element => {
     const path = useLocation();
     const game = path.pathname.split("/").pop();
 

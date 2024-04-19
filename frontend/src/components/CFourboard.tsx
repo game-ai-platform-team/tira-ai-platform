@@ -13,7 +13,7 @@ import { toNumber } from "lodash";
  *
  * @returns {JSX.Element} A React component depicting the Connect Four board.
  *  */
-const CFourboard = () => {
+const CFourboard = (): JSX.Element => {
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
     const [currentMove, setCurrentMove] = useState(0);

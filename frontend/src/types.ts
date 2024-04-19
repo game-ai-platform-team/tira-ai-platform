@@ -1,3 +1,8 @@
+/**
+ * Enum representing possible states of a game.
+ *
+ * This enum defines various states that a game can be in during its execution.
+ */
 export enum GameState {
     CONTINUE = "CONTINUE",
     WIN = "WIN",
@@ -8,14 +13,3 @@ export enum GameState {
     MAX_TURNS = "MAX_TURNS",
     TIMEOUT = "TIMEOUT",
 }
-
-/*
-function isStringArray(data: unknown): data is string[] {
-    if (!Array.isArray(data)) return false;
-    return data.every((value) => isString(value));
-}
-
-function isString(value: unknown): value is string {
-    return typeof value === "string" || value instanceof String;
-}
-*/

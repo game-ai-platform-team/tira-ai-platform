@@ -12,7 +12,11 @@ import { useLocation } from "react-router-dom";
  * Current gamestate
  * List of all moves as clickable "Move"-objects
  */
-function MoveList({ handleCopyPGN }: { handleCopyPGN: () => void }) {
+function MoveList({
+    handleCopyPGN,
+}: {
+    handleCopyPGN: () => void;
+}): JSX.Element {
     const moves = store.getState().moves;
     const gameState = store.getState().game.state;
     const path = useLocation();
