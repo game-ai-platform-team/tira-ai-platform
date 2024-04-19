@@ -1,5 +1,9 @@
 import { useAppSelector } from "../hook.ts";
-
+/**
+ * Draws logs printed by the AI
+ *
+ * @returns LogBox function
+ */
 export function LogBox() {
     const logs = useAppSelector((state) => state.allLog);
 
