@@ -12,7 +12,14 @@ const toastSlice = createSlice({
     name: "toast",
     initialState: { title: "", text: "", color: "Secondary" },
     reducers: {
-        setToast(_, action: PayloadAction<{ title: string; text: string; color: string }>) {
+        setToast(
+            _,
+            action: PayloadAction<{
+                title: string;
+                text: string;
+                color: string;
+            }>,
+        ) {
             return action.payload;
         },
     },

@@ -18,7 +18,11 @@ const Notification = () => {
     return (
         <ToastContainer position="top-center">
             <Toast
-                onClose={() => dispatch(setToast({ title: "", text: "", color: "Success" }))}
+                onClose={() =>
+                    dispatch(
+                        setToast({ title: "", text: "", color: "Success" }),
+                    )
+                }
                 show={notification.text !== ""}
                 delay={5000}
                 autohide
