@@ -34,3 +34,10 @@ def coverage_xml(ctx):
 @task
 def lint(ctx):
     ctx.run(f"poetry run pylint {SOURCE_DIR} -j 0")
+
+
+@task
+def build_image(ctx):
+    ctx.run("docker build -t game-image .")
+    ctx.run("docker save -o game-image.tar game-image")
+
