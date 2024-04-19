@@ -1,6 +1,7 @@
 import Toast from "react-bootstrap/Toast";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { setToast } from "../reducers/toastReducer";
+import { ToastContainer } from "react-bootstrap";
 
 /**
  * React component for displaying notifications using Bootstrap Toast.
@@ -15,16 +16,18 @@ const Notification = () => {
     const dispatch = useAppDispatch();
 
     return (
-        <Toast
-            onClose={() => dispatch(setToast({ text: "", color: "Success" }))}
-            show={notification.text !== ""}
-            delay={5000}
-            autohide
-            bg={notification.color.toLowerCase()}
-        >
-            <Toast.Header>Notification!!!!!</Toast.Header>
-            <Toast.Body>{notification.text}</Toast.Body>
-        </Toast>
+        <ToastContainer position="top-center">
+            <Toast
+                onClose={() => dispatch(setToast({ title: "", text: "", color: "Success" }))}
+                show={notification.text !== ""}
+                delay={5000}
+                autohide
+                bg={notification.color.toLowerCase()}
+            >
+                <Toast.Header>{notification.title}</Toast.Header>
+                <Toast.Body>{notification.text}</Toast.Body>
+            </Toast>
+        </ToastContainer>
     );
 };
 

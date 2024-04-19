@@ -1,11 +1,13 @@
 import "@testing-library/jest-dom/vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import GameView from "../../components/GameView";
 import "@testing-library/jest-dom";
 import { Provider } from "react-redux";
 import store from "../../store";
 import { createMove, resetMoves } from "../../reducers/moveReducer";
-import { MemoryRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import { resetGame, updateState } from "../../reducers/gameReducer";
+import { GameState } from "../../types";
 
 describe("GameView", () => {
     beforeEach(() => {
@@ -101,5 +103,70 @@ describe("GameView", () => {
         const playerStats = component.container.querySelector("#player-stats");
 
         expect(playerStats).not.toBeEmptyDOMElement();
+    });
+
+    describe("Notification", () => {
+        beforeEach(() => {
+            store.dispatch(resetGame());
+            render(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <GameView game={"chess"} />
+                    </BrowserRouter>
+                </Provider>,
+            );
+        });
+
+        test("invalid notification", async () => {
+            store.dispatch(updateState(GameState.INVALID));
+
+            expect(
+                await screen.findAllByText(
+                    "An invalid move was made",
+                ),
+            ).not.toBe(null);
+        });
+
+        test("illegal notification", async () => {
+            store.dispatch(updateState(GameState.ILLEGAL));
+
+            expect(
+                await screen.findAllByText(
+                    "An illegal move was made",
+                ),
+            ).not.toBe(null);
+        });
+
+        test("win notification", async () => {
+            store.dispatch(updateState(GameState.WIN));
+
+            expect(
+                await screen.findAllByText("Game ended successfully!"),
+            ).not.toBe(null);
+
+            expect(
+                await screen.findAllByText("There was a WIN"),
+            ).not.toBe(null);
+        });
+
+        test("timeout notification", async () => {
+            store.dispatch(updateState(GameState.TIMEOUT));
+
+            expect(
+                await screen.findAllByText("TIMEOUT!!! Your ai is too slow"),
+            ).not.toBe(null);
+        });
+
+        test("draw notification", async () => {
+            store.dispatch(updateState(GameState.DRAW));
+
+            expect(
+                await screen.findAllByText("Game ended successfully!"),
+            ).not.toBe(null);
+
+            expect(
+                await screen.findAllByText("There was a DRAW"),
+            ).not.toBe(null);
+        });
     });
 });

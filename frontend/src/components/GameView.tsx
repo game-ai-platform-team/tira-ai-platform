@@ -11,6 +11,7 @@ import PlayerStats from "./PlayerStats.tsx";
 import Chessboard from "./Chessboard.tsx";
 import CFourboard from "./CFourboard.tsx";
 import { setToast } from "../reducers/toastReducer.ts";
+import Notification from "../components/Notification";
 
 interface GameViewProps {
     game: string;
@@ -48,7 +49,8 @@ function GameView(props: GameViewProps): JSX.Element {
             navigator.clipboard.writeText(pgn.value);
             dispatch(
                 setToast({
-                    text: "PGN copied successfully!",
+                    title: "PGN copied successfully!",
+                    text: pgn.value,
                     color: "Success",
                 }),
             );
@@ -56,7 +58,8 @@ function GameView(props: GameViewProps): JSX.Element {
         } catch (error) {
             dispatch(
                 setToast({
-                    text: "Unable to copy PGN.",
+                    title: "Copying PGN failed.",
+                    text: `Unable to copy text to clipboard: ${error}`,
                     color: "Danger",
                 }),
             );
@@ -68,6 +71,7 @@ function GameView(props: GameViewProps): JSX.Element {
 
     return (
         <div id="game-view">
+            <Notification />
             <div className="card">
                 <SubmitForm />
             </div>

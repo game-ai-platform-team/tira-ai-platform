@@ -7,7 +7,6 @@ import "../scss/SubmitForm.scss";
 import { startGame } from "../services/SocketService";
 import { GameState } from "../types";
 import { setToast } from "../reducers/toastReducer";
-import Notification from "../components/Notification";
 import { useLocation } from "react-router-dom";
 
 /**
@@ -52,12 +51,17 @@ function SubmitForm(): JSX.Element {
             startGame(gameConfig);
             dispatch(
                 setToast({
-                    text: "Game submitted successfully!",
+                    title: "Game submitted successfully!",
+                    text: `Starting a ${game} game`,
                     color: "Success",
                 }),
             );
         } else {
-            dispatch(setToast({ text: "Failed", color: "Danger" }));
+            dispatch(setToast({
+                title: "Game submission failed!",
+                text: "Make sure your project follows the correct project structure, as described in the manual.",
+                color: "Danger",
+            }));
         }
     };
 
@@ -68,6 +72,7 @@ function SubmitForm(): JSX.Element {
             dispatch(resetStateReducer());
             dispatch(
                 setToast({
+                    title: "Game reset",
                     text: "Game successfully reset!",
                     color: "Success",
                 }),
@@ -76,35 +81,38 @@ function SubmitForm(): JSX.Element {
     };
 
     useEffect(() => {
-        gameState === GameState.WIN ||
-            (GameState.DRAW &&
+        if (gameState === GameState.WIN || gameState === GameState.DRAW) {
                 dispatch(
                     setToast({
-                        text: "Game ended successfully!",
+                        title: "Game ended successfully!",
+                        text: `There was a ${gameState}`,
                         color: "Success",
-                    }),
-                ));
-        gameState === GameState.INVALID &&
+                }),
+            )};
+        if (gameState === GameState.INVALID) {
             dispatch(
                 setToast({
-                    text: "Game ended, an invalid move was made",
+                    title: "Game ended unsuccessfully!",
+                    text: "An invalid move was made",
                     color: "Danger",
                 }),
-            );
-        gameState === GameState.ILLEGAL &&
+            )};
+        if (gameState === GameState.ILLEGAL) {
             dispatch(
                 setToast({
-                    text: "Game ended, an illegal move was made",
+                    title: "Game ended unsuccessfully!",
+                    text: "An illegal move was made",
                     color: "Danger",
                 }),
-            );
-        gameState === GameState.TIMEOUT &&
+            )};
+        if (gameState === GameState.TIMEOUT) {
             dispatch(
                 setToast({
+                    title: "Game ended unsuccessfully!",
                     text: "TIMEOUT!!! Your ai is too slow",
                     color: "Danger",
                 }),
-            );
+            )};
     }, [dispatch, gameState]);
 
     return (
@@ -161,7 +169,6 @@ function SubmitForm(): JSX.Element {
                 </button>
             </form>
             <button onClick={onResetGame}> Reset</button>
-            <Notification />
         </div>
     );
 }
