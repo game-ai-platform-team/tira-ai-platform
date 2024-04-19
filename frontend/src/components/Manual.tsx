@@ -2,6 +2,7 @@ import ReactMarkdown from "react-markdown";
 import manual from "../../../docs/user_manual/manual.md";
 import chess from "../../../docs/user_manual/chess.md";
 import connect_four from "../../../docs/user_manual/connect_four.md";
+import "../scss/Manual.scss";
 
 interface manualProps {
     game: string;
@@ -24,8 +25,10 @@ const GeneralManual = (props: manualProps) => {
               ? connect_four
               : manual;
     return (
-        <div className="card container">
-            <ReactMarkdown>{currentManual}</ReactMarkdown>
+        <div id="manual-view">
+            <div className="card container">
+                <ReactMarkdown>{currentManual}</ReactMarkdown>
+            </div>
         </div>
     );
 };
