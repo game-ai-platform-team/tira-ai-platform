@@ -9,8 +9,10 @@ import { GameState } from "../types";
  *
  * newGame is called in SubmitForm
  * @see /../components/SubmitForm.tsx
- * resetGame and updateState are called in SocketService
- * @see /../services/SocketService
+ * resetGame is used as a part of ResetReducer
+ * @see /../reducers/ResetReducer.ts
+ * updateState is called in SocketService
+ * @see /../services/SocketService.ts
  *
  * @exports {Object} The slice containing reducer and actions.
  */

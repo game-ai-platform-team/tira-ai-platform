@@ -1,6 +1,6 @@
 /**
  * Redux reducer for managing various game boards.
- * This reducer combines multiple board reducers for different games.
+ * This reducer combines multiple board reducers.
  * It is used as a part of resetReducer
  * @see /resetReducer.ts
  *
