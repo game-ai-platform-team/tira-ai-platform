@@ -7,7 +7,7 @@ import { createSlice } from "@reduxjs/toolkit";
  * @see /../components/AdvantageChart.tsx
  * @see /../components/TimeChart.tsx
  * @see /../components/PlayerStats.tsx
- * 
+ *
  * resetBoardIndex is only called as a part of ResetReducer
  * @see /../reducers/ResetReducer.ts
  */
