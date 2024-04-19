@@ -55,7 +55,9 @@ const startGame = (config: GameConfig) => {
 
     socket.on("error", (data: string) => {
         console.log(data);
-        store.dispatch(setToast({title: "ERROR", text: data, color: "Danger" }));
+        store.dispatch(
+            setToast({ title: "ERROR", text: data, color: "Danger" }),
+        );
     });
 };
 
