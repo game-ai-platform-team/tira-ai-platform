@@ -79,7 +79,7 @@ class HPCService(AbstractContextManager):
                 f"#SBATCH -t {BATCH_CONFIG['cpu']}",
                 f"#SBATCH -o {self.output_path}",
                 f"module purge",
-                f"module load Python/3.11.5-GCCcore-13.2.0 Java/17.0.6 Singularity_nosuid/4.1.1-GCC-13.2.0 poetry/1.6.1-GCCcore-13.2.0",
+                f"module load Python/3.11.5-GCCcore-13.2.0 Java/17.0.6 Singularity_nosuid/4.1.1-GCC-13.2.0 poetry/1.6.1-GCCcore-13.2.0 OpenSSL/1.1 git/2.42.0-GCCcore-13.2.0",
                 f"export SINGULARITYENV_PREPEND_PATH =$PATH",
                 f"export SINGULARITYENV_LD_LIBRARY_PATH =$LD_LIBRARY_PATH",
                 f"singularity run --no-home --bind /wrk-vakka/appl/easybuild/,/appl/easybuild/opt/,/lib64/libssl.so.1.1,/lib64/libcrypto.so.1.1 --pwd /app ${image_path}",
