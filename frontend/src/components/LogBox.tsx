@@ -9,7 +9,7 @@ export function LogBox() {
 
     return (
         <>
-            <h3>All logs</h3>
+            <h2 className="card-header">All logs</h2>
             <code style={{ whiteSpace: "pre" }}>{logs}</code>
         </>
     );

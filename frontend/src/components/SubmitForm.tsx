@@ -10,9 +10,9 @@ import { setToast } from "../reducers/toastReducer";
 import { useLocation } from "react-router-dom";
 
 /**
- * Renders a form for submitting game configurations including Elo rating or difficulty level,
- * number of games to play, and repository URL for AI code. Provides options for starting a new game,
- * resetting the current game state, and displays notifications for game outcomes and actions.
+ * Renders a form for submitting game configurations including Elo rating or difficulty level
+ * and repository URL for AI code. Provides options for starting a new gameand a button for
+ * resetting the current game state.
  *
  * @returns {JSX.Element} JSX element containing the rendered submit form.
  */
@@ -24,17 +24,11 @@ function SubmitForm(): JSX.Element {
     const isGameRunning = useAppSelector((state) => state.game.isGameRunning);
 
     const [elo, setElo] = useState<number>(1350);
-    const [games, setGames] = useState<number>(1);
 
     const [githubUrl, setGithubUrl] = useState<string>("");
     const handleEloChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value, 10);
         setElo(value);
-    };
-
-    const handleGamesChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(e.target.value, 10);
-        setGames(value);
     };
 
     const onSubmitGithub = (e: React.SyntheticEvent) => {
@@ -146,20 +140,6 @@ function SubmitForm(): JSX.Element {
                 ) : (
                     <p>Difficulty: {elo}</p>
                 )}
-            </div>
-            <div id="config-slider">
-                <label htmlFor="game-slider">
-                    Select How Many Games To Play:
-                </label>
-                <input
-                    id="game-slider"
-                    type="range"
-                    min={1}
-                    max={10}
-                    value={games}
-                    onChange={handleGamesChange}
-                />
-                <p>Games: {games}</p>
             </div>
             <form id="github-submit-form" onSubmit={onSubmitGithub}>
                 <input
