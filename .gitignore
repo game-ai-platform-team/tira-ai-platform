@@ -22,3 +22,4 @@ frontend/cypress/downloads/**
 *secret*
 hpc_private_key
 hpc_private_key.pub
+/game-image/game-image.tar
