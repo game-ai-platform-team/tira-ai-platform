@@ -1,3 +1,14 @@
+/**
+ * This slice manages the state of the cfourboard in the Redux store.
+ * It provides reducers for updating the cfourboard state based on incoming moves
+ * and for resetting the cfourboard state.
+ *
+ * newConnectFourBoard is called from SocketService
+ * @see /../services/SocketService.ts
+ * resetConnectFourBoards is used as a part of resetBoards in BoardReducer
+ * @see /../reducers/boardReducer.ts
+ */
+
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { toNumber } from "lodash";
 import MoveStatistics from "../../interfaces/MoveStatistics";

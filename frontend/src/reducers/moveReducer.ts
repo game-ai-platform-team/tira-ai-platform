@@ -1,3 +1,13 @@
+/**
+ * This slice manages the contents of list of moves in the Redux store.
+ * It is used in SocketService when a new move is received.
+ * @see /../services/SocketService.ts
+ * The list of moves is shown in the MoveList component.
+ * MoveList is rendered in GameView using the move list as a parameter
+ * @see /../components/GameView.tsx
+ * @see /../components/MoveList.tsx
+ */
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import MoveStatistics from "../interfaces/MoveStatistics";
 

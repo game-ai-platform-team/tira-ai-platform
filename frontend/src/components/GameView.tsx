@@ -18,11 +18,14 @@ interface GameViewProps {
 
 /**
  * Draws the entire app other than the navigationbar.
+ * Components include: Chessboard, CFourboard, SubmitForm, MoveList,
+ * CSVCreator, AdvantageChart, TimeChart, PlayerStats, LogBox
+ *
  * @param string game: a string representing the currently active game
  *
  * @returns {JSX.Element} the entire view of the app when a game is chosen
  */
-function GameView(props: GameViewProps) {
+function GameView(props: GameViewProps): JSX.Element {
     const dispatch = useAppDispatch();
     const moves = useAppSelector((state) => state.moves);
 
