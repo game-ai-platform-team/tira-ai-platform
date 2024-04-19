@@ -10,6 +10,13 @@ import { setToast } from "../reducers/toastReducer";
 import Notification from "../components/Notification";
 import { useLocation } from "react-router-dom";
 
+/**
+ * Renders a form for submitting game configurations including Elo rating or difficulty level,
+ * number of games to play, and repository URL for AI code. Provides options for starting a new game,
+ * resetting the current game state, and displays notifications for game outcomes and actions.
+ *
+ * @returns {JSX.Element} JSX element containing the rendered submit form.
+ */
 function SubmitForm(): JSX.Element {
     const dispatch = useAppDispatch();
     const path = useLocation();

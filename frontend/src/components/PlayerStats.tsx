@@ -13,6 +13,17 @@ interface MoveInfoProps {
     moves: MoveStatistics[];
 }
 
+/**
+ * Renders statistics for player moves including accuracy, longest and shortest moves,
+ * average move time, categorized moves (blunders, mistakes, inaccuracies), and all moves.
+ *
+ * @param {Statistics} whiteStats - Statistics object for white player.
+ * @param {Statistics} blackStats - Statistics object for black player.
+ * @param {Evaluations} evals - Object containing evaluations data.
+ * @param {MoveStatistics[]} moves - Array of move statistics objects.
+ *
+ * @returns {JSX.Element} JSX element containing the rendered player statistics.
+ */
 const PlayerStats: React.FC<MoveInfoProps> = ({
     whiteStats,
     blackStats,

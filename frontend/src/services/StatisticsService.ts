@@ -3,7 +3,9 @@ import { AbstractNode, Game, Position, pgnWrite } from "kokopu";
 import _ from "lodash";
 
 const STARTING_ADVANTAGE: number = 0.066;
-
+/**
+ * Interface for an object describing the game.
+ */
 export interface Statistics {
     longest: MoveStatistics;
     shortest: MoveStatistics;
@@ -11,7 +13,12 @@ export interface Statistics {
     times: number[];
     logs: string;
 }
-
+/**
+ * Interface for an object describing the developement of advantages.
+ * advantages = list of each advantage resulting for each move
+ * moveClasses = Verbal evaluation of each move (ex. "Blunder", "Excellent")
+ * accuracyWhite & accuracyBlack = average quality of player's moves
+ */
 export interface Evaluations {
     advantages: number[];
     moveClasses: string[];
