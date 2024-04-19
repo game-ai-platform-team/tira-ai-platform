@@ -1,11 +1,13 @@
 /**
  * This slice manages the contents of list of moves in the Redux store.
- * It is used in SocketService when a new move is received.
+ * createMove is used in SocketService when a new move is received.
  * @see /../services/SocketService.ts
  * The list of moves is shown in the MoveList component.
  * MoveList is rendered in GameView using the move list as a parameter
  * @see /../components/GameView.tsx
  * @see /../components/MoveList.tsx
+ * resetBoard is used as a part of ResetReducer
+ * @see /../reducers/ResetReducer.ts
  */
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
