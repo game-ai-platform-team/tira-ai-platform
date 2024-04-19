@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 /**
  * Redux slice for changing the board state.
- * setBoardIndex changes index to any given number
- * nextBoard increases the given state
- * previousBoard decreases the given state
- * resetBoardIndex resets game to the initial state
- * @returns {Object} The slice containing reducer and actions.
+ * The functions are called from various places.
  */
 const boardIndexSlice = createSlice({
     name: "boardIndex",
