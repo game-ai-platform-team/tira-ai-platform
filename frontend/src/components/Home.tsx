@@ -10,9 +10,7 @@ const Home = (): JSX.Element => {
             Do you need help developing your game AI? You&apos;ve come to the
             right place!😎{" "}
             <img src="great.png" style={{ width: "75%" }} alt="woahhh" />
-            <marquee>
-                <img src="great.png" style={{ width: "75%" }} alt="woahhh" />
-            </marquee>
+            <img src="great.png" style={{ width: "75%" }} alt="woahhh" />
         </div>
     );
 };
