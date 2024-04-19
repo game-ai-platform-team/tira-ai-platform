@@ -4,16 +4,8 @@ from pathlib import Path
 from types import TracebackType
 from uuid import uuid1
 
-from config import HPC_GAME_IMAGE_PATH, TEMP_DIR
+from config import HPC_GAME_IMAGE_PATH, TEMP_DIR, BATCH_CONFIG
 from entities.ssh_connection import SSHConnection
-
-BATCH_CONFIG = {
-    "cluster": "ukko",
-    "memory": "4G",
-    "partition": "short",
-    "cpu": 1,
-    "time": "00:10:00",
-}
 
 
 class HPCService(AbstractContextManager):
