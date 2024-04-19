@@ -3,8 +3,7 @@ import SubmitForm from "../../components/SubmitForm";
 import { test, expect, describe } from "vitest";
 import { Provider } from "react-redux";
 import store from "../../store";
-import { resetGame, updateState } from "../../reducers/gameReducer";
-import { GameState } from "../../types";
+import { resetGame } from "../../reducers/gameReducer";
 import { BrowserRouter } from "react-router-dom";
 
 describe("Submit form", () => {
