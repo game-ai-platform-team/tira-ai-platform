@@ -48,4 +48,10 @@ BATCH_CONFIG = {
         "OpenSSL/1.1",
         "git/2.42.0-GCCcore-13.2.0",
     ],
+    "bind_paths": [
+        "/wrk-vakka/appl/easybuild/",
+        "/appl/easybuild/opt/",
+        "/lib64/libssl.so.1.1",
+        "/lib64/libcrypto.so.1.1",
+    ],
 }

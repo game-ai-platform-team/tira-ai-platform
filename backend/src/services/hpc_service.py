@@ -70,7 +70,8 @@ class HPCService(AbstractContextManager):
 
     def __create_script(self, image_path: Path) -> Path:
         modules = ' '.join(BATCH_CONFIG['modules'])
-        
+        bind_paths = ",".join(BATCH_CONFIG["bind_paths"])
+
         script = "\n".join(
             [
                 "#!/bin/bash",
@@ -84,7 +85,7 @@ class HPCService(AbstractContextManager):
                 f"module load {modules}",
                 f"export SINGULARITYENV_PREPEND_PATH=$PATH",
                 f"export SINGULARITYENV_LD_LIBRARY_PATH=$LD_LIBRARY_PATH",
-                f"singularity run --no-home --bind /wrk-vakka/appl/easybuild/,/appl/easybuild/opt/,/lib64/libssl.so.1.1,/lib64/libcrypto.so.1.1 --pwd /app {image_path}",
+                f"singularity run --no-home --bind {bind_paths} --pwd /app {image_path}",
             ]
         )
 
