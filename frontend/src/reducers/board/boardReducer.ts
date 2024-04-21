@@ -9,11 +9,11 @@
  */
 
 import { combineReducers } from "@reduxjs/toolkit";
-import { AppThunkAction } from "../store";
-import chessboardReducer, { resetChessBoards } from "./board/chessBoardReducer";
+import { AppThunkAction } from "../../store";
+import chessboardReducer, { resetChessBoards } from "./chessBoardReducer";
 import connectFourBoardReducer, {
     resetConnectFourBoards,
-} from "./board/connectFourBoardReducer";
+} from "./connectFourBoardReducer";
 
 const boardReducer = combineReducers({
     chessBoards: chessboardReducer,
