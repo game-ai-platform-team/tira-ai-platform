@@ -279,132 +279,51 @@ namespace UI {
 }
 ```
 
-### React Redux part and logic
+### React Redux part
 
-```mermaid
-classDiagram
+#### The structure of store
 
-store -- moveReducer
-store -- gameReducer
-store -- boardReducer
-store -- toastReducer
-
-gameReducer ..> newGame
-gameReducer ..> updateGame
-gameReducer ..> updateState
-gameReducer ..> resetGame
-moveReducer ..> newMove
-boardReducer ..> newBoard
-newGame ..> gameConfig
-toastReducer ..> setToast
-
-
-moveReducer <-- SocketService
-
-boardIndexReducer ..> nextBoard
-boardIndexReducer ..> previousBoard
-
-SocketService ..> gameConfig
-
-resetReducer ..> moveReducer
-resetReducer ..> boardReducer
-resetReducer ..> gameReducer
-resetReducer ..> boardIndexReducer
-
-note for newBoard "Each game has own newBoard action"
-
-namespace services {
-    class SocketService {
-        +startGame(config: gameConfig)
+```ts
+{
+    moves: Array<MoveStatistics>(),
+    game: {
+        isGameRunning: boolean,
+        state: GameState,
+        config: GameConfig,
+    },
+    boards: {
+        chessboards: Array<string>,
+        connectFourBoards: Array<Array<number>>,
+    },
+    boardIndex: number,
+    allLog: string,
+    notification: {
+        title: string,
+        text: string,
+        color: string,
     }
 }
-
-class gameConfig {
-    elo: string | number
-    depth: number
-    GithubUrl: string 
-}
-
-class store {
-    moves: MoveStatistics[]
-    boards: BoardProps[]
-    boardIndex: number
-    in_progress: boolean
-    game_result: GameResult
-    notification: string
-}
-
-
-namespace ReducersAndActionCreators {
-    class moveReducer {
-        <<module>>
-        moveReducer(state, action)
-        newMove(move: MoveStatistics) newMove
-        resetMoves() resetMoves
-    }
-
-    class gameReducer {
-        <<module>>
-        gameReducer(state, action)
-        newGame(gameConfig) newGame
-        updateGame(state, action)
-        resetGame() resetGame
-        updateState(state, action)
-    }
-
-    class boardReducer {
-        <<module>>
-        boardReducer(state, action)
-        resetBoards() resetBoards
-    }
-
-    class boardIndexReducer {
-        <<module>>
-        nextBoard(state, action)
-        previousBoard(state, action)
-        newBoard(board: BoardProps) newBoard
-        resetBoardIndex() resetBoardIndex
-    }
-    
-    class resetReducer {
-    }
-
-    class toastReducer {
-        <<module>>
-        setToast(_, action)
-    }
-}
-
-namespace Actions {
-    class newMove {
-        payload: MoveStatistics
-    }
-
-    class newBoard {
-        payload: MoveStatistics
-    }
-
-    class newGame {
-        payload: gameConfig
-    }
-
-    class updateGame {
-        payload: string
-    }
-
-    class updateState {
-        payload: GameState
-    }
-
-    class setToast {
-        payload: string
-    }
-
-    class nextBoard
-
-    class previousBoard
-
-    class resetGame
-}
-
 ```
+
+#### Actions
+
+- moves
+  - createMove
+  - resetMoves
+- game
+  - newGame
+  - resetGame
+  - updateState
+- boards
+  - new\<GameName\>Board
+  - reset\<GameName\>Boards
+- boardIndex
+  - setBoardIndex
+  - nextBoard
+  - previousBoard
+  - resetBoardIndex
+- allLog
+  - setAllLog
+  - resetAllLog
+- notification
+  - setToast
