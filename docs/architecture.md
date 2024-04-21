@@ -292,7 +292,7 @@ namespace UI {
         config: GameConfig,
     },
     boards: {
-        chessboards: Array<string>,
+        chessBoards: Array<string>,
         connectFourBoards: Array<Array<number>>,
     },
     boardIndex: number,

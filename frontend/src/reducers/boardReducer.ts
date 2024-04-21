@@ -10,13 +10,13 @@
 
 import { combineReducers } from "@reduxjs/toolkit";
 import { AppThunkAction } from "../store";
-import chessboardReducer, { resetChessboards } from "./board/chessboardReducer";
+import chessboardReducer, { resetChessBoards } from "./board/chessBoardReducer";
 import connectFourBoardReducer, {
     resetConnectFourBoards,
 } from "./board/connectFourBoardReducer";
 
 const boardReducer = combineReducers({
-    chessboards: chessboardReducer,
+    chessBoards: chessboardReducer,
     connectFourBoards: connectFourBoardReducer,
 });
 
@@ -25,7 +25,7 @@ const boardReducer = combineReducers({
  * @returns {AppThunkAction} A thunk action to dispatch reset actions for all boards.
  */
 const resetBoards = (): AppThunkAction => (dispatch) => {
-    dispatch(resetChessboards());
+    dispatch(resetChessBoards());
     dispatch(resetConnectFourBoards());
 };
 
