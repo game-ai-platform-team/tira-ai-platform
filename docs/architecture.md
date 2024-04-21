@@ -1,6 +1,6 @@
 # Architecture
 
-## Sequence diagram
+## Sequence diagrams
 
 ### Submitting AI and playing a game
 
@@ -88,6 +88,7 @@ API ..> HPCService
 API ..> Image
 HPCService --> SSHConnection
 
+Image ..> run_image: Dockerfile
 run_image ..> Game
 run_image --> GameFactory
 run_image --> PlayerFactory
