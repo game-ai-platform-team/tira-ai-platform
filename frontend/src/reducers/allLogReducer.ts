@@ -14,7 +14,7 @@ const allLogSlice = createSlice({
         setAllLog(_, logsPayload: PayloadAction<string>) {
             return logsPayload.payload;
         },
-        resetAlLLog() {
+        resetAllLog() {
             return "";
         },
     },
@@ -22,4 +22,4 @@ const allLogSlice = createSlice({
 
 export default allLogSlice.reducer;
 
-export const { setAllLog, resetAlLLog } = allLogSlice.actions;
+export const { setAllLog, resetAllLog } = allLogSlice.actions;
