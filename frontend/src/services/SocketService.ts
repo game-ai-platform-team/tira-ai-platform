@@ -11,13 +11,13 @@ import GameConfig from "../interfaces/GameConfig.ts";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { setLog } from "../reducers/logReducer.ts";
 import { nextBoard } from "../reducers/boardIndexReducer";
-import { newChessBoard } from "../reducers/board/chessBoardReducer.ts";
+import { newChessBoard } from "../reducers/boards/chessBoardReducer.ts";
 import { updateState } from "../reducers/gameReducer.ts";
 import { createMove } from "../reducers/moveReducer";
 import store from "../store";
 import { GameState } from "../types.ts";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { newConnectFourBoard } from "../reducers/board/connectFourBoardReducer.ts";
+import { newConnectFourBoard } from "../reducers/boards/connectFourBoardReducer.ts";
 import { setToast } from "../reducers/toastReducer.ts";
 
 const path = `${import.meta.env.BASE_URL}/socket.io`.replace("//", "/");

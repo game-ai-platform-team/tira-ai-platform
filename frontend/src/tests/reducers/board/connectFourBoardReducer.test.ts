@@ -1,5 +1,5 @@
 import store from "../../../store";
-import { newConnectFourBoard } from "../../../reducers/board/connectFourBoardReducer";
+import { newConnectFourBoard } from "../../../reducers/boards/connectFourBoardReducer";
 import resetStateReducer from "../../../reducers/resetReducer";
 
 describe("ConnectFourBoardReducer", () => {

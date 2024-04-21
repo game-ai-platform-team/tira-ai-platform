@@ -11,7 +11,7 @@
 import { AppThunkAction } from "../store";
 import { resetLogs } from "./logReducer.ts";
 import { resetBoardIndex } from "./boardIndexReducer";
-import { resetBoards } from "./board/boardReducer.ts";
+import { resetBoards } from "./boards/boardReducer.ts";
 import { resetGame } from "./gameReducer";
 import { resetMoves } from "./moveReducer";
 
