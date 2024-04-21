@@ -86,7 +86,7 @@ class HPCService(AbstractContextManager):
                 f"export SINGULARITYENV_PREPEND_PATH=$PATH",
                 f"export SINGULARITYENV_LD_LIBRARY_PATH=$LD_LIBRARY_PATH",
                 f"export SINGULARITY_BIND={bind_paths}",
-                f"singularity run --no-home --pwd /app {image_path}",
+                f"singularity run --writable-tmpfs --no-home --pwd /app {image_path}",
             ]
         )
 
