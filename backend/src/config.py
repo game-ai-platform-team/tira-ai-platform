@@ -40,4 +40,12 @@ BATCH_CONFIG = {
     "partition": "short",
     "cpu": 1,
     "time": "00:10:00",
+    "modules": [
+        "Python/3.11.5-GCCcore-13.2.0",
+        "Java/17.0.6",
+        "Singularity_nosuid/4.1.1-GCC-13.2.0",
+        "poetry/1.6.1-GCCcore-13.2.0",
+        "OpenSSL/1.1",
+        "git/2.42.0-GCCcore-13.2.0",
+    ],
 }
