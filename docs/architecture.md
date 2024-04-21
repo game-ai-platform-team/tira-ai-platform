@@ -296,7 +296,7 @@ namespace UI {
         connectFourBoards: Array<Array<number>>,
     },
     boardIndex: number,
-    allLog: string,
+    logs: string,
     notification: {
         title: string,
         text: string,
@@ -322,8 +322,8 @@ namespace UI {
   - nextBoard
   - previousBoard
   - resetBoardIndex
-- allLog
-  - setAllLog
-  - resetAllLog
+- logs
+  - setLog
+  - resetLogs
 - notification
   - setToast

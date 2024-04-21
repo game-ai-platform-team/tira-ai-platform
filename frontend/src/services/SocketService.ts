@@ -9,7 +9,7 @@
 import { io } from "socket.io-client";
 import GameConfig from "../interfaces/GameConfig.ts";
 import MoveStatistics from "../interfaces/MoveStatistics";
-import { setAllLog } from "../reducers/allLogReducer.ts";
+import { setLog } from "../reducers/logReducer.ts";
 import { nextBoard } from "../reducers/boardIndexReducer";
 import { newChessBoard } from "../reducers/board/chessBoardReducer.ts";
 import { updateState } from "../reducers/gameReducer.ts";
@@ -49,7 +49,7 @@ const startGame = (config: GameConfig) => {
 
     socket.on("final", (data: { state: string; allLogs: string }) => {
         console.log(data.allLogs);
-        store.dispatch(setAllLog(data.allLogs));
+        store.dispatch(setLog(data.allLogs));
     });
     socket.emit("startgame", config);
 
