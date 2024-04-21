@@ -53,5 +53,6 @@ BATCH_CONFIG = {
         "/appl/easybuild/opt/",
         "/lib64/libssl.so.1.1",
         "/lib64/libcrypto.so.1.1",
+        "/etc/pki/tls/certs/ca-bundle.crt",
     ],
 }
