@@ -9,7 +9,7 @@
  */
 
 import { AppThunkAction } from "../store";
-import { resetAlLLog } from "./allLogReducer.ts";
+import { resetAllLog } from "./allLogReducer.ts";
 import { resetBoardIndex } from "./boardIndexReducer";
 import { resetBoards } from "./boardReducer.ts";
 import { resetGame } from "./gameReducer";
@@ -25,7 +25,7 @@ const resetStateReducer = (): AppThunkAction => (dispatch) => {
     dispatch(resetBoards());
     dispatch(resetMoves());
     dispatch(resetGame());
-    dispatch(resetAlLLog());
+    dispatch(resetAllLog());
 };
 
 export default resetStateReducer;
