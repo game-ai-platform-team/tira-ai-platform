@@ -26,7 +26,6 @@ class Image(AbstractContextManager):
 
         build_args = {
             "GAME": game,
-            "GAME_ID": self.__id,
             "REPOSITORY_URL": repository_url,
             "DIFFICULTY": difficulty,
         }

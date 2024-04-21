@@ -18,14 +18,13 @@ FROM python:3-slim as runtime
 
 ARG REPOSITORY_URL
 ARG GAME
-ARG GAME_ID
 ARG DIFFICULTY
 
 ENV HOME=/home/user
 ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH" \
-    GAME=${GAME} \
-    REPOSITORY_PATH=/app/temp/${GAME_ID} \
+    PATH="/app/.venv/bin:$PATH"
+ENV GAME=${GAME} \
+    REPOSITORY_URL=${REPOSITORY_URL} \
     DIFFICULTY=${DIFFICULTY}
 
 COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
