@@ -14,7 +14,7 @@ import { toNumber } from "lodash";
 import MoveStatistics from "../../interfaces/MoveStatistics";
 
 const connectFourSlice = createSlice({
-    name: "connect",
+    name: "connectFour",
     initialState: new Array<Array<number>>(),
     reducers: {
         newConnectFourBoard(state, action: PayloadAction<MoveStatistics>) {
