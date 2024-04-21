@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Statistics, Evaluations } from "../services/StatisticsService";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { useDispatch } from "react-redux";
-import { setBoardIndex } from "../reducers/boardIndexReducer";
+import { setBoardIndex } from "../reducers/boards/boardIndexReducer";
 import { useAppSelector } from "../hook";
 import "../scss/PlayerStats.scss";
 

@@ -10,7 +10,7 @@ import { io } from "socket.io-client";
 import GameConfig from "../interfaces/GameConfig.ts";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { setLog } from "../reducers/logReducer.ts";
-import { nextBoard } from "../reducers/boardIndexReducer";
+import { nextBoard } from "../reducers/boards/boardIndexReducer.ts";
 import { newChessBoard } from "../reducers/boards/chessBoardReducer.ts";
 import { updateState } from "../reducers/gameReducer.ts";
 import { createMove } from "../reducers/moveReducer";

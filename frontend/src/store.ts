@@ -2,7 +2,7 @@ import { ThunkAction, UnknownAction, configureStore } from "@reduxjs/toolkit";
 import gameReducer from "./reducers/gameReducer";
 import moveReducer from "./reducers/moveReducer";
 import boardReducer from "./reducers/boards/boardReducer.ts";
-import boardIndexReducer from "./reducers/boardIndexReducer";
+import boardIndexReducer from "./reducers/boards/boardIndexReducer.ts";
 import logReducer from "./reducers/logReducer.ts";
 import toastReducer from "./reducers/toastReducer.ts";
 /**
