@@ -6,7 +6,7 @@ import "../scss/LogBox.scss";
  * @returns LogBox function
  */
 export function LogBox() {
-    const logs = useAppSelector((state) => state.allLog);
+    const logs = useAppSelector((state) => state.logs);
 
     return (
         <div id="log-box">

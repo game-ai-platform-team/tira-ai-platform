@@ -7,19 +7,19 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const allLogSlice = createSlice({
-    name: "allLog",
+const logSlice = createSlice({
+    name: "logs",
     initialState: "",
     reducers: {
-        setAllLog(_, logsPayload: PayloadAction<string>) {
+        setLog(_, logsPayload: PayloadAction<string>) {
             return logsPayload.payload;
         },
-        resetAllLog() {
+        resetLogs() {
             return "";
         },
     },
 });
 
-export default allLogSlice.reducer;
+export default logSlice.reducer;
 
-export const { setAllLog, resetAllLog } = allLogSlice.actions;
+export const { setLog, resetLogs } = logSlice.actions;

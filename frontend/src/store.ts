@@ -3,7 +3,7 @@ import gameReducer from "./reducers/gameReducer";
 import moveReducer from "./reducers/moveReducer";
 import boardReducer from "./reducers/boardReducer";
 import boardIndexReducer from "./reducers/boardIndexReducer";
-import allLogReducer from "./reducers/allLogReducer.ts";
+import logReducer from "./reducers/logReducer.ts";
 import toastReducer from "./reducers/toastReducer.ts";
 /**
  * A store for multiple reducers that can have their state read from store.
@@ -17,7 +17,7 @@ const store = configureStore({
         game: gameReducer,
         boards: boardReducer,
         boardIndex: boardIndexReducer,
-        allLog: allLogReducer,
+        logs: logReducer,
         notification: toastReducer,
     },
 });
