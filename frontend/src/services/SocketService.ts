@@ -11,7 +11,7 @@ import GameConfig from "../interfaces/GameConfig.ts";
 import MoveStatistics from "../interfaces/MoveStatistics";
 import { setAllLog } from "../reducers/allLogReducer.ts";
 import { nextBoard } from "../reducers/boardIndexReducer";
-import { newChessboard } from "../reducers/board/chessboardReducer.ts";
+import { newChessBoard } from "../reducers/board/chessBoardReducer.ts";
 import { updateState } from "../reducers/gameReducer.ts";
 import { createMove } from "../reducers/moveReducer";
 import store from "../store";
@@ -26,7 +26,7 @@ const boardActionCreators = new Map<
     string,
     ActionCreatorWithPayload<MoveStatistics>
 >([
-    ["chess", newChessboard],
+    ["chess", newChessBoard],
     ["connect_four", newConnectFourBoard],
 ]);
 
