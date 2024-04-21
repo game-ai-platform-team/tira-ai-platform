@@ -2,7 +2,6 @@ from pathlib import Path
 
 from invoke.tasks import task
 
-
 ROOT_DIR = Path(__file__).parent
 SOURCE_DIR = ROOT_DIR / "src"
 
@@ -45,5 +44,3 @@ def start(
     ctx,
 ):
     ctx.run("poetry run uwsgi --ini wsgi.ini")
-
-
