@@ -2,13 +2,15 @@ from pathlib import Path
 
 from invoke.tasks import task
 
-SOURCE_DIR = Path(__file__).parent / "src"
+
+ROOT_DIR = Path(__file__).parent
+SOURCE_DIR = ROOT_DIR / "src"
 
 
 @task
 def format(ctx):
-    ctx.run(f"poetry run black {SOURCE_DIR} --exclude temp")
-    ctx.run(f"poetry run isort {SOURCE_DIR} --profile=black")
+    ctx.run(f"poetry run black {ROOT_DIR} --exclude temp")
+    ctx.run(f"poetry run isort {ROOT_DIR} --profile=black")
 
 
 @task
