@@ -3,7 +3,7 @@ import "../scss/Gameboard.scss";
 import { useAppSelector } from "../hook";
 import { useState, useEffect, useCallback } from "react";
 import store from "../store";
-import { setBoardIndex } from "../reducers/boardIndexReducer";
+import { setBoardIndex } from "../reducers/boards/boardIndexReducer";
 
 /**
  * Draws a standard chess game board and arrow buttons for navigating between game states

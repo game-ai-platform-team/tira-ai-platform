@@ -1,7 +1,7 @@
 import { useAppSelector } from "../hook";
 import { useState, useEffect, useCallback } from "react";
 import store from "../store";
-import { setBoardIndex } from "../reducers/boardIndexReducer";
+import { setBoardIndex } from "../reducers/boards/boardIndexReducer";
 import "../scss/Gameboard.scss";
 import { CFourUI } from "connect-four-board";
 import { toNumber } from "lodash";

@@ -3,7 +3,7 @@ import store from "../../store";
 import { resetMoves } from "../../reducers/moveReducer";
 import { Provider } from "react-redux";
 import { render } from "@testing-library/react";
-import { setBoardIndex } from "../../reducers/boardIndexReducer";
+import { setBoardIndex } from "../../reducers/boards/boardIndexReducer";
 
 describe("CFourboard", () => {
     const ui = (

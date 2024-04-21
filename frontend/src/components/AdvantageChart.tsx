@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import "../scss/CustomTooltip.scss";
 import { CustomTooltip } from "./CustomTooltip";
-import { setBoardIndex } from "../reducers/boardIndexReducer";
+import { setBoardIndex } from "../reducers/boards/boardIndexReducer";
 import store from "../store";
 import { useAppSelector } from "../hook";
 
