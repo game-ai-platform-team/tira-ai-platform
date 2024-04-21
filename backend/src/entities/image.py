@@ -35,8 +35,6 @@ class Image(AbstractContextManager):
             [f"--build-arg {key}={value}" for key, value in build_args.items()]
         )
 
-        print(self.__build_args)
-
     @property
     def path(self) -> Path:
         return self.__path
