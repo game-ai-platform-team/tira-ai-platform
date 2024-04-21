@@ -69,7 +69,7 @@ class HPCService(AbstractContextManager):
         return new_lines
 
     def __create_script(self, image_path: Path) -> Path:
-        modules = ' '.join(BATCH_CONFIG['modules'])
+        modules = " ".join(BATCH_CONFIG["modules"])
         bind_paths = ",".join(BATCH_CONFIG["bind_paths"])
 
         script = "\n".join(
