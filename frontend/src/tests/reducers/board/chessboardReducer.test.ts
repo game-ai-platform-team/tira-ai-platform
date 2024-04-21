@@ -1,5 +1,5 @@
 import store from "../../../store";
-import { newChessBoard } from "../../../reducers/board/chessBoardReducer";
+import { newChessBoard } from "../../../reducers/boards/chessBoardReducer";
 import resetStateReducer from "../../../reducers/resetReducer";
 
 describe("BoardReducer", () => {
