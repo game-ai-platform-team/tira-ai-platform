@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from invoke.tasks import task
 from invoke.context import Context
+from invoke.tasks import task
 
 ROOT_DIR = Path(__file__).parent
 SOURCE_DIR = ROOT_DIR / "src"
@@ -13,7 +13,7 @@ def run(ctx):
 
 
 @task
-def install(ctx:Context):
+def install(ctx: Context):
     ctx.run(f"cd {SOURCE_DIR} && python3 -m utils.install_stockfish")
 
 

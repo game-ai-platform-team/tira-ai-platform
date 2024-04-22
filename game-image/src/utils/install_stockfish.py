@@ -34,5 +34,6 @@ def install_stockfish(path: Path = DEFAULT_STOCKFISH_PATH) -> None:
             file.extract("stockfish/stockfish-ubuntu-x86-64-avx2", temp_dir)
             copy(temp_dir / Path("stockfish/stockfish-ubuntu-x86-64-avx2"), path)
 
+
 if __name__ == "__main__":
     install_stockfish()
