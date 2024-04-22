@@ -11,12 +11,15 @@ export function LogBox() {
     const logs = useAppSelector((state) => state.logs);
     const [textareaHeight, setTextareaHeight] = useState(0);
 
-    const textareaRefCallback = useCallback((node: HTMLTextAreaElement | null) => {
-        if (node !== null) {
-            setTextareaHeight(node.scrollHeight);
-            node.scrollTop = node.scrollHeight;
-        }
-    }, []);
+    const textareaRefCallback = useCallback(
+        (node: HTMLTextAreaElement | null) => {
+            if (node !== null) {
+                setTextareaHeight(node.scrollHeight);
+                node.scrollTop = node.scrollHeight;
+            }
+        },
+        [],
+    );
 
     useEffect(() => {
         if (textareaHeight > 0) {
