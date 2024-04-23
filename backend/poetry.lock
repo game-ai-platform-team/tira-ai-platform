@@ -348,13 +348,13 @@ files = [
 
 [[package]]
 name = "connect-four-lib"
-version = "1.3.0"
+version = "1.3.1"
 description = "A library for connect 4 game"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "connect_four_lib-1.3.0-py3-none-any.whl", hash = "sha256:03c1a574f7ead9c053e4d88a3992e7802e902f5474a5bcf585dbaab416c1ea77"},
-    {file = "connect_four_lib-1.3.0.tar.gz", hash = "sha256:958f8a14aedcbf737ef5b83cef83e874c771b7535143421fe3284ee8f3e0f3e6"},
+    {file = "connect_four_lib-1.3.1-py3-none-any.whl", hash = "sha256:37876b1239ad35bd5d1877d7ce6678bb3685e295668edd1d48cece54a9f6f970"},
+    {file = "connect_four_lib-1.3.1.tar.gz", hash = "sha256:cc645eb9e9dd3b76a4dbf92e013837e44f02addb8c95674968c9a11ce7973b4f"},
 ]
 
 [package.dependencies]
