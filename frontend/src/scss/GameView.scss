@@ -1,3 +1,5 @@
+@use "Card.scss";
+
 #game-view {
     display: flex;
     align-items: flex-start;
@@ -6,20 +8,4 @@
     margin-top: 20px;
     flex-wrap: wrap;
     gap: 5px;
-}
-
-.card {
-    box-shadow: 0 4px 8px 0 #a0522d;
-    transition: 0.3s;
-    border-radius: 20px;
-    padding: 20px;
-}
-
-.card:empty {
-    display: none;
-}
-
-.card-header {
-    text-align: center;
-    font-size: 1.8em;
 }
