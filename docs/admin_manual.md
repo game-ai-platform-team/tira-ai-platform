@@ -30,9 +30,7 @@ All configurations can be defined as environment variables or in `backend/.env` 
 | `HPC_GAME_IMAGE_PATH`                         | `docker://kontrakti/game-image:latest`  | ❌        |
 | `HPC_SSH_PRIVATE_KEY_PATH` [^hpc_private_key] | `backend/hpc_private_key`               | ❌        |
 | `TEMP_DIR`                                    | `~/temp`                                | ❌        |
-| `DEFAULT_CHESS_AI_FILENAME`                   | `chess_ai.py`                           | ❌        |
-| `DEFAULT_CHESS_AI_PATH`                       | `backend/src/DEFAULT_CHESS_AI_FILENAME` | ❌        |
-| `DEFAULT_CHESS_TIMEOUT`                       | `5`                                     | ❌        |
+| `DEFAULT_GAME_TIMEOUT`                       | `20`                                     | ❌        |
 
 ### `.env.secret`
 
