@@ -51,6 +51,7 @@ class SSHConnection(AbstractContextManager):
         """
 
         _, stdout, _ = self.__client.exec_command(f"bash -l -c '{command}'")
+        print("EXECUTED:", command)
 
         return stdout.readlines()
 
