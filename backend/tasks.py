@@ -36,7 +36,7 @@ def lint(ctx):
 def dev(
     ctx,
 ):
-    ctx.run(f"poetry run python3 {SOURCE_DIR}/app.py")
+    ctx.run("poetry run uwsgi --ini wsgi.dev.ini")
 
 
 @task
