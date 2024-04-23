@@ -54,3 +54,6 @@ The relevant version of the project resides in `/var/www/tira-ai-platform`. Ther
 
 ### Updating the project
 The standard workflow for updating the project is done through `buildrun.sh`. Push your changes into the tira-ai-platform repository and run the script. If you want to implement changes locally, simply implement them and run the script. 
+
+## HPC
+The project utilises a high-performance computing (HPC) environment from the University of Helsinki. 
