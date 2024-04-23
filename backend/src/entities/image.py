@@ -1,5 +1,4 @@
 import os
-import re
 from contextlib import AbstractContextManager
 from pathlib import Path
 from types import TracebackType
