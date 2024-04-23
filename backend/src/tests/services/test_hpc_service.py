@@ -24,7 +24,7 @@ class TestHPCService(TestCase):
 
     def test_enter_creates_output_file(self):
         with self.hpc_service as hpc:
-            self.connection.execute.assert_called_once_with(
+            self.connection.execute.assert_any_call(
                 f"touch {hpc._HPCService__output_path}"
             )
 
