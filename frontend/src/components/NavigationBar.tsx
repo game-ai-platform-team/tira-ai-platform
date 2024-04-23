@@ -102,25 +102,16 @@ const NavigationBar = (): JSX.Element => {
 
             <div>
                 <Button
-                    onClick={() =>
-                        window.open(
-                            "https://github.com/game-ai-platform-team/tira-ai-platform/issues",
-                            "_blank",
-                        )
-                    }
+                    href="https://github.com/game-ai-platform-team/tira-ai-platform/issues"
+                    target="_blank"
                     id="nav-button"
                     aria-label="Feedback"
-                    style={{ color: "white" }}
                 >
-                    {" "}
                     💬 Feedback
                 </Button>
             </div>
             <div>
-                <Button
-                    id="nav-button"
-                    onClick={() => (location.href = "/login")}
-                >
+                <Button id="nav-button" href="/login">
                     🔐 Login
                 </Button>
             </div>
