@@ -61,7 +61,9 @@ class API:
                             return
                         case "MOVE":
                             json_string = content[1]
-                            move_object = self.construct_move_object_from_json(json_string)
+                            move_object = self.construct_move_object_from_json(
+                                json_string
+                            )
                             socket_service.send(move_object)
                 sleep(1)
 
