@@ -16,6 +16,8 @@ class HPCService(AbstractContextManager):
         self.__id: str = id_ or str(uuid1())
         self.__current_output_line: int = 0
 
+        self.__working_directory: Path = Path(self.__id)
+
     def __enter__(self) -> "HPCService":
         self.__connection.__enter__()
         self.__connection.execute(f"touch {self.output_path}")
@@ -33,7 +35,7 @@ class HPCService(AbstractContextManager):
 
     @cached_property
     def output_path(self) -> Path:
-        return Path(f"result-{self.__id}.txt")
+        return self.__working_directory / f"result-{self.__id}.txt"
 
     @cached_property
     def batch_path(self) -> Path:
@@ -47,9 +49,16 @@ class HPCService(AbstractContextManager):
             image_path (Path): Local path to game image.
         """
 
-        remote_image_path = self.__connection.send_file(image_path)
-        batch = self.__create_script(remote_image_path)
-        remote_batch_path = self.__connection.send_file(batch)
+        remote_image_path = self.__working_directory / image_path.name
+        remote_batch_path = self.__working_directory / self.batch_path.name
+
+        self.__connection.send_file(image_path, remote_image_path)
+
+        self.__create_script(remote_image_path)
+
+        remote_batch_path = self.__connection.send_file(
+            self.batch_path, remote_batch_path
+        )
 
         self.__connection.execute(f"sbatch {remote_batch_path}")
 
@@ -68,7 +77,7 @@ class HPCService(AbstractContextManager):
 
         return new_lines
 
-    def __create_script(self, image_path: Path) -> Path:
+    def __create_script(self, image_path: Path) -> None:
         modules = " ".join(BATCH_CONFIG["modules"])
         bind_paths = ",".join(BATCH_CONFIG["bind_paths"])
 
@@ -92,5 +101,3 @@ class HPCService(AbstractContextManager):
 
         with open(self.batch_path, mode="w", encoding="utf-8") as file:
             file.write(script)
-
-        return self.batch_path
