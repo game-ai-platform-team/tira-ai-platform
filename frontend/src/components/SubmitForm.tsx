@@ -116,7 +116,7 @@ function SubmitForm(): JSX.Element {
     }, [dispatch, gameState]);
 
     return (
-        <div id="drag-and-drop-container">
+        <div id="drag-and-drop-container" className="card">
             <h2 className="card-header">Upload your file</h2>
 
             <div id="config-slider">

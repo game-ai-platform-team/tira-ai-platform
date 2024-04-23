@@ -73,10 +73,7 @@ function GameView(props: GameViewProps): JSX.Element {
         <div id="game-view">
             <Notification />
             <div>
-                <div className="card">
-                    <SubmitForm />
-                </div>
-
+                <SubmitForm />
                 <LogBox />
             </div>
             {gameBoard}
