@@ -31,8 +31,6 @@ HPC_USERNAME = getenv("HPC_USERNAME")
 HPC_SSH_PRIVATE_KEY_PATH = (
     getenv("HPC_SSH_PRIVATE_KEY_LOCATION") or BACKEND_DIR / "hpc_private_key"
 )
-HPC_GAME_IMAGE_PATH = getenv("HPC_GAME_IMAGE_PATH")
-
 
 BATCH_CONFIG = {
     "cluster": "ukko",
