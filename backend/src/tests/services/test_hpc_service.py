@@ -18,21 +18,15 @@ class TestHPCService(TestCase):
     def tearDown(self) -> None:
         self.batch_path.unlink(missing_ok=True)
 
-    def test_output_path(self):
-        self.assertEqual(
-            self.hpc_service.output_path, Path(f"{self.id_}/result-{self.id_}.txt")
-        )
-
-    def test_batch_path(self):
-        self.assertEqual(self.hpc_service.batch_path, self.batch_path)
-
     def test_enter_starts_connection(self):
         with self.hpc_service:
             self.connection.__enter__.assert_called_once()
 
     def test_enter_creates_output_file(self):
         with self.hpc_service as hpc:
-            self.connection.execute.assert_called_once_with(f"touch {hpc.output_path}")
+            self.connection.execute.assert_called_once_with(
+                f"touch {hpc._HPCService__output_path}"
+            )
 
     def test_exit_closes_connection(self):
         with self.hpc_service:

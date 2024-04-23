@@ -17,10 +17,12 @@ class HPCService(AbstractContextManager):
         self.__current_output_line: int = 0
 
         self.__working_directory: Path = Path(self.__id)
+        self.__output_path = self.__working_directory / f"result-{self.__id}.txt"
+        self.__batch_path = TEMP_DIR / f"batch-{self.__id}.sh"
 
     def __enter__(self) -> "HPCService":
         self.__connection.__enter__()
-        self.__connection.execute(f"touch {self.output_path}")
+        self.__connection.execute(f"touch {self.__output_path}")
 
         return self
 
@@ -31,15 +33,7 @@ class HPCService(AbstractContextManager):
         traceback: TracebackType | None,
     ) -> bool | None:
         self.__connection.__exit__(exc_type, exc_value, traceback)
-        self.batch_path.unlink(missing_ok=True)
-
-    @cached_property
-    def output_path(self) -> Path:
-        return self.__working_directory / f"result-{self.__id}.txt"
-
-    @cached_property
-    def batch_path(self) -> Path:
-        return TEMP_DIR / f"batch-{self.__id}.sh"
+        self.__batch_path.unlink(missing_ok=True)
 
     def submit(self, image_path: Path) -> None:
         """
@@ -50,14 +44,14 @@ class HPCService(AbstractContextManager):
         """
 
         remote_image_path = self.__working_directory / image_path.name
-        remote_batch_path = self.__working_directory / self.batch_path.name
+        remote_batch_path = self.__working_directory / self.__batch_path.name
 
         self.__connection.send_file(image_path, remote_image_path)
 
         self.__create_script(remote_image_path)
 
         remote_batch_path = self.__connection.send_file(
-            self.batch_path, remote_batch_path
+            self.__batch_path, remote_batch_path
         )
 
         self.__connection.execute(f"sbatch {remote_batch_path}")
@@ -70,7 +64,7 @@ class HPCService(AbstractContextManager):
             list[str]: New lines of output file.
         """
 
-        data = self.__connection.read_file(self.output_path)
+        data = self.__connection.read_file(self.__output_path)
         new_lines = data[self.__current_output_line :]
 
         self.__current_output_line = len(data)
@@ -89,7 +83,7 @@ class HPCService(AbstractContextManager):
                 f"#SBATCH --mem {BATCH_CONFIG['memory']}",
                 f"#SBATCH -t {BATCH_CONFIG['time']}",
                 f"#SBATCH -t {BATCH_CONFIG['cpu']}",
-                f"#SBATCH -o {self.output_path}",
+                f"#SBATCH -o {self.__output_path}",
                 "module purge",
                 f"module load {modules}",
                 "export SINGULARITYENV_PREPEND_PATH=$PATH",
@@ -99,5 +93,5 @@ class HPCService(AbstractContextManager):
             ]
         )
 
-        with open(self.batch_path, mode="w", encoding="utf-8") as file:
+        with open(self.__batch_path, mode="w", encoding="utf-8") as file:
             file.write(script)
