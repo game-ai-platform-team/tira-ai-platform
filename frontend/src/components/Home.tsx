@@ -20,13 +20,13 @@ const Home = (): JSX.Element => {
                     available for chess and Connect Four.
                 </p>
                 <p>
-                    How does it work? It's simple: submit your project via a
-                    GitHub link and test your AI against our platform's built-in
-                    AI. This process lets you refine your algorithm and see your
-                    AI strategies in action.
+                    How does it work? It&apos;s simple: submit your project via
+                    a GitHub link and test your AI against our platform&apos;s
+                    built-in AI. This process lets you refine your algorithm and
+                    see your AI strategies in action.
                 </p>
                 <p>
-                    But that's not all! Tira-AI-Platform goes beyond just
+                    But that&apos;s not all! Tira-AI-Platform goes beyond just
                     testing. You can visualize your gameplay directly on the
                     platform, gaining valuable insights through stats, logs, and
                     a record of all moves made during the game.
