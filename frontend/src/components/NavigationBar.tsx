@@ -3,6 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownMenu from "react-bootstrap/DropdownMenu";
 import "../scss/NavigationBar.scss";
 import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 /**
  * Navigation bar containing all functions relevant to navigating the application
  * Home-button returns user to the home page
@@ -15,7 +16,14 @@ import { Link, useLocation } from "react-router-dom";
  */
 const NavigationBar = (): JSX.Element => {
     const path = useLocation();
-    const game = path.pathname.split("/").pop();
+    const [selectedGame, setSelectedGame] = useState<string>(() => {
+        const game = path.pathname.split("/").pop();
+        return game !== undefined ? game : "";
+    });
+
+    const handleGameSelect = (game: string) => {
+        setSelectedGame(game);
+    };
 
     return (
         <div id="navigation-bar">
@@ -31,16 +39,28 @@ const NavigationBar = (): JSX.Element => {
                     className="nav-dropdown"
                     style={{ color: "white" }}
                 >
-                    {getGameIcon(game !== undefined ? game : "")}{" "}
-                    {game !== "" ? game : "🤔 Select Game "}
+                    {getGameIcon(selectedGame)}{" "}
+                    {selectedGame !== "" ? selectedGame : "🤔 Select Game "}
                 </Dropdown.Toggle>
 
                 <DropdownMenu aria-label="Available games">
-                    <Dropdown.Item as={Link} to="/chess">
-                        ♟️ Chess
+                    <Dropdown.Item>
+                        <Link
+                            to="/chess"
+                            className="dropdown-link"
+                            onClick={() => handleGameSelect("chess")}
+                        >
+                            ♟️ Chess
+                        </Link>
                     </Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/connect_four">
-                        🔴 Connect 4
+                    <Dropdown.Item>
+                        <Link
+                            to="/connect_four"
+                            className="dropdown-link"
+                            onClick={() => handleGameSelect("connect_four")}
+                        >
+                            🔴 Connect 4
+                        </Link>
                     </Dropdown.Item>
                 </DropdownMenu>
             </Dropdown>
@@ -58,14 +78,20 @@ const NavigationBar = (): JSX.Element => {
                 </Dropdown.Toggle>
 
                 <DropdownMenu aria-label="Available instructions">
-                    <Dropdown.Item href="/generalmanual" target="_blank">
-                        📖 General
+                    <Dropdown.Item>
+                        <Link to="/generalmanual" className="dropdown-link">
+                            📖 General
+                        </Link>
                     </Dropdown.Item>
-                    <Dropdown.Item href="/chessmanual" target="_blank">
-                        ♟️ Chess
+                    <Dropdown.Item>
+                        <Link to="/chessmanual" className="dropdown-link">
+                            ♟️ Chess
+                        </Link>
                     </Dropdown.Item>
-                    <Dropdown.Item href="/cfourmanual" target="_blank">
-                        🔴 Connect four
+                    <Dropdown.Item>
+                        <Link to="/cfourmanual" className="dropdown-link">
+                            🔴 Connect Four
+                        </Link>
                     </Dropdown.Item>
                 </DropdownMenu>
             </Dropdown>
@@ -75,7 +101,7 @@ const NavigationBar = (): JSX.Element => {
                     onClick={() =>
                         window.open(
                             "https://github.com/game-ai-platform-team/tira-ai-platform/issues",
-                            "_blank",
+                            "_blank"
                         )
                     }
                     id="nav-button"
@@ -87,10 +113,7 @@ const NavigationBar = (): JSX.Element => {
                 </Button>
             </div>
             <div>
-                <Button
-                    id="nav-button"
-                    onClick={() => (location.href = "/login")}
-                >
+                <Button id="nav-button" onClick={() => (location.href = "/login")}>
                     🔐 Login
                 </Button>
             </div>
