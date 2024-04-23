@@ -32,8 +32,10 @@ class HPCService(AbstractContextManager):
         exc_value: BaseException | None,
         traceback: TracebackType | None,
     ) -> bool | None:
-        self.__connection.__exit__(exc_type, exc_value, traceback)
+        self.__connection.remove(self.__working_directory)
         self.__batch_path.unlink(missing_ok=True)
+
+        self.__connection.__exit__(exc_type, exc_value, traceback)
 
     def submit(self, image_path: Path) -> None:
         """
