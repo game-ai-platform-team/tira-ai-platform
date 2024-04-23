@@ -1,9 +1,10 @@
 from json import loads
-from time import sleep
+from time import sleep, time
 
 from duo_game_lib.game_state import GameState
 from duo_game_lib.move import Move, MoveMetadata
 
+from config import DEFAULT_GAME_TIMEOUT
 from entities.image import Image
 from services.hpc_service import HPCService
 from services.socket_service import SocketService
@@ -48,7 +49,10 @@ class API:
 
             output = []
 
-            while True:
+
+            timeout_start = time()
+
+            while time() < timeout_start + DEFAULT_GAME_TIMEOUT:
                 output = hpc.read_output()
 
                 for line in output:
