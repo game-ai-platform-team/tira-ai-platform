@@ -19,7 +19,9 @@ class TestHPCService(TestCase):
         self.batch_path.unlink(missing_ok=True)
 
     def test_output_path(self):
-        self.assertEqual(self.hpc_service.output_path, Path(f"result-{self.id_}.txt"))
+        self.assertEqual(
+            self.hpc_service.output_path, Path(f"{self.id_}/result-{self.id_}.txt")
+        )
 
     def test_batch_path(self):
         self.assertEqual(self.hpc_service.batch_path, self.batch_path)
@@ -46,25 +48,29 @@ class TestHPCService(TestCase):
         mock_unlink.assert_called_once()
 
     def test_submit_sends_image(self):
-        image = Mock()
+        image_path = Path("image_path")
 
         with self.hpc_service as hpc:
-            hpc.submit(image)
+            hpc.submit(image_path)
 
-        self.connection.send_file.assert_any_call(image)
+        self.connection.send_file.assert_any_call(
+            image_path, hpc._HPCService__working_directory / image_path
+        )
 
     @patch.object(
         HPCService, "_HPCService__create_script", lambda x, y: Path("batch_path")
     )
     def test_submit_sends_batch_file(self):
         with self.hpc_service as hpc:
-            hpc.submit(Mock())
+            hpc.submit(Path())
 
-        self.connection.send_file.assert_any_call(Path("batch_path"))
+        self.connection.send_file.assert_any_call(
+            self.batch_path, hpc._HPCService__working_directory / self.batch_path.name
+        )
 
     def test_submit_writes_batch_file(self):
         with patch("builtins.open", mock_open(read_data="data")) as mock_file:
-            self.hpc_service.submit(Mock())
+            self.hpc_service.submit(Path())
 
         mock_file.assert_called_with(self.batch_path, mode="w", encoding="utf-8")
 
