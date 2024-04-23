@@ -76,9 +76,8 @@ function GameView(props: GameViewProps): JSX.Element {
                 <div className="card">
                     <SubmitForm />
                 </div>
-                <div className="card">
-                    <LogBox />
-                </div>
+
+                <LogBox />
             </div>
             {gameBoard}
             <div className="card">
