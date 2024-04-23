@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { Container, Form } from "react-bootstrap";
 import { useAppSelector } from "../hook.ts";
-import "../scss/LogBox.scss";
 
 /**
  * Draws logs printed by the AI
@@ -9,35 +8,20 @@ import "../scss/LogBox.scss";
  */
 export function LogBox() {
     const logs = useAppSelector((state) => state.logs);
-    const [textareaHeight, setTextareaHeight] = useState(0);
-
-    const textareaRefCallback = useCallback(
-        (node: HTMLTextAreaElement | null) => {
-            if (node !== null) {
-                setTextareaHeight(node.scrollHeight);
-                node.scrollTop = node.scrollHeight;
-            }
-        },
-        [],
-    );
-
-    useEffect(() => {
-        if (textareaHeight > 0) {
-            setTextareaHeight(textareaHeight);
-        }
-    }, [logs, textareaHeight]);
 
     return (
-        <div id="log-box">
-            <h2 className="card-header">All logs</h2>
-            <div>
-                <textarea
-                    ref={textareaRefCallback}
-                    value={logs}
-                    readOnly
-                    style={{ height: `${textareaHeight}px` }}
-                />
-            </div>
-        </div>
+        <Container fluid className="card">
+            <h2 className="card-header">Logs</h2>
+            <Form.Control
+                id="log-box"
+                value={logs}
+                as="textarea"
+                readOnly
+                title="Logs"
+                placeholder="Logs from AI"
+                rows={10}
+                style={{ fontFamily: "monospace" }}
+            ></Form.Control>
+        </Container>
     );
 }
