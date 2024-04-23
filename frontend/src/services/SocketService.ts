@@ -47,10 +47,6 @@ const startGame = (config: GameConfig) => {
         store.dispatch(newBoard(move));
     });
 
-    socket.on("final", (data: { state: string; allLogs: string }) => {
-        console.log(data.allLogs);
-        store.dispatch(setLog(data.allLogs));
-    });
     socket.emit("startgame", config);
 
     socket.on("error", (data: string) => {
