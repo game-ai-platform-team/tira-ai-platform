@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from invoke.context import Context
 from invoke.tasks import task
 
 ROOT_DIR = Path(__file__).parent
@@ -10,11 +9,6 @@ SOURCE_DIR = ROOT_DIR / "src"
 @task
 def run(ctx):
     ctx.run(f"poetry run python3 {SOURCE_DIR}/run_image.py")
-
-
-@task
-def install(ctx: Context):
-    ctx.run(f"cd {SOURCE_DIR} && python3 -m utils.install_stockfish")
 
 
 @task
@@ -41,9 +35,3 @@ def coverage_xml(ctx):
 @task
 def lint(ctx):
     ctx.run(f"poetry run pylint {SOURCE_DIR} -j 0")
-
-
-@task
-def build_image(ctx):
-    ctx.run("docker build -t game-image .")
-    ctx.run("docker save -o game-image.tar game-image")
