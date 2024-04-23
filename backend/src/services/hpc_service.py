@@ -14,7 +14,7 @@ class HPCService(AbstractContextManager):
     ) -> None:
         self.__connection: SSHConnection = connection or SSHConnection()
         self.__id: str = id_ or str(uuid1())
-        self.__current_output_line = 0
+        self.__current_output_line: int = 0
 
     def __enter__(self) -> "HPCService":
         self.__connection.__enter__()
