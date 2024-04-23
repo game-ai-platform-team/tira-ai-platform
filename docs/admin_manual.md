@@ -27,6 +27,7 @@ All configurations can be defined as environment variables or in `backend/.env` 
 | Name                                          | Default                                 | Required |
 |-----------------------------------------------|-----------------------------------------|----------|
 | `OIDC_REDIRECT_PATH`                          | `https://localhost:5000`                | ✅        |
+| `HPC_GAME_IMAGE_PATH`                         | `docker://kontrakti/game-image:latest`  | ❌        |
 | `HPC_SSH_PRIVATE_KEY_PATH` [^hpc_private_key] | `backend/hpc_private_key`               | ❌        |
 | `TEMP_DIR`                                    | `~/temp`                                | ❌        |
 | `DEFAULT_CHESS_AI_FILENAME`                   | `chess_ai.py`                           | ❌        |
@@ -46,8 +47,10 @@ All configurations can be defined as environment variables or in `backend/.env` 
 [^hpc_private_key]: Default algorithm is Ed25519
 
 ## Algolabra
-Algolabra (algolabra.cs.helsinki.fi) is the machine the server runs on. Use an SSH connection to connect there with credentials from an admistrator. After that, check out ´/var/www/tira-ai-platform´ for the project.
+Algolabra (algolabra.cs.helsinki.fi) is the machine the server runs on. Use an SSH connection to connect there with credentials from an admistrator. After that, check out `/var/www/tira-ai-platform` for the project.
 
 ### Running the project
+The relevant version of the project resides in `/var/www/tira-ai-platform`. There's a script there name `buildrun.sh`, the running of which will initialise a detached process that sets up the project for the URL https://algolabra.cs.helsinki.fi
 
 ### Updating the project
+The standard workflow for updating the project is done through `buildrun.sh`. Push your changes into the tira-ai-platform repository and run the script. If you want to implement changes locally, simply implement them and run the script. 
