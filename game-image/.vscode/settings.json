@@ -2,7 +2,7 @@
     "python.testing.cwd": "${workspaceFolder}",
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "pylint.cwd": "${fileDirname}",
-    "pylint.args": ["--rcfile=../.pylintrc", "-j=0"],
+    "pylint.cwd": "${workspaceFolder}",
+    "pylint.args": ["--rcfile=${workspaceFolder}/.pylintrc", "-j=0"],
     "python.testing.pytestArgs": ["-n=auto"],
 }
