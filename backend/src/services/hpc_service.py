@@ -81,10 +81,10 @@ class HPCService(AbstractContextManager):
                 f"#SBATCH -t {BATCH_CONFIG['time']}",
                 f"#SBATCH -t {BATCH_CONFIG['cpu']}",
                 f"#SBATCH -o {self.output_path}",
-                f"module purge",
+                "module purge",
                 f"module load {modules}",
-                f"export SINGULARITYENV_PREPEND_PATH=$PATH",
-                f"export SINGULARITYENV_LD_LIBRARY_PATH=$LD_LIBRARY_PATH",
+                "export SINGULARITYENV_PREPEND_PATH=$PATH",
+                "export SINGULARITYENV_LD_LIBRARY_PATH=$LD_LIBRARY_PATH",
                 f"export SINGULARITY_BIND={bind_paths}",
                 f"singularity run --writable-tmpfs --no-home --pwd /app {image_path}",
             ]
