@@ -47,12 +47,8 @@ class HPCService(AbstractContextManager):
         remote_batch_path = self.__working_directory / self.__batch_path.name
 
         self.__connection.send_file(image_path, remote_image_path)
-
         self.__create_script(remote_image_path)
-
-        remote_batch_path = self.__connection.send_file(
-            self.__batch_path, remote_batch_path
-        )
+        self.__connection.send_file(self.__batch_path, remote_batch_path)
 
         self.__connection.execute(f"sbatch {remote_batch_path}")
 
