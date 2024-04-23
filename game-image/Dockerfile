@@ -10,6 +10,9 @@ RUN pip install poetry
 
 WORKDIR /app
 
+RUN wget https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64-avx2.tar
+RUN tar -xf stockfish-ubuntu-x86-64-avx2.tar stockfish/stockfish-ubuntu-x86-64-avx2
+
 COPY ./pyproject.toml ./poetry.lock ./
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root --no-directory
 
@@ -27,11 +30,10 @@ ENV GAME=${GAME} \
     REPOSITORY_URL=${REPOSITORY_URL} \
     DIFFICULTY=${DIFFICULTY}
 
+COPY --from=backend /app/stockfish/stockfish-ubuntu-x86-64-avx2 /app/bin/stockfish
 COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 WORKDIR /app
-
-RUN poetry run invoke install
 
 COPY ./ .
 RUN adduser --home /home/user user
