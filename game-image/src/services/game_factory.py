@@ -1,4 +1,3 @@
-import os
 from typing import Callable
 
 from connect_four_lib.connect_four_judge import ConnectFourJudge
