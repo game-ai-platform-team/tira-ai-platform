@@ -11,8 +11,8 @@ const logSlice = createSlice({
     name: "logs",
     initialState: "",
     reducers: {
-        setLog(_, logsPayload: PayloadAction<string>) {
-            return logsPayload.payload;
+        addLog(state, logsPayload: PayloadAction<string>) {
+            return state + logsPayload.payload;
         },
         resetLogs() {
             return "";
@@ -22,4 +22,4 @@ const logSlice = createSlice({
 
 export default logSlice.reducer;
 
-export const { setLog, resetLogs } = logSlice.actions;
+export const { addLog, resetLogs } = logSlice.actions;
