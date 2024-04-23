@@ -101,7 +101,7 @@ const NavigationBar = (): JSX.Element => {
                     onClick={() =>
                         window.open(
                             "https://github.com/game-ai-platform-team/tira-ai-platform/issues",
-                            "_blank"
+                            "_blank",
                         )
                     }
                     id="nav-button"
@@ -113,7 +113,10 @@ const NavigationBar = (): JSX.Element => {
                 </Button>
             </div>
             <div>
-                <Button id="nav-button" onClick={() => (location.href = "/login")}>
+                <Button
+                    id="nav-button"
+                    onClick={() => (location.href = "/login")}
+                >
                     🔐 Login
                 </Button>
             </div>
