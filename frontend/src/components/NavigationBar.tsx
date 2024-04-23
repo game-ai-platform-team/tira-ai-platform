@@ -44,23 +44,21 @@ const NavigationBar = (): JSX.Element => {
                 </Dropdown.Toggle>
 
                 <DropdownMenu aria-label="Available games">
-                    <Dropdown.Item>
-                        <Link
-                            to="/chess"
-                            className="dropdown-link"
-                            onClick={() => handleGameSelect("chess")}
-                        >
-                            ♟️ Chess
-                        </Link>
+                    <Dropdown.Item
+                        as={Link}
+                        to="/chess"
+                        onClick={() => handleGameSelect("chess")}
+                        className="dropdown-link"
+                    >
+                        ♟️ Chess
                     </Dropdown.Item>
-                    <Dropdown.Item>
-                        <Link
-                            to="/connect_four"
-                            className="dropdown-link"
-                            onClick={() => handleGameSelect("connect_four")}
-                        >
-                            🔴 Connect 4
-                        </Link>
+                    <Dropdown.Item
+                        as={Link}
+                        to="/connect_four"
+                        className="dropdown-link"
+                        onClick={() => handleGameSelect("connect_four")}
+                    >
+                        🔴 Connect 4
                     </Dropdown.Item>
                 </DropdownMenu>
             </Dropdown>
@@ -78,20 +76,26 @@ const NavigationBar = (): JSX.Element => {
                 </Dropdown.Toggle>
 
                 <DropdownMenu aria-label="Available instructions">
-                    <Dropdown.Item>
-                        <Link to="/generalmanual" className="dropdown-link">
-                            📖 General
-                        </Link>
+                    <Dropdown.Item
+                        as={Link}
+                        to="/generalmanual"
+                        className="dropdown-link"
+                    >
+                        📖 General
                     </Dropdown.Item>
-                    <Dropdown.Item>
-                        <Link to="/chessmanual" className="dropdown-link">
-                            ♟️ Chess
-                        </Link>
+                    <Dropdown.Item
+                        as={Link}
+                        to="/chessmanual"
+                        className="dropdown-link"
+                    >
+                        ♟️ Chess
                     </Dropdown.Item>
-                    <Dropdown.Item>
-                        <Link to="/cfourmanual" className="dropdown-link">
-                            🔴 Connect Four
-                        </Link>
+                    <Dropdown.Item
+                        as={Link}
+                        to="/cfourmanual"
+                        className="dropdown-link"
+                    >
+                        🔴 Connect Four
                     </Dropdown.Item>
                 </DropdownMenu>
             </Dropdown>
