@@ -24,7 +24,7 @@ API ->>+ Image: Image(game, repo, difficulty)
     Image ->> Image: build()
 Image -->>- API: image
 
-API ->>+ HPCService: HPCService()
+API ->>+ HPCService: HPCService(image.id)
     HPCService ->>+ SSHConnection: connect()
     SSHConnection ->>+ HPC: Connect over SSH
     HPC -->>- SSHConnection: 
@@ -83,7 +83,6 @@ classDiagram
 App --> API
 
 API ..> SocketService
-API ..> SSHConnection
 API ..> HPCService
 API ..> Image
 HPCService --> SSHConnection
