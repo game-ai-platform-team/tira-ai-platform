@@ -72,23 +72,17 @@ class SSHConnection(AbstractContextManager):
 
         return data
 
-    def send_file(self, file: Path) -> Path:
+    def send_file(self, local_path: Path, remote_path: Path) -> None:
         """
         Sends file to remote.
 
         Args:
-            file (Path): Path to local file.
-
-        Returns:
-            Path: Remote path of sent file.
+            local_path (Path): Path to local file.
+            remote_path (Path): Path to send file.
         """
 
-        remote_path = Path(file.name)
-
         with self.__client.open_sftp() as client:
-            client.put(file, str(remote_path))
-
-        return remote_path
+            client.put(local_path, str(remote_path))
 
     def remove_file(self, path: Path) -> None:
         """
