@@ -78,6 +78,7 @@ def io_startgame(data):
 
 @app.route("/ping")
 def ping():
+    socketio.emit("pong", None, namespace="/control")
     return "pong"
 
 
