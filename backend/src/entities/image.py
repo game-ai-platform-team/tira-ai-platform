@@ -18,10 +18,8 @@ class Image(AbstractContextManager):
         repository_url: str,
         difficulty: int,
         id_: str | None = None,
-        path: Path | None = None,
     ) -> None:
         self.__id: str = id_ or str(uuid1())
-        self.__path: Path = path or TEMP_DIR / f"{self.__id}.sif"
 
         build_args = {
             "GAME": game,
@@ -35,7 +33,7 @@ class Image(AbstractContextManager):
 
     @property
     def path(self) -> Path:
-        return self.__path
+        return TEMP_DIR / f"{self.__id}.sif"
 
     @property
     def id(self) -> str:
@@ -54,4 +52,4 @@ class Image(AbstractContextManager):
         traceback: TracebackType | None,
     ) -> bool | None:
         os.system(f"docker rmi $(docker images | grep {self.__id})")
-        self.__path.unlink(missing_ok=True)
+        self.path.unlink(missing_ok=True)
