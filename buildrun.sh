@@ -1,2 +1,10 @@
-docker build . -t tira-app
-docker run -p 5000:5000 tira-app
+git pull --rebase --autostash
+
+cd frontend
+pnpm run build
+
+cd ../backend
+poetry install
+
+pkill uwsgi
+poetry run invoke start
