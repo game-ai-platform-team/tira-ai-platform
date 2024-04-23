@@ -323,7 +323,7 @@ namespace UI {
   - previousBoard
   - resetBoardIndex
 - logs
-  - setLog
+  - addLog
   - resetLogs
 - notification
   - setToast

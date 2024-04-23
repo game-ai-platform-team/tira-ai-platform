@@ -9,7 +9,7 @@
 import { io } from "socket.io-client";
 import GameConfig from "../interfaces/GameConfig.ts";
 import MoveStatistics from "../interfaces/MoveStatistics";
-import { setLog } from "../reducers/logReducer.ts";
+import { addLog } from "../reducers/logReducer.ts";
 import { nextBoard } from "../reducers/boards/boardIndexReducer.ts";
 import { newChessBoard } from "../reducers/boards/chessBoardReducer.ts";
 import { updateState } from "../reducers/gameReducer.ts";
@@ -45,6 +45,7 @@ const startGame = (config: GameConfig) => {
         );
         store.dispatch(nextBoard());
         store.dispatch(newBoard(move));
+        store.dispatch(addLog(move.logs));
     });
 
     socket.emit("startgame", config);
