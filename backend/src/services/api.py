@@ -23,10 +23,10 @@ class API:
 
         """
         json_object = loads(content)
-        time = json_object["time"]
+        time_ = json_object["time"]
         evaluation = json_object["evaluation"]
         logs = json_object["logs"]
-        move_metadata = MoveMetadata(time, evaluation, logs)
+        move_metadata = MoveMetadata(time_, evaluation, logs)
         state = GameState(json_object["state"])
 
         return Move(json_object["move"], state, move_metadata)

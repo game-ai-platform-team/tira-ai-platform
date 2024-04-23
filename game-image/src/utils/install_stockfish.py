@@ -22,10 +22,12 @@ def install_stockfish(path: Path = DEFAULT_STOCKFISH_PATH) -> None:
         if path.exists():
             return
 
+        # pylint: disable=line-too-long
         response = request(
             "GET",
             "https://github.com/official-stockfish/Stockfish/releases/latest/download/stockfish-ubuntu-x86-64-avx2.tar",
         )
+        # pylint: enable=line-too-long
 
         with (
             TemporaryDirectory() as temp_dir,
