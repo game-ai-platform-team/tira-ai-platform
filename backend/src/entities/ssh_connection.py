@@ -89,3 +89,14 @@ class SSHConnection(AbstractContextManager):
             client.put(file, str(remote_path))
 
         return remote_path
+
+    def remove_file(self, path: Path) -> None:
+        """
+        Removes file from remote.
+
+        Args:
+            path (Path): Path to remote file.
+        """
+
+        with self.__client.open_sftp() as client:
+            client.remove(str(path))
