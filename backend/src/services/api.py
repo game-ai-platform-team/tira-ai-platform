@@ -49,7 +49,6 @@ class API:
 
             output = []
 
-
             timeout_start = time()
 
             while time() < timeout_start + DEFAULT_GAME_TIMEOUT:
