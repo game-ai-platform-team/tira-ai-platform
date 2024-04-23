@@ -4,7 +4,7 @@ from pathlib import Path
 from types import TracebackType
 from uuid import uuid1
 
-from config import BATCH_CONFIG, HPC_GAME_IMAGE_PATH, TEMP_DIR
+from config import BATCH_CONFIG, TEMP_DIR
 from entities.ssh_connection import SSHConnection
 
 
