@@ -43,4 +43,4 @@ def dev(
 def start(
     ctx,
 ):
-    ctx.run("poetry run uwsgi --ini wsgi.ini")
+    ctx.run("nohup poetry run uwsgi --ini wsgi.ini > log.txt")
