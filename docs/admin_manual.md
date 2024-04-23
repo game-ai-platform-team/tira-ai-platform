@@ -45,3 +45,10 @@ All configurations can be defined as environment variables or in `backend/.env` 
 
 [^oidc_sp_registry]: The OpenID Connect (OIDC) secrets need to be configured in [Service Provider Registry](https://sp-registry.it.helsinki.fi/).
 [^hpc_private_key]: Default algorithm is Ed25519
+
+## Algolabra
+Algolabra (algolabra.cs.helsinki.fi) is the machine the server runs on. Use an SSH connection to connect there with credentials from an admistrator. After that, check out ´/var/www/tira-ai-platform´ for the project.
+
+### Running the project
+
+### Updating the project
