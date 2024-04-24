@@ -10,7 +10,7 @@
 
 #nextMoveButton,
 #previousMoveButton {
-    background-color: #a0522d;
+    background-color: var(--primary);
     color: white;
     padding: 1em;
     margin-right: 10px;
@@ -24,5 +24,6 @@
 
 #nextMoveButton:hover,
 #previousMoveButton:hover {
-    background-color: #8b4513;
+    background-color: var(--secondary);
+    color: var(--primary);
 }

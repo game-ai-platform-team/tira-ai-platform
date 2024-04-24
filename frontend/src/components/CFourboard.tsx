@@ -30,6 +30,11 @@ const CFourboard = (): JSX.Element => {
         handleMoveChange(boardIndex);
     }, [boardIndex, handleMoveChange]);
 
+    const root = document.documentElement
+    const primary = root.style.getPropertyValue("--primary")
+    const red = root.style.getPropertyValue("--red-marker")
+    const yellow = root.style.getPropertyValue("--yellow-marker")
+
     return (
         <div id="gameboard" className="card">
             <h2 className="card-header">Connect Four</h2>
@@ -39,6 +44,9 @@ const CFourboard = (): JSX.Element => {
                     columns={7}
                     moves={moves.map((movestat) => toNumber(movestat.move))}
                     move_index={boardIndex}
+                    background_color={primary}
+                    player_a_color={red}
+                    player_b_color={yellow}
                 />
             </div>
 

@@ -1,5 +1,7 @@
+@import "./constants.scss";
+
 .active-move {
-    color: red;
+    color: var(--red_marker);
     font-weight: bold;
 }
 

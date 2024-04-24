@@ -1,7 +1,9 @@
+@import "./constants.scss";
+
 #navigation-bar {
     display: flex;
     align-items: center;
-    background-color: #a0522d;
+    background-color: var(--primary);
     top: 0;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -13,7 +15,7 @@
 }
 
 #nav-button {
-    background-color: #a0522d;
+    background-color: var(--primary);
     color: white;
     padding: 20px;
     margin-left: 18px;
@@ -39,7 +41,7 @@
 }
 
 #nav-button:hover {
-    background-color: #8b4513;
+    background-color: var(--secondary);
 }
 
 .tira-text {
@@ -48,4 +50,8 @@
     right: 20px;
     color: white;
     font-weight: bold;
+}
+
+.tira-text:hover {
+    color: var(--primary);
 }
