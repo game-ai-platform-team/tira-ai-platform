@@ -56,7 +56,7 @@ class HPCService(AbstractContextManager):
 
         self.__connection.execute(f"sbatch {remote_batch_path}")
 
-        print(self.__connection.read_file(self.__batch_path))
+        print(self.__connection.read_file(self.__output_path))
 
     def read_output(self) -> list[str]:
         """
