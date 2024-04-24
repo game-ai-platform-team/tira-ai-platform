@@ -32,12 +32,12 @@ class API:
         return Move(json_object["move"], state, move_metadata)
 
     def start(
-            self,
-            socket_service: SocketService,
-            repository_url: str,
-            difficulty: int,
-            game: str,
-            image: Image,
+        self,
+        socket_service: SocketService,
+        repository_url: str,
+        difficulty: int,
+        game: str,
+        image: Image,
     ) -> None:
         if game not in ["chess", "connect_four"]:
             return
