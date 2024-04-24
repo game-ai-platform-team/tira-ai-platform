@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
-import "../scss/CSVCreator.scss"
+import "../scss/CSVCreator.scss";
 
 interface CSVCreatorProps {
     moves: MoveStatistics[] | null;
