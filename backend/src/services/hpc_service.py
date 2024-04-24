@@ -9,8 +9,8 @@ from entities.ssh_connection import SSHConnection
 
 class HPCService(AbstractContextManager):
     def __init__(
-        self,
-        connection: SSHConnection | None = None,
+            self,
+            connection: SSHConnection | None = None,
     ) -> None:
         self.__connection: SSHConnection = connection or SSHConnection()
         self.__id: str = str(uuid1())
@@ -28,30 +28,32 @@ class HPCService(AbstractContextManager):
         return self
 
     def __exit__(
-        self,
-        exc_type: type[BaseException] | None,
-        exc_value: BaseException | None,
-        traceback: TracebackType | None,
+            self,
+            exc_type: type[BaseException] | None,
+            exc_value: BaseException | None,
+            traceback: TracebackType | None,
     ) -> bool | None:
         self.__connection.remove(self.__working_directory)
-        self.__batch_path.unlink(missing_ok=True)
+        self.__batch_path.unlink(missing_ok = True)
 
         self.__connection.__exit__(exc_type, exc_value, traceback)
 
     def submit(
-        self, image_path: Path, game: str, difficulty: int, gitRepo: str
+            self, game: str, difficulty: int, git_repo: str
     ) -> None:
         """
         Submits new game image to HPC.
 
         Args:
-            image_path (Path): Local path to game image.
+        :param game: A string representing the game that will be run
+        :param difficulty: Difficulty number of the opponent
+        :param git_repo: A location of the git repository
         """
 
         remote_image_path = Path("game-image.sif")
         remote_batch_path = self.__working_directory / self.__batch_path.name
 
-        self.__create_script(remote_image_path, game, difficulty, gitRepo)
+        self.__create_script(remote_image_path, game, difficulty, git_repo)
         self.__connection.send_file(self.__batch_path, remote_batch_path)
 
         self.__connection.execute(f"sbatch {remote_batch_path}")
@@ -65,15 +67,13 @@ class HPCService(AbstractContextManager):
         """
 
         data = self.__connection.read_file(self.__output_path)
-        new_lines = data[self.__current_output_line :]
+        new_lines = data[self.__current_output_line:]
 
         self.__current_output_line = len(data)
 
         return new_lines
 
-    def __create_script(
-        self, image_path: Path, game: str, difficulty: int, gitRepo: str
-    ) -> None:
+    def __create_script(self, image_path: Path, game: str, difficulty: int, git_repo: str) -> None:
         modules = " ".join(BATCH_CONFIG["modules"])
         bind_paths = ",".join(BATCH_CONFIG["bind_paths"])
 
@@ -90,7 +90,7 @@ class HPCService(AbstractContextManager):
                 f"module load {modules}",
                 "export SINGULARITYENV_PREPEND_PATH=$PATH",
                 "export SINGULARITYENV_LD_LIBRARY_PATH=$LD_LIBRARY_PATH",
-                f"export SINGULARITYENV_REPOSITORY_URL={gitRepo}",
+                f"export SINGULARITYENV_REPOSITORY_URL={git_repo}",
                 f"export SINGULARITYENV_GAME={game}",
                 f"export SINGULARITYENV_DIFFICULTY={difficulty}",
                 f"export SINGULARITY_BIND={bind_paths}",
@@ -98,5 +98,5 @@ class HPCService(AbstractContextManager):
             ]
         )
 
-        with open(self.__batch_path, mode="w", encoding="utf-8") as file:
+        with open(self.__batch_path, mode = "w", encoding = "utf-8") as file:
             file.write(script)
