@@ -16,7 +16,7 @@ const Settings = () => {
     root.style.setProperty("--green-marker", colorsets[selectedTheme].cg);
     root.style.setProperty("--red-marker", colorsets[selectedTheme].cr);
     root.style.setProperty("--yellow-marker", colorsets[selectedTheme].cy);
-    store.dispatch(setTheme(selectedTheme))
+    store.dispatch(setTheme(selectedTheme));
 
     const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedTheme(event.target.value);
