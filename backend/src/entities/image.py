@@ -12,7 +12,10 @@ class Image:
     Class representing a runnable game image without network.
     """
 
-    def __init__(self, id_: str | None = None, ) -> None:
+    def __init__(
+        self,
+        id_: str | None = None,
+    ) -> None:
         self.__id: str = id_ or str(uuid1())
         os.system(f"docker build {IMAGE_DIR} -t game-image")
         os.system(f"singularity build {self.path} docker-daemon://game-image")
@@ -27,4 +30,4 @@ class Image:
 
     def remove(self):
         os.system(f"docker rmi $(docker images | grep {self.__id})")
-        self.path.unlink(missing_ok = True)
+        self.path.unlink(missing_ok=True)
