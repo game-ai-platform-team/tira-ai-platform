@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MoveStatistics from "../interfaces/MoveStatistics.ts";
+import "../scss/CSVCreator.scss"
 
 interface CSVCreatorProps {
     moves: MoveStatistics[] | null;
@@ -116,7 +117,7 @@ const CSVCreator: React.FC<CSVCreatorProps> = ({ moves }) => {
                         />
                         Player 2 moves
                         <br />
-                        <button id="download-csv" type={"submit"}>
+                        <button id="CSVButton" type={"submit"}>
                             Download CSV
                         </button>
                     </form>
