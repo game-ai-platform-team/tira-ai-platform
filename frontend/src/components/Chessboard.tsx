@@ -63,12 +63,12 @@ const Chessboard = (): JSX.Element => {
     const piecesets = KokopuChessboard.piecesets();
 
     const root = document.documentElement;
-	root.style.setProperty("--primary", colorsets[selectedTheme].b);
-	root.style.setProperty("--secondary", colorsets[selectedTheme].w);
-	root.style.setProperty("--blue_marker", colorsets[selectedTheme].cb);
-	root.style.setProperty("--green_marker", colorsets[selectedTheme].cg);
-	root.style.setProperty("--red_marker", colorsets[selectedTheme].cr);
-	root.style.setProperty("--yellow_marker", colorsets[selectedTheme].cy);
+    root.style.setProperty("--primary", colorsets[selectedTheme].b);
+    root.style.setProperty("--secondary", colorsets[selectedTheme].w);
+    root.style.setProperty("--blue_marker", colorsets[selectedTheme].cb);
+    root.style.setProperty("--green_marker", colorsets[selectedTheme].cg);
+    root.style.setProperty("--red_marker", colorsets[selectedTheme].cr);
+    root.style.setProperty("--yellow_marker", colorsets[selectedTheme].cy);
 
     return (
         <div id="gameboard" className="card">
@@ -118,13 +118,11 @@ const Chessboard = (): JSX.Element => {
                     value={selectedPieceset}
                     onChange={handlePiecesetChange}
                 >
-                    {Object.keys(piecesets).map(
-                        (pieceset) => (
-                            <option key={pieceset} value={pieceset}>
-                                {pieceset}
-                            </option>
-                        ),
-                    )}
+                    {Object.keys(piecesets).map((pieceset) => (
+                        <option key={pieceset} value={pieceset}>
+                            {pieceset}
+                        </option>
+                    ))}
                 </select>
                 <select value={arrowColor} onChange={handleArrowColorChange}>
                     <option value="">no arrow</option>
