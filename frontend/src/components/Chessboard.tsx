@@ -21,7 +21,7 @@ const Chessboard = (): JSX.Element => {
     const boards = useAppSelector((state) => state.boards.chessBoards);
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
-    const theme = useAppSelector((state) => state.theme)
+    const theme = useAppSelector((state) => state.theme);
 
     const handleMoveChange = useCallback(
         (newIndex: number) => {

@@ -17,7 +17,7 @@ import { Chessboard } from "kokopu-react";
 const CFourboard = (): JSX.Element => {
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
-    const theme = useAppSelector((state) => state.theme)
+    const theme = useAppSelector((state) => state.theme);
     const [currentMove, setCurrentMove] = useState(0);
     const handleMoveChange = useCallback(
         (newIndex: number) => {
@@ -32,10 +32,10 @@ const CFourboard = (): JSX.Element => {
         handleMoveChange(boardIndex);
     }, [boardIndex, handleMoveChange]);
 
-    const colorsets = Chessboard.colorsets()
-    const primary = colorsets[theme].b
-    const red = colorsets[theme].cr
-    const yellow = colorsets[theme].cy
+    const colorsets = Chessboard.colorsets();
+    const primary = colorsets[theme].b;
+    const red = colorsets[theme].cr;
+    const yellow = colorsets[theme].cy;
 
     return (
         <div id="gameboard" className="card">
