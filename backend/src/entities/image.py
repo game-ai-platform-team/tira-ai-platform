@@ -7,29 +7,15 @@ from uuid import uuid1
 from config import IMAGE_DIR, TEMP_DIR
 
 
-class Image(AbstractContextManager):
+class Image:
     """
     Class representing a runnable game image without network.
     """
 
-    def __init__(
-        self,
-        game: str,
-        repository_url: str,
-        difficulty: int,
-        id_: str | None = None,
-    ) -> None:
+    def __init__(self, id_: str | None = None, ) -> None:
         self.__id: str = id_ or str(uuid1())
-
-        build_args = {
-            "GAME": game,
-            "REPOSITORY_URL": repository_url,
-            "DIFFICULTY": difficulty,
-        }
-
-        self.__build_args = " ".join(
-            [f"--build-arg {key}={value}" for key, value in build_args.items()]
-        )
+        os.system(f"docker build {IMAGE_DIR} -t game-image")
+        os.system(f"singularity build {self.path} docker-daemon://game-image")
 
     @property
     def path(self) -> Path:
@@ -39,17 +25,6 @@ class Image(AbstractContextManager):
     def id(self) -> str:
         return self.__id
 
-    def __enter__(self) -> "Image":
-        os.system(f"docker build {IMAGE_DIR} -t {self.__id} {self.__build_args}")
-        os.system(f"singularity build {self.path} docker-daemon://{self.__id}")
-
-        return self
-
-    def __exit__(
-        self,
-        exc_type: type[BaseException] | None,
-        exc_value: BaseException | None,
-        traceback: TracebackType | None,
-    ) -> bool | None:
+    def remove(self):
         os.system(f"docker rmi $(docker images | grep {self.__id})")
-        self.path.unlink(missing_ok=True)
+        self.path.unlink(missing_ok = True)
