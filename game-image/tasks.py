@@ -41,4 +41,3 @@ def lint(ctx):
 def build_image(ctx):
     ctx.run("docker build -t game-image .")
     ctx.run("docker save -o game-image.tar game-image")
-
