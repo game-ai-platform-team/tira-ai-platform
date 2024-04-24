@@ -59,6 +59,17 @@ const Chessboard = (): JSX.Element => {
         setSelectedPieceset(event.target.value);
     };
 
+    const colorsets = KokopuChessboard.colorsets();
+    const piecesets = KokopuChessboard.piecesets();
+
+    const root = document.documentElement;
+	root.style.setProperty("--primary", colorsets[selectedTheme].b);
+	root.style.setProperty("--secondary", colorsets[selectedTheme].w);
+	root.style.setProperty("--blue_marker", colorsets[selectedTheme].cb);
+	root.style.setProperty("--green_marker", colorsets[selectedTheme].cg);
+	root.style.setProperty("--red_marker", colorsets[selectedTheme].cr);
+	root.style.setProperty("--yellow_marker", colorsets[selectedTheme].cy);
+
     return (
         <div id="gameboard" className="card">
             <h2 className="card-header">Player1 vs Player2</h2>
@@ -97,7 +108,7 @@ const Chessboard = (): JSX.Element => {
                 </button>
                 <br />
                 <select value={selectedTheme} onChange={handleThemeChange}>
-                    {Object.keys(KokopuChessboard.colorsets()).map((theme) => (
+                    {Object.keys(colorsets).map((theme) => (
                         <option key={theme} value={theme}>
                             {theme}
                         </option>
@@ -107,7 +118,7 @@ const Chessboard = (): JSX.Element => {
                     value={selectedPieceset}
                     onChange={handlePiecesetChange}
                 >
-                    {Object.keys(KokopuChessboard.piecesets()).map(
+                    {Object.keys(piecesets).map(
                         (pieceset) => (
                             <option key={pieceset} value={pieceset}>
                                 {pieceset}
