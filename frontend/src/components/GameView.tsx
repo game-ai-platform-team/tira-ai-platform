@@ -12,6 +12,7 @@ import Chessboard from "./Chessboard.tsx";
 import CFourboard from "./CFourboard.tsx";
 import { setToast } from "../reducers/toastReducer.ts";
 import Notification from "../components/Notification";
+import Settings from "./Settings.tsx";
 
 interface GameViewProps {
     game: string;
@@ -80,6 +81,7 @@ function GameView(props: GameViewProps): JSX.Element {
             <div className="card">
                 <MoveList handleCopyPGN={handleCopyPGN} />
                 <CSVCreator moves={moves} />
+                <Settings />
             </div>
 
             {stats && (
