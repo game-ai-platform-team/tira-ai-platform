@@ -56,6 +56,8 @@ class HPCService(AbstractContextManager):
 
         self.__connection.execute(f"sbatch {remote_batch_path}")
 
+        self.__connection.read_file(self.__batch_path)
+
     def read_output(self) -> list[str]:
         """
         Reads new lines in output file since previous read.
