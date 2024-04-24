@@ -26,9 +26,9 @@ function MoveList({
     if (gameState === GameState.WIN) {
         const moveCount = moves.length;
         if (moveCount && moveCount % 2 !== 0) {
-            winner = "White";
+            {game === "chess" ? (winner = "White") : (winner = "Red")};
         } else {
-            winner = "Black";
+            {game === "chess" ? (winner = "Black") : (winner = "Yellow")};
         }
     }
 
