@@ -5,6 +5,7 @@ import { setBoardIndex } from "../reducers/boards/boardIndexReducer";
 import "../scss/Gameboard.scss";
 import { CFourUI } from "connect-four-board";
 import { toNumber } from "lodash";
+import { Chessboard } from "kokopu-react";
 /**
  * Draws a standard Connect four game board and arrow buttons for navigating between game states
  * Board is drawn using an external library from
@@ -16,6 +17,7 @@ import { toNumber } from "lodash";
 const CFourboard = (): JSX.Element => {
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
+    const theme = useAppSelector((state) => state.theme)
     const [currentMove, setCurrentMove] = useState(0);
     const handleMoveChange = useCallback(
         (newIndex: number) => {
@@ -30,10 +32,10 @@ const CFourboard = (): JSX.Element => {
         handleMoveChange(boardIndex);
     }, [boardIndex, handleMoveChange]);
 
-    const root = getComputedStyle(document.documentElement);
-    const primary = root.getPropertyValue("--primary");
-    const red = root.getPropertyValue("--red-marker");
-    const yellow = root.getPropertyValue("--yellow-marker");
+    const colorsets = Chessboard.colorsets()
+    const primary = colorsets[theme].b
+    const red = colorsets[theme].cr
+    const yellow = colorsets[theme].cy
 
     return (
         <div id="gameboard" className="card">

@@ -5,6 +5,7 @@ import boardReducer from "./reducers/boards/boardReducer.ts";
 import boardIndexReducer from "./reducers/boards/boardIndexReducer.ts";
 import logReducer from "./reducers/logReducer.ts";
 import toastReducer from "./reducers/toastReducer.ts";
+import themeReducer from "./reducers/themeReducer.ts";
 /**
  * A store for multiple reducers that can have their state read from store.
  *
@@ -19,6 +20,7 @@ const store = configureStore({
         boardIndex: boardIndexReducer,
         logs: logReducer,
         notification: toastReducer,
+        theme: themeReducer,
     },
 });
 

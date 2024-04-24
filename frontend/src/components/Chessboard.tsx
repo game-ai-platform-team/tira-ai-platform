@@ -17,11 +17,11 @@ const Chessboard = (): JSX.Element => {
     const [arrow, setArrow] = useState("G");
     const [arrowColor, setArrowColor] = useState("G");
     const [currentMove, setCurrentMove] = useState(0);
-    const [selectedTheme, setSelectedTheme] = useState("original");
     const [selectedPieceset, setSelectedPieceset] = useState("cburnett");
     const boards = useAppSelector((state) => state.boards.chessBoards);
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
+    const theme = useAppSelector((state) => state.theme)
 
     const handleMoveChange = useCallback(
         (newIndex: number) => {
@@ -49,26 +49,13 @@ const Chessboard = (): JSX.Element => {
         setArrowColor(event.target.value);
     };
 
-    const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedTheme(event.target.value);
-    };
-
     const handlePiecesetChange = (
         event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setSelectedPieceset(event.target.value);
     };
 
-    const colorsets = KokopuChessboard.colorsets();
     const piecesets = KokopuChessboard.piecesets();
-
-    const root = document.documentElement;
-    root.style.setProperty("--primary", colorsets[selectedTheme].b);
-    root.style.setProperty("--secondary", colorsets[selectedTheme].w);
-    root.style.setProperty("--blue-marker", colorsets[selectedTheme].cb);
-    root.style.setProperty("--green-marker", colorsets[selectedTheme].cg);
-    root.style.setProperty("--red-marker", colorsets[selectedTheme].cr);
-    root.style.setProperty("--yellow-marker", colorsets[selectedTheme].cy);
 
     return (
         <div id="gameboard" className="card">
@@ -77,7 +64,7 @@ const Chessboard = (): JSX.Element => {
                 position={boards[currentMove]}
                 squareSize={60}
                 arrowMarkers={arrow}
-                colorset={selectedTheme}
+                colorset={theme}
                 pieceset={selectedPieceset}
             />
             <div style={{ textAlign: "center", marginTop: "20px" }}>
@@ -107,13 +94,6 @@ const Chessboard = (): JSX.Element => {
                     {">"}
                 </button>
                 <br />
-                <select value={selectedTheme} onChange={handleThemeChange}>
-                    {Object.keys(colorsets).map((theme) => (
-                        <option key={theme} value={theme}>
-                            {theme}
-                        </option>
-                    ))}
-                </select>
                 <select
                     value={selectedPieceset}
                     onChange={handlePiecesetChange}
