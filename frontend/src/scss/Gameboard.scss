@@ -8,6 +8,8 @@
     justify-content: center;
 }
 
+#nextChessboardButton,
+#previousChessboardButton,
 #nextMoveButton,
 #previousMoveButton {
     background-color: var(--primary);
@@ -22,6 +24,8 @@
     transition: background-color 0.3s ease;
 }
 
+#nextChessboardButton:hover,
+#previousChessboardButton:hover,
 #nextMoveButton:hover,
 #previousMoveButton:hover {
     background-color: var(--secondary);
