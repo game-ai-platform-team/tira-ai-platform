@@ -22,6 +22,7 @@ class HPCService(AbstractContextManager):
         self.__connection.__enter__()
         self.__connection.execute(f"mkdir {self.__working_directory}")
         self.__connection.execute(f"touch {self.__output_path}")
+        self.__connection.execute("touch game-image.sif")
 
         return self
 
@@ -46,7 +47,7 @@ class HPCService(AbstractContextManager):
             image_path (Path): Local path to game image.
         """
 
-        remote_image_path = Path("~/game-image.sif")
+        remote_image_path = Path("game-image.sif")
         remote_batch_path = self.__working_directory / self.__batch_path.name
 
         self.__create_script(remote_image_path, game, difficulty, gitRepo)
