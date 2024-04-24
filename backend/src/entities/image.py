@@ -19,7 +19,7 @@ class Image:
             f"singularity build {TEMP_DIR / 'game-image.sif'} docker-daemon://game-image"
         )
         with SSHConnection() as connection:
-            connection.send_file(TEMP_DIR / "game-image.sif", Path("~/game-image.sif"))
+            connection.send_file(TEMP_DIR / "game-image.sif", Path("game-image.sif"))
 
     @property
     def path(self) -> Path:
@@ -29,4 +29,4 @@ class Image:
         os.system(f"docker rmi $(docker images | grep game-image)")
         self.path.unlink(missing_ok=True)
         with SSHConnection() as connection:
-            connection.remove(Path("~/game-image.sif"))
+            connection.remove(Path("game-image.sif"))
