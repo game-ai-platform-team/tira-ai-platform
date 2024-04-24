@@ -65,10 +65,10 @@ const Chessboard = (): JSX.Element => {
     const root = document.documentElement;
     root.style.setProperty("--primary", colorsets[selectedTheme].b);
     root.style.setProperty("--secondary", colorsets[selectedTheme].w);
-    root.style.setProperty("--blue_marker", colorsets[selectedTheme].cb);
-    root.style.setProperty("--green_marker", colorsets[selectedTheme].cg);
-    root.style.setProperty("--red_marker", colorsets[selectedTheme].cr);
-    root.style.setProperty("--yellow_marker", colorsets[selectedTheme].cy);
+    root.style.setProperty("--blue-marker", colorsets[selectedTheme].cb);
+    root.style.setProperty("--green-marker", colorsets[selectedTheme].cg);
+    root.style.setProperty("--red-marker", colorsets[selectedTheme].cr);
+    root.style.setProperty("--yellow-marker", colorsets[selectedTheme].cy);
 
     return (
         <div id="gameboard" className="card">
