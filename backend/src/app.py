@@ -30,17 +30,17 @@ app.config.update(
 )
 socketio = SocketIO(
     app,
-    cors_allowed_origins="*",
+    cors_allowed_origins = "*",
 )
 oauth = OAuth(app)
 CORS(app)
 
 oauth.register(
     "helsinki",
-    client_id=OIDC_CLIENT_ID,
-    client_secret=OIDC_CLIENT_SECRET,
-    server_metadata_url="https://login-test.it.helsinki.fi/.well-known/openid-configuration",
-    client_kwargs={
+    client_id = OIDC_CLIENT_ID,
+    client_secret = OIDC_CLIENT_SECRET,
+    server_metadata_url = "https://login-test.it.helsinki.fi/.well-known/openid-configuration",
+    client_kwargs = {
         "scope": "openid email profile",
     },
 )
@@ -50,7 +50,7 @@ image = Image()
 
 @app.route("/login")
 def login():
-    redirect_uri = url_for("authorize", _external=True)
+    redirect_uri = url_for("authorize", _external = True)
     return oauth.helsinki.authorize_redirect(redirect_uri)
 
 
@@ -68,22 +68,20 @@ def authorize():
 def me():
     id_token_obj = {"id_token": session["id_token"]}
     nonce = session["nonce"]
-    id_token = oauth.helsinki.parse_id_token(id_token_obj, nonce=nonce)
+    id_token = oauth.helsinki.parse_id_token(id_token_obj, nonce = nonce)
     return id_token
 
 
-@socketio.on("startgame", namespace="/gameconnection")
+@socketio.on("startgame", namespace = "/gameconnection")
 def io_startgame(data):
     socket_service = SocketService(socketio, request.sid)
 
-    api.start(
-        socket_service, data["githubUrl"], data["elo"], game=data["game"], image=image
-    )
+    api.start(socket_service, data["githubUrl"], data["elo"], game = data["game"], image = image)
 
 
 @app.route("/ping")
 def ping():
-    socketio.emit("pong", None, namespace="/control")
+    socketio.emit("pong", None, namespace = "/control")
     return "pong"
 
 
@@ -111,9 +109,9 @@ def default(path):
 if __name__ == "__main__":
     socketio.run(
         app,
-        host="0.0.0.0",
-        port=5000,
+        host = "0.0.0.0",
+        port = 5000,
         # debug = True,
-        certfile="dev.cert",
-        keyfile="dev.key",
+        certfile = "dev.cert",
+        keyfile = "dev.key",
     )
