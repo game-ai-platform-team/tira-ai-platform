@@ -89,7 +89,7 @@ function GameView(props: GameViewProps): JSX.Element {
                 </div>
             )}
 
-            {wStats && bStats && stats && (
+            {wStats && bStats && stats && props.game === "chess" && (
                 <div id="player-stats" className="card">
                     <PlayerStats
                         whiteStats={wStats}
