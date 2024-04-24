@@ -5,6 +5,7 @@ from types import TracebackType
 from uuid import uuid1
 
 from config import IMAGE_DIR, TEMP_DIR
+from entities.ssh_connection import SSHConnection
 
 
 class Image:
@@ -12,22 +13,18 @@ class Image:
     Class representing a runnable game image without network.
     """
 
-    def __init__(
-        self,
-        id_: str | None = None,
-    ) -> None:
-        self.__id: str = id_ or str(uuid1())
+    def __init__(self) -> None:
         os.system(f"docker build {IMAGE_DIR} -t game-image")
-        os.system(f"singularity build {self.path} docker-daemon://game-image")
+        os.system(f"singularity build {TEMP_DIR / 'game-image.sif'} docker-daemon://game-image")
+        with SSHConnection() as connection:
+            connection.send_file(TEMP_DIR / "game-image.sif", Path("~/game-image.sif"))
 
     @property
     def path(self) -> Path:
-        return TEMP_DIR / f"{self.__id}.sif"
-
-    @property
-    def id(self) -> str:
-        return self.__id
+        return TEMP_DIR / "game-image.sif"
 
     def remove(self):
-        os.system(f"docker rmi $(docker images | grep {self.__id})")
-        self.path.unlink(missing_ok=True)
+        os.system(f"docker rmi $(docker images | grep game-image)")
+        self.path.unlink(missing_ok = True)
+        with SSHConnection() as connection:
+            connection.remove(Path("~/game-image.sif"))
