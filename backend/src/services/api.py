@@ -32,20 +32,20 @@ class API:
         return Move(json_object["move"], state, move_metadata)
 
     def start(
-        self,
-        socket_service: SocketService,
-        repository_url: str,
-        difficulty: int,
-        game: str,
+            self,
+            socket_service: SocketService,
+            repository_url: str,
+            difficulty: int,
+            game: str,
+            image: Image
     ) -> None:
         if game not in ["chess", "connect_four"]:
             return
 
         with (
-            Image(game, repository_url, difficulty) as image,
-            HPCService(id_=image.id) as hpc,
+            HPCService(id_ = image.id) as hpc,
         ):
-            hpc.submit(image.path)
+            hpc.submit(image.path,game,difficulty,repository_url)
 
             output = []
 

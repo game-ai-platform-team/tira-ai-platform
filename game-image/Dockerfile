@@ -19,16 +19,11 @@ RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --n
 # Configure runtime
 FROM python:3-slim as runtime
 
-ARG REPOSITORY_URL
-ARG GAME
-ARG DIFFICULTY
 
 ENV HOME=/home/user
 ENV VIRTUAL_ENV=/app/.venv \
     PATH="/app/.venv/bin:$PATH"
-ENV GAME=${GAME} \
-    REPOSITORY_URL=${REPOSITORY_URL} \
-    DIFFICULTY=${DIFFICULTY}
+
 
 COPY --from=backend /app/stockfish/stockfish-ubuntu-x86-64-avx2 /app/bin/stockfish
 COPY --from=backend ${VIRTUAL_ENV} ${VIRTUAL_ENV}
