@@ -154,7 +154,10 @@ function SubmitForm(): JSX.Element {
                     Submit
                 </button>
             </form>
-            <button onClick={onResetGame}> Reset</button>
+            <button onClick={onResetGame} id="reset-button">
+                {" "}
+                Reset
+            </button>
         </div>
     );
 }

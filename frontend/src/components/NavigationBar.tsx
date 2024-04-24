@@ -37,7 +37,6 @@ const NavigationBar = (): JSX.Element => {
                     id="nav-button"
                     size="lg"
                     className="nav-dropdown"
-                    style={{ color: "white" }}
                 >
                     {getGameIcon(selectedGame)}{" "}
                     {selectedGame !== "" ? selectedGame : "🤔 Select Game "}
@@ -70,7 +69,6 @@ const NavigationBar = (): JSX.Element => {
                     id="nav-button"
                     size="lg"
                     className="nav-dropdown"
-                    style={{ color: "white" }}
                 >
                     {"📚 Instructions "}
                 </Dropdown.Toggle>
