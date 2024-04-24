@@ -9,7 +9,9 @@ from entities.ssh_connection import SSHConnection
 
 class HPCService(AbstractContextManager):
     def __init__(
-            self, connection: SSHConnection | None = None, ) -> None:
+        self,
+        connection: SSHConnection | None = None,
+    ) -> None:
         self.__connection: SSHConnection = connection or SSHConnection()
         self.__id: str = str(uuid1())
         self.__current_output_line: int = 0
@@ -26,18 +28,18 @@ class HPCService(AbstractContextManager):
         return self
 
     def __exit__(
-            self,
-            exc_type: type[BaseException] | None,
-            exc_value: BaseException | None,
-            traceback: TracebackType | None,
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: TracebackType | None,
     ) -> bool | None:
         self.__connection.remove(self.__working_directory)
-        self.__batch_path.unlink(missing_ok = True)
+        self.__batch_path.unlink(missing_ok=True)
 
         self.__connection.__exit__(exc_type, exc_value, traceback)
 
     def submit(
-            self, image_path: Path, game: str, difficulty: int, gitRepo: str
+        self, image_path: Path, game: str, difficulty: int, gitRepo: str
     ) -> None:
         """
         Submits new game image to HPC.
@@ -63,14 +65,14 @@ class HPCService(AbstractContextManager):
         """
 
         data = self.__connection.read_file(self.__output_path)
-        new_lines = data[self.__current_output_line:]
+        new_lines = data[self.__current_output_line :]
 
         self.__current_output_line = len(data)
 
         return new_lines
 
     def __create_script(
-            self, image_path: Path, game: str, difficulty: int, gitRepo: str
+        self, image_path: Path, game: str, difficulty: int, gitRepo: str
     ) -> None:
         modules = " ".join(BATCH_CONFIG["modules"])
         bind_paths = ",".join(BATCH_CONFIG["bind_paths"])
@@ -96,5 +98,5 @@ class HPCService(AbstractContextManager):
             ]
         )
 
-        with open(self.__batch_path, mode = "w", encoding = "utf-8") as file:
+        with open(self.__batch_path, mode="w", encoding="utf-8") as file:
             file.write(script)
