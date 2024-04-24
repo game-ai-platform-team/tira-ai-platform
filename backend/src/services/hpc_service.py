@@ -93,9 +93,9 @@ class HPCService(AbstractContextManager):
                 f"module load {modules}",
                 "export SINGULARITYENV_PREPEND_PATH=$PATH",
                 "export SINGULARITYENV_LD_LIBRARY_PATH=$LD_LIBRARY_PATH",
-                f"export SINGULARITYENV_REPOSITORY_URL={gitRepo}"
-                f"export SINGULARITYENV_GAME={game}"
-                f"export SINGULARITYENV_DIFFICULTY={difficulty}"
+                f"export SINGULARITYENV_REPOSITORY_URL={gitRepo}",
+                f"export SINGULARITYENV_GAME={game}",
+                f"export SINGULARITYENV_DIFFICULTY={difficulty}",
                 f"export SINGULARITY_BIND={bind_paths}",
                 f"singularity run --writable-tmpfs --no-home --pwd /app {image_path}",
             ]
