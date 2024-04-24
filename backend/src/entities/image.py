@@ -16,9 +16,10 @@ class Image:
     def __init__(self) -> None:
         os.system(f"docker build {IMAGE_DIR} -t game-image")
         os.system(
-            f"singularity build {TEMP_DIR / 'game-image.sif'} docker-daemon://game-image"
+            f"singularity build --force {TEMP_DIR / 'game-image.sif'} docker-daemon://game-image"
         )
         with SSHConnection() as connection:
+            connection.execute("touch game-image.sif")
             connection.send_file(TEMP_DIR / "game-image.sif", Path("game-image.sif"))
 
     @property

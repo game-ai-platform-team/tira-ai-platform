@@ -24,7 +24,6 @@ class HPCService(AbstractContextManager):
         self.__connection.__enter__()
         self.__connection.execute(f"mkdir {self.__working_directory}")
         self.__connection.execute(f"touch {self.__output_path}")
-        self.__connection.execute("touch game-image.sif")
 
         return self
 
