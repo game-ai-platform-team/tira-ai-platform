@@ -33,7 +33,8 @@
         min-width: 150px;
     }
 
-    #submit-button, #reset-button {
+    #submit-button,
+    #reset-button {
         background-color: var(--primary);
         color: white;
         border: none;
@@ -45,7 +46,8 @@
         padding: 10px;
     }
 
-    #submit-button:hover, #reset-button:hover {
+    #submit-button:hover,
+    #reset-button:hover {
         background-color: var(--secondary);
         color: var(--primary);
     }
