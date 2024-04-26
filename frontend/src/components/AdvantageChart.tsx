@@ -32,7 +32,8 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({
         store.dispatch(setBoardIndex(move));
     };
     const isOverOne = data.reduce((a, b) => Math.max(a, b), -Infinity) > 1;
-    const isUnderMinusOne = data.reduce((a, b) => Math.min(a, b), Infinity) < -1;
+    const isUnderMinusOne =
+        data.reduce((a, b) => Math.min(a, b), Infinity) < -1;
 
     return (
         <div>
@@ -41,7 +42,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({
                 width={1000}
                 height={400}
                 data={
-                    (isOverOne || isUnderMinusOne)
+                    isOverOne || isUnderMinusOne
                         ? data.map((value, index) => ({
                               value:
                                   (Math.max(Math.min(500, value), -500) + 500) *
