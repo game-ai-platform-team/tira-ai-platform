@@ -76,9 +76,7 @@ def me():
 def io_startgame(data):
     socket_service = SocketService(socketio, request.sid)
 
-    api.start(
-        socket_service, data["githubUrl"], data["elo"], game=data["game"]
-    )
+    api.start(socket_service, data["githubUrl"], data["elo"], game=data["game"])
 
 
 @app.route("/ping")

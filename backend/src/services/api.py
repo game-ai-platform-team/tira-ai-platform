@@ -44,7 +44,6 @@ class API:
         with HPCService() as hpc:
             hpc.submit(game, difficulty, repository_url)
 
-
             timeout_start = time()
 
             while time() < timeout_start + DEFAULT_GAME_TIMEOUT:
