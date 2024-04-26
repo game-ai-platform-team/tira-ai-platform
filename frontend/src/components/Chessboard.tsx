@@ -18,7 +18,9 @@ const Chessboard = (): JSX.Element => {
     const [arrow, setArrow] = useState("G");
     const [arrowColor, setArrowColor] = useState(getCookie("arrow") || "G");
     const [currentMove, setCurrentMove] = useState(0);
-    const [selectedPieceset, setSelectedPieceset] = useState(getCookie("pieceset") || "cburnett");
+    const [selectedPieceset, setSelectedPieceset] = useState(
+        getCookie("pieceset") || "cburnett",
+    );
     const boards = useAppSelector((state) => state.boards.chessBoards);
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);

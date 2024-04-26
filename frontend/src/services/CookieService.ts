@@ -15,7 +15,11 @@ export function getCookie(name: string): string | undefined {
  * @param value Value to set for the cookie
  * @param path Optional path to specify where the cookie should be accessible, defaults to "/"
  */
-export function setCookie(name: string, value: string, path: string = "/"): void {
+export function setCookie(
+    name: string,
+    value: string,
+    path: string = "/",
+): void {
     document.cookie = `${name}=${value}; path=${path}`;
 }
 
