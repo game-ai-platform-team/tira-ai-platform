@@ -37,7 +37,6 @@ class API:
         repository_url: str,
         difficulty: int,
         game: str,
-        image: Image,
     ) -> None:
         if game not in ["chess", "connect_four"]:
             return
@@ -45,7 +44,6 @@ class API:
         with HPCService() as hpc:
             hpc.submit(game, difficulty, repository_url)
 
-            output = []
 
             timeout_start = time()
 
