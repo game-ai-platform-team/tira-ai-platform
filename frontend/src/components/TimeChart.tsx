@@ -42,6 +42,7 @@ const TimeChart: React.FC<LineChartProps> = ({ data }) => {
         <div>
             <h2 className="card-header">Time Chart</h2>
             <LineChart
+                style={{ cursor: "pointer" }}
                 width={1000}
                 height={400}
                 data={chartData}

@@ -71,7 +71,7 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                     <p
                         key={index}
                         onClick={() => handleMoveClick(moveIndex + 1)}
-                        className={isActive ? "active-move" : ""}
+                        className={isActive ? "active-move" : "clickable"}
                     >
                         {moveIndex + 1}: {move.move} | {moveClass} | {move.time}{" "}
                         ms
@@ -140,11 +140,17 @@ const PlayerStats: React.FC<MoveInfoProps> = ({
                 <h2 className="card-header">White Stats</h2>
                 <div>
                     <p>Accuracy: {evals.accuracyWhite} %</p>
-                    <p onClick={() => handleMoveClick(wLongIndex)}>
+                    <p
+                        className="clickable"
+                        onClick={() => handleMoveClick(wLongIndex)}
+                    >
                         Longest Move: {wLongIndex}. {wLong} @{" "}
                         {whiteStats.longest.time} ms
                     </p>
-                    <p onClick={() => handleMoveClick(wShortIndex)}>
+                    <p
+                        className="clickable"
+                        onClick={() => handleMoveClick(wShortIndex)}
+                    >
                         Shortest Move: {wShortIndex}. {wShort} @{" "}
                         {whiteStats.shortest.time} ms
                     </p>
