@@ -24,8 +24,7 @@ root.render(
     </React.StrictMode>,
 );
 
-
 const selectedTheme = getCookie("theme") || "original";
-updateTheme(selectedTheme)
+updateTheme(selectedTheme);
 
 document.body.style.backgroundColor = "var(--secondary)";

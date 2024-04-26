@@ -8,7 +8,7 @@ const themeSlice = createSlice({
     reducers: {
         setTheme(_, action: PayloadAction<string>) {
             setCookie("theme", action.payload);
-            updateTheme(action.payload)
+            updateTheme(action.payload);
             return action.payload;
         },
     },
