@@ -31,18 +31,14 @@ API ->>+ HPCService: HPCService(image.id)
     SSHConnection -->>- HPCService: connection
 HPCService -->>- API: service
 
-API ->>+ HPCService: submit(image_path)
-    HPCService ->>+ SSHConnection: send_file(image_path)
-        SSHConnection ->>+ HPC: image file
-        HPC -->>- SSHConnection: 
-    SSHConnection -->>- HPCService: remote_path
+API ->>+ HPCService: submit(game, difficulty, reopsitory URL)
 
-    HPCService ->> HPCService: create_script(id)
+    HPCService ->> HPCService: create_script(game, difficulty, reopsitory URL)
 
     HPCService ->>+ SSHConnection: send_file(script_path)
         SSHConnection ->>+ HPC: script file
         HPC -->>- SSHConnection: 
-    SSHConnection -->>- HPCService: remote_path
+    SSHConnection -->>- HPCService: 
 
     HPCService ->>+ SSHConnection: execute("sbatch script")
         SSHConnection -)+ HPC: sbatch script
@@ -81,13 +77,18 @@ App -->>- Frontend:
 classDiagram
 
 App --> API
+App --> Image
 
 API ..> SocketService
 API ..> HPCService
-API ..> Image
 HPCService --> SSHConnection
 
-Image ..> run_image: Dockerfile
+Image ..> container
+
+
+
+
+SSHConnection --> run_image
 run_image ..> Game
 run_image --> GameFactory
 run_image --> PlayerFactory
@@ -119,9 +120,6 @@ namespace backend {
     }
 
     class Image {
-        <<AbstractContextManager>>
-        +id: str
-        +path: Path
     }
 
     class SSHConnection {
@@ -138,6 +136,7 @@ namespace backend {
 
 namespace game-image {
     class run_image
+    class container
 
     class GameFactory {
         +get_game(game: str, player1: Player, player2: Player) Game
