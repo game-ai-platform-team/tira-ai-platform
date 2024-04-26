@@ -2,9 +2,10 @@ import { Chessboard } from "kokopu-react";
 import { useState } from "react";
 import store from "../store";
 import { setTheme } from "../reducers/themeReducer";
+import { useAppSelector } from "../hook";
 
 const Settings = () => {
-    const [selectedTheme, setSelectedTheme] = useState("original");
+    const [selectedTheme, setSelectedTheme] = useState(useAppSelector((state) => state.theme));
 
     const colorsets = Chessboard.colorsets();
 
