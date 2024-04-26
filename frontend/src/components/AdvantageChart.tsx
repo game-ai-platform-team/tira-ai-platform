@@ -38,7 +38,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({
             <LineChart
                 width={1000}
                 height={400}
-                data={data.map((value, index) => ({ value, index }))}
+                data={data.map((value, index) => ({ value: Math.log(value), index }))}
                 margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                 onClick={(data) => {
                     if (data.activeLabel !== undefined) {
