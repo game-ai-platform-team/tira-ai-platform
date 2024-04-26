@@ -21,3 +21,5 @@ root.render(
         </Provider>
     </React.StrictMode>,
 );
+
+document.body.style.backgroundColor = "var(--secondary)"
