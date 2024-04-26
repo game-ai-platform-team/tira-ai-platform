@@ -10,7 +10,7 @@ const Settings = () => {
     );
 
     const colorsets = Chessboard.colorsets();
-    
+
     const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedTheme(event.target.value);
         store.dispatch(setTheme(event.target.value));
