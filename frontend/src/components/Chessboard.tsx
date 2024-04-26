@@ -4,6 +4,7 @@ import { useAppSelector } from "../hook";
 import { useState, useEffect, useCallback } from "react";
 import store from "../store";
 import { setBoardIndex } from "../reducers/boards/boardIndexReducer";
+import { getCookie, setCookie } from "../services/CookieService";
 
 /**
  * Draws a standard chess game board and arrow buttons for navigating between game states
@@ -15,9 +16,9 @@ import { setBoardIndex } from "../reducers/boards/boardIndexReducer";
  */
 const Chessboard = (): JSX.Element => {
     const [arrow, setArrow] = useState("G");
-    const [arrowColor, setArrowColor] = useState("G");
+    const [arrowColor, setArrowColor] = useState(getCookie("arrow") || "G");
     const [currentMove, setCurrentMove] = useState(0);
-    const [selectedPieceset, setSelectedPieceset] = useState("cburnett");
+    const [selectedPieceset, setSelectedPieceset] = useState(getCookie("pieceset") || "cburnett");
     const boards = useAppSelector((state) => state.boards.chessBoards);
     const moves = useAppSelector((state) => state.moves);
     const boardIndex = useAppSelector((state) => state.boardIndex);
@@ -47,12 +48,14 @@ const Chessboard = (): JSX.Element => {
         event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setArrowColor(event.target.value);
+        setCookie("arrow", event.target.value);
     };
 
     const handlePiecesetChange = (
         event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         setSelectedPieceset(event.target.value);
+        setCookie("pieceset", event.target.value);
     };
 
     const piecesets = KokopuChessboard.piecesets();
