@@ -5,7 +5,9 @@ import { setTheme } from "../reducers/themeReducer";
 import { useAppSelector } from "../hook";
 
 const Settings = () => {
-    const [selectedTheme, setSelectedTheme] = useState(useAppSelector((state) => state.theme));
+    const [selectedTheme, setSelectedTheme] = useState(
+        useAppSelector((state) => state.theme),
+    );
 
     const colorsets = Chessboard.colorsets();
 
