@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 ROOT_DIR = Path(__file__).parent.parent.parent
 BACKEND_DIR = ROOT_DIR / "backend"
 FRONTEND_DIR = ROOT_DIR / "frontend" / "dist"
-IMAGE_DIR = ROOT_DIR / "game-image"
 
 try:
     load_dotenv(dotenv_path=BACKEND_DIR / ".env")
