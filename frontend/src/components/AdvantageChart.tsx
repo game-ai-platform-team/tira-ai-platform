@@ -39,6 +39,7 @@ const AdvantageChart: React.FC<AdvantageChartProps> = ({
         <div>
             <h2 className="card-header">Advantage Chart</h2>
             <LineChart
+                style={{ cursor: "pointer" }}
                 width={1000}
                 height={400}
                 data={

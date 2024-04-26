@@ -1,10 +1,19 @@
 .active-move {
     color: var(--red-marker);
     font-weight: bold;
+    cursor: pointer;
 }
 
 .stats-container {
     display: flex;
+}
+
+.move-category {
+    cursor: pointer;
+}
+
+.clickable {
+    cursor: pointer;
 }
 
 .stats-column {
