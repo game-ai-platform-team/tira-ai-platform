@@ -2,6 +2,8 @@
 
 ## Install
 
+Configure environment according to [environment documentation](/docs/environment.md).
+
 ### Back-end
 
 Install dependencies in `./backend`:
