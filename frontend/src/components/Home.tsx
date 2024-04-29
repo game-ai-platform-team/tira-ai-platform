@@ -13,28 +13,26 @@ const Home = (): JSX.Element => {
             >
                 <h1 style={{ marginBottom: "20px" }}>Tira-AI-Platform</h1>
                 <p>
-                    Welcome to Tira-AI-Platform, your go-to-solution for
-                    students working on their AI and algorithms project who are
-                    developing an AI for a game. Our platform offers you a tool
-                    to visualize and test your progress, with support currently
+                    Welcome to Tira-AI-Platform, your go-to-solution if you are
+                    working on developing an AI for a game as your AI and
+                    algorithms project. Our platform offers you a tool to
+                    visualize and test your progress, with support currently
                     available for chess and Connect Four.
                 </p>
                 <p>
-                    How does it work? It&apos;s simple: submit your project via
-                    a GitHub link and test your AI against our platform&apos;s
-                    built-in AI. This process lets you refine your algorithm and
-                    see your AI strategies in action.
-                </p>
-                <p>
-                    But that&apos;s not all! Tira-AI-Platform goes beyond just
-                    testing. You can visualize your gameplay directly on the
+                    Submit your project via a GitHub link and test your AI
+                    against our platform&apos;s built-in AI. This process lets
+                    you refine your algorithm and see your AI strategies in
+                    action. You can visualize your gameplay directly on the
                     platform, gaining valuable insights through stats, logs, and
                     a record of all moves made during the game.
-                </p>{" "}
+                </p>
+                <p></p>{" "}
                 <p>
                     {" "}
-                    For instructions, check out the user manuals located at the
-                    top of the page under instructions.
+                    Make sure to configure your repository accordingly. For
+                    instructions, check out the user manuals located at the top
+                    of the page under instructions.
                 </p>
             </div>
             <p></p>
