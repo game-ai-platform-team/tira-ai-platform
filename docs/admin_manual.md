@@ -26,7 +26,7 @@ All configurations can be defined as environment variables or in `backend/.env` 
 
 | Name                                          | Default                                 | Required |
 |-----------------------------------------------|-----------------------------------------|----------|
-| `OIDC_REDIRECT_PATH`                          | `https://localhost:5000`                | ✅        |
+| `OIDC_REDIRECT_PATH`[^feat_login]                          | `https://localhost:5000`                | ✅        |
 | `HPC_SSH_PRIVATE_KEY_PATH` [^hpc_private_key] | `backend/hpc_private_key`               | ❌        |
 | `TEMP_DIR`                                    | `~/temp`                                | ❌        |
 | `DEFAULT_GAME_TIMEOUT`                       | `60`                                     | ❌        |
@@ -35,13 +35,14 @@ All configurations can be defined as environment variables or in `backend/.env` 
 
 | Name                                     | Required |
 |------------------------------------------|----------|
-| `OIDC_CLIENT_ID` [^oidc_sp_registry]     | ✅        |
-| `OIDC_CLIENT_SECRET` [^oidc_sp_registry] | ✅        |
+| `OIDC_CLIENT_ID` [^oidc_sp_registry][^feat_login]     | ✅        |
+| `OIDC_CLIENT_SECRET` [^oidc_sp_registry][^feat_login] | ✅        |
 | `HPC_LOGIN_NODE`                         | ✅        |
 | `HPC_USERNAME`                           | ✅        |
 
 [^oidc_sp_registry]: The OpenID Connect (OIDC) secrets need to be configured in [Service Provider Registry](https://sp-registry.it.helsinki.fi/).
 [^hpc_private_key]: Default algorithm is Ed25519
+[^feat_login]: See [#24](https://github.com/game-ai-platform-team/tira-ai-platform/issues/24)
 
 ## Algolabra
 Algolabra (algolabra.cs.helsinki.fi) is the machine the server runs on. Use an SSH connection to connect there with credentials from an admistrator. After that, check out `/var/www/tira-ai-platform` for the project.
