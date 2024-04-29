@@ -22,6 +22,7 @@ function SubmitForm(): JSX.Element {
     const game = path.pathname.split("/").pop();
     const gameState = useAppSelector((state) => state.game.state);
     const isGameRunning = useAppSelector((state) => state.game.isGameRunning);
+    const areThereMoves = useAppSelector((state) => state.moves.length > 0);
 
     const [elo, setElo] = useState<number>(1350);
 
@@ -151,7 +152,15 @@ function SubmitForm(): JSX.Element {
                 />
                 <button type="submit" id="submit-button" aria-label="Submit">
                     {" "}
-                    Submit
+                    {!areThereMoves && isGameRunning ? (
+                        <span
+                            className="spinner-border spinner-border-sm"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
+                    ) : (
+                        "Submit "
+                    )}
                 </button>
             </form>
             <button onClick={onResetGame} id="reset-button">
