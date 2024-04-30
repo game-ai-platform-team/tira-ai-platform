@@ -42,10 +42,10 @@ jobs:
   e2e_test:
     name: End-to-end test
 
-    uses: game-ai-platform-team/workflows/.github/workflows/e2e_test.yml@main
+    uses: ./.github/workflows/e2e_test.yml
     with:
-      working-directory: ./frontend
       environment: test
+      working-directory: ./frontend
       backend-directory: ./backend
     secrets:
       OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}

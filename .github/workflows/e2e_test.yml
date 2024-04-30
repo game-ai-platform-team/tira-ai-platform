@@ -1,0 +1,53 @@
+name: End-to-end testing
+
+on:
+  workflow_call:
+    secrets:
+      OIDC_CLIENT_ID:
+        required: true
+      OIDC_CLIENT_SECRET:
+        required: true
+    inputs:
+      environment:
+        type: string
+        required: true
+      working-directory:
+        type: string
+        default: .
+      backend-directory:
+        type: string
+        default: .
+
+jobs:
+  e2e:
+    name: End-to-end test
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      NODE_ENV: ${{ vars.NODE_ENV }}
+      MODE: ${{ vars.MODE }}
+      OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
+      OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Poetry
+        uses: game-ai-platform-team/setup-poetry@main
+        with:
+          working-directory: ${{ inputs.backend-directory }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+          run_install: false
+
+      - name: Run Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: ${{ inputs.working-directory }}
+          wait-on: "http://localhost:5000"
+          wait-on-timeout: 10
+          build: pnpm run build
+          start: pnpm run server
