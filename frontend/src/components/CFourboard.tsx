@@ -69,12 +69,14 @@ const CFourboard = (): JSX.Element => {
                 <button
                     onClick={() => handleMoveChange(currentMove - 1)}
                     id="previousMoveButton"
+                    disabled={currentMove < 1}
                 >
                     {"<"}
                 </button>
                 <button
                     onClick={() => handleMoveChange(currentMove + 1)}
                     id="nextMoveButton"
+                    disabled={currentMove >= moves.length - 1}
                 >
                     {">"}
                 </button>
