@@ -39,7 +39,7 @@ class HPCService(AbstractContextManager):
 
         self.__connection.__exit__(exc_type, exc_value, traceback)
 
-    def submit(self, game: str, difficulty: int, git_repo: str) -> None:
+    def submit(self, game: str, difficulty: int, repository_url: str) -> None:
         """
         Submits new game image to HPC.
 
@@ -52,7 +52,7 @@ class HPCService(AbstractContextManager):
         remote_image_path = Path("game-image.sif")
         remote_batch_path = self.__working_directory / self.__batch_path.name
 
-        self.__create_script(remote_image_path, game, difficulty, git_repo)
+        self.__create_script(remote_image_path, game, difficulty, repository_url)
         self.__connection.send_file(self.__batch_path, remote_batch_path)
 
         self.__connection.execute(f"sbatch {remote_batch_path}")
@@ -73,7 +73,7 @@ class HPCService(AbstractContextManager):
         return new_lines
 
     def __create_script(
-        self, image_path: Path, game: str, difficulty: int, git_repo: str
+        self, image_path: Path, game: str, difficulty: int, repository_url: str
     ) -> None:
         modules = " ".join(BATCH_CONFIG["modules"])
         bind_paths = ",".join(BATCH_CONFIG["bind_paths"])
@@ -91,7 +91,7 @@ class HPCService(AbstractContextManager):
                 f"module load {modules}",
                 "export SINGULARITYENV_PREPEND_PATH=$PATH",
                 "export SINGULARITYENV_LD_LIBRARY_PATH=$LD_LIBRARY_PATH",
-                f"export SINGULARITYENV_REPOSITORY_URL={git_repo}",
+                f"export SINGULARITYENV_REPOSITORY_URL={repository_url}",
                 f"export SINGULARITYENV_GAME={game}",
                 f"export SINGULARITYENV_DIFFICULTY={difficulty}",
                 f"export SINGULARITY_BIND={bind_paths}",
