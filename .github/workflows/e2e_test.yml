@@ -51,3 +51,10 @@ jobs:
           wait-on-timeout: 10
           build: pnpm run build
           start: pnpm run server
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
