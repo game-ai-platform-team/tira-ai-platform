@@ -39,7 +39,7 @@ function SubmitForm(): JSX.Element {
         e.preventDefault();
         const currentGame = !game ? "chess" : game;
         if (githubUrl && elo && !isGameRunning) {
-            setCookie("github_url", githubUrl)
+            setCookie("github_url", githubUrl);
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
@@ -70,7 +70,7 @@ function SubmitForm(): JSX.Element {
         e.preventDefault();
 
         if (isGameRunning) {
-            setElo(1350)
+            setElo(1350);
             dispatch(resetStateReducer());
             dispatch(
                 setToast({
