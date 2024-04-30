@@ -7,15 +7,14 @@ ROOT_DIR = Path(__file__).parent.parent.parent
 BACKEND_DIR = ROOT_DIR / "backend"
 FRONTEND_DIR = ROOT_DIR / "frontend" / "dist"
 IMAGE_DIR = ROOT_DIR / "game-image"
+TEMP_DIR = BACKEND_DIR / "temp"
+TEMP_DIR.mkdir(exist_ok=True)
 
 try:
     load_dotenv(dotenv_path=BACKEND_DIR / ".env")
     load_dotenv(dotenv_path=BACKEND_DIR / ".env.secret")
 except FileNotFoundError:
     pass
-
-TEMP_DIR = BACKEND_DIR / "temp"
-TEMP_DIR.mkdir(exist_ok=True)
 
 DEFAULT_GAME_TIMEOUT = int(getenv("DEFAULT_GAME_TIMEOUT") or 60)
 
