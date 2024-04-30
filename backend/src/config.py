@@ -16,6 +16,8 @@ try:
 except FileNotFoundError:
     pass
 
+MODE = getenv("MODE") or "production"
+
 DEFAULT_GAME_TIMEOUT = int(getenv("DEFAULT_GAME_TIMEOUT") or 60)
 
 OIDC_CLIENT_ID = getenv("OIDC_CLIENT_ID")

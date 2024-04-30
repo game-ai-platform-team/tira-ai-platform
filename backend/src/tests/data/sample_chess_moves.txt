@@ -1,0 +1,56 @@
+MOVE: {"move": "e2e4", "state": "CONTINUE", "time": 537, "evaluation": 0.048, "logs": ""}
+MOVE: {"move": "c7c6", "state": "CONTINUE", "time": 378, "evaluation": 0.07, "logs": "Received move: e2e4\n\nI found 20 legal moves: g8h6, g8f6, b8c6, b8a6, h7h6, g7g6, f7f6, e7e6, d7d6, c7c6, b7b6, a7a6, h7h5, g7g5, f7f5, e7e5, d7d5, c7c5, b7b5, a7a5\n\nI chose c7c6!\n"}
+MOVE: {"move": "g1f3", "state": "CONTINUE", "time": 638, "evaluation": 0.07, "logs": ""}
+MOVE: {"move": "b7b6", "state": "CONTINUE", "time": 70, "evaluation": 0.22, "logs": "Received move: g1f3\n\nI found 21 legal moves: g8h6, g8f6, d8c7, d8b6, d8a5, b8a6, h7h6, g7g6, f7f6, e7e6, d7d6, b7b6, a7a6, c6c5, h7h5, g7g5, f7f5, e7e5, d7d5, b7b5, a7a5\n\nI chose b7b6!\n"}
+MOVE: {"move": "d2d4", "state": "CONTINUE", "time": 504, "evaluation": 0.235, "logs": ""}
+MOVE: {"move": "g8h6", "state": "CONTINUE", "time": 70, "evaluation": 0.377, "logs": "Received move: d2d4\n\nI found 20 legal moves: g8h6, g8f6, d8c7, c8b7, c8a6, b8a6, h7h6, g7g6, f7f6, e7e6, d7d6, a7a6, c6c5, b6b5, h7h5, g7g5, f7f5, e7e5, d7d5, a7a5\n\nI chose g8h6!\n"}
+MOVE: {"move": "h2h3", "state": "CONTINUE", "time": 533, "evaluation": 0.313, "logs": ""}
+MOVE: {"move": "b6b5", "state": "CONTINUE", "time": 40, "evaluation": 0.453, "logs": "Received move: h2h3\n\nI found 20 legal moves: h8g8, d8c7, c8b7, c8a6, b8a6, h6g8, h6f5, h6g4, g7g6, f7f6, e7e6, d7d6, a7a6, c6c5, b6b5, g7g5, f7f5, e7e5, d7d5, a7a5\n\nI chose b6b5!\n"}
+MOVE: {"move": "f1d3", "state": "CONTINUE", "time": 420, "evaluation": 0.44, "logs": ""}
+MOVE: {"move": "d7d6", "state": "CONTINUE", "time": 70, "evaluation": 0.456, "logs": "Received move: f1d3\n\nI found 22 legal moves: h8g8, d8c7, d8b6, d8a5, c8b7, c8a6, b8a6, h6g8, h6f5, h6g4, g7g6, f7f6, e7e6, d7d6, a7a6, c6c5, b5b4, g7g5, f7f5, e7e5, d7d5, a7a5\n\nI chose d7d6!\n"}
+MOVE: {"move": "a2a4", "state": "CONTINUE", "time": 414, "evaluation": 0.47, "logs": ""}
+MOVE: {"move": "g7g6", "state": "CONTINUE", "time": 40, "evaluation": 0.582, "logs": "Received move: a2a4\n\nI found 30 legal moves: h8g8, e8d7, d8d7, d8c7, d8b6, d8a5, c8d7, c8b7, c8e6, c8a6, c8f5, c8g4, c8h3, b8d7, b8a6, h6g8, h6f5, h6g4, b5a4, g7g6, f7f6, e7e6, a7a6, d6d5, c6c5, b5b4, g7g5, f7f5, e7e5, a7a5\n\nI chose g7g6!\n"}
+MOVE: {"move": "d1e2", "state": "CONTINUE", "time": 267, "evaluation": 0.414, "logs": ""}
+MOVE: {"move": "b5a4", "state": "CONTINUE", "time": 150, "evaluation": 0.454, "logs": "Received move: d1e2\n\nI found 30 legal moves: h8g8, f8g7, e8d7, d8d7, d8c7, d8b6, d8a5, c8d7, c8b7, c8e6, c8a6, c8f5, c8g4, c8h3, b8d7, b8a6, h6g8, h6f5, h6g4, b5a4, f7f6, e7e6, a7a6, g6g5, d6d5, c6c5, b5b4, f7f5, e7e5, a7a5\n\nI chose b5a4!\n"}
+MOVE: {"move": "a1a4", "state": "CONTINUE", "time": 284, "evaluation": 0.445, "logs": ""}
+MOVE: {"move": "h6g8", "state": "CONTINUE", "time": 130, "evaluation": 0.521, "logs": "Received move: a1a4\n\nI found 28 legal moves: h8g8, f8g7, e8d7, d8d7, d8c7, d8b6, d8a5, c8d7, c8b7, c8e6, c8a6, c8f5, c8g4, c8h3, b8d7, b8a6, h6g8, h6f5, h6g4, f7f6, e7e6, a7a6, g6g5, d6d5, c6c5, f7f5, e7e5, a7a5\n\nI chose h6g8!\n"}
+MOVE: {"move": "e1g1", "state": "CONTINUE", "time": 354, "evaluation": 0.491, "logs": ""}
+MOVE: {"move": "d6d5", "state": "CONTINUE", "time": 130, "evaluation": 0.569, "logs": "Received move: e1g1\n\nI found 29 legal moves: g8h6, g8f6, f8g7, f8h6, e8d7, d8d7, d8c7, d8b6, d8a5, c8d7, c8b7, c8e6, c8a6, c8f5, c8g4, c8h3, b8d7, b8a6, h7h6, f7f6, e7e6, a7a6, g6g5, d6d5, c6c5, h7h5, f7f5, e7e5, a7a5\n\nI chose d6d5!\n"}
+MOVE: {"move": "c1f4", "state": "CONTINUE", "time": 319, "evaluation": 0.515, "logs": ""}
+MOVE: {"move": "g8f6", "state": "CONTINUE", "time": 130, "evaluation": 0.533, "logs": "Received move: c1f4\n\nI found 30 legal moves: g8h6, g8f6, f8g7, f8h6, e8d7, d8d7, d8c7, d8d6, d8b6, d8a5, c8d7, c8b7, c8e6, c8a6, c8f5, c8g4, c8h3, b8d7, b8a6, d5e4, h7h6, f7f6, e7e6, a7a6, g6g5, c6c5, h7h5, f7f5, e7e5, a7a5\n\nI chose g8f6!\n"}
+MOVE: {"move": "b1c3", "state": "CONTINUE", "time": 280, "evaluation": 0.512, "logs": ""}
+MOVE: {"move": "d8d7", "state": "CONTINUE", "time": 100, "evaluation": 0.732, "logs": "Received move: b1c3\n\nI found 32 legal moves: h8g8, f8g7, f8h6, e8d7, d8d7, d8c7, d8d6, d8b6, d8a5, c8d7, c8b7, c8e6, c8a6, c8f5, c8g4, c8h3, b8d7, b8a6, f6g8, f6d7, f6h5, f6g4, f6e4, d5e4, h7h6, e7e6, a7a6, g6g5, c6c5, h7h5, e7e5, a7a5\n\nI chose d8d7!\n"}
+MOVE: {"move": "f1e1", "state": "CONTINUE", "time": 249, "evaluation": 0.627, "logs": ""}
+MOVE: {"move": "a7a5", "state": "CONTINUE", "time": 130, "evaluation": 0.762, "logs": "Received move: f1e1\n\nI found 28 legal moves: h8g8, f8g7, f8h6, e8d8, c8b7, c8a6, b8a6, d7d8, d7c7, d7b7, d7e6, d7d6, d7f5, d7g4, d7h3, f6g8, f6h5, f6g4, f6e4, d5e4, h7h6, e7e6, a7a6, g6g5, c6c5, h7h5, e7e5, a7a5\n\nI chose a7a5!\n"}
+MOVE: {"move": "f4b8", "state": "CONTINUE", "time": 220, "evaluation": 0.721, "logs": ""}
+MOVE: {"move": "d7b7", "state": "CONTINUE", "time": 140, "evaluation": 0.859, "logs": "Received move: f4b8\n\nI found 29 legal moves: h8g8, f8g7, f8h6, e8d8, c8b7, c8a6, a8b8, a8a7, a8a6, d7d8, d7c7, d7b7, d7a7, d7e6, d7d6, d7f5, d7g4, d7h3, f6g8, f6h5, f6g4, f6e4, d5e4, h7h6, e7e6, g6g5, c6c5, h7h5, e7e5\n\nI chose d7b7!\n"}
+MOVE: {"move": "b8f4", "state": "CONTINUE", "time": 195, "evaluation": 0.85, "logs": ""}
+MOVE: {"move": "e7e6", "state": "CONTINUE", "time": 90, "evaluation": 0.862, "logs": "Received move: b8f4\n\nI found 35 legal moves: h8g8, f8g7, f8h6, e8d8, e8d7, c8d7, c8e6, c8f5, c8g4, c8h3, a8b8, a8a7, a8a6, b7b8, b7d7, b7c7, b7a7, b7b6, b7a6, b7b5, b7b4, b7b3, b7b2, f6g8, f6d7, f6h5, f6g4, f6e4, d5e4, h7h6, e7e6, g6g5, c6c5, h7h5, e7e5\n\nI chose e7e6!\n"}
+MOVE: {"move": "e1a1", "state": "CONTINUE", "time": 477, "evaluation": 0.835, "logs": ""}
+MOVE: {"move": "f8e7", "state": "CONTINUE", "time": 30, "evaluation": 0.856, "logs": "Received move: e1a1\n\nI found 37 legal moves: h8g8, f8g7, f8e7, f8h6, f8d6, f8c5, f8b4, f8a3, e8d8, e8e7, e8d7, c8d7, a8b8, a8a7, a8a6, b7b8, b7e7, b7d7, b7c7, b7a7, b7b6, b7a6, b7b5, b7b4, b7b3, b7b2, f6g8, f6d7, f6h5, f6g4, f6e4, d5e4, h7h6, g6g5, e6e5, c6c5, h7h5\n\nI chose f8e7!\n"}
+MOVE: {"move": "f4h2", "state": "CONTINUE", "time": 335, "evaluation": 0.785, "logs": ""}
+MOVE: {"move": "e8f8", "state": "CONTINUE", "time": 90, "evaluation": 0.859, "logs": "Received move: f4h2\n\nI found 37 legal moves: h8g8, h8f8, e8f8, e8d8, e8d7, c8d7, a8b8, a8a7, a8a6, e7f8, e7d8, e7d6, e7c5, e7b4, e7a3, b7b8, b7d7, b7c7, b7a7, b7b6, b7a6, b7b5, b7b4, b7b3, b7b2, f6g8, f6d7, f6h5, f6g4, f6e4, e8g8, d5e4, h7h6, g6g5, e6e5, c6c5, h7h5\n\nI chose e8f8!\n"}
+MOVE: {"move": "h2e5", "state": "CONTINUE", "time": 288, "evaluation": 0.845, "logs": ""}
+MOVE: {"move": "d5e4", "state": "CONTINUE", "time": 30, "evaluation": 0.855, "logs": "Received move: h2e5\n\nI found 34 legal moves: h8g8, f8g8, f8e8, f8g7, c8d7, a8b8, a8a7, a8a6, e7d8, e7d6, e7c5, e7b4, e7a3, b7b8, b7d7, b7c7, b7a7, b7b6, b7a6, b7b5, b7b4, b7b3, b7b2, f6g8, f6e8, f6d7, f6h5, f6g4, f6e4, d5e4, h7h6, g6g5, c6c5, h7h5\n\nI chose d5e4!\n"}
+MOVE: {"move": "c3e4", "state": "CONTINUE", "time": 119, "evaluation": 0.848, "logs": ""}
+MOVE: {"move": "b7b4", "state": "CONTINUE", "time": 110, "evaluation": 0.921, "logs": "Received move: c3e4\n\nI found 34 legal moves: h8g8, f8g8, f8e8, f8g7, c8d7, a8b8, a8a7, a8a6, e7d8, e7d6, e7c5, e7b4, e7a3, b7b8, b7d7, b7c7, b7a7, b7b6, b7a6, b7b5, b7b4, b7b3, b7b2, f6g8, f6e8, f6d7, f6h5, f6d5, f6g4, f6e4, h7h6, g6g5, c6c5, h7h5\n\nI chose b7b4!\n"}
+MOVE: {"move": "e4f6", "state": "CONTINUE", "time": 325, "evaluation": 0.922, "logs": ""}
+MOVE: {"move": "b4b3", "state": "CONTINUE", "time": 100, "evaluation": 0.952, "logs": "Received move: e4f6\n\nI found 31 legal moves: h8g8, f8g7, c8d7, c8b7, c8a6, a8b8, a8a7, a8a6, e7d8, e7f6, e7d6, e7c5, b4b8, b4b7, b4d6, b4b6, b4c5, b4b5, b4d4, b4c4, b4a4, b4c3, b4b3, b4a3, b4d2, b4b2, b4e1, h7h6, g6g5, c6c5, h7h5\n\nI chose b4b3!\n"}
+MOVE: {"move": "f6d7", "state": "CONTINUE", "time": 694, "evaluation": 0.912, "logs": ""}
+MOVE: {"move": "f8e8", "state": "CONTINUE", "time": 90, "evaluation": 0.943, "logs": "Received move: f6d7\n\nI found 3 legal moves: f8g8, f8e8, c8d7\n\nI chose f8e8!\n"}
+MOVE: {"move": "e5h8", "state": "CONTINUE", "time": 410, "evaluation": 0.906, "logs": ""}
+MOVE: {"move": "e7g5", "state": "CONTINUE", "time": 170, "evaluation": 0.964, "logs": "Received move: e5h8\n\nI found 38 legal moves: e8d8, e8d7, c8d7, c8b7, c8a6, a8b8, a8a7, a8a6, e7f8, e7d8, e7f6, e7d6, e7g5, e7c5, e7h4, e7b4, e7a3, b3b8, b3b7, b3b6, b3d5, b3b5, b3c4, b3b4, b3a4, b3d3, b3c3, b3a3, b3c2, b3b2, b3a2, h7h6, f7f6, g6g5, e6e5, c6c5, h7h5, f7f5\n\nI chose e7g5!\n"}
+MOVE: {"move": "c2b3", "state": "CONTINUE", "time": 348, "evaluation": 0.966, "logs": ""}
+MOVE: {"move": "c8a6", "state": "CONTINUE", "time": 140, "evaluation": 0.967, "logs": "Received move: c2b3\n\nI found 24 legal moves: e8d8, e8e7, e8d7, c8d7, c8b7, c8a6, a8b8, a8a7, a8a6, g5d8, g5e7, g5h6, g5f6, g5h4, g5f4, g5e3, g5d2, g5c1, h7h6, f7f6, e6e5, c6c5, h7h5, f7f5\n\nI chose c8a6!\n"}
+MOVE: {"move": "f3g5", "state": "CONTINUE", "time": 209, "evaluation": 0.965, "logs": ""}
+MOVE: {"move": "f7f5", "state": "CONTINUE", "time": 120, "evaluation": 0.989, "logs": "Received move: f3g5\n\nI found 18 legal moves: e8d8, e8e7, e8d7, a8d8, a8c8, a8b8, a8a7, a6c8, a6b7, a6b5, a6c4, a6d3, h7h6, f7f6, e6e5, c6c5, h7h5, f7f5\n\nI chose f7f5!\n"}
+MOVE: {"move": "g5e6", "state": "CONTINUE", "time": 47, "evaluation": 0.995, "logs": ""}
+MOVE: {"move": "a6c4", "state": "CONTINUE", "time": 120, "evaluation": 0.997, "logs": "Received move: g5e6\n\nI found 17 legal moves: e8f7, e8e7, e8d7, a8d8, a8c8, a8b8, a8a7, a6c8, a6b7, a6b5, a6c4, a6d3, h7h6, g6g5, c6c5, f5f4, h7h5\n\nI chose a6c4!\n"}
+MOVE: {"move": "d3c4", "state": "CONTINUE", "time": 25, "evaluation": 0.997, "logs": ""}
+MOVE: {"move": "h7h5", "state": "CONTINUE", "time": 110, "evaluation": 0.998, "logs": "Received move: d3c4\n\nI found 13 legal moves: e8f7, e8e7, e8d7, a8d8, a8c8, a8b8, a8a7, a8a6, h7h6, g6g5, c6c5, f5f4, h7h5\n\nI chose h7h5!\n"}
+MOVE: {"move": "d7c5", "state": "CONTINUE", "time": 20, "evaluation": 0.997, "logs": ""}
+MOVE: {"move": "a8a6", "state": "CONTINUE", "time": 50, "evaluation": 0.998, "logs": "Received move: d7c5\n\nI found 10 legal moves: e8f7, e8e7, a8d8, a8c8, a8b8, a8a7, a8a6, g6g5, h5h4, f5f4\n\nI chose a8a6!\n"}
+MOVE: {"move": "e6c7", "state": "CONTINUE", "time": 14, "evaluation": 0.999, "logs": ""}
+MOVE: {"move": "e8f8", "state": "CONTINUE", "time": 50, "evaluation": 0.999, "logs": "Received move: e6c7\n\nI found 2 legal moves: e8f8, e8d8\n\nI chose e8f8!\n"}
+MOVE: {"move": "c5d7", "state": "WIN", "time": 10, "evaluation": 1, "logs": ""}
+END: WIN
