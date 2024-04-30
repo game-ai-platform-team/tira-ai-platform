@@ -12,7 +12,7 @@ const logSlice = createSlice({
     initialState: "",
     reducers: {
         addLog(state, logsPayload: PayloadAction<string>) {
-            return state + logsPayload.payload;
+            return `${state}\n----------------------\n${logsPayload.payload}`;
         },
         resetLogs() {
             return "";
