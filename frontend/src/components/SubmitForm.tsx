@@ -94,7 +94,7 @@ function SubmitForm(): JSX.Element {
 
     const onResetGame = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        
+
         if (!isGameRunning && gameState !== GameState.CONTINUE) {
             setElo(1350);
             dispatch(resetStateReducer());
@@ -187,7 +187,12 @@ function SubmitForm(): JSX.Element {
                     value={githubUrl}
                     onChange={(event) => setGithubUrl(event.target.value)}
                 />
-                <button type="submit" id="submit-button" aria-label="Submit" disabled={isGameRunning}>
+                <button
+                    type="submit"
+                    id="submit-button"
+                    aria-label="Submit"
+                    disabled={isGameRunning}
+                >
                     {" "}
                     {!areThereMoves && isGameRunning ? (
                         <span
@@ -200,7 +205,11 @@ function SubmitForm(): JSX.Element {
                     )}
                 </button>
             </form>
-            <button onClick={onResetGame} id="reset-button" disabled={!(!isGameRunning && gameState !== GameState.CONTINUE)}>
+            <button
+                onClick={onResetGame}
+                id="reset-button"
+                disabled={!(!isGameRunning && gameState !== GameState.CONTINUE)}
+            >
                 {" "}
                 Reset
             </button>
