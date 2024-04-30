@@ -41,12 +41,12 @@ class HPCService(AbstractContextManager):
 
     def submit(self, game: str, difficulty: int, repository_url: str) -> None:
         """
-        Submits new game image to HPC.
+        Submits a game job to the HPC.
 
         Args:
-        :param game: A string representing the game that will be run
-        :param difficulty: Difficulty number of the opponent
-        :param git_repo: A location of the git repository
+            game (str): Game type.
+            difficulty (int): Reference AI difficulty.
+            repository_url (str): URL of the repository containing the AI code.
         """
 
         remote_image_path = Path("game-image.sif")
