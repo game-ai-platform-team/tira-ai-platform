@@ -57,6 +57,8 @@ Coverage report will be outputted to `/frontend/coverage`.
 
 ### E2E tests
 
+Add `MODE=TEST` to environment variables when running e2e tests.
+
 Before running E2E tests, build front-end:
 
 ```sh
