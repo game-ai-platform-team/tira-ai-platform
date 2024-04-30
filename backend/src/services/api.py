@@ -1,19 +1,24 @@
 from json import loads
 from pathlib import Path
 from time import sleep, time
+from unittest.mock import MagicMock
 
 from duo_game_lib.game_state import GameState
 from duo_game_lib.move import Move, MoveMetadata
 
-from config import DEFAULT_GAME_TIMEOUT
+from config import DEFAULT_GAME_TIMEOUT, MODE
 from entities.image import Image
 from entities.ssh_connection import SSHConnection
 from services.hpc_service import HPCService
 from services.socket_service import SocketService
+from tests.utils.read_moves import read_moves
 
 
 class API:
     def __init__(self, image: Image | None = None) -> None:
+        if MODE == "TEST":
+            return
+
         self.__image: Image = image or Image()
 
         with SSHConnection() as connection:
@@ -49,7 +54,13 @@ class API:
         if game not in ["chess", "connect_four"]:
             return
 
-        with HPCService(Path(self.__image.path.name)) as hpc:
+        if MODE == "TEST":
+            hpc = MagicMock()
+            hpc.read_output.side_effect = read_moves(game)
+        else:
+            hpc = HPCService(Path(self.__image.path.name))
+
+        with hpc:
             hpc.submit(game, difficulty, repository_url)
 
             timeout_start = time()
