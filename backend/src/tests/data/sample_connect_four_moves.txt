@@ -1,0 +1,12 @@
+MOVE: {"move": "3", "state": "CONTINUE", "time": 0, "evaluation": 35, "logs": ""}
+MOVE: {"move": "0", "state": "CONTINUE", "time": 794, "evaluation": 20, "logs": "finding move...\n"}
+MOVE: {"move": "3", "state": "CONTINUE", "time": 0, "evaluation": 85, "logs": ""}
+MOVE: {"move": "0", "state": "CONTINUE", "time": 0, "evaluation": 50, "logs": "finding move...\n"}
+MOVE: {"move": "4", "state": "CONTINUE", "time": 1004, "evaluation": 135, "logs": ""}
+MOVE: {"move": "0", "state": "CONTINUE", "time": 0, "evaluation": 0, "logs": "finding move...\n"}
+MOVE: {"move": "0", "state": "CONTINUE", "time": 4, "evaluation": 180, "logs": ""}
+MOVE: {"move": "0", "state": "CONTINUE", "time": 0, "evaluation": 170, "logs": "finding move...\n"}
+MOVE: {"move": "5", "state": "CONTINUE", "time": 1004, "evaluation": 380, "logs": ""}
+MOVE: {"move": "0", "state": "CONTINUE", "time": 0, "evaluation": 370, "logs": "finding move...\n"}
+MOVE: {"move": "2", "state": "WIN", "time": 3, "evaluation": 1000000, "logs": ""}
+END: WIN
