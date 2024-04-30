@@ -36,7 +36,7 @@ def lint(ctx):
 def dev(
     ctx,
 ):
-    ctx.run("poetry run uwsgi --ini wsgi.dev.ini")
+    ctx.run("MODE=development poetry run dotenv --file .env.$MODE run uwsgi")
 
 
 @task
