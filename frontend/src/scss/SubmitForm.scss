@@ -50,4 +50,11 @@
         background-color: var(--secondary);
         color: var(--primary);
     }
+
+    #submit-button:disabled,
+    #reset-button:disabled {
+        background-color: var(--secondary);
+        color: var(--primary);
+        cursor: default;
+    }
 }
