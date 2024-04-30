@@ -1,4 +1,5 @@
 from json import loads
+from pathlib import Path
 from time import sleep, time
 
 from duo_game_lib.game_state import GameState
@@ -6,11 +7,18 @@ from duo_game_lib.move import Move, MoveMetadata
 
 from config import DEFAULT_GAME_TIMEOUT
 from entities.image import Image
+from entities.ssh_connection import SSHConnection
 from services.hpc_service import HPCService
 from services.socket_service import SocketService
 
 
 class API:
+    def __init__(self, image: Image | None = None) -> None:
+        self.__image: Image = image or Image()
+
+        with SSHConnection() as connection:
+            connection.send_file(self.__image.path, Path(self.__image.path.name))
+
     def construct_move_object_from_json(self, content: str):
         """
         Logic to construct requisite objects
