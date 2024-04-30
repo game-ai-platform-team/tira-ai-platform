@@ -50,16 +50,3 @@ jobs:
     secrets:
       OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
       OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
-
-
-  build:
-    name: Build and deploy
-    needs: [ci_backend, ci_frontend, e2e_test]
-    if: github.event_name == 'push'
-
-    uses: ./.github/workflows/build.yml
-    with:
-      environment: staging
-    secrets:
-      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
