@@ -1,4 +1,4 @@
-# Installation
+# Environment
 
 The project is tested with Cubbli (Ubuntu) 22.04.
 
