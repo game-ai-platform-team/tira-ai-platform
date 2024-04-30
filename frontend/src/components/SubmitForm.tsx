@@ -39,20 +39,46 @@ function SubmitForm(): JSX.Element {
         e.preventDefault();
         const currentGame = !game ? "chess" : game;
         if (githubUrl && elo && !isGameRunning) {
-            setCookie("github_url", githubUrl);
-            const gameConfig: GameConfig = {
-                elo,
-                githubUrl,
-                game: currentGame,
-            };
+            if (validateGitHubURL(githubUrl)) {
+                setCookie("github_url", githubUrl);
+                const gameConfig: GameConfig = {
+                    elo,
+                    githubUrl,
+                    game: currentGame,
+                };
 
-            dispatch(newGame(gameConfig));
-            startGame(gameConfig);
+                dispatch(newGame(gameConfig));
+                startGame(gameConfig);
+                dispatch(
+                    setToast({
+                        title: "Game submitted successfully!",
+                        text: `Starting a ${game} game with AI from ${githubUrl}...`,
+                        color: "Success",
+                    }),
+                );
+            } else {
+                dispatch(
+                    setToast({
+                        title: "URL was not valid!",
+                        text: "Only links to GitHub repositories are supported.",
+                        color: "Danger",
+                    }),
+                );
+            }
+        } else if (!githubUrl) {
             dispatch(
                 setToast({
-                    title: "Game submitted successfully!",
-                    text: `Starting a ${game} game`,
-                    color: "Success",
+                    title: "No link!",
+                    text: "No link was entered. Please enter the link to your GitHub project in the input field.",
+                    color: "Danger",
+                }),
+            );
+        } else if (isGameRunning) {
+            dispatch(
+                setToast({
+                    title: "Game in progeress!",
+                    text: "A game is alredy being played, please wait until it is finished before submitting!",
+                    color: "danger",
                 }),
             );
         } else {
@@ -68,9 +94,9 @@ function SubmitForm(): JSX.Element {
 
     const onResetGame = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        setElo(1350);
-
-        if (isGameRunning) {
+        
+        if (!isGameRunning && gameState !== GameState.CONTINUE) {
+            setElo(1350);
             dispatch(resetStateReducer());
             dispatch(
                 setToast({
@@ -81,6 +107,12 @@ function SubmitForm(): JSX.Element {
             );
         }
     };
+
+    function validateGitHubURL(url: string) {
+        const githubRepoRegex =
+            /^(?:https?:\/\/)?(?:www\.)?github\.com\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)(?:\/)?$/;
+        return githubRepoRegex.test(url);
+    }
 
     useEffect(() => {
         if (gameState === GameState.WIN || gameState === GameState.DRAW) {
@@ -155,7 +187,7 @@ function SubmitForm(): JSX.Element {
                     value={githubUrl}
                     onChange={(event) => setGithubUrl(event.target.value)}
                 />
-                <button type="submit" id="submit-button" aria-label="Submit">
+                <button type="submit" id="submit-button" aria-label="Submit" disabled={isGameRunning}>
                     {" "}
                     {!areThereMoves && isGameRunning ? (
                         <span
@@ -168,7 +200,7 @@ function SubmitForm(): JSX.Element {
                     )}
                 </button>
             </form>
-            <button onClick={onResetGame} id="reset-button">
+            <button onClick={onResetGame} id="reset-button" disabled={!(!isGameRunning && gameState !== GameState.CONTINUE)}>
                 {" "}
                 Reset
             </button>
