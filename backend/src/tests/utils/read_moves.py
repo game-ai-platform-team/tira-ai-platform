@@ -9,4 +9,4 @@ def read_moves(game: str) -> list[list[str]]:
     ) as file:
         moves = file.readlines()
 
-    return [moves[:5], moves[5:10], moves[10:]]
+    return [moves[:2], moves[2:3], moves[3:]]
