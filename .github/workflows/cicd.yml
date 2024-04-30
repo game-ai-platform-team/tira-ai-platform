@@ -45,7 +45,7 @@ jobs:
     uses: game-ai-platform-team/workflows/.github/workflows/e2e_test.yml@main
     with:
       working-directory: ./frontend
-      environment: staging
+      environment: test
       backend-directory: ./backend
     secrets:
       OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
