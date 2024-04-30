@@ -31,3 +31,12 @@
     background-color: var(--secondary);
     color: var(--primary);
 }
+
+#nextChessboardButton:disabled,
+#previousChessboardButton:disabled,
+#nextMoveButton:disabled,
+#previousMoveButton:disabled {
+    background-color: var(--secondary);
+    color: var(--primary);
+    cursor: default;
+}

@@ -89,12 +89,14 @@ const Chessboard = (): JSX.Element => {
                 <button
                     onClick={() => handleMoveChange(currentMove - 1)}
                     id="previousChessboardButton"
+                    disabled={currentMove < 1}
                 >
                     {"<"}
                 </button>
                 <button
                     onClick={() => handleMoveChange(currentMove + 1)}
                     id="nextChessboardButton"
+                    disabled={currentMove >= moves.length - 1}
                 >
                     {">"}
                 </button>
