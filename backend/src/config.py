@@ -9,14 +9,14 @@ FRONTEND_DIR = ROOT_DIR / "frontend" / "dist"
 IMAGE_DIR = ROOT_DIR / "game-image"
 TEMP_DIR = BACKEND_DIR / "temp"
 TEMP_DIR.mkdir(exist_ok=True)
+MODE = getenv("MODE") or "production"
 
 try:
-    load_dotenv(dotenv_path=BACKEND_DIR / ".env")
+    load_dotenv(dotenv_path=BACKEND_DIR / f".env.{MODE}")
     load_dotenv(dotenv_path=BACKEND_DIR / ".env.secret")
 except FileNotFoundError:
     pass
 
-MODE = getenv("MODE") or "production"
 
 DEFAULT_GAME_TIMEOUT = int(getenv("DEFAULT_GAME_TIMEOUT") or 60)
 
