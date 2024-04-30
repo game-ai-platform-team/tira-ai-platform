@@ -25,9 +25,7 @@ function SubmitForm(): JSX.Element {
     const isGameRunning = useAppSelector((state) => state.game.isGameRunning);
     const areThereMoves = useAppSelector((state) => state.moves.length > 0);
 
-    const [elo, setElo] = useState<number>(
-        parseInt(getCookie("elo") || "1350"),
-    );
+    const [elo, setElo] = useState<number>(1350);
 
     const [githubUrl, setGithubUrl] = useState<string>(
         getCookie("github_url") || "",
@@ -41,8 +39,7 @@ function SubmitForm(): JSX.Element {
         e.preventDefault();
         const currentGame = !game ? "chess" : game;
         if (githubUrl && elo && !isGameRunning) {
-            setCookie("github_url", githubUrl);
-            setCookie("elo", elo.toString());
+            setCookie("github_url", githubUrl)
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
@@ -72,7 +69,8 @@ function SubmitForm(): JSX.Element {
     const onResetGame = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        if (isGameRunning && gameState !== GameState.CONTINUE) {
+        if (isGameRunning) {
+            setElo(1350)
             dispatch(resetStateReducer());
             dispatch(
                 setToast({
