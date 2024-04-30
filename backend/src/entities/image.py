@@ -21,7 +21,7 @@ class Image:
         return TEMP_DIR / "game-image.sif"
 
     def remove(self):
-        os.system(f"docker rmi $(docker images | grep game-image)")
+        os.system("docker rmi $(docker images | grep game-image)")
         self.path.unlink(missing_ok=True)
         with SSHConnection() as connection:
             connection.remove(Path("game-image.sif"))
