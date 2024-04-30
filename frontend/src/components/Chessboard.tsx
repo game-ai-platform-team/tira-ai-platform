@@ -64,7 +64,7 @@ const Chessboard = (): JSX.Element => {
 
     return (
         <div id="gameboard" className="card">
-            <h2 className="card-header">Player1 vs Player2</h2>
+            <h2 className="card-header">Chess</h2>
             <KokopuChessboard
                 position={boards[currentMove]}
                 squareSize={60}
