@@ -110,7 +110,7 @@ function SubmitForm(): JSX.Element {
 
     function validateGitHubURL(url: string) {
         const githubRepoRegex =
-            /^(?:https?:\/\/)?(?:www\.)?github\.com\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)(?:\/)?$/;
+            /^https:\/\/github.com\/[(A-Z)|(a-z)|(0-9)|(\-)]+\/[(A-Z)|(a-z)|(0-9)|(\-)]+(.git|$)/i;
         return githubRepoRegex.test(url);
     }
 
