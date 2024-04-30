@@ -13,7 +13,7 @@ Currently, the following dependencies need to be installed manually.
 |Node.js|20 (LTS)|[Node.js installation](#nodejs)|
 |pNpm|8.15.x|[Node.js installation](#nodejs)|
 |docker.io|24.0.5|[Docker installation](#docker)|
-|BuildKit||[Docker installation](#docker)|
+|docker-buildx|0.11.2|[Docker installation](#docker)|
 |singularity-ce|4.1.2|[Singularity installation](#singularity)|
 
 ### Installation
@@ -37,19 +37,11 @@ See documentation of [pnpm](https://pnpm.io/installation) for other methods.
 
 #### Docker
 
-1. Install Docker
+1. Install Docker and BuildKit
 
    ```sh
-   sudo apt install docker.io
+   sudo apt install docker.io docker-buildx
    ```
-
-1. Install BuildKit (moby-buildx works for Cubbli)
-
-   ```sh
-   sudo apt install moby-buildx
-   ```
-
-   If not Cubbli, then install according to documentation of [Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 
 #### Singularity
 
