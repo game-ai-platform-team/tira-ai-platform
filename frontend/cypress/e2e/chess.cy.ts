@@ -2,8 +2,12 @@ describe("Chess game", function () {
     const repositoryUrl =
         "https://github.com/game-ai-platform-team/stupid-chess-ai.git";
 
-    it("stays like it is without repository being submitted", function () {
+    beforeEach(() => {
         cy.visit("/");
+        cy.selectGame("Chess");
+    });
+
+    it("stays like it is without repository being submitted", function () {
         cy.get(".kokopu-chessboard").as("previousBoard", { type: "static" });
 
         cy.get("@previousBoard").then(function (prev) {
@@ -14,8 +18,6 @@ describe("Chess game", function () {
     });
 
     it("plays a game when a repository is submitted", function () {
-        cy.visit("/");
-
         cy.submitRepository(repositoryUrl);
 
         cy.get("#game-view", { timeout: 15000 }).should(
@@ -25,8 +27,6 @@ describe("Chess game", function () {
     });
 
     it("pressing move opens move stats", function () {
-        cy.visit("/");
-
         cy.submitRepository(repositoryUrl);
 
         cy.get(".move", { timeout: 15000 }).first().click();
@@ -34,11 +34,11 @@ describe("Chess game", function () {
     });
 
     it("downloading csv works", function () {
-        cy.visit("/");
-
         cy.submitRepository(repositoryUrl);
 
-        cy.get("#download-csv", { timeout: 10000 }).click();
+        cy.get('[aria-label="Download moves as CSV"]', {
+            timeout: 10000,
+        }).click();
         cy.readFile("cypress/downloads/statistics.csv");
     });
 });
