@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from invoke.tasks import task
+from invoke.context import Context
 
 ROOT_DIR = Path(__file__).parent
 SOURCE_DIR = ROOT_DIR / "src"
@@ -34,9 +35,10 @@ def lint(ctx):
 
 @task
 def dev(
-    ctx,
+    ctx: Context,
 ):
-    ctx.run("MODE=development poetry run dotenv --file .env.$MODE run uwsgi")
+    with ctx.prefix("export MODE=development"):
+        start(ctx)
 
 
 @task
