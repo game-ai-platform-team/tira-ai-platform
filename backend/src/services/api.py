@@ -16,7 +16,7 @@ from tests.utils.read_moves import read_moves
 
 class API:
     def __init__(self, image: Image | None = None) -> None:
-        if MODE == "TEST":
+        if MODE == "test":
             return
 
         self.__image: Image = image or Image()
@@ -54,7 +54,7 @@ class API:
         if game not in ["chess", "connect_four"]:
             return
 
-        if MODE == "TEST":
+        if MODE == "test":
             hpc = MagicMock()
             hpc.read_output.side_effect = read_moves(game)
         else:
