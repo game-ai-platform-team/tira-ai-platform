@@ -49,7 +49,7 @@ class API:
         if game not in ["chess", "connect_four"]:
             return
 
-        with HPCService() as hpc:
+        with HPCService(Path(self.__image.path.name)) as hpc:
             hpc.submit(game, difficulty, repository_url)
 
             timeout_start = time()
