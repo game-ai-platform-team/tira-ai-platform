@@ -10,7 +10,9 @@ class TestHPCService(TestCase):
     def setUp(self) -> None:
         self.connection = MagicMock()
         self.id_ = "id1234"
-        self.hpc_service = HPCService(self.connection, self.id_)
+        self.hpc_service = HPCService(
+            remote_image_path=Path(), connection=self.connection, id_=self.id_
+        )
         self.batch_path = TEMP_DIR / f"batch-{self.id_}.sh"
 
         self.batch_path.unlink(missing_ok=True)
@@ -41,22 +43,12 @@ class TestHPCService(TestCase):
 
         mock_unlink.assert_called_once()
 
-    def test_submit_sends_image(self):
-        image_path = Path("image_path")
-
-        with self.hpc_service as hpc:
-            hpc.submit(image_path)
-
-        self.connection.send_file.assert_any_call(
-            image_path, hpc._HPCService__working_directory / image_path
-        )
-
     @patch.object(
-        HPCService, "_HPCService__create_script", lambda x, y: Path("batch_path")
+        HPCService, "_HPCService__create_script", lambda *x: Path("batch_path")
     )
     def test_submit_sends_batch_file(self):
         with self.hpc_service as hpc:
-            hpc.submit(Path())
+            hpc.submit("test", 1, "https://some.url.git")
 
         self.connection.send_file.assert_any_call(
             self.batch_path, hpc._HPCService__working_directory / self.batch_path.name
@@ -64,13 +56,13 @@ class TestHPCService(TestCase):
 
     def test_submit_writes_batch_file(self):
         with patch("builtins.open", mock_open(read_data="data")) as mock_file:
-            self.hpc_service.submit(Path())
+            self.hpc_service.submit("connect_four", 1, "https://another.url.git")
 
         mock_file.assert_called_with(self.batch_path, mode="w", encoding="utf-8")
 
     def read_output_returns_all_lines_first_time(self):
         connection = Mock()
-        hpc_service = HPCService(connection)
+        hpc_service = HPCService(remote_image_path=Path(), connection=connection)
         lines = ["line"] * 6
 
         connection.read_file.return_value = [lines]
@@ -79,7 +71,7 @@ class TestHPCService(TestCase):
 
     def test_read_output_remembers_position(self):
         connection = Mock()
-        hpc_service = HPCService(connection)
+        hpc_service = HPCService(remote_image_path=Path(), connection=connection)
         lines = [f"line {i}" for i in range(7)]
 
         connection.read_file.side_effect = [lines[:2], lines[:3], lines[:6]]
