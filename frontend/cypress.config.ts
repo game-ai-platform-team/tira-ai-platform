@@ -12,4 +12,6 @@ export default defineConfig({
     env: {
         BACKEND: `http://localhost:${PORT}`,
     },
+    viewportHeight: 900,
+    viewportWidth: 1600,
 });
