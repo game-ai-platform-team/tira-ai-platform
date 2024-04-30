@@ -11,9 +11,10 @@ class HPCService(AbstractContextManager):
     def __init__(
         self,
         connection: SSHConnection | None = None,
+        id_: str | None = None,
     ) -> None:
         self.__connection: SSHConnection = connection or SSHConnection()
-        self.__id: str = str(uuid1())
+        self.__id: str = id_ or str(uuid1())
         self.__current_output_line: int = 0
 
         self.__working_directory: Path = Path(self.__id)
