@@ -18,7 +18,6 @@ from flask_cors import CORS
 from flask_socketio import SocketIO
 
 from config import FRONTEND_DIR, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET
-from entities.image import Image
 from services.api import api
 from services.socket_service import SocketService
 
@@ -44,8 +43,6 @@ oauth.register(
         "scope": "openid email profile",
     },
 )
-
-image = Image()
 
 
 @app.route("/login")

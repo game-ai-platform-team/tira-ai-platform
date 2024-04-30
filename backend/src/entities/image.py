@@ -1,8 +1,5 @@
 import os
-from contextlib import AbstractContextManager
 from pathlib import Path
-from types import TracebackType
-from uuid import uuid1
 
 from config import IMAGE_DIR, TEMP_DIR
 from entities.ssh_connection import SSHConnection
@@ -18,9 +15,6 @@ class Image:
         os.system(
             f"singularity build --force {TEMP_DIR / 'game-image.sif'} docker-daemon://game-image"
         )
-        with SSHConnection() as connection:
-            connection.execute("touch game-image.sif")
-            connection.send_file(TEMP_DIR / "game-image.sif", Path("game-image.sif"))
 
     @property
     def path(self) -> Path:
