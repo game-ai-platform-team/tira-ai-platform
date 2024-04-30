@@ -68,9 +68,9 @@ function SubmitForm(): JSX.Element {
 
     const onResetGame = (e: React.SyntheticEvent) => {
         e.preventDefault();
+        setElo(1350)
 
         if (isGameRunning) {
-            setElo(1350);
             dispatch(resetStateReducer());
             dispatch(
                 setToast({
