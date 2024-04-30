@@ -117,7 +117,7 @@ const CSVCreator: React.FC<CSVCreatorProps> = ({ moves }) => {
                         />
                         Player 2 moves
                         <br />
-                        <button id="CSVButton" type={"submit"}>
+                        <button id="CSVButton" type={"submit"} aria-label="Download moves as CSV">
                             Download CSV
                         </button>
                     </form>
