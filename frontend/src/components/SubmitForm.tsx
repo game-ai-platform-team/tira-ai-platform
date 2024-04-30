@@ -8,6 +8,7 @@ import { startGame } from "../services/SocketService";
 import { GameState } from "../types";
 import { setToast } from "../reducers/toastReducer";
 import { useLocation } from "react-router-dom";
+import { getCookie, setCookie } from "../services/CookieService";
 
 /**
  * Renders a form for submitting game configurations including Elo rating or difficulty level
@@ -24,9 +25,9 @@ function SubmitForm(): JSX.Element {
     const isGameRunning = useAppSelector((state) => state.game.isGameRunning);
     const areThereMoves = useAppSelector((state) => state.moves.length > 0);
 
-    const [elo, setElo] = useState<number>(1350);
+    const [elo, setElo] = useState<number>(parseInt(getCookie("elo") || "1350"));
 
-    const [githubUrl, setGithubUrl] = useState<string>("");
+    const [githubUrl, setGithubUrl] = useState<string>(getCookie("github_url") || "");
     const handleEloChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value, 10);
         setElo(value);
@@ -36,6 +37,8 @@ function SubmitForm(): JSX.Element {
         e.preventDefault();
         const currentGame = !game ? "chess" : game;
         if (githubUrl && elo && !isGameRunning) {
+            setCookie("github_url", githubUrl)
+            setCookie("elo", elo.toString())
             const gameConfig: GameConfig = {
                 elo,
                 githubUrl,
