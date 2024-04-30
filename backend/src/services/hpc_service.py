@@ -10,11 +10,13 @@ from entities.ssh_connection import SSHConnection
 class HPCService(AbstractContextManager):
     def __init__(
         self,
+        remote_image_path: Path,
         connection: SSHConnection | None = None,
         id_: str | None = None,
     ) -> None:
         self.__connection: SSHConnection = connection or SSHConnection()
         self.__id: str = id_ or str(uuid1())
+        self.__remote_image_path: Path = remote_image_path
         self.__current_output_line: int = 0
 
         self.__working_directory: Path = Path(self.__id)
@@ -49,10 +51,9 @@ class HPCService(AbstractContextManager):
             repository_url (str): URL of the repository containing the AI code.
         """
 
-        remote_image_path = Path("game-image.sif")
         remote_batch_path = self.__working_directory / self.__batch_path.name
 
-        self.__create_script(remote_image_path, game, difficulty, repository_url)
+        self.__create_script(game, difficulty, repository_url)
         self.__connection.send_file(self.__batch_path, remote_batch_path)
 
         self.__connection.execute(f"sbatch {remote_batch_path}")
@@ -72,9 +73,7 @@ class HPCService(AbstractContextManager):
 
         return new_lines
 
-    def __create_script(
-        self, image_path: Path, game: str, difficulty: int, repository_url: str
-    ) -> None:
+    def __create_script(self, game: str, difficulty: int, repository_url: str) -> None:
         modules = " ".join(BATCH_CONFIG["modules"])
         bind_paths = ",".join(BATCH_CONFIG["bind_paths"])
 
@@ -95,7 +94,7 @@ class HPCService(AbstractContextManager):
                 f"export SINGULARITYENV_GAME={game}",
                 f"export SINGULARITYENV_DIFFICULTY={difficulty}",
                 f"export SINGULARITY_BIND={bind_paths}",
-                f"singularity run --writable-tmpfs --no-home --pwd /app {image_path}",
+                f"singularity run --writable-tmpfs --no-home --pwd /app {self.__remote_image_path}",
             ]
         )
 
