@@ -45,7 +45,7 @@ const startGame = (config: GameConfig) => {
         );
         store.dispatch(nextBoard());
         store.dispatch(newBoard(move));
-        store.dispatch(addLog(move.logs));
+        store.dispatch(addLog(`Output:${move.move} | Logs:\n${move.logs}`));
     });
 
     socket.emit("startgame", config);
