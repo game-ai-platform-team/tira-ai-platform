@@ -2,7 +2,7 @@
 
 ## Install
 
-Configure environment according to [installation](/docs/environment.md) documentation.
+Configure environment according to [installation](/docs/installation.md) documentation.
 
 ## Configuration
 
