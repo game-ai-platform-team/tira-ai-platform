@@ -1,20 +1,33 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "backend"
-		},
-		{
-			"path": "frontend"
-		},
-		{
-			"path": "game-image"
-		}
-	],
-	"settings": {},
-	"launch": {
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "backend"
+        },
+        {
+            "path": "frontend"
+        },
+        {
+            "path": "game-image"
+        }
+    ],
+    "settings": {
+        "python.analysis.autoImportCompletions": true,
+        "python.analysis.inlayHints.variableTypes": true,
+        "python.analysis.inlayHints.functionReturnTypes": true,
+        "python.analysis.typeCheckingMode": "standard",
+        "javascript.inlayHints.enumMemberValues.enabled": true,
+        "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+        "javascript.inlayHints.variableTypes.enabled": true,
+        "javascript.inlayHints.propertyDeclarationTypes.enabled": true,
+        "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+        "typescript.inlayHints.enumMemberValues.enabled": true,
+        "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
+        "typescript.inlayHints.variableTypes.enabled": true
+    },
+    "launch": {
         "version": "0.2.0",
         "configurations": [
             {
@@ -35,5 +48,4 @@
             }
         ]
     }
-
 }
