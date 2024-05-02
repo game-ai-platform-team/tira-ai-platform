@@ -43,6 +43,14 @@ See documentation of [pnpm](https://pnpm.io/installation) for other methods.
    sudo apt install docker.io docker-buildx
    ```
 
+1. Start [Docker deamon](https://docs.docker.com/config/daemon/start/)
+
+   ```sh
+   sudo systemctl start docker
+   ```  
+
+1. **Extra**: Follow documentation of [Docker](https://docs.docker.com/engine/install/linux-postinstall/) to avoid running `docker` with `sudo`
+
 #### Singularity
 
 1. Download `.deb` package from GitHub repository of [Singularity](https://github.com/sylabs/singularity/releases/latest)
