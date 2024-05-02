@@ -58,6 +58,14 @@ The standard workflow for updating the project is done through `buildrun.sh`. Pu
 
 The project utilises a high-performance computing (HPC) environment from the University of Helsinki.
 
+Currently only AD users can be added to HPC.
+To setup SSH connection to HPC for the project:
+
+1. Generate [SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key).
+2. Copy the public key to HPC with [ssh-copy-id](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key).
+3. Copy the private key to `HPC_SSH_PRIVATE_KEY_PATH`.
+   If permission are too open, change the permissions to `rw-------` with `chmod`.
+
 [^oidc_sp_registry]: The OpenID Connect (OIDC) secrets need to be configured in [Service Provider Registry](https://sp-registry.it.helsinki.fi/).
 [^hpc_private_key]: Default algorithm is Ed25519
 [^feat_login]: See [#24](https://github.com/game-ai-platform-team/tira-ai-platform/issues/24)
