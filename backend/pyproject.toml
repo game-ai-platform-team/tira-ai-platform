@@ -20,7 +20,7 @@ paramiko = "^3.4.0"
 duo-game-lib = "^0.1.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.12.1"
+black = "^24.4.2"
 isort = "^5.13.2"
 pylint = "^3.0.3"
 pytest = "^7.4.4"
