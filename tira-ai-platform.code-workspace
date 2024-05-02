@@ -25,7 +25,8 @@
         "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
         "typescript.inlayHints.enumMemberValues.enabled": true,
         "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
-        "typescript.inlayHints.variableTypes.enabled": true
+        "typescript.inlayHints.variableTypes.enabled": true,
+        "githubIssues.issueCompletionFormatScm": "${issueNumberLabel}"
     },
     "launch": {
         "version": "0.2.0",
