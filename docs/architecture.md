@@ -1,5 +1,41 @@
 # Architecture
 
+## Dependency graph
+
+The following chart describes the relationships of our repositories.
+
+```mermaid
+graph LR
+    tira-ai-platform --> GameLogic
+    tira-ai-platform --> GameBoardUI
+    
+    tira-ai-local --> GameBoardUI
+
+
+    subgraph CICD["CI/CD "]
+        workflows --> setup-node
+        workflows --> setup-poetry
+    end
+
+    subgraph GameLogic["Game logic"]
+        ai-library-template --> duo-game-lib
+        chess-lib["chess-lib (TODO)"] --> duo-game-lib
+        connect-four-lib --> duo-game-lib
+    end
+
+    subgraph GameBoardUI["Game board (UI)"]
+        connect-four-board
+        kokopu["chess-board (Kokopu)"]
+    end
+
+
+
+    subgraph SampleAI["Sample AIs"]
+        stupid-chess-ai
+        stupid-connect-four-ai
+    end
+```
+
 ## Sequence diagrams
 
 ### Submitting AI and playing a game
