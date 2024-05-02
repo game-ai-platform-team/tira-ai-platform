@@ -47,5 +47,33 @@
                 "justMyCode": true
             }
         ]
+    },
+    "extensions": {
+        "recommendations": [
+            "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+            "eamodio.gitlens",
+            "mikestead.dotenv",
+            "alefragnani.project-manager",
+            "vscode-icons-team.vscode-icons",
+            "ms-python.black-formatter",
+            "vivaxy.vscode-conventional-commits",
+            "dbaeumer.vscode-eslint",
+            "mhutchie.git-graph",
+            "github.vscode-github-actions",
+            "github.vscode-pull-request-github",
+            "oderwat.indent-rainbow",
+            "ms-python.isort",
+            "ms-vscode.live-server",
+            "ms-vsliveshare.vsliveshare",
+            "bierner.markdown-footnotes",
+            "bierner.markdown-mermaid",
+            "davidanson.vscode-markdownlint",
+            "esbenp.prettier-vscode",
+            "ms-python.pylint",
+            "ms-python.python",
+            "ms-python.debugpy",
+            "vitest.explorer",
+            "redhat.vscode-yaml"
+        ]
     }
 }
