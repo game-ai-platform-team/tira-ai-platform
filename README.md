@@ -24,7 +24,7 @@ Project done for the Helsinki University faculty of computer science. Helps stud
 
 ### Development
 
-- [Environment](/docs/environment.md)
+- [Installation](/docs/environment.md)
 - [Development setup](/docs/setup.md)
 - [Definition of Done](/docs/development/definitionofdone.md)
 - [Conventions](/docs/development/conventions.md)
