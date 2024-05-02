@@ -1,4 +1,4 @@
-# Environment
+# Installation
 
 The project is tested with Cubbli (Ubuntu) 22.04.
 
@@ -30,9 +30,7 @@ After installing the dependencies above:
    pnpm install
    ```
 
-### Installation
-
-#### Node.js
+### Node.js
 
 The easiest method to install pnpm is with Corepack which is installed with Node.js.
 See documentation of [pnpm](https://pnpm.io/installation) for other methods.
@@ -49,7 +47,7 @@ See documentation of [pnpm](https://pnpm.io/installation) for other methods.
    sudo corepack enable
    ```
 
-#### Docker
+### Docker
 
 1. Install Docker and BuildKit
 
@@ -65,7 +63,7 @@ See documentation of [pnpm](https://pnpm.io/installation) for other methods.
 
 1. **Extra**: Follow documentation of [Docker](https://docs.docker.com/engine/install/linux-postinstall/) to avoid running `docker` with `sudo`
 
-#### Singularity
+### Singularity
 
 1. Download `.deb` package from GitHub repository of [Singularity](https://github.com/sylabs/singularity/releases/latest)
 2. Install Singularity
