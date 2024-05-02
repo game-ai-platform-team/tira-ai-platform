@@ -34,6 +34,10 @@ poetry run invoke coverage-xml
 
 Coverage report will be generated to `/backend/coverage.xml`.
 
+> [!NOTE]
+>
+> - Unit tests are configured to run in parallel, so use [`Mock`](https://docs.python.org/3/library/unittest.mock.html) to avoid race conditions of file access.
+
 ## Front-end
 
 Run the following commands in `/frontend`.
