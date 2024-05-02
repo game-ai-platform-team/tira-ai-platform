@@ -2,7 +2,7 @@
 
 ## Installation
 
-Install dependencies according to [installation](/docs/environment.md) documentation.
+Install dependencies according to [installation](/docs/installation.md) documentation.
 If you use Windows, install [Ubuntu LTS](https://apps.microsoft.com/detail/9nz3klhxdjp5?hl=en-us&gl=US) from Microsoft store and set up [WSL](https://learn.microsoft.com/en-us/windows/wsl/setup/environment).
 
 ## VS Code
