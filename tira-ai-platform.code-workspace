@@ -74,7 +74,8 @@
             "ms-python.python",
             "ms-python.debugpy",
             "vitest.explorer",
-            "redhat.vscode-yaml"
+            "redhat.vscode-yaml",
+            "christian-kohler.path-intellisense"
         ]
     }
 }
