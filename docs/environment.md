@@ -16,6 +16,20 @@ Currently, the following dependencies need to be installed manually.
 |docker-buildx|0.11.2|[Docker installation](#docker)|
 |singularity-ce|4.1.2|[Singularity installation](#singularity)|
 
+After installing the dependencies above:
+
+- Install Python dependencies in `/backend` and `game-image`:
+
+   ```sh
+   poetry install
+   ```
+
+- Install Node dependencies in `frontend`:
+
+   ```sh
+   pnpm install
+   ```
+
 ### Installation
 
 #### Node.js

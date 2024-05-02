@@ -4,22 +4,6 @@
 
 Configure environment according to [environment documentation](/docs/environment.md).
 
-### Back-end
-
-Install dependencies in `./backend`:
-
-```sh
-poetry install
-```
-
-### Front-end
-
-Install dependencies in `./frontend`:
-
-```sh
-pnpm install
-```
-
 ## Configuration
 
 All configurations can be defined as environment variables or in `backend/.env` and `backend/.env.secret`.
