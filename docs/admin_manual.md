@@ -6,9 +6,11 @@ Configure environment according to [installation](/docs/installation.md) documen
 
 ## Configuration
 
-All configurations can be defined as environment variables or in `backend/.env` and `backend/.env.secret`.
+All configurations can be defined as environment variables or in `backend/.env.<MODE>` and `backend/.env.secret`.
 
-### `.env`
+### `.env.<MODE>`
+
+These are configured for each `MODE` (`production`, `development` or `test`) environment variable.
 
 | Name                                          | Default                                 | Required |
 |-----------------------------------------------|-----------------------------------------|----------|
